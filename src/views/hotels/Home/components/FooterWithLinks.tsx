@@ -3,7 +3,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/f
 import { Button, Col, Container, Image, Nav, NavItem, NavLink, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import { footerLinks, topLinks } from '@/assets/data/footer-items'
+import { footerLinks } from '@/assets/data/footer-items'
 
 import logoLight from '@/assets/images/logo-light.svg'
 import expresscard from '@/assets/images/element/expresscard.svg'
@@ -60,18 +60,7 @@ const FooterWithLinks = () => {
             </Row>
           </Col>
         </Row>
-        <Row className="mt-5">
-          <h5 className="mb-2 text-white">Top Links</h5>
-          <ul className="list-inline text-primary-hover lh-lg">
-            {topLinks.map((item, idx) => (
-              <li key={idx} className="list-inline-item me-2">
-                <Link to={item.link ?? ''} className="text-body-secondary">
-                  {item.name}&nbsp;
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Row>
+        
         <Row className="g-4 justify-content-between mt-0 mt-md-2">
           <Col sm={7} md={6} lg={4}>
             <h5 className="text-white mb-2">Payment &amp; Security</h5>

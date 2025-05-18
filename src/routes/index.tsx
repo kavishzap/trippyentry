@@ -104,10 +104,10 @@ const hotelRoutes: RoutesProps[] = [
   {
     path: '/',
     name: 'root',
-    element: <Navigate to="/hotels/home" />,
+    element: <Navigate to="/dashboard" />,
   },
   {
-    path: '/hotels/home',
+    path: '/dashboard',
     name: 'hotels.index',
     element: <HotelsHome />,
   },

@@ -15,7 +15,7 @@ import hotel2 from '@/assets/images/category/hotel/02.jpg'
 import hotel3 from '@/assets/images/category/hotel/03.jpg'
 import hotel4 from '@/assets/images/category/hotel/04.jpg'
 
-import type { FeaturedHotelType, NearbyPlaceType, NotificationType } from './type'
+import type { FeaturedConcertType, FeaturedHotelType, NearbyPlaceType, NotificationType } from './type'
 
 export const nearbyPlacesData: NearbyPlaceType[] = [
   {
@@ -120,5 +120,34 @@ export const notificationData: NotificationType[] = [
   {
     title: 'Sunshine saving are here 🌞 save 30% or more on a stay',
     time: '24 Aug 2024',
+  },
+]
+
+
+
+export const featuredConcertsData: FeaturedConcertType[] = [
+  {
+    title: 'Nikil and the Gang',
+    location: 'Port Louis',
+    price: 1200,
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV5Rg5-RWX__g7ugK7CA4TBTuiRg_N1Mnrbg&s',
+  },
+  {
+    title: 'Arijit Singh',
+    location: 'Grand Bay',
+    price: 3200,
+    image: 'https://www.premiertickets.co/assets/uploads/2024/06/arijit.jpg',
+  },
+  {
+    title: 'Reggae Vibes Night',
+    location: 'Curepipe',
+    price: 1800,
+    image: 'https://otayo.com/wp-content/uploads/2022/07/bigg-frankii-2.jpg',
+  },
+  {
+    title: 'EDM Madness',
+    location: 'Flic-en-Flac',
+    price: 1500,
+    image: 'https://www.pin92.com/wp-content/uploads/2024/03/atif-aslam.png',
   },
 ]

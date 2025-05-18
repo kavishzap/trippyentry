@@ -17,3 +17,11 @@ export type FeaturedHotelType = {
   price: number
   ratings: number
 }
+
+
+export type FeaturedConcertType = {
+  title: string
+  location: string
+  price: number
+  image: string
+}

@@ -1,8 +1,7 @@
 import { Col, Container, Row } from 'react-bootstrap'
-import { BsFillLightningFill, BsFillStopwatchFill, BsShieldFillCheck } from 'react-icons/bs'
-import { FaStar, FaUtensils } from 'react-icons/fa6'
+import { FaTicketAlt, FaShuttleVan, FaConciergeBell, FaHeadset, FaStar } from 'react-icons/fa'
 
-import about1 from '@/assets/images/about/01.jpg'
+import about1 from '@/assets/newImage/heroSection/ChatGPT Image May 19, 2025, 01_09_52 AM.png'
 import avatar1 from '@/assets/images/avatar/01.jpg'
 import avatar2 from '@/assets/images/avatar/02.jpg'
 import avatar3 from '@/assets/images/avatar/03.jpg'
@@ -18,236 +17,6 @@ const FeaturedHoliday = () => {
             <figure className="position-absolute top-0 start-0 translate-middle z-index-1 ms-4">
               <svg className="fill-warning" width="77px" height="77px">
                 <path d="M76.997,41.258 L45.173,41.258 L67.676,63.760 L63.763,67.673 L41.261,45.171 L41.261,76.994 L35.728,76.994 L35.728,45.171 L13.226,67.673 L9.313,63.760 L31.816,41.258 L-0.007,41.258 L-0.007,35.725 L31.816,35.725 L9.313,13.223 L13.226,9.311 L35.728,31.813 L35.728,-0.010 L41.261,-0.010 L41.261,31.813 L63.763,9.311 L67.676,13.223 L45.174,35.725 L76.997,35.725 L76.997,41.258 Z" />
-              </svg>
-            </figure>
-
-            <figure className="position-absolute bottom-0 end-0 d-none d-md-block mb-n5 me-n4">
-              <svg height={400} className="fill-primary opacity-2" viewBox="0 0 340 340">
-                <circle cx="194.2" cy="2.2" r="2.2" />
-                <circle cx="2.2" cy="2.2" r="2.2" />
-                <circle cx="218.2" cy="2.2" r="2.2" />
-                <circle cx="26.2" cy="2.2" r="2.2" />
-                <circle cx="242.2" cy="2.2" r="2.2" />
-                <circle cx="50.2" cy="2.2" r="2.2" />
-                <circle cx="266.2" cy="2.2" r="2.2" />
-                <circle cx="74.2" cy="2.2" r="2.2" />
-                <circle cx="290.2" cy="2.2" r="2.2" />
-                <circle cx="98.2" cy="2.2" r="2.2" />
-                <circle cx="314.2" cy="2.2" r="2.2" />
-                <circle cx="122.2" cy="2.2" r="2.2" />
-                <circle cx="338.2" cy="2.2" r="2.2" />
-                <circle cx="146.2" cy="2.2" r="2.2" />
-                <circle cx="170.2" cy="2.2" r="2.2" />
-                <circle cx="194.2" cy="26.2" r="2.2" />
-                <circle cx="2.2" cy="26.2" r="2.2" />
-                <circle cx="218.2" cy="26.2" r="2.2" />
-                <circle cx="26.2" cy="26.2" r="2.2" />
-                <circle cx="242.2" cy="26.2" r="2.2" />
-                <circle cx="50.2" cy="26.2" r="2.2" />
-                <circle cx="266.2" cy="26.2" r="2.2" />
-                <circle cx="74.2" cy="26.2" r="2.2" />
-                <circle cx="290.2" cy="26.2" r="2.2" />
-                <circle cx="98.2" cy="26.2" r="2.2" />
-                <circle cx="314.2" cy="26.2" r="2.2" />
-                <circle cx="122.2" cy="26.2" r="2.2" />
-                <circle cx="338.2" cy="26.2" r="2.2" />
-                <circle cx="146.2" cy="26.2" r="2.2" />
-                <circle cx="170.2" cy="26.2" r="2.2" />
-                <circle cx="194.2" cy="50.2" r="2.2" />
-                <circle cx="2.2" cy="50.2" r="2.2" />
-                <circle cx="218.2" cy="50.2" r="2.2" />
-                <circle cx="26.2" cy="50.2" r="2.2" />
-                <circle cx="242.2" cy="50.2" r="2.2" />
-                <circle cx="50.2" cy="50.2" r="2.2" />
-                <circle cx="266.2" cy="50.2" r="2.2" />
-                <circle cx="74.2" cy="50.2" r="2.2" />
-                <circle cx="290.2" cy="50.2" r="2.2" />
-                <circle cx="98.2" cy="50.2" r="2.2" />
-                <circle cx="314.2" cy="50.2" r="2.2" />
-                <circle cx="122.2" cy="50.2" r="2.2" />
-                <circle cx="338.2" cy="50.2" r="2.2" />
-                <circle cx="146.2" cy="50.2" r="2.2" />
-                <circle cx="170.2" cy="50.2" r="2.2" />
-                <circle cx="194.2" cy="74.2" r="2.2" />
-                <circle cx="2.2" cy="74.2" r="2.2" />
-                <circle cx="218.2" cy="74.2" r="2.2" />
-                <circle cx="26.2" cy="74.2" r="2.2" />
-                <circle cx="242.2" cy="74.2" r="2.2" />
-                <circle cx="50.2" cy="74.2" r="2.2" />
-                <circle cx="266.2" cy="74.2" r="2.2" />
-                <circle cx="74.2" cy="74.2" r="2.2" />
-                <circle cx="290.2" cy="74.2" r="2.2" />
-                <circle cx="98.2" cy="74.2" r="2.2" />
-                <circle cx="314.2" cy="74.2" r="2.2" />
-                <circle cx="122.2" cy="74.2" r="2.2" />
-                <circle cx="338.2" cy="74.2" r="2.2" />
-                <circle cx="146.2" cy="74.2" r="2.2" />
-                <circle cx="170.2" cy="74.2" r="2.2" />
-                <circle cx="194.2" cy="98.2" r="2.2" />
-                <circle cx="2.2" cy="98.2" r="2.2" />
-                <circle cx="218.2" cy="98.2" r="2.2" />
-                <circle cx="26.2" cy="98.2" r="2.2" />
-                <circle cx="242.2" cy="98.2" r="2.2" />
-                <circle cx="50.2" cy="98.2" r="2.2" />
-                <circle cx="266.2" cy="98.2" r="2.2" />
-                <circle cx="74.2" cy="98.2" r="2.2" />
-                <circle cx="290.2" cy="98.2" r="2.2" />
-                <circle cx="98.2" cy="98.2" r="2.2" />
-                <circle cx="314.2" cy="98.2" r="2.2" />
-                <circle cx="122.2" cy="98.2" r="2.2" />
-                <circle cx="338.2" cy="98.2" r="2.2" />
-                <circle cx="146.2" cy="98.2" r="2.2" />
-                <circle cx="170.2" cy="98.2" r="2.2" />
-                <circle cx="194.2" cy="122.2" r="2.2" />
-                <circle cx="2.2" cy="122.2" r="2.2" />
-                <circle cx="218.2" cy="122.2" r="2.2" />
-                <circle cx="26.2" cy="122.2" r="2.2" />
-                <circle cx="242.2" cy="122.2" r="2.2" />
-                <circle cx="50.2" cy="122.2" r="2.2" />
-                <circle cx="266.2" cy="122.2" r="2.2" />
-                <circle cx="74.2" cy="122.2" r="2.2" />
-                <circle cx="290.2" cy="122.2" r="2.2" />
-                <circle cx="98.2" cy="122.2" r="2.2" />
-                <circle cx="314.2" cy="122.2" r="2.2" />
-                <circle cx="122.2" cy="122.2" r="2.2" />
-                <circle cx="338.2" cy="122.2" r="2.2" />
-                <circle cx="146.2" cy="122.2" r="2.2" />
-                <circle cx="170.2" cy="122.2" r="2.2" />
-                <circle cx="194.2" cy="146.2" r="2.2" />
-                <circle cx="2.2" cy="146.2" r="2.2" />
-                <circle cx="218.2" cy="146.2" r="2.2" />
-                <circle cx="26.2" cy="146.2" r="2.2" />
-                <circle cx="242.2" cy="146.2" r="2.2" />
-                <circle cx="50.2" cy="146.2" r="2.2" />
-                <circle cx="266.2" cy="146.2" r="2.2" />
-                <circle cx="74.2" cy="146.2" r="2.2" />
-                <circle cx="290.2" cy="146.2" r="2.2" />
-                <circle cx="98.2" cy="146.2" r="2.2" />
-                <circle cx="314.2" cy="146.2" r="2.2" />
-                <circle cx="122.2" cy="146.2" r="2.2" />
-                <circle cx="338.2" cy="146.2" r="2.2" />
-                <circle cx="146.2" cy="146.2" r="2.2" />
-                <circle cx="170.2" cy="146.2" r="2.2" />
-                <circle cx="194.2" cy="170.2" r="2.2" />
-                <circle cx="2.2" cy="170.2" r="2.2" />
-                <circle cx="218.2" cy="170.2" r="2.2" />
-                <circle cx="26.2" cy="170.2" r="2.2" />
-                <circle cx="242.2" cy="170.2" r="2.2" />
-                <circle cx="50.2" cy="170.2" r="2.2" />
-                <circle cx="266.2" cy="170.2" r="2.2" />
-                <circle cx="74.2" cy="170.2" r="2.2" />
-                <circle cx="290.2" cy="170.2" r="2.2" />
-                <circle cx="98.2" cy="170.2" r="2.2" />
-                <circle cx="314.2" cy="170.2" r="2.2" />
-                <circle cx="122.2" cy="170.2" r="2.2" />
-                <circle cx="338.2" cy="170.2" r="2.2" />
-                <circle cx="146.2" cy="170.2" r="2.2" />
-                <circle cx="170.2" cy="170.2" r="2.2" />
-                <circle cx="194.2" cy="194.2" r="2.2" />
-                <circle cx="2.2" cy="194.2" r="2.2" />
-                <circle cx="218.2" cy="194.2" r="2.2" />
-                <circle cx="26.2" cy="194.2" r="2.2" />
-                <circle cx="242.2" cy="194.2" r="2.2" />
-                <circle cx="50.2" cy="194.2" r="2.2" />
-                <circle cx="266.2" cy="194.2" r="2.2" />
-                <circle cx="74.2" cy="194.2" r="2.2" />
-                <circle cx="290.2" cy="194.2" r="2.2" />
-                <circle cx="98.2" cy="194.2" r="2.2" />
-                <circle cx="314.2" cy="194.2" r="2.2" />
-                <circle cx="122.2" cy="194.2" r="2.2" />
-                <circle cx="338.2" cy="194.2" r="2.2" />
-                <circle cx="146.2" cy="194.2" r="2.2" />
-                <circle cx="170.2" cy="194.2" r="2.2" />
-                <circle cx="194.2" cy="218.2" r="2.2" />
-                <circle cx="2.2" cy="218.2" r="2.2" />
-                <circle cx="218.2" cy="218.2" r="2.2" />
-                <circle cx="26.2" cy="218.2" r="2.2" />
-                <circle cx="242.2" cy="218.2" r="2.2" />
-                <circle cx="50.2" cy="218.2" r="2.2" />
-                <circle cx="266.2" cy="218.2" r="2.2" />
-                <circle cx="74.2" cy="218.2" r="2.2" />
-                <circle cx="290.2" cy="218.2" r="2.2" />
-                <circle cx="98.2" cy="218.2" r="2.2" />
-                <circle cx="314.2" cy="218.2" r="2.2" />
-                <circle cx="122.2" cy="218.2" r="2.2" />
-                <circle cx="338.2" cy="218.2" r="2.2" />
-                <circle cx="146.2" cy="218.2" r="2.2" />
-                <circle cx="170.2" cy="218.2" r="2.2" />
-                <circle cx="194.2" cy="242.2" r="2.2" />
-                <circle cx="2.2" cy="242.2" r="2.2" />
-                <circle cx="218.2" cy="242.2" r="2.2" />
-                <circle cx="26.2" cy="242.2" r="2.2" />
-                <circle cx="242.2" cy="242.2" r="2.2" />
-                <circle cx="50.2" cy="242.2" r="2.2" />
-                <circle cx="266.2" cy="242.2" r="2.2" />
-                <circle cx="74.2" cy="242.2" r="2.2" />
-                <circle cx="290.2" cy="242.2" r="2.2" />
-                <circle cx="98.2" cy="242.2" r="2.2" />
-                <circle cx="314.2" cy="242.2" r="2.2" />
-                <circle cx="122.2" cy="242.2" r="2.2" />
-                <circle cx="338.2" cy="242.2" r="2.2" />
-                <circle cx="146.2" cy="242.2" r="2.2" />
-                <circle cx="170.2" cy="242.2" r="2.2" />
-                <circle cx="194.2" cy="266.2" r="2.2" />
-                <circle cx="2.2" cy="266.2" r="2.2" />
-                <circle cx="218.2" cy="266.2" r="2.2" />
-                <circle cx="26.2" cy="266.2" r="2.2" />
-                <circle cx="242.2" cy="266.2" r="2.2" />
-                <circle cx="50.2" cy="266.2" r="2.2" />
-                <circle cx="266.2" cy="266.2" r="2.2" />
-                <circle cx="74.2" cy="266.2" r="2.2" />
-                <circle cx="290.2" cy="266.2" r="2.2" />
-                <circle cx="98.2" cy="266.2" r="2.2" />
-                <circle cx="314.2" cy="266.2" r="2.2" />
-                <circle cx="122.2" cy="266.2" r="2.2" />
-                <circle cx="338.2" cy="266.2" r="2.2" />
-                <circle cx="146.2" cy="266.2" r="2.2" />
-                <circle cx="170.2" cy="266.2" r="2.2" />
-                <circle cx="194.2" cy="290.2" r="2.2" />
-                <circle cx="2.2" cy="290.2" r="2.2" />
-                <circle cx="218.2" cy="290.2" r="2.2" />
-                <circle cx="26.2" cy="290.2" r="2.2" />
-                <circle cx="242.2" cy="290.2" r="2.2" />
-                <circle cx="50.2" cy="290.2" r="2.2" />
-                <circle cx="266.2" cy="290.2" r="2.2" />
-                <circle cx="74.2" cy="290.2" r="2.2" />
-                <circle cx="290.2" cy="290.2" r="2.2" />
-                <circle cx="98.2" cy="290.2" r="2.2" />
-                <circle cx="314.2" cy="290.2" r="2.2" />
-                <circle cx="122.2" cy="290.2" r="2.2" />
-                <circle cx="338.2" cy="290.2" r="2.2" />
-                <circle cx="146.2" cy="290.2" r="2.2" />
-                <circle cx="170.2" cy="290.2" r="2.2" />
-                <circle cx="194.2" cy="314.2" r="2.2" />
-                <circle cx="2.2" cy="314.2" r="2.2" />
-                <circle cx="218.2" cy="314.2" r="2.2" />
-                <circle cx="26.2" cy="314.2" r="2.2" />
-                <circle cx="242.2" cy="314.2" r="2.2" />
-                <circle cx="50.2" cy="314.2" r="2.2" />
-                <circle cx="266.2" cy="314.2" r="2.2" />
-                <circle cx="74.2" cy="314.2" r="2.2" />
-                <circle cx="290.2" cy="314.2" r="2.2" />
-                <circle cx="98.2" cy="314.2" r="2.2" />
-                <circle cx="314.2" cy="314.2" r="2.2" />
-                <circle cx="122.2" cy="314.2" r="2.2" />
-                <circle cx="338.2" cy="314.2" r="2.2" />
-                <circle cx="146.2" cy="314.2" r="2.2" />
-                <circle cx="170.2" cy="314.2" r="2.2" />
-                <circle cx="194.2" cy="338.2" r="2.2" />
-                <circle cx="2.2" cy="338.2" r="2.2" />
-                <circle cx="218.2" cy="338.2" r="2.2" />
-                <circle cx="26.2" cy="338.2" r="2.2" />
-                <circle cx="242.2" cy="338.2" r="2.2" />
-                <circle cx="50.2" cy="338.2" r="2.2" />
-                <circle cx="266.2" cy="338.2" r="2.2" />
-                <circle cx="74.2" cy="338.2" r="2.2" />
-                <circle cx="290.2" cy="338.2" r="2.2" />
-                <circle cx="98.2" cy="338.2" r="2.2" />
-                <circle cx="314.2" cy="338.2" r="2.2" />
-                <circle cx="122.2" cy="338.2" r="2.2" />
-                <circle cx="338.2" cy="338.2" r="2.2" />
-                <circle cx="146.2" cy="338.2" r="2.2" />
-                <circle cx="170.2" cy="338.2" r="2.2" />
               </svg>
             </figure>
 
@@ -293,40 +62,42 @@ const FeaturedHoliday = () => {
           </Col>
 
           <Col lg={6}>
-            <h2 className="mb-3 mb-lg-5">The Best Holidays Start Here!</h2>
-            <p className="mb-3 mb-lg-5">Book your hotel with us and don't forget to grab an awesome hotel deal to save massive on your stay.</p>
+            <h2 className="mb-3 mb-lg-5">Why Choose Us?</h2>
+            <p className="mb-3 mb-lg-5">
+              Elevate your event experience with Kreyo.mu — from quick ticketing to food deals and smooth rides, we make your concerts unforgettable!
+            </p>
 
             <Row className="g-4">
               <Col sm={6}>
                 <div className="icon-lg bg-success bg-opacity-10 text-success rounded-circle flex-centered">
-                  <FaUtensils />
+                  <FaTicketAlt />
                 </div>
-                <h5 className="mt-2">Quality Food</h5>
-                <p className="mb-0">Departure defective arranging rapturous did. Conduct denied adding worthy little.</p>
+                <h5 className="mt-2">Easy Ticket Booking</h5>
+                <p className="mb-0">Book your concert tickets quickly and easily with just a few clicks.</p>
               </Col>
 
               <Col sm={6}>
                 <div className="icon-lg bg-danger bg-opacity-10 text-danger rounded-circle flex-centered">
-                  <BsFillStopwatchFill />
+                  <FaShuttleVan />
                 </div>
-                <h5 className="mt-2">Quick Services</h5>
-                <p className="mb-0">Supposing so be resolving breakfast am or perfectly. </p>
+                <h5 className="mt-2">Transport to Your Event</h5>
+                <p className="mb-0">Get convenient shuttle rides and transport options to venues.</p>
               </Col>
 
               <Col sm={6}>
-                <div className="icon-lg bg-orange bg-opacity-10 text-orange rounded-circle flex-centered">
-                  <BsShieldFillCheck />
+                <div className="icon-lg bg-warning bg-opacity-10 text-warning rounded-circle flex-centered">
+                  <FaConciergeBell />
                 </div>
-                <h5 className="mt-2">High Security</h5>
-                <p className="mb-0">Arranging rapturous did believe him all had supported. </p>
+                <h5 className="mt-2">Food & Drink Coupons</h5>
+                <p className="mb-0">Enjoy exclusive discounts on food and beverages at the event.</p>
               </Col>
 
               <Col sm={6}>
                 <div className="icon-lg bg-info bg-opacity-10 text-info rounded-circle flex-centered">
-                  <BsFillLightningFill />
+                  <FaHeadset />
                 </div>
-                <h5 className="mt-2">24 Hours Alert</h5>
-                <p className="mb-0">Rapturous did believe him all had supported.</p>
+                <h5 className="mt-2">24 / 7 Support</h5>
+                <p className="mb-0">Our support team is here round-the-clock to help you anytime.</p>
               </Col>
             </Row>
           </Col>

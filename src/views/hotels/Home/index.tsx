@@ -1,7 +1,6 @@
 import { PageMetaData } from '@/components'
 import FeaturedHoliday from './components/FeaturedHoliday'
 import FeaturedHotels from './components/FeaturedHotels'
-import Footer from './components/Footer'
 import FooterWithLinks from './components/FooterWithLinks'
 import Hero from './components/Hero'
 import OfferSlider from './components/OfferSlider'
@@ -25,7 +24,6 @@ const HotelHome = () => {
 
       <FooterWithLinks />
 
-      <Footer />
     </>
   )
 }
