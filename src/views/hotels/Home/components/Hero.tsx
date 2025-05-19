@@ -27,9 +27,11 @@ const Hero = () => {
 
           </Col>
 
-          <Col lg={6} className="position-relative  justify-content-center align-items-center">
+          <Col lg={6} className="position-relative justify-content-center align-items-center">
             <Image src={Cover} className="rounded" />
-            <figure className="position-absolute end-0 bottom-0">
+
+            {/* Bottom Right - Only show on md and up */}
+            <figure className="position-absolute end-0 bottom-0 d-none d-md-block">
               <div className="bg-blur border border-light rounded-3 text-center shadow-lg p-3">
                 <div className="fs-2 my-2">🕺</div>
                 <h5 className="text-dark mb-1">Let’s Dance</h5>
@@ -37,15 +39,16 @@ const Hero = () => {
               </div>
             </figure>
 
-            <div className="position-absolute top-0 end-0 z-index-1 mt-n4">
+            {/* Top Right - Only show on md and up */}
+            <div className="position-absolute top-0 end-0 z-index-1 mt-n4 d-none d-md-block">
               <div className="bg-blur border border-light rounded-3 text-center shadow-lg p-3">
                 <div className="fs-2 my-2">🎉</div>
                 <h5 className="text-dark mb-1">Non-Stop</h5>
                 <h6 className="text-dark fw-light small mb-0">Party Vibes</h6>
               </div>
-
             </div>
           </Col>
+
         </Row>
         <AvailabilityFilter />
       </Container>
