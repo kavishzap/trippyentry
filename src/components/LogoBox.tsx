@@ -2,8 +2,8 @@ import { NavbarBrand } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 
-import logoLightSvg from '@/assets/images/logo-light.svg'
-import logoSvg from '@/assets/images/logo.svg'
+import logoLightSvg from '@/assets/newImage/heroSection/white logo.png'
+import logoSvg from '@/assets/newImage/heroSection/black logo.png'
 
 type LogoBoxType = {
   imgClassName?: string
@@ -13,8 +13,8 @@ type LogoBoxType = {
 const LogoBox = ({ imgClassName, onlyDark }: LogoBoxType) => {
   return (
     <NavbarBrand as={Link} to="/">
-      <img className={clsx(!onlyDark && 'light-mode-item', 'navbar-brand-item', imgClassName)} src={logoSvg} alt="logo" />
-      {!onlyDark && <img className={clsx('dark-mode-item navbar-brand-item', imgClassName)} src={logoLightSvg} alt="logo" />}
+      <img className={clsx(!onlyDark && 'light-mode-item', 'navbar-brand-item h-50px', imgClassName)} src={logoSvg} alt="logo" />
+      {!onlyDark && <img className={clsx('dark-mode-item navbar-brand-item h-50px', imgClassName)} src={logoLightSvg} alt="logo" />}
     </NavbarBrand>
   )
 }

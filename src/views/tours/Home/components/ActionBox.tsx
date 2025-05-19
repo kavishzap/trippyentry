@@ -28,9 +28,11 @@ const ActionBox = () => {
           </figure>
           <Row>
             <Col md={7} className="mx-auto text-center py-5">
-              <h2 className="mb-4">Subscribe And Get a Special Discount </h2>
-              <p className="mb-4">Speedily say has suitable disposal add boy. On forth doubt miles of child. Exercise joy man children rejoiced.</p>
-              <form onSubmit={handleSubmit(() => {})} className="bg-body shadow rounded-2 p-2">
+              <h2 className="mb-4">Subscribe And Get Our Upcoming Event Details </h2>
+              <p className="mb-4"><p className="mb-4">
+                Stay in the loop with the latest concert updates, special announcements, and exclusive offers. Be the first to know — subscribe now and never miss a beat!
+              </p></p>
+              <form onSubmit={handleSubmit(() => { })} className="bg-body shadow rounded-2 p-2">
                 <div className="input-group">
                   <TextFormInput
                     name="email"

@@ -4,7 +4,7 @@ type PageMetaDataProps = {
 
 const PageMetaData = ({ title }: PageMetaDataProps) => {
   return (
-      <title> {title} | Booking - Multipurpose Online Booking Theme </title>
+      <title> {title} | Event Booking System </title>
   )
 }
 

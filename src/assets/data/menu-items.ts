@@ -14,20 +14,26 @@ import {
   BsTrash,
   BsWallet,
 } from 'react-icons/bs'
-import { FaCar, FaMicrophone } from 'react-icons/fa6'
+import { FaMusic, FaInfo, FaPhone } from 'react-icons/fa6'
 
 export const bookingHomeMenuItems: MenuItemType[] = [
   {
-    key: 'hotel-home',
+    key: 'concerts-home',
     label: 'Concerts',
-    url: '/hotels/home',
-    icon: FaMicrophone,
+    url: '/concerts/home',
+    icon: FaMusic,
   },
   {
-    key: 'cabs-home',
-    label: 'Cab',
-    url: '/cabs/home',
-    icon: FaCar,
+    key: 'about-us',
+    label: 'About Us',
+    url: '/about',
+    icon: FaInfo,
+  },
+  {
+    key: 'contact-us',
+    label: 'Contact Us',
+    url: '/contact',
+    icon: FaPhone,
   },
 ]
 

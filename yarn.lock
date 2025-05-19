@@ -1627,6 +1627,11 @@ just-extend@^5.0.0:
   resolved "https://registry.npmjs.org/just-extend/-/just-extend-5.1.1.tgz"
   integrity sha512-b+z6yF1d4EOyDgylzQo5IminlUmzSeqR1hs/bzjBNjuGras4FXq/6TrzjxfN0j+TmI0ltJzTNlqXUMCniciwKQ==
 
+kavishmojhoa@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/kavishmojhoa/-/kavishmojhoa-1.0.0.tgz"
+  integrity sha512-Tg22Ej9E0NyyjZxkviy9VGAWChYKEZXYyZE0bZoXRH2wVITV/U6oOv6WJVPWacaRMBd7Hi+NH4e02FBh7sdf5Q==
+
 keyv@^4.5.4:
   version "4.5.4"
   resolved "https://registry.npmjs.org/keyv/-/keyv-4.5.4.tgz"

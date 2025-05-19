@@ -1,5 +1,5 @@
 import { bookingHomeMenuItems } from '@/assets/data'
-import { AppMenu, LogoBox } from '@/components'
+import { LogoBox } from '@/components'
 import { useScrollEvent, useToggle } from '@/hooks'
 import { useAuthContext } from '@/states'
 import clsx from 'clsx'
@@ -30,7 +30,6 @@ const TopNavBar = () => {
   const { pathname } = useLocation()
   const { removeSession } = useAuthContext()
   const { scrollY } = useScrollEvent()
-  const { isOpen: menuIsOpen, toggle: menuToggle } = useToggle(window.innerWidth >= 1200)
   const { isOpen: categoryIsOpen, toggle: categoryToggle } = useToggle()
 
   return (
@@ -39,22 +38,7 @@ const TopNavBar = () => {
         <Container>
           <LogoBox />
 
-          <button
-            onClick={menuToggle}
-            className="navbar-toggler ms-auto ms-sm-0 p-0 p-sm-2"
-            type="button"
-            data-bs-toggle="collapse"
-            aria-controls="navbarCollapse"
-            aria-expanded={menuIsOpen}
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-animation">
-              <span />
-              <span />
-              <span />
-            </span>
-            <span className="d-none ms-1 d-sm-inline-block small">Menu</span>
-          </button>
+ 
 
           <button
             onClick={categoryToggle}
@@ -68,7 +52,7 @@ const TopNavBar = () => {
             <span className="d-none d-sm-inline-block small">Category</span>
           </button>
 
-          <AppMenu showExtraPages mobileMenuOpen={menuIsOpen} />
+          
 
           <Collapse in={categoryIsOpen}>
             <div className="navbar-collapse">
