@@ -1,9 +1,9 @@
 import { GlightBox } from '@/components'
 import { useToggle } from '@/hooks'
-import { Alert, Button, Card, Col, Container, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalHeader, Row } from 'react-bootstrap'
-import { BsExclamationOctagonFill, BsEyeFill, BsFullscreen, BsGeoAlt, BsPinMapFill, BsXLg } from 'react-icons/bs'
+import {Card, Col, Container, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalHeader, Row } from 'react-bootstrap'
+import {BsEyeFill, BsFullscreen, BsGeoAlt, BsPinMapFill} from 'react-icons/bs'
 import { FaFacebookSquare, FaShareAlt, FaTwitterSquare } from 'react-icons/fa'
-import { FaCopy, FaHeart, FaLinkedin } from 'react-icons/fa6'
+import { FaCopy, FaLinkedin } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 
 import gallery11 from '@/assets/images/gallery/11.jpg'
@@ -16,7 +16,7 @@ import gallery16 from '@/assets/images/gallery/16.jpg'
 const HotelGallery = () => {
   const { isOpen, toggle } = useToggle()
 
-  const { isOpen: alertVisible, hide: hideAlert } = useToggle(true)
+ 
 
   return (
     <>
@@ -26,7 +26,7 @@ const HotelGallery = () => {
             <Col xs={12}>
               <div className="d-lg-flex justify-content-lg-between mb-1">
                 <div className="mb-2 mb-lg-0">
-                  <h1 className="fs-2">Courtyard by Marriott New York </h1>
+                  <h1 className="fs-2">Maritime Balaclava</h1>
                   <p className="fw-bold mb-0 items-center flex-wrap">
                     <BsGeoAlt className=" me-2" />
                     5855 W Century Blvd, Los Angeles - 90045
@@ -44,9 +44,7 @@ const HotelGallery = () => {
                 </div>
                 <ul className="list-inline text-end">
                   <li className="list-inline-item">
-                    <Button variant="light" size="sm" className="px-2">
-                      <FaHeart className="fa-fw" />
-                    </Button>
+                  
                   </li>
                   <Dropdown className="list-inline-item dropdown">
                     <DropdownToggle
@@ -86,24 +84,7 @@ const HotelGallery = () => {
               </div>
             </Col>
           </Row>
-          <Alert
-            show={alertVisible}
-            variant="danger"
-            className="d-flex justify-content-between align-items-center rounded-3 fade show mb-4 mb-0 pe-2 py-3"
-            role="alert"
-          >
-            <div className="items-center">
-              <span className="alert-heading h5 mb-0 me-2">
-                <BsExclamationOctagonFill />
-              </span>
-              <span>
-                <strong className="alert-heading me-2">Covid Policy:</strong>You may require to present an RT-PCR negative test report at the hotel
-              </span>
-            </div>
-            <Button variant="link" onClick={hideAlert} type="button" className="pb-0 pt-1 text-end" data-bs-dismiss="alert" aria-label="Close">
-              <BsXLg className=" text-dark" />
-            </Button>
-          </Alert>
+         
         </Container>
       </section>
 

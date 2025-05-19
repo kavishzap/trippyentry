@@ -1,13 +1,12 @@
 import { useToggle } from '@/hooks'
 import { Fragment } from 'react'
-import { Card, CardBody, CardHeader, Col, Collapse, Container, OverlayTrigger, Row, Tooltip } from 'react-bootstrap'
-import { BsPatchCheckFill, BsShieldFillCheck } from 'react-icons/bs'
-import { FaCheckCircle, FaConciergeBell, FaSwimmingPool, FaVolumeUp } from 'react-icons/fa'
-import { FaAngleDown, FaAngleUp, FaSnowflake, FaWifi } from 'react-icons/fa6'
-import CustomerReview from './CustomerReview'
+import { Card, CardBody, CardHeader, Col, Collapse, Container, Row, } from 'react-bootstrap'
+import {BsShieldFillCheck } from 'react-icons/bs'
+import { FaCheckCircle} from 'react-icons/fa'
+import { FaAngleDown, FaAngleUp} from 'react-icons/fa6'
 import HotelPolicies from './HotelPolicies'
 import PriceOverView from './PriceOverView'
-import RoomOptions from './RoomOptions'
+
 
 import { amenities } from '../data'
 
@@ -21,32 +20,11 @@ const AboutHotel = () => {
             <div className="vstack gap-5">
               <Card className="bg-transparent">
                 <CardHeader className="border-bottom bg-transparent px-0 pt-0">
-                  <h3 className="mb-0">About This Hotel</h3>
+                  <h3 className="mb-0">About This Event</h3>
                 </CardHeader>
                 <CardBody className="pt-4 p-0">
                   <h5 className="fw-light mb-4">Main Highlights</h5>
-                  <div className="hstack gap-3 mb-3">
-                    <OverlayTrigger overlay={<Tooltip>Free Wifi</Tooltip>}>
-                      <div className="icon-lg bg-light h5 rounded-2 flex-centered">
-                        <FaWifi size={24} />
-                      </div>
-                    </OverlayTrigger>
-                    <OverlayTrigger overlay={<Tooltip>Swimming Pool</Tooltip>}>
-                      <div className="icon-lg bg-light h5 rounded-2 flex-centered">
-                        <FaSwimmingPool size={24} />
-                      </div>
-                    </OverlayTrigger>
-                    <OverlayTrigger overlay={<Tooltip>Central AC</Tooltip>}>
-                      <div className="icon-lg bg-light h5 rounded-2 flex-centered">
-                        <FaSnowflake size={24} />
-                      </div>
-                    </OverlayTrigger>
-                    <OverlayTrigger overlay={<Tooltip>Free Service</Tooltip>}>
-                      <div className="icon-lg bg-light h5 rounded-2 flex-centered">
-                        <FaConciergeBell />
-                      </div>
-                    </OverlayTrigger>
-                  </div>
+                  
                   <p className="mb-3">
                     Demesne far-hearted suppose venture excited see had has. Dependent on so extremely delivered by. Yet no jokes worse her why.{' '}
                     <b>Bed one supposing breakfast day fulfilled off depending questions.</b>
@@ -85,25 +63,7 @@ const AboutHotel = () => {
                       </Fragment>
                     )}
                   </a>
-                  <h5 className="fw-light mb-2">Advantages</h5>
-                  <ul className="list-group list-group-borderless mb-0">
-                    <li className="list-group-item h6 fw-light d-flex mb-0 items-center">
-                      <BsPatchCheckFill className=" text-success me-2" />
-                      Every hotel staff to have Proper PPT kit for COVID-19
-                    </li>
-                    <li className="list-group-item h6 fw-light d-flex mb-0 items-center">
-                      <BsPatchCheckFill className=" text-success me-2" />
-                      Every staff member wears face masks and gloves at all service times.
-                    </li>
-                    <li className="list-group-item h6 fw-light d-flex mb-0 items-center">
-                      <BsPatchCheckFill className=" text-success me-2" />
-                      Hotel staff ensures to maintain social distancing at all times.
-                    </li>
-                    <li className="list-group-item h6 fw-light d-flex mb-0 items-center">
-                      <BsPatchCheckFill className=" text-success me-2" />
-                      The hotel has In-Room Dining options available{' '}
-                    </li>
-                  </ul>
+                 
                 </CardBody>
               </Card>
               <Card className="bg-transparent">
@@ -141,35 +101,14 @@ const AboutHotel = () => {
                       <ul className="list-group list-group-borderless mt-2 mb-4 mb-sm-5">
                         <li className="list-group-item pb-0 items-center">
                           <FaCheckCircle className="text-success me-2" />
-                          Doctor on Call
+                          First Aid
                         </li>
                       </ul>
-                      <h6>
-                        <FaVolumeUp className="me-2" />
-                        Staff Language
-                      </h6>
-                      <ul className="list-group list-group-borderless mt-2 mb-0">
-                        <li className="list-group-item pb-0 items-center">
-                          <FaCheckCircle className="text-success me-2" />
-                          English
-                        </li>
-                        <li className="list-group-item pb-0 items-center">
-                          <FaCheckCircle className="text-success me-2" />
-                          Spanish
-                        </li>
-                        <li className="list-group-item pb-0 items-center">
-                          <FaCheckCircle className="text-success me-2" />
-                          Hindi
-                        </li>
-                      </ul>
+                 
                     </div>
                   </Row>
                 </CardBody>
               </Card>
-
-              <RoomOptions />
-
-              <CustomerReview />
 
               <HotelPolicies />
             </div>

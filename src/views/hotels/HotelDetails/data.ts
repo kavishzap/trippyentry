@@ -1,4 +1,4 @@
-import { FaBiking, FaConciergeBell } from 'react-icons/fa'
+import {FaConciergeBell } from 'react-icons/fa'
 import { FaCreditCard } from 'react-icons/fa6'
 
 import hotel1 from '@/assets/images/category/hotel/4by3/01.jpg'
@@ -56,27 +56,16 @@ const hotelRooms: HotelsRoomType[] = [
 
 const amenities = [
   {
-    label: 'Activities',
-    name: ['Swimming pool', 'Spa', "Kids' play area", 'Gym'],
-    icon: FaBiking,
-  },
-  {
     label: 'Payment Method',
-    name: ['Credit card (Visa, Master card)', 'Cash', 'Debit Card'],
+    name: ['Credit card (Visa, Master card)', 'JUICE'],
     icon: FaCreditCard,
   },
   {
     label: 'Services',
     name: [
-      'Dry cleaning',
-      'Room Service',
-      'Special service',
+      'Food',
       'Waiting Area',
-      'Secrete smoking area',
-      'Concierge',
-      'Laundry facilities',
-      'Ironing Service',
-      'Lift',
+      'VIP',
     ],
     icon: FaConciergeBell,
   },
