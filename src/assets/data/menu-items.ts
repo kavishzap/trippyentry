@@ -20,7 +20,7 @@ export const bookingHomeMenuItems: MenuItemType[] = [
   {
     key: 'concerts-home',
     label: 'Concerts',
-    url: '/concerts/home',
+    url: '/concerts',
     icon: FaMusic,
   },
   {
