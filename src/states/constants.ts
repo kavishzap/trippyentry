@@ -1,6 +1,6 @@
-type CurrencyType = '₹' | '$' | '€'
+type CurrencyType = 'Rs' 
 
-export const currency: CurrencyType = '$'
+export const currency: CurrencyType = 'Rs'
 
 export const currentYear = new Date().getFullYear()
 

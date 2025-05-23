@@ -14,6 +14,7 @@ const About = () => {
 
       <main>
         <Hero />
+        
         <OurStory />
         <OurTeam />
       </main>

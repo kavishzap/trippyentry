@@ -1,11 +1,8 @@
-import hotel1 from '@/assets/images/category/hotel/4by3/01.jpg'
-import hotel2 from '@/assets/images/category/hotel/4by3/02.jpg'
-import hotel3 from '@/assets/images/category/hotel/4by3/03.jpg'
-import hotel4 from '@/assets/images/category/hotel/4by3/04.jpg'
-import hotel7 from '@/assets/images/category/hotel/4by3/07.jpg'
-import hotel8 from '@/assets/images/category/hotel/4by3/08.jpg'
-import hotel11 from '@/assets/images/category/hotel/4by3/11.jpg'
-import hotel10 from '@/assets/images/category/hotel/4by3/10.jpg'
+import concertOne from '@/assets/images/category/hotel/4by3/Concert1.jpeg'
+import concertTwo from '@/assets/images/category/hotel/4by3/Concert2.jpeg'
+import concertThree from '@/assets/images/category/hotel/4by3/Concert3.jpeg'
+import concertFour from '@/assets/images/category/hotel/4by3/Concert4.jpeg'
+import concertFive from '@/assets/images/category/hotel/4by3/Concert5.jpeg'
 
 export type HotelsListType = {
   id: number
@@ -13,7 +10,6 @@ export type HotelsListType = {
   address: string
   sale?: string
   images: string[]
-  rating: number
   features: string[]
   price: number
   schemes?: string[]
@@ -28,52 +24,48 @@ export type NotificationType = {
 const hotels: HotelsListType[] = [
   {
     id: 1,
-    name: 'Courtyard by Marriott New York',
-    address: '5855 W Century Blvd, Los Angeles - 90045',
-    images: [hotel4, hotel3, hotel2, hotel1],
+    name: 'Stade Germain Comarmond',
+    address: 'Rivière Noire Road, La Valette, Bambous, Black River 71501',
+    images: [concertOne],
     price: 750,
-    features: ['Air Conditioning', 'Wifi', 'Kitchen', 'Pool'],
-    rating: 4.5,
-    schemes: ['Free Cancellation till 7 Jan 2022', 'Free Breakfast'],
+    features: ['Air Conditioning', 'Wifi', 'Food Coupons'],
+    schemes: ['Free Cancellation till 7 Jan 2022'],
     sale: '30% Off',
   },
   {
     id: 2,
-    name: 'Pride moon Village Resort & Spa',
-    address: '31J W Spark Street, California - 24578',
-    images: [hotel10],
+    name: 'Big Willy’s',
+    address: 'Le Barachois, A3 Road, Tamarin Bay, Tamarin',
+    images: [concertTwo],
     price: 980,
-    features: ['Air Conditioning', 'Wifi', 'Kitchen', 'Pool'],
-    rating: 4.5,
+    features: ['Air Conditioning', 'Wifi', 'Food Coupons'],
+    
   },
   {
     id: 3,
-    name: 'Royal Beach Resort',
-    address: 'Manhattan street, London - 24578',
-    images: [hotel10],
+    name: 'C Beach Club',
+    address: 'B9 Road, Bel Ombre 61002',
+    images: [concertThree],
     price: 540,
-    features: ['Air Conditioning', 'Wifi', 'Kitchen', 'Pool'],
-    rating: 4.5,
+    features: ['Air Conditioning', 'Wifi', 'Food Coupons'],
     schemes: ['Free Cancellation till 7 Jan 2022'],
   },
   {
     id: 4,
-    name: 'Park Plaza Lodge Hotel',
-    address: '5855 W Century Blvd, Los Angeles - 9004',
-    images: [hotel8, hotel2, hotel3, hotel7],
+    name: 'Backstage Lounge Bar (Hennessy Park Hotel)',
+    address: '65, Ebene Cybercity, Ebene',
+    images: [concertFour],
     price: 845,
-    features: ['Air Conditioning', 'Wifi', 'Kitchen', 'Pool'],
-    rating: 3.5,
-    schemes: ['Free Cancellation till 7 Jan 2022', 'Free Breakfast'],
+    features: ['Air Conditioning', 'Wifi', 'Food Coupons'],
+    schemes: ['Free Cancellation till 7 Jan 2022'],
   },
   {
     id: 5,
-    name: 'Beverly Hills Marriott',
-    address: '31J W Spark Street, California - 24578',
-    images: [hotel11],
+    name: 'Ile aux Cerfs Island',
+    address: "Off the east coast of Mauritius, near Trou d'Eau Douce, Flacq",
+    images: [concertFive],
     price: 645,
-    features: ['Air Conditioning', 'Wifi', 'Kitchen', 'Pool'],
-    rating: 4.5,
+    features: ['Air Conditioning', 'Wifi', 'Food Coupons'],
   },
 ]
 
