@@ -26,7 +26,7 @@ export const bookingHomeMenuItems: MenuItemType[] = [
   {
     key: 'about-us',
     label: 'About Us',
-    url: '/about',
+    url: '/pages/about',
     icon: FaInfo,
   },
   {
