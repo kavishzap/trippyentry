@@ -34,7 +34,7 @@ const FeaturedHotels = () => {
 
                 <div className="card-img-scale-wrapper">
                   <h5 className="card-title mt-3">
-                    <Link to="/concerts/detail" className="stretched-link">
+                    <Link to="/events/detail" className="stretched-link">
                       {hotel.title}
                     </Link>
                     <div className="d-flex justify-content-between align-items-center mt-2">
@@ -79,7 +79,7 @@ const FeaturedHotels = () => {
                 </p>
               </Col>
               <Col lg={4} className="text-lg-end">
-                <Link to="/" className="btn btn-lg btn-dark mb-0">
+                <Link to="/events" className="btn btn-lg btn-dark mb-0">
                   View More events...
                 </Link>
               </Col>

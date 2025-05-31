@@ -107,7 +107,7 @@ const HotelListCard = ({ hotel }: { hotel: HotelsListType }) => {
             </small>
             
             <h5 className="card-title mb-1">
-              <Link to="/hotels/detail">{name}</Link>
+              <Link to="/events/detail">{name}</Link>
             </h5>
             
             <ul className="nav nav-divider mt-3">

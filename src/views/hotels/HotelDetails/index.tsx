@@ -1,8 +1,8 @@
 import { PageMetaData } from '@/components'
 import AboutHotel from './components/AboutHotel'
-import FooterWithLinks from './components/FooterWithLinks'
+import FooterWithLinks from '../Home/components/FooterWithLinks'
 import HotelGallery from './components/HotelGallery'
-import TopNavBar4 from './components/TopNavBar4'
+import TopNavBar4 from '../Home/components/TopNavBar'
 
 const HotelDetails = () => {
   return (
