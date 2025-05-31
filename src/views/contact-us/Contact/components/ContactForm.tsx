@@ -59,8 +59,8 @@ const ContactForm = () => {
               </figure>
               <CardHeader className="bg-light p-0 pb-3 text-center">
                 <h3 className="mb-0">Have questions about the event?</h3>
-                <p className="text-muted small mt-1">Send us a message and we’ll get back to you before the show!</p>
-              </CardHeader>
+                <p className="small mt-1 text-black">Send us a message and we’ll get back to you before the show!</p>
+              </CardHeader> 
               <CardBody className="p-0">
                 <form onSubmit={handleSubmit(() => {})} className="row g-4">
                   <TextFormInput name="name" label="Full name *" containerClass="col-md-6" control={control} />

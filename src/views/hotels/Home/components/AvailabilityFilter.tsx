@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Card, Col, FormLabel, Row } from 'react-bootstrap'
 
 import { BsCalendar, BsGeoAlt, BsSearch } from 'react-icons/bs'
+import { Link } from 'react-router-dom'
 
 type AvailabilityFormType = {
   location: string
@@ -53,7 +54,7 @@ const AvailabilityFilter = () => {
                 </div>
 
                 <div className="form-control-border form-control-transparent form-fs-md">
-                  <FormLabel className="form-label">Check in - out</FormLabel>
+                  <FormLabel className="form-label">Event date range</FormLabel>
                   <Flatpicker
                     value={formValue.stayFor}
                     getValue={(val) => {
@@ -90,9 +91,12 @@ const AvailabilityFilter = () => {
           </Row>
 
           <div className="btn-position-md-middle">
-            <button type="submit" className="icon-lg btn btn-round btn-primary mb-0 flex-centered">
-              <BsSearch className=" fa-fw" />
-            </button>
+            <Link to="/events" className="stretched-link">
+              <button type="submit" className="icon-lg btn btn-round btn-primary mb-0 flex-centered">
+                <BsSearch className=" fa-fw" />
+              </button>
+            </Link>
+
           </div>
         </Card>
       </Col>

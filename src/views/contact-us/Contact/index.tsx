@@ -1,8 +1,8 @@
 import { PageMetaData } from '@/components'
 import ContactForm from './components/ContactForm'
-import FooterWithLinks from './components/FooterWithLinks'
+import FooterWithLinks from '../../hotels/Home/components/FooterWithLinks'
 import Hero from './components/Hero'
-import TopNavBar11 from './components/TopNavBar11'
+import TopNavBar11 from '../../hotels/Home/components/TopNavBar'
 
 const Contact = () => {
   return (
@@ -13,8 +13,11 @@ const Contact = () => {
 
       <main>
         <Hero />
-        <ContactForm />
-      
+        <div className='mb-5'>
+          <ContactForm />
+        </div>
+
+
       </main>
 
       <FooterWithLinks />

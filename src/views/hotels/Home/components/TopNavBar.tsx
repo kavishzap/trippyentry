@@ -17,14 +17,14 @@ import {
 import {
   BsBookmarkCheck,
   BsFillGrid3X3GapFill,
-  BsGear,
-  BsInfoCircle,
   BsPower,
 } from 'react-icons/bs'
+import { FaUser } from 'react-icons/fa';
+
+
 import { FaHotel } from 'react-icons/fa6'
 import { Link, useLocation } from 'react-router-dom'
-
-import avatar1 from '@/assets/images/avatar/01.jpg'
+const isLoggedIn = true;
 
 const TopNavBar = () => {
   const { pathname } = useLocation()
@@ -38,7 +38,7 @@ const TopNavBar = () => {
         <Container>
           <LogoBox />
 
- 
+
 
           <button
             onClick={categoryToggle}
@@ -52,7 +52,7 @@ const TopNavBar = () => {
             <span className="d-none d-sm-inline-block small">Category</span>
           </button>
 
-          
+
 
           <Collapse in={categoryIsOpen}>
             <div className="navbar-collapse">
@@ -74,56 +74,48 @@ const TopNavBar = () => {
           </Collapse>
 
           <Nav className="flex-row align-items-center list-unstyled ms-xl-auto nav">
-            <Dropdown className="nav-item ms-3 dropdown" autoClose="outside">
-              <DropdownToggle className="avatar avatar-sm p-0 arrow-none mb-0 border-0" id="profileDropdown" role="button">
-                <img className="avatar-img rounded-2" src={avatar1} alt="avatar" />
-              </DropdownToggle>
-              <DropdownMenu
-                align={'end'}
-                className="dropdown-animation dropdown-menu-end shadow pt-3"
-                aria-labelledby="profileDropdown"
-                renderOnMount
-              >
-                <li className="px-3 mb-3">
-                  <div className="d-flex align-items-center">
-                    <div className="avatar me-3">
-                      <img className="avatar-img rounded-circle shadow" src={avatar1} alt="avatar" />
-                    </div>
-                    <div>
-                      <h6 className="h6 mt-2 mt-sm-0">Lori Ferguson</h6>
-                      <p className="small m-0">example@gmail.com</p>
-                    </div>
-                  </div>
-                </li>
-             
+            {isLoggedIn ? (
+              <Dropdown className="nav-item ms-3 dropdown" autoClose="outside">
+                <DropdownToggle
+                  className="avatar avatar-sm p-0 arrow-none mb-0 border-0 d-flex align-items-center justify-content-center bg-light rounded-2"
+                  id="profileDropdown"
+                  role="button"
+                  style={{ width: '36px', height: '36px' }}
+                >
+                  <FaUser className="text-dark" />
+                </DropdownToggle>
+
+                <DropdownMenu
+                  align="end"
+                  className="dropdown-animation dropdown-menu-end shadow pt-3"
+                  aria-labelledby="profileDropdown"
+                  renderOnMount
+                >
                   <DropdownDivider />
-       
-                  <DropdownItem>
-                    <BsBookmarkCheck className=" me-2" />
+
+
+                  <DropdownItem as={Link} to="/user/profile">
+                    <BsBookmarkCheck className="me-2" />
                     My Bookings
                   </DropdownItem>
-             
-                  <DropdownItem>
-                    <BsGear className=" me-2" />
-                    My Profile
-                  </DropdownItem>
-            
-                  <DropdownItem>
-                    <BsInfoCircle className=" me-2" />
-                    Help Center
-                  </DropdownItem>
-            
+
                   <DropdownItem className="bg-danger-soft-hover" onClick={removeSession}>
-                    <BsPower className=" me-2" />
+                    <BsPower className="me-2" />
                     Sign Out
                   </DropdownItem>
-              
-              </DropdownMenu>
-            </Dropdown>
+                </DropdownMenu>
+              </Dropdown>
+            ) : (
+
+
+              <Link to="/auth/sign-in" className="btn btn-primary ms-3">
+                Login
+              </Link>
+            )}
           </Nav>
         </Container>
       </Navbar>
-    </header>
+    </header >
   )
 }
 

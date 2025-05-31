@@ -1,7 +1,7 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import { FaTicketAlt, FaShuttleVan, FaConciergeBell, FaHeadset, FaStar } from 'react-icons/fa'
 
-import about1 from '@/assets/newImage/heroSection/ChatGPT Image May 19, 2025, 01_09_52 AM.png'
+import bgImg5 from '@/assets/newImage/heroSection/photo-1533174072545-7a4b6ad7a6c3.jpg'
 import avatar1 from '@/assets/images/avatar/01.jpg'
 import avatar2 from '@/assets/images/avatar/02.jpg'
 import avatar3 from '@/assets/images/avatar/03.jpg'
@@ -21,7 +21,7 @@ const FeaturedHoliday = () => {
             </figure>
 
 
-            <img src={about1} className="rounded-3 position-relative" style={{ maxHeight: '550px', width: '100%', objectFit: 'cover' }} />
+            <img src={bgImg5} className="rounded-3 position-relative" style={{ maxHeight: '550px', width: '100%', objectFit: 'cover' }} />
 
 
             <div className="position-absolute bottom-0 start-0 z-index-1 mb-4 ms-5">

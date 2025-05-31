@@ -15,7 +15,7 @@ const OurTeam = () => {
               </Row>
             </Container>
 
-            <p className="mt-2">
+           <p className="mt-2 text-center">
               Behind KREYO is a passionate team of developers, designers, and event enthusiasts driven by a shared love for live entertainment. We blend tech innovation with real-world experience to create a seamless, fan-first ticketing platform. Whether we're writing code or curating events, everything we do is built around one goal — making unforgettable experiences easier to access for everyone.
             </p>
 

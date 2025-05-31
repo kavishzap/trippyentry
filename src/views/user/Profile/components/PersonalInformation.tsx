@@ -1,10 +1,8 @@
 import { SelectFormInput, TextAreaFormInput, TextFormInput } from '@/components'
-import { Button, Card, CardBody, CardHeader, Col, Image } from 'react-bootstrap'
+import { Button, Card, CardBody, CardHeader, Col } from 'react-bootstrap'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-
-import avatar1 from '@/assets/images/avatar/01.jpg'
 import Flatpicker from '@/components/Flatpicker'
 
 const PersonalInformation = () => {
@@ -32,21 +30,7 @@ const PersonalInformation = () => {
       <CardBody>
         <form onSubmit={handleSubmit(() => {})} className="row g-3">
           <Col xs={12}>
-            <label className="form-label">
-              Upload your profile photo<span className="text-danger">*</span>
-            </label>
-            <div className="d-flex align-items-center">
-              <label className="position-relative me-4" htmlFor="uploadfile-1" title="Replace this pic">
-                <span className="avatar avatar-xl">
-                  <Image id="uploadfile-1-preview" className="avatar-img rounded-circle border border-white border-3 shadow" src={avatar1} />
-                </span>
-              </label>
 
-              <label className="btn btn-sm btn-primary-soft mb-0" htmlFor="uploadfile-1">
-                Change
-              </label>
-              <input id="uploadfile-1" className="form-control d-none" type="file" />
-            </div>
           </Col>
 
           <TextFormInput name="name" label="Full Name*" placeholder="Enter your full name" containerClass="col-md-6" control={control} />
@@ -66,10 +50,7 @@ const PersonalInformation = () => {
             </label>
             <SelectFormInput className="form-select js-choice">
               <option>Select your country</option>
-              <option>USA</option>
-              <option>Paris</option>
-              <option>India</option>
-              <option>UK</option>
+              <option>Mauritian</option>
             </SelectFormInput>
           </Col>
 

@@ -1,13 +1,10 @@
 import { PasswordFormInput, TextFormInput } from '@/components'
 import { Col } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
-import { FaFacebookF } from 'react-icons/fa'
-import { FcGoogle } from 'react-icons/fc'
 import { Link } from 'react-router-dom'
-
-import signInImg from '@/assets/images/element/signin.svg'
-import logoIcon from '@/assets/images/logo-icon.svg'
-import { developedByLink, currentYear } from '@/states'
+import signInImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025, 04_13_51 PM.png'
+import logoIcon from '@/assets/newImage/heroSection/black logo.png'
+import { currentYear } from '@/states'
 
 const SignUp = () => {
 
@@ -34,7 +31,7 @@ const SignUp = () => {
             Already a member?<Link to="/auth/sign-in"> Log in</Link>
           </p>
 
-          <form onSubmit={handleSubmit(() => {})} className="mt-4 text-start">
+          <form onSubmit={handleSubmit(() => { })} className="mt-4 text-start">
             <TextFormInput name="email" containerClass="mb-3" label="Enter email id" type="email" control={control} />
 
             <PasswordFormInput name="password" containerClass="mb-3" label="Enter password" control={control} />
@@ -56,26 +53,11 @@ const SignUp = () => {
 
             <div className="position-relative my-4">
               <hr />
-              <p className="small position-absolute top-50 start-50 translate-middle bg-mode px-1 px-sm-2">Or sign in with</p>
-            </div>
-
-            <div className="vstack gap-3">
-              <button type="button" className="btn btn-light mb-0">
-                <FcGoogle size={16} className="fab fa-fw me-2" />
-                Continue with Google
-              </button>
-              <button type="button" className="btn btn-light mb-0">
-                <FaFacebookF size={16} className="fab fa-fw text-facebook me-2" />
-                Continue with Facebook
-              </button>
             </div>
 
             <div className="text-primary-hover text-body mt-3 text-center">
               {' '}
-              Copyrights ©{currentYear} Booking. Build by{' '}
-              <a href={developedByLink} target="_blank" className="text-body">
-                StackBros
-              </a>
+              Copyrights ©{currentYear} Kreyo
               .{' '}
             </div>
           </form>

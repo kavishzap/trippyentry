@@ -1,12 +1,10 @@
 import { PasswordFormInput, TextFormInput } from '@/components'
 import { Col } from 'react-bootstrap'
-import { FaFacebookF } from 'react-icons/fa'
-import { FcGoogle } from 'react-icons/fc'
 import { Link } from 'react-router-dom'
 import useSignIn from './useSignIn'
 
-import signInImg from '@/assets/images/element/signin.svg'
-import logoIcon from '@/assets/images/logo-icon.svg'
+import signInImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025, 04_13_51 PM.png'
+import logoIcon from '@/assets/newImage/heroSection/black logo.png'
 import { developedByLink, currentYear } from '@/states'
 
 const SignIn = () => {
@@ -56,25 +54,12 @@ const SignIn = () => {
 
             <div className="position-relative my-4">
               <hr />
-              <p className="small bg-mode position-absolute top-50 start-50 translate-middle px-2">Or sign in with</p>
-            </div>
-
-            <div className="vstack gap-3">
-              <button type="button" className="btn btn-light mb-0">
-                <FcGoogle size={16} className="fab fa-fw me-2" />
-                Continue with Google
-              </button>
-              <button type="button" className="btn btn-light mb-0">
-                <FaFacebookF size={16} className="fab fa-fw text-facebook me-2" />
-                Continue with Facebook
-              </button>
             </div>
 
             <div className="text-primary-hover text-body mt-3 text-center">
               {' '}
-              Copyrights ©{currentYear} Booking. Build by{' '}
+              Copyrights ©{currentYear} Kreyo{' '}
               <a href={developedByLink} target="_blank" className="text-body">
-                StackBros
               </a>
               .{' '}
             </div>

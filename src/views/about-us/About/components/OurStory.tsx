@@ -13,18 +13,23 @@ const OurStory = () => {
               <Row>
                 <Col className="text-center">
                   <h2 className="mb-0">Our Story</h2>
-                  <p className="fw-bold mt-5">
-                    How we founded KREYO...
-                  </p>
+                  <p className="fw-bold mt-5">How we founded KREYO...</p>
                   <p className="mb-0">
-                    Enter something about us here...
+                    KREYO was born from a simple idea — to make event booking easier, faster, and more accessible for everyone in Mauritius.
+                    Whether you're 16 or 60, tech-savvy or not, our mission is to bring live entertainment to your fingertips with zero hassle.
+                    <br /><br />
+                    We are a team of developers, designers, and event lovers who understand the unique culture and vibrant energy of Mauritius.
+                    That’s why we created a platform that bridges traditional ticketing with modern digital convenience — all in one sleek experience.
+                    <br /><br />
+                    From concerts and festivals to theatre nights and community gatherings, KREYO empowers both organizers and attendees.
+                    Because we believe unforgettable experiences should be for everyone — not just a few.
                   </p>
                 </Col>
               </Row>
             </Container>
-
           </Col>
         </Row>
+
 
         <Row className="g-4 justify-content-center">
           {ourStories.map((item, idx) => {

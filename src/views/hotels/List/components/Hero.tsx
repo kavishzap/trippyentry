@@ -1,4 +1,4 @@
-import bgImg5 from '@/assets/images/bg/05.jpg'
+import bgImg5 from '@/assets/newImage/heroSection/photo-1533174072545-7a4b6ad7a6c3.jpg'
 import { Col, Container, Row } from 'react-bootstrap'
 import AvailabilityFilter from '../components/AvailabilityFilter'
 
