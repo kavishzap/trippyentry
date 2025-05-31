@@ -9,17 +9,24 @@ const OurStory = () => {
       <Container>
         <Row className="mb-4 mb-md-5">
           <Col md={10} className="mx-auto">
-            <h3 className="mb-4">Our Story</h3>
-            <p className="fw-bold">
-              How we founded KREYO...
-            </p>
-            <p className="mb-0">
-              Enter something about us here...
-            </p>
+            <Container>
+              <Row>
+                <Col className="text-center">
+                  <h2 className="mb-0">Our Story</h2>
+                  <p className="fw-bold mt-5">
+                    How we founded KREYO...
+                  </p>
+                  <p className="mb-0">
+                    Enter something about us here...
+                  </p>
+                </Col>
+              </Row>
+            </Container>
+
           </Col>
         </Row>
-        
-      <Row className="g-4 justify-content-center">
+
+        <Row className="g-4 justify-content-center">
           {ourStories.map((item, idx) => {
             const Icon = item.icon;
             return (

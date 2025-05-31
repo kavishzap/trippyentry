@@ -21,7 +21,8 @@ const FeaturedHoliday = () => {
             </figure>
 
 
-            <img src={about1} className="rounded-3 position-relative" />
+            <img src={about1} className="rounded-3 position-relative" style={{ maxHeight: '550px', width: '100%', objectFit: 'cover' }} />
+
 
             <div className="position-absolute bottom-0 start-0 z-index-1 mb-4 ms-5">
               <div className="bg-body d-flex d-inline-block rounded-3 position-relative p-3">

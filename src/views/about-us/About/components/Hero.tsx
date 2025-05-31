@@ -35,9 +35,9 @@ const Hero = () => {
           </Col>
         </Row>
 
-    
 
-        <Row className="justify-content-center">
+
+        <Row className="justify-content-center mt-8">
           <Col md={10} className="position-relative">
             <div className="image-carousel-static">
               <Image src={poster1} className="carousel-img back left" />
@@ -48,69 +48,67 @@ const Hero = () => {
         </Row>
       </Container>
 
-     
+
       <style
         dangerouslySetInnerHTML={{
           __html: `
-            .image-carousel-static {
-              position: relative;
-              margin-top: 200px;
-              width: 100%;
-              height: auto;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              padding-top: 2rem;
-              padding-bottom: 2rem;
-            }
+      .image-carousel-static {
+        position: relative;
+        margin-top: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-            .carousel-img {
-              position: absolute;
-              border-radius: 1rem;
-              box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-              transition: transform 0.3s ease;
-              max-width: 250px;
-              height: auto;
-            }
+      .carousel-img {
+        width: 220px;
+        height: 320px;
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        position: absolute;
+        transition: all 0.3s ease-in-out;
+      }
 
-            .carousel-img.front {
-              z-index: 3;
-              transform: scale(1.2);
-            }
+      .carousel-img.front {
+        z-index: 3;
+        transform: scale(1.1);
+      }
 
-            .carousel-img.back {
-              z-index: 1;
-              opacity: 0.8;
-            }
+      .carousel-img.back {
+        z-index: 1;
+        opacity: 0.7;
+      }
 
-            .carousel-img.left {
-              transform: rotate(-8deg) translateX(-180px);
-            }
+      .carousel-img.left {
+        transform: rotate(-6deg) translateX(-150px);
+      }
 
-            .carousel-img.right {
-              transform: rotate(8deg) translateX(180px);
-            }
+      .carousel-img.right {
+        transform: rotate(6deg) translateX(150px);
+      }
 
-            @media (max-width: 768px) {
-              .carousel-img {
-                max-width: 180px;
-              }
+      @media (max-width: 768px) {
+        .carousel-img {
+          width: 150px;
+          height: 220px;
+        }
 
-              .carousel-img.left {
-                transform: rotate(-5deg) translateX(-100px);
-              }
+        .carousel-img.left {
+          transform: rotate(-4deg) translateX(-80px);
+        }
 
-              .carousel-img.right {
-                transform: rotate(5deg) translateX(100px);
-              }
+        .carousel-img.right {
+          transform: rotate(4deg) translateX(80px);
+        }
 
-              .carousel-img.front {
-                transform: scale(1.05);
-              }
-            }
-          `
+        .carousel-img.front {
+          transform: scale(1.05);
+        }
+      }
+    `
         }}
       />
+
     </section>
   )
 }

@@ -27,7 +27,7 @@ const HotelPolicies = () => {
         </ul>
       
        
-        <div className="bg-danger bg-opacity-10 rounded-2 p-3">
+        <div className="bg-danger bg-opacity-10 rounded-2 p-3 mb-5">
           <p className="mb-0 text-danger">
             Smoke alarm not reported — The host hasn't reported a smoke alarm on the property. We suggest bringing a portable detector for your trip.
           </p>

@@ -12,7 +12,7 @@ const ActionBox = () => {
     resolver: yupResolver(actionboxSchema),
   })
   return (
-    <section className="pt-0 pt-md-5">
+    <section className="pt-0 pt-md-5 mb-6">
       <Container className="position-relative">
         <figure className="position-absolute top-100 start-0 translate-middle d-none d-md-block z-index-1 mt-n4 ms-4">
           <svg className="fill-primary" width="148px" height="133px">

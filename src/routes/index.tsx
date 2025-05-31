@@ -127,12 +127,12 @@ const hotelRoutes: RoutesProps[] = [
     element: <HotelsGrid />,
   },
   {
-    path: 'concerts',
+    path: 'events',
     name: 'hotels.list',
     element: <HotelsList />,
   },
   {
-    path: '/hotels/detail',
+    path: '/events/detail',
     name: 'hotels.details',
     element: <HotelDetails />,
   },

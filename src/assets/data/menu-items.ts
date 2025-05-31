@@ -14,19 +14,19 @@ import {
   BsTrash,
   BsWallet,
 } from 'react-icons/bs'
-import { FaMusic, FaInfo, FaPhone } from 'react-icons/fa6'
+import { FaFire    , FaInfo, FaPhone } from 'react-icons/fa6'
 
 export const bookingHomeMenuItems: MenuItemType[] = [
   {
     key: 'concerts-home',
-    label: 'Concerts',
-    url: '/concerts',
-    icon: FaMusic,
+    label: 'Events',
+    url: '/events',
+    icon: FaFire   ,
   },
   {
     key: 'about-us',
     label: 'About Us',
-    url: '/about',
+    url: '/pages/about',
     icon: FaInfo,
   },
   {

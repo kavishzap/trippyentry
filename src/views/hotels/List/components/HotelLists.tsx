@@ -11,7 +11,7 @@ const HotelLists = () => {
   const { isOpen, toggle } = useToggle()
 
   return (
-    <section className="pt-0">
+    <section className="pt-0 mb-6">
       <Container>
         <Row className="mb-4">
           <Col xs={12}>
