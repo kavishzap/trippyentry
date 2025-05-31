@@ -1,22 +1,18 @@
-import { Button, Card, CardBody, CardHeader, Col, Container, Image, Row } from 'react-bootstrap'
-import contactImg from '@/assets/images/element/contact.svg'
+import { Button, Card, CardBody, CardHeader, Col, Container, Row } from 'react-bootstrap'
 import { CheckFormInput, TextAreaFormInput, TextFormInput } from '@/components'
 import { useForm } from 'react-hook-form'
 
 const ContactForm = () => {
-
   const { control, handleSubmit } = useForm()
+
   return (
-    <section className="pt-0 pt-lg-5">
+    <section className="pt-5">
       <Container>
-        <Row className="g-4 g-lg-5 align-items-center">
-          <Col lg={6} className="text-center">
-            <Image src={contactImg} />
-          </Col>
-          <Col lg={6}>
-            <Card className="bg-light p-4">
+        <Row className="justify-content-center">
+          <Col lg={8}>
+            <Card className="bg-light p-4 position-relative">
               <figure className="position-absolute end-0 bottom-0 mb-n4 me-n2">
-                <svg className="fill-orange" width="104.2px" height="95.2px">
+                 <svg className="fill-orange" width="104.2px" height="95.2px">
                   <circle cx="2.6" cy="92.6" r="2.6" />
                   <circle cx="2.6" cy="77.6" r="2.6" />
                   <circle cx="2.6" cy="62.6" r="2.6" />
@@ -61,25 +57,32 @@ const ContactForm = () => {
                   <circle cx="101.7" cy="2.6" r="2.6" />
                 </svg>
               </figure>
-              <CardHeader className="bg-light p-0 pb-3">
-                <h3 className="mb-0">Send us message</h3>
+              <CardHeader className="bg-light p-0 pb-3 text-center">
+                <h3 className="mb-0">Have questions about the event?</h3>
+                <p className="text-muted small mt-1">Send us a message and we’ll get back to you before the show!</p>
               </CardHeader>
               <CardBody className="p-0">
                 <form onSubmit={handleSubmit(() => {})} className="row g-4">
-                  <TextFormInput name="name" label="Your name *" containerClass="col-md-6" control={control} />
+                  <TextFormInput name="name" label="Full name *" containerClass="col-md-6" control={control} />
                   <TextFormInput name="email" label="Email address *" containerClass="col-md-6" control={control} />
-                  <TextFormInput name="mobileNo" label="Mobile number *" containerClass="col-12" control={control} />
-                  <TextAreaFormInput name="message" label="Message *" containerClass="col-12" rows={3} control={control} />
+                  <TextFormInput name="mobileNo" label="Phone number *" containerClass="col-12" control={control} />
+                  <TextAreaFormInput
+                    name="message"
+                    label="What would you like to know about the concert? *"
+                    containerClass="col-12"
+                    rows={4}
+                    control={control}
+                  />
                   <CheckFormInput
                     id="contact-us-checkbox"
                     name="checkbox"
                     type="checkbox"
-                    label="By submitting this form you agree to our terms and conditions."
+                    label="I agree to receive event updates and promotional emails."
                     containerClass="col-12 form-check ms-2"
                     control={control}
                   />
-                  <Col xs={12}>
-                    <Button variant="dark" className="mb-0" type="submit">
+                  <Col xs={12} className="text-center">
+                    <Button variant="dark" type="submit">
                       Send Message
                     </Button>
                   </Col>

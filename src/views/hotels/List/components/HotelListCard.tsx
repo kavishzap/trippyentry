@@ -139,9 +139,9 @@ const HotelListCard = ({ hotel }: { hotel: HotelsListType }) => {
             <div className="d-sm-flex justify-content-sm-between align-items-center mt-3 mt-md-auto">
               <div className="d-flex align-items-center">
                <h6 className="fw-semibold mb-0 me-2">
-                  As from {currency}
-                  {price}
+                  As from {currency}&nbsp;{price}
                 </h6>
+
 
                 
                 {sale && <span className="text-decoration-line-through mb-0">{currency}1000</span>}
