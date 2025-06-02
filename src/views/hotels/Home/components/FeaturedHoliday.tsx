@@ -64,38 +64,38 @@ const FeaturedHoliday = () => {
           </Col>
 
           <Col lg={6}>
-            <h2 className="mb-3 mb-lg-5">Why Choose Us?</h2>
-            <p className="mb-3 mb-lg-5">
+            <h2 className="mb-3 mb-lg-5 text-center text-lg-start">Why Choose Us?</h2>
+            <p className="mb-3 mb-lg-5 text-center text-lg-start">
               Elevate your event experience with Kreyo.mu — from quick ticketing to food deals and smooth rides, we make your concerts unforgettable!
             </p>
 
             <Row className="g-4">
-              <Col sm={6}>
-                <div className="icon-lg bg-success bg-opacity-10 text-success rounded-circle flex-centered">
+              <Col sm={6} className="text-center text-sm-start">
+                <div className="icon-lg bg-success bg-opacity-10 text-success rounded-circle flex-centered mx-auto mx-sm-0">
                   <FaTicketAlt />
                 </div>
                 <h5 className="mt-2">Easy Ticket Booking</h5>
                 <p className="mb-0">Book your concert tickets quickly and easily with just a few clicks.</p>
               </Col>
 
-              <Col sm={6}>
-                <div className="icon-lg bg-danger bg-opacity-10 text-danger rounded-circle flex-centered">
+              <Col sm={6} className="text-center text-sm-start">
+                <div className="icon-lg bg-danger bg-opacity-10 text-danger rounded-circle flex-centered mx-auto mx-sm-0">
                   <FaShuttleVan />
                 </div>
                 <h5 className="mt-2">Transport to Your Event</h5>
                 <p className="mb-0">Get convenient shuttle rides and transport options to venues.</p>
               </Col>
 
-              <Col sm={6}>
-                <div className="icon-lg bg-warning bg-opacity-10 text-warning rounded-circle flex-centered">
+              <Col sm={6} className="text-center text-sm-start">
+                <div className="icon-lg bg-warning bg-opacity-10 text-warning rounded-circle flex-centered mx-auto mx-sm-0">
                   <FaConciergeBell />
                 </div>
                 <h5 className="mt-2">Food & Drink Coupons</h5>
                 <p className="mb-0">Enjoy exclusive discounts on food and beverages at the event.</p>
               </Col>
 
-              <Col sm={6} className='mb-5'>
-                <div className="icon-lg bg-info bg-opacity-10 text-info rounded-circle flex-centered ">
+              <Col sm={6} className="text-center text-sm-start mb-5">
+                <div className="icon-lg bg-info bg-opacity-10 text-info rounded-circle flex-centered mx-auto mx-sm-0">
                   <FaHeadset />
                 </div>
                 <h5 className="mt-2">24 / 7 Support</h5>
@@ -103,6 +103,7 @@ const FeaturedHoliday = () => {
               </Col>
             </Row>
           </Col>
+
         </Row>
       </Container>
     </section>
