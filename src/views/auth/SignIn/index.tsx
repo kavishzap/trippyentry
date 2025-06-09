@@ -1,14 +1,53 @@
+import { useForm } from 'react-hook-form'
+import { useNavigate, Link } from 'react-router-dom'
+import { useState } from 'react'
 import { PasswordFormInput, TextFormInput } from '@/components'
 import { Col } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import useSignIn from './useSignIn'
+import Swal from 'sweetalert2'
+import { supabase } from '@/lib/supabaseClient'
 
 import signInImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025, 04_13_51 PM.png'
 import logoIcon from '@/assets/newImage/heroSection/black logo.png'
 import { developedByLink, currentYear } from '@/states'
 
+type SignInForm = {
+  email: string
+  password: string
+}
+
 const SignIn = () => {
-  const { control, loading, login } = useSignIn()
+  const { control, handleSubmit } = useForm<SignInForm>()
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+
+  const onSubmit = handleSubmit(async ({ email, password }) => {
+    setLoading(true)
+
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+
+    setLoading(false)
+
+    if (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: error.message,
+      })
+    } else {
+      if (data.user?.email) {
+        localStorage.setItem('zeko_username', data.user.email)
+      }
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Login Successful',
+        showConfirmButton: false,
+        timer: 1200,
+      }).then(() => {
+        navigate('/dashboard')
+      })
+    }
+  })
 
   return (
     <>
@@ -16,7 +55,6 @@ const SignIn = () => {
         <div className="p-3 p-lg-5">
           <img src={signInImg} />
         </div>
-
         <div className="vr opacity-1 d-none d-lg-block" />
       </Col>
 
@@ -31,24 +69,30 @@ const SignIn = () => {
             New here?<Link to="/auth/sign-up"> Create an account</Link>
           </p>
 
-          <form onSubmit={login} className="mt-4 text-start">
-            <TextFormInput name="email" containerClass="mb-3" label="Enter email id" type="email" control={control} />
+          <form onSubmit={onSubmit} className="mt-4 text-start">
+            <TextFormInput
+              name="email"
+              containerClass="mb-3"
+              label="Enter email id"
+              type="email"
+              autoComplete="off"
+              control={control}
+            />
 
-            <PasswordFormInput name="password" containerClass="mb-3" label="Enter password" control={control} />
-
+            <PasswordFormInput
+              name="password"
+              containerClass="mb-3"
+              label="Enter password"
+              autoComplete="new-password"
+              control={control}
+            />
             <div className="mb-3 d-sm-flex justify-content-between">
-              <div className="d-flex gap-1">
-                <input type="checkbox" className="form-check-input" id="rememberCheck" />
-                <label className="form-check-label" htmlFor="rememberCheck">
-                  Remember me?
-                </label>
-              </div>
               <Link to="/auth/forgot-password">Forgot password?</Link>
             </div>
 
             <div>
               <button type="submit" className="btn btn-primary w-100 mb-0" disabled={loading}>
-                Login
+                {loading ? 'Logging in...' : 'Login'}
               </button>
             </div>
 
@@ -57,11 +101,8 @@ const SignIn = () => {
             </div>
 
             <div className="text-primary-hover text-body mt-3 text-center">
-              {' '}
               Copyrights ©{currentYear} Kreyo{' '}
-              <a href={developedByLink} target="_blank" className="text-body">
-              </a>
-              .{' '}
+              <a href={developedByLink} target="_blank" className="text-body" rel="noopener noreferrer"></a>.
             </div>
           </form>
         </div>

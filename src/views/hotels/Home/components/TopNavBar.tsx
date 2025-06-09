@@ -1,44 +1,41 @@
-import { bookingHomeMenuItems } from '@/assets/data'
-import { LogoBox } from '@/components'
-import { useScrollEvent, useToggle } from '@/hooks'
-import { useAuthContext } from '@/states'
-import clsx from 'clsx'
+import { useEffect, useState } from 'react';
+import { bookingHomeMenuItems } from '@/assets/data';
+import { LogoBox } from '@/components';
+import { useScrollEvent, useToggle } from '@/hooks';
+import clsx from 'clsx';
 import {
   Collapse,
   Container,
   Dropdown,
-  DropdownDivider,
-  DropdownItem,
-  DropdownMenu,
   DropdownToggle,
   Nav,
   Navbar,
-} from 'react-bootstrap'
-import {
-  BsBookmarkCheck,
-  BsFillGrid3X3GapFill,
-  BsPower,
-} from 'react-icons/bs'
+} from 'react-bootstrap';
+import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { FaUser } from 'react-icons/fa';
-
-
-import { FaHotel } from 'react-icons/fa6'
-import { Link, useLocation } from 'react-router-dom'
-const isLoggedIn = true;
+import { FaHotel } from 'react-icons/fa6';
+import { Link, useLocation } from 'react-router-dom';
 
 const TopNavBar = () => {
-  const { pathname } = useLocation()
-  const { removeSession } = useAuthContext()
-  const { scrollY } = useScrollEvent()
-  const { isOpen: categoryIsOpen, toggle: categoryToggle } = useToggle()
+  const { pathname } = useLocation();
+  const { scrollY } = useScrollEvent();
+  const { isOpen: categoryIsOpen, toggle: categoryToggle } = useToggle();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const username = localStorage.getItem('zeko_username');
+    setIsLoggedIn(!!username);
+  }, []);
 
   return (
-    <header className={clsx('navbar-light header-sticky', { 'header-sticky-on': scrollY >= 400 })}>
+    <header
+      className={clsx('navbar-light header-sticky', {
+        'header-sticky-on': scrollY >= 400,
+      })}
+    >
       <Navbar expand="xl">
         <Container>
           <LogoBox />
-
-
 
           <button
             onClick={categoryToggle}
@@ -48,26 +45,27 @@ const TopNavBar = () => {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <BsFillGrid3X3GapFill className=" me-1" />
+            <BsFillGrid3X3GapFill className="me-1" />
             <span className="d-none d-sm-inline-block small">Category</span>
           </button>
-
-
 
           <Collapse in={categoryIsOpen}>
             <div className="navbar-collapse">
               <ul className="navbar-nav navbar-nav-scroll nav-pills-primary-soft text-center ms-auto p-2 p-xl-0 overflow-y-hidden">
                 {(bookingHomeMenuItems ?? []).map((item, idx) => {
-                  const Icon = item.icon ?? FaHotel
-                  const activeItem = item.url == pathname
+                  const Icon = item.icon ?? FaHotel;
+                  const activeItem = item.url === pathname;
                   return (
                     <li className="nav-item" key={item.key + idx}>
-                      <Link to={item.url ?? ''} className={clsx('nav-link flex-centered', activeItem && 'active')}>
+                      <Link
+                        to={item.url ?? ''}
+                        className={clsx('nav-link flex-centered', activeItem && 'active')}
+                      >
                         <Icon className="me-2" size={16} />
                         {item.label}
                       </Link>
                     </li>
-                  )
+                  );
                 })}
               </ul>
             </div>
@@ -84,30 +82,8 @@ const TopNavBar = () => {
                 >
                   <FaUser className="text-dark" />
                 </DropdownToggle>
-
-                <DropdownMenu
-                  align="end"
-                  className="dropdown-animation dropdown-menu-end shadow pt-3"
-                  aria-labelledby="profileDropdown"
-                  renderOnMount
-                >
-                  <DropdownDivider />
-
-
-                  <DropdownItem as={Link} to="/user/profile">
-                    <BsBookmarkCheck className="me-2" />
-                    My Bookings
-                  </DropdownItem>
-
-                  <DropdownItem className="bg-danger-soft-hover" onClick={removeSession}>
-                    <BsPower className="me-2" />
-                    Sign Out
-                  </DropdownItem>
-                </DropdownMenu>
               </Dropdown>
             ) : (
-
-
               <Link to="/auth/sign-in" className="btn btn-primary ms-3">
                 Login
               </Link>
@@ -115,8 +91,8 @@ const TopNavBar = () => {
           </Nav>
         </Container>
       </Navbar>
-    </header >
-  )
-}
+    </header>
+  );
+};
 
-export default TopNavBar
+export default TopNavBar;

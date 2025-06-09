@@ -1,4 +1,3 @@
-import { PageMetaData } from '@/components'
 import FeaturedHoliday from './components/FeaturedHoliday'
 import FeaturedHotels from './components/FeaturedHotels'
 import FooterWithLinks from './components/FooterWithLinks'
@@ -10,7 +9,6 @@ import ActionBox from '@/views/tours/Home/components/ActionBox'
 const HotelHome = () => {
   return (
     <>
-      <PageMetaData title="Hotel - Home" />
 
       <TopNavBar />
 
