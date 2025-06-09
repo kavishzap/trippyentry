@@ -1,5 +1,5 @@
 import { useToggle } from '@/hooks'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Button,
   Col,
@@ -8,22 +8,48 @@ import {
   OffcanvasBody,
   OffcanvasHeader,
   Row,
+  Spinner,
 } from 'react-bootstrap'
 import { FaAngleLeft, FaAngleRight, FaSliders } from 'react-icons/fa6'
 import HotelListCard from './HotelListCard'
 import HotelListFilter from './HotelListFilter'
+import { supabase } from '@/lib/supabaseClient' // Make sure this is setup
 
-import { hotels } from '../data'
+type Concert = {
+  id: number
+  concert_name: string
+  concert_date: string
+  concert_location_name: string
+  concert_image: string
+  price: number
+}
 
-const HotelLists = () => {
+const ConcertLists = () => {
   const { isOpen, toggle } = useToggle()
+  const [concerts, setConcerts] = useState<Concert[]>([])
+  const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
-  const hotelsPerPage = 4
+  const concertsPerPage = 4
 
-  const totalPages = Math.ceil(hotels.length / hotelsPerPage)
-  const paginatedHotels = hotels.slice(
-    (currentPage - 1) * hotelsPerPage,
-    currentPage * hotelsPerPage
+  useEffect(() => {
+    fetchConcerts()
+  }, [])
+
+  const fetchConcerts = async () => {
+    setLoading(true)
+    const { data, error } = await supabase.from('concerts').select('*')
+    if (error) {
+      console.error('Error fetching concerts:', error.message)
+    } else {
+      setConcerts(data || [])
+    }
+    setLoading(false)
+  }
+
+  const totalPages = Math.ceil(concerts.length / concertsPerPage)
+  const paginatedConcerts = concerts.slice(
+    (currentPage - 1) * concertsPerPage,
+    currentPage * concertsPerPage
   )
 
   const goToPage = (page: number) => {
@@ -76,9 +102,15 @@ const HotelLists = () => {
 
           <Col xl={8} xxl={9}>
             <div className="vstack gap-4">
-              {paginatedHotels.map((hotel, idx) => (
-                <HotelListCard key={idx} hotel={hotel} />
-              ))}
+              {loading ? (
+                <div className="text-center py-5">
+                  <Spinner animation="border" variant="primary" />
+                </div>
+              ) : (
+                paginatedConcerts.map((concert) => (
+                  <HotelListCard key={concert.id} hotel={concert} />
+                ))
+              )}
 
               {/* Pagination */}
               <nav className="d-flex justify-content-center" aria-label="navigation">
@@ -115,4 +147,4 @@ const HotelLists = () => {
   )
 }
 
-export default HotelLists
+export default ConcertLists

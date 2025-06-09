@@ -1,5 +1,5 @@
 import { Card, CardBody, CardHeader } from 'react-bootstrap'
-import {BsCheckCircleFill, BsXCircleFill } from 'react-icons/bs'
+import {BsCheckCircleFill } from 'react-icons/bs'
 
 
 
@@ -19,10 +19,6 @@ const HotelPolicies = () => {
           <li className="list-group-item d-flex align-items-start">
             <BsCheckCircleFill size={18} className=" me-2" />
             Drugs and intoxicating illegal products are banned and not to be brought to the house or consumed.
-          </li>
-          <li className="list-group-item d-flex align-items-start">
-            <BsXCircleFill className=" me-2" />
-            For any update, the customer shall pay applicable cancellation/modification charges.
           </li>
         </ul>
       

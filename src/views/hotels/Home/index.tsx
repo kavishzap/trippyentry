@@ -20,9 +20,6 @@ const HotelHome = () => {
 
         <FeaturedHoliday />
 
-        {/* <OfferSlider /> */}
-
-        
         <ActionBox/>
       </main>
 

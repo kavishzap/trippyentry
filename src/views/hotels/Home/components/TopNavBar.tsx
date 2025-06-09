@@ -7,7 +7,6 @@ import {
   Collapse,
   Container,
   Dropdown,
-  DropdownToggle,
   Nav,
   Navbar,
 } from 'react-bootstrap';
@@ -74,14 +73,19 @@ const TopNavBar = () => {
           <Nav className="flex-row align-items-center list-unstyled ms-xl-auto nav">
             {isLoggedIn ? (
               <Dropdown className="nav-item ms-3 dropdown" autoClose="outside">
-                <DropdownToggle
-                  className="avatar avatar-sm p-0 arrow-none mb-0 border-0 d-flex align-items-center justify-content-center bg-light rounded-2"
-                  id="profileDropdown"
-                  role="button"
-                  style={{ width: '36px', height: '36px' }}
+                <Link
+                  to="/userDashboard"
+                  className="d-flex align-items-center justify-content-center bg-light rounded-2"
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    padding: 0,
+                    textDecoration: 'none',
+                  }}
                 >
-                  <FaUser className="text-dark" />
-                </DropdownToggle>
+                  <FaUser className="text-dark" size={16} />
+                </Link>
+
               </Dropdown>
             ) : (
               <Link to="/auth/sign-in" className="btn btn-primary ms-3">
@@ -91,7 +95,7 @@ const TopNavBar = () => {
           </Nav>
         </Container>
       </Navbar>
-    </header>
+    </header >
   );
 };
 

@@ -1,10 +1,67 @@
-import { Card, Col, Container, Row } from 'react-bootstrap'
-import { BsGeoAlt } from 'react-icons/bs'
-import { Link } from 'react-router-dom'
-import { BsArrowRight } from 'react-icons/bs';
-import { featuredConcertsData } from '../data'
+import { useEffect, useState } from 'react';
+import { Card, Col, Container, Row, Spinner } from 'react-bootstrap';
+import { BsGeoAlt, BsArrowRight } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
+import { supabase } from '@/lib/supabaseClient';
+
+type Concert = {
+  id: number;
+  concert_name: string;
+  concert_date: string;
+  concert_location_name: string;
+  concert_image: string;
+  price: number;
+};
 
 const FeaturedHotels = () => {
+  const [concerts, setConcerts] = useState<Concert[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchConcertsWithTickets = async () => {
+      const { data: concertsData, error: concertError } = await supabase
+        .from('concerts')
+        .select('*')
+        .order('id', { ascending: false })
+        .limit(4);
+
+      if (concertError || !concertsData) return;
+
+      const concertIds = concertsData.map((c) => c.id);
+      const { data: ticketsData, error: ticketError } = await supabase
+        .from('tickets')
+        .select('concert_id, price')
+        .in('concert_id', concertIds);
+
+      if (ticketError || !ticketsData) return;
+
+      const concertMap: { [key: number]: number } = {};
+      ticketsData.forEach(({ concert_id, price }) => {
+        if (!(concert_id in concertMap) || price < concertMap[concert_id]) {
+          concertMap[concert_id] = price;
+        }
+      });
+
+      const enrichedConcerts = concertsData.map((concert) => ({
+        ...concert,
+        price: concertMap[concert.id] || 0,
+      }));
+
+      setConcerts(enrichedConcerts);
+      setLoading(false);
+    };
+
+    fetchConcertsWithTickets();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="text-center py-5">
+        <Spinner animation="border" />
+      </div>
+    );
+  }
+
   return (
     <section>
       <Container>
@@ -14,42 +71,46 @@ const FeaturedHotels = () => {
           </Col>
         </Row>
         <Row className="gx-3 gy-3 gy-md-4">
-          {(featuredConcertsData ?? []).map((hotel, idx) => (
-            <Col key={hotel.title + idx} sm={6} xl={3}>
+          {concerts.map((concert) => (
+            <Col key={concert.id} sm={6} xl={3}>
               <Card className="card-img-scale overflow-hidden bg-transparent h-100 mb-0">
                 <div className="card-img-scale-wrapper rounded-3" style={{ height: '350px', overflow: 'hidden' }}>
                   <img
-                    src={hotel.image}
+                    src={`data:image/jpeg;base64,${concert.concert_image}`}
                     className="card-img"
                     alt="concert image"
                     style={{ height: '100%', width: '100%', objectFit: 'cover' }}
                   />
                   <div className="position-absolute bottom-0 start-0 p-3">
-                    <div className="badge text-bg-dark fs-6 rounded-pill stretched-link d-flex">
+                    <div className="badge text-bg-dark fs-6 rounded-pill stretched-link d-flex text-truncate" style={{ maxWidth: '200px' }}>
                       <BsGeoAlt className="me-2" />
-                      {hotel.location}
+                      <span className="text-truncate">{concert.concert_location_name}</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="card-img-scale-wrapper">
-                  <h5 className="card-title mt-3">
-                    <Link to="/events/detail" className="stretched-link">
-                      {hotel.title}
+                  <h5 className="card-title mt-3 text-truncate" style={{ maxWidth: '100%' }}>
+                    <Link to={`/events/detail?id=${concert.id}`} className="stretched-link d-inline-block text-truncate" style={{ maxWidth: '100%' }}>
+                      {concert.concert_name}
                     </Link>
-                    <div className="d-flex justify-content-between align-items-center mt-2">
-                      <h6 className="text-primary mb-0">
-                        <small className="fw-light">Starting at</small> Rs {hotel.price}
-                      </h6>
-                      <button className="btn btn-sm btn-outline-primary"><BsArrowRight /></button>
-                    </div>
                   </h5>
+
+                  <div className="d-flex justify-content-between align-items-center mt-2">
+                    <h6 className="text-primary mb-0">
+                      <small className="fw-light">Starting at</small> Rs {concert.price}
+                    </h6>
+                    <button className="btn btn-sm btn-outline-primary">
+                      <BsArrowRight />
+                    </button>
+                  </div>
                 </div>
               </Card>
 
             </Col>
           ))}
         </Row>
+
         <Container className="position-relative mt-5">
           <div className="bg-light rounded-3 position-relative p-4 p-sm-5">
             <figure className="position-absolute top-50 start-50 d-none d-lg-block translate-middle">
@@ -61,9 +122,7 @@ const FeaturedHotels = () => {
                   </radialGradient>
                 </defs>
                 <circle cx="70" cy="70" r="60" fill="url(#lightGlow)" />
-
                 <path d="M40 70 L40 50 M50 70 L50 40 M60 70 L60 60 M70 70 L70 30 M80 70 L80 60 M90 70 L90 50 M100 70 L100 40" stroke="white" strokeWidth="4" strokeLinecap="round" />
-
                 <circle cx="70" cy="85" r="6" fill="white" />
                 <rect x="67" y="85" width="6" height="20" rx="2" fill="white" />
               </svg>
@@ -88,7 +147,7 @@ const FeaturedHotels = () => {
         </Container>
       </Container>
     </section>
-  )
-}
+  );
+};
 
-export default FeaturedHotels
+export default FeaturedHotels;

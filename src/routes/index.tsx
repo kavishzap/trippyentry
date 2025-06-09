@@ -100,7 +100,9 @@ const FAQs = lazy(() => import('@/views/FAQs'))
 const NotFoundPage = lazy(() => import('@/views/NotFound'))
 const ComingSoon = lazy(() => import('@/views/ComingSoon'))
 
+const UserDashboard = lazy(() => import('@/views/hotels/Home/userDashboard'))
 
+const PaymentScreen = lazy(() => import('@/views/hotels/HotelDetails/paymentSreen'))
 
 const hotelRoutes: RoutesProps[] = [
   {
@@ -109,9 +111,19 @@ const hotelRoutes: RoutesProps[] = [
     element: <Navigate to="/dashboard" />,
   },
   {
+    path: '/pay',
+    name: 'hotels.payments',
+    element: <PaymentScreen />,
+  },
+  {
     path: '/dashboard',
     name: 'hotels.index',
     element: <HotelsHome />,
+  },
+  {
+    path: '/userDashboard',
+    name: 'hotels.userDashboard',
+    element: <UserDashboard />,
   },
   {
     path: '/hotels/chain',

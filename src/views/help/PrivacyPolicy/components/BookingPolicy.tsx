@@ -1,5 +1,5 @@
 import { Card, CardBody, CardHeader } from 'react-bootstrap'
-import { BsCheckCircleFill, BsXCircleFill } from 'react-icons/bs'
+import { BsCheckCircleFill } from 'react-icons/bs'
 
 const BookingPolicy = () => {
   return (
@@ -35,12 +35,6 @@ const BookingPolicy = () => {
               <BsCheckCircleFill className="me-2" />
             </span>
             Drugs and intoxicating illegal products are banned and not to be brought to the house or consumed.
-          </li>
-          <li className="list-group-item items-center">
-            <span className="flex-shrink-0">
-              <BsXCircleFill className="me-2" />
-            </span>
-            For any update, the customer shall pay applicable cancellation/modification charges.
           </li>
         </ul>
         <ul>

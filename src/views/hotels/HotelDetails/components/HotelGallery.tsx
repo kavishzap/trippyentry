@@ -1,113 +1,390 @@
+import { useEffect, useState } from 'react'
+import { useLocation, Link } from 'react-router-dom'
 import { GlightBox } from '@/components'
 import { useToggle } from '@/hooks'
-import {Card, Col, Container, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalHeader, Row } from 'react-bootstrap'
-import {BsEyeFill, BsFullscreen, BsGeoAlt, BsPinMapFill} from 'react-icons/bs'
-import { FaFacebookSquare, FaShareAlt, FaTwitterSquare } from 'react-icons/fa'
-import { FaCopy, FaLinkedin } from 'react-icons/fa6'
-import { Link } from 'react-router-dom'
-import gallery14 from '@/assets/images/about/Poster1.jpeg'
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Container,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Modal,
+  ModalHeader,
+  Row,
+  Spinner,
+  Button,
+} from 'react-bootstrap'
+import {
+  BsCalendarEvent,
+  BsClock,
+  BsEyeFill,
+  BsFullscreen,
+  BsGeoAlt,
+  BsPinMapFill,
+  BsCheckCircleFill,
+} from 'react-icons/bs'
+import { FaShareAlt } from 'react-icons/fa'
+import { FaCopy, FaMinus, FaPlus } from 'react-icons/fa6'
+import { supabase } from '@/lib/supabaseClient'
+import Swal from 'sweetalert2'
 
-const HotelGallery = () => {
+interface Concert {
+  id: string
+  concert_name: string
+  concert_location_name: string
+  concert_image: string
+  concert_description: string
+  concert_date: string
+  concert_start_time: string
+  concert_end_time: string
+}
+
+interface Ticket {
+  ticket_id: number
+  ticket_type: string
+  price: number
+  ticket_name: string
+}
+
+const ConcertDetailPage = () => {
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  const id = searchParams.get('id')
   const { isOpen, toggle } = useToggle()
+  const [concert, setConcert] = useState<Concert | null>(null)
+  const [tickets, setTickets] = useState<(Ticket & { quantity: number })[]>([])
 
- 
+  const [loading, setLoading] = useState(true)
+  const [showFullDescription, setShowFullDescription] = useState(false)
+
+  useEffect(() => {
+    if (id) {
+      fetchConcertDetails()
+      fetchTickets()
+    }
+  }, [id])
+
+  const fetchConcertDetails = async () => {
+    setLoading(true)
+    const { data, error } = await supabase.from('concerts').select('*').eq('id', id).single()
+
+    if (error) {
+      console.error('Failed to fetch concert:', error.message)
+    } else {
+      setConcert(data)
+    }
+    setLoading(false)
+  }
+
+  const fetchTickets = async () => {
+    const { data, error } = await supabase
+      .from('tickets')
+      .select('*')
+      .eq('concert_id', id)
+
+    if (error) {
+      console.error('Failed to fetch tickets:', error.message)
+    } else {
+      setTickets((data || []).map(ticket => JSON.parse(JSON.stringify({ ...ticket, quantity: 0 }))))
+
+    }
+  }
+
+  const handleIncrement = (ticketId: number, index: number) => {
+    setTickets(prevTickets =>
+      prevTickets.map((ticket, i) =>
+        ticket.ticket_id === ticketId && i === index
+          ? { ...ticket, quantity: ticket.quantity + 1 }
+          : ticket
+      )
+    )
+  }
+
+  const handleDecrement = (ticketId: number, index: number) => {
+    setTickets(prevTickets =>
+      prevTickets.map((ticket, i) =>
+        ticket.ticket_id === ticketId && i === index && ticket.quantity > 0
+          ? { ...ticket, quantity: ticket.quantity - 1 }
+          : ticket
+      )
+    )
+  }
+
+  if (loading) {
+    return (
+      <div className="text-center py-5">
+        <Spinner animation="border" variant="primary" />
+      </div>
+    )
+  }
+
+  if (!concert) {
+    return (
+      <div className="text-center py-5">
+        <p className="text-danger">Concert not found.</p>
+      </div>
+    )
+  }
+
+  const base64Image = concert.concert_image.startsWith('data:')
+    ? concert.concert_image
+    : `data:image/jpeg;base64,${concert.concert_image}`
 
   return (
-    <>
-      <section className="py-0 pt-sm-5">
-        <Container className="position-relative">
-          <Row className="mb-3">
-            <Col xs={12}>
-              <div className="d-lg-flex justify-content-lg-between mb-1">
-                <div className="mb-2 mb-lg-0">
-                  <h1 className="fs-2">Maritime Balaclava</h1>
-                  <p className="fw-bold mb-0 items-center flex-wrap">
-                    <BsGeoAlt className=" me-2" />
-                    5855 W Century Blvd, Los Angeles - 90045
-                    <Link
-                      to=""
-                      onClick={toggle}
-                      className="ms-3 text-decoration-underline items-center"
-                      data-bs-toggle="modal"
-                      data-bs-target="#mapmodal"
+    <main className="py-4">
+      <Container>
+        <Row className="mb-4">
+          <Col lg={8}>
+            <h1 className="fs-3 fs-lg-2 fw-bold">{concert.concert_name}</h1>
+
+            <p className="fw-semibold d-flex flex-wrap align-items-center text-black mb-2">
+              <BsGeoAlt className="me-2" />
+              {concert.concert_location_name}
+              <Link
+                to="#"
+                onClick={toggle}
+                className="ms-3 text-decoration-underline d-flex align-items-center"
+              >
+                <BsEyeFill className="me-1" /> View On Map
+              </Link>
+            </p>
+
+            <div className="d-flex flex-column flex-sm-row gap-2 gap-sm-4 flex-wrap">
+              <span className="d-flex align-items-center text-black">
+                <BsCalendarEvent className="me-2" />
+                <strong className="me-1">Date:</strong> {concert.concert_date}
+              </span>
+              <span className="d-flex align-items-center text-black">
+                <BsClock className="me-2" />
+                <strong className="me-1">Time:</strong> {concert.concert_start_time} – {concert.concert_end_time}
+              </span>
+            </div>
+          </Col>
+
+          <Col lg={4} className="text-lg-end mt-3 mt-lg-0">
+            <Dropdown>
+              <DropdownToggle className="btn btn-light btn-sm">
+                <FaShareAlt className="me-2" /> Share
+              </DropdownToggle>
+              <DropdownMenu align="end">
+                <DropdownItem
+                  onClick={() =>
+                    navigator.clipboard.writeText(
+                      `${window.location.origin}/events/detail?id=${concert.id}`
+                    )
+                  }
+                >
+                  <FaCopy className="me-2" /> Copy link
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </Col>
+        </Row>
+
+        <Row className="g-4 align-items-start">
+          <Col md={6}>
+            <GlightBox data-glightbox data-gallery="gallery" image={base64Image}>
+              <Card
+                className="card-grid-lg card-element-hover card-overlay-hover overflow-hidden"
+                style={{
+                  backgroundImage: `url(${base64Image})`,
+                  backgroundPosition: 'center',
+                  backgroundSize: 'cover',
+                  minHeight: '360px',
+                }}
+              >
+                <div className="hover-element position-absolute w-100 h-100">
+                  <BsFullscreen
+                    size={28}
+                    className="fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"
+                  />
+                </div>
+              </Card>
+            </GlightBox>
+
+            {/* TICKETS SECTION */}
+            {tickets.length > 0 && (
+              <Card className="mt-4">
+                <CardHeader className="bg-light border-bottom">
+                  <h5 className="mb-0">Tickets Available</h5>
+                </CardHeader>
+                <CardBody>
+                  {tickets.map((ticket, index) => (
+                    <div
+                      key={`${ticket.ticket_id}-${index}`}
+                      className="d-flex justify-content-between align-items-center mb-3"
                     >
-                      <BsEyeFill className="me-1" />
-                      View On Map
-                    </Link>
+                      <div>
+                        <h6 className="mb-1">{ticket.ticket_type}</h6>
+                        <small className="fw-semibold text-black">
+                          Price: Rs {ticket.price} | {ticket.ticket_name}
+                        </small>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <Button
+                          size="sm"
+                          variant="outline-secondary"
+                          className="me-2"
+                          onClick={() => handleDecrement(ticket.ticket_id, index)}
+                        >
+                          <FaMinus />
+                        </Button>
+                        <span className="px-2">{ticket.quantity}</span>
+                        <Button
+                          size="sm"
+                          variant="outline-secondary"
+                          className="ms-2"
+                          onClick={() => handleIncrement(ticket.ticket_id, index)}
+                        >
+                          <FaPlus />
+                        </Button>
+
+                      </div>
+                    </div>
+                  ))}
+                  <div className="text-end fw-bold mb-3">
+                    Total: Rs{' '}
+                    {tickets.reduce((sum, ticket) => sum + ticket.price * ticket.quantity, 0)}
+                  </div>
+
+                  <Button
+                    variant="primary"
+                    style={{ minWidth: '200px' }}
+                    onClick={() => {
+                      const selected = tickets.filter(t => t.quantity > 0);
+                      if (selected.length === 0) {
+                        Swal.fire('No tickets selected', 'Please select at least one ticket to book.', 'warning');
+                        return;
+                      }
+
+                      const ticketList = selected
+                        .map(t => ` (${t.ticket_name}) x ${t.quantity} = Rs ${t.price * t.quantity}`)
+                        .join('<br/>');
+
+                      const total = selected.reduce((sum, t) => sum + t.price * t.quantity, 0);
+
+                      Swal.fire({
+                        title: 'Confirm Booking',
+                        html: `
+        <div class="text-start">
+          <strong>Tickets Selected:</strong><br/>
+          ${ticketList}
+          <hr/>
+          <strong>Total: Rs ${total}</strong>
+        </div>
+      `,
+                        icon: 'info',
+                        showCancelButton: true,
+                        confirmButtonText: 'Confirm',
+                        cancelButtonText: 'Cancel',
+                      }).then(result => {
+                        if (result.isConfirmed) {
+                          // proceed with booking logic
+                          Swal.fire({
+                            icon: 'success',
+                            title: 'Booking Confirmed',
+                            text: 'Redirecting you to payment...',
+                            timer: 1500,
+                            showConfirmButton: false
+                          }).then(() => {
+                            const invoiceId = `INV-${Date.now()}`;
+                            window.location.href = `/pay?invoiceId=${invoiceId}&amount=${total}`;
+                          });
+                        }
+                      });
+                    }}
+                  >
+                    Book Tickets
+                  </Button>
+
+                </CardBody>
+
+              </Card>
+            )}
+          </Col>
+
+          <Col md={6}>
+            <h4 className="mb-3">About This Event</h4>
+            <p className="text-black" style={{ whiteSpace: 'pre-line' }}>
+              {showFullDescription
+                ? concert.concert_description
+                : concert.concert_description.length > 250
+                  ? `${concert.concert_description.substring(0, 250)}...`
+                  : concert.concert_description}
+            </p>
+            {concert.concert_description.length > 250 && (
+              <button
+                onClick={() => setShowFullDescription(!showFullDescription)}
+                className="btn btn-link p-0"
+              >
+                {showFullDescription ? 'Show Less' : 'See More'}
+              </button>
+            )}
+
+            <Card className="bg-transparent mt-4 mb-6">
+              <CardHeader className="border-bottom bg-transparent px-0 pt-0">
+                <h5 className="mb-0">Event Policies</h5>
+              </CardHeader>
+              <CardBody className="pt-4 p-0">
+                <ul className="list-group list-group-borderless mb-2">
+                  <li className="list-group-item d-flex align-items-start">
+                    <BsCheckCircleFill size={20} className="me-2 mt-1 text-success" />
+                    Drinking and smoking within controlled limits are permitted at the venue but please do not create a mess or ruckus.
+                  </li>
+                  <li className="list-group-item d-flex align-items-start">
+                    <BsCheckCircleFill size={18} className="me-2 mt-1 text-success" />
+                    Drugs and intoxicating illegal products are banned and not to be brought to or consumed at the event.
+                  </li>
+                </ul>
+                <div className="bg-danger bg-opacity-10 rounded-2 p-3">
+                  <p className="mb-0 text-danger">
+                    Smoke alarm not reported — The host hasn't reported a smoke alarm at the venue. We suggest bringing a portable detector.
                   </p>
                 </div>
-                <ul className="list-inline text-end">
-                  <li className="list-inline-item">
-                  
-                  </li>
-                  <Dropdown className="list-inline-item dropdown">
-                    <DropdownToggle
-                      className="btn btn-sm btn-light px-2 arrow-none"
-                      role="button"
-                      id="dropdownShare"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <FaShareAlt className="fa-fw" />
-                    </DropdownToggle>
-                    <DropdownMenu className="dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownShare">
-                      
-                        <DropdownItem href="">
-                          <FaTwitterSquare className="me-2" />
-                          Twitter
-                        </DropdownItem>
-                 
-                        <DropdownItem href="">
-                          <FaFacebookSquare className="me-2" />
-                          Facebook
-                        </DropdownItem>
-                   
-                        <DropdownItem href="">
-                          <FaLinkedin className="me-2" />
-                          LinkedIn
-                        </DropdownItem>
-                    
-                        <DropdownItem href="">
-                          <FaCopy className="me-2" />
-                          Copy link
-                        </DropdownItem>
-                  
-                    </DropdownMenu>
-                  </Dropdown>
+              </CardBody>
+            </Card>
+            <Card className="bg-transparent mt-4">
+              <CardHeader className="border-bottom bg-transparent px-0 pt-0">
+                <h5 className="mb-0">How to Book</h5>
+              </CardHeader>
+              <CardBody className="pt-4 p-0">
+                <ul className="list-unstyled position-relative ps-3">
+                  {[
+                    'Select your preferred ticket and quantity.',
+                    'Click the "Book Tickets" button.',
+                    'Cross-check your booking details and confirm.',
+                    'An Invoice ID will be shown on screen.',
+                    'Scan to pay via MCB account (details provided). Use the Invoice ID in the payment description.',
+                    'Once payment is verified, download your invoice from the "My Bookings" section under your user profile.',
+                  ].map((step, index) => (
+                    <li key={index} className="mb-4 d-flex">
+                      <div className="me-3 mt-1">
+                        <div
+                          className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
+                          style={{ width: '28px', height: '28px' }}
+                        >
+                          {index + 1}
+                        </div>
+                      </div>
+                      <div className="text-black">{step}</div>
+                    </li>
+                  ))}
                 </ul>
-              </div>
-            </Col>
-          </Row>
-         
-        </Container>
-      </section>
+              </CardBody>
+            </Card>
 
-      <section className="card-grid pt-0">
-        <Container>
-          <Row className="g-2">
-            <Col md={6}>
-              <GlightBox data-glightbox data-gallery="gallery" image={gallery14}>
-                <Card
-                  className="card-grid-lg card-element-hover card-overlay-hover overflow-hidden"
-                  style={{ backgroundImage: `url(${gallery14})`, backgroundPosition: 'center left', backgroundSize: 'cover' }}
-                >
-                  <div className="hover-element position-absolute w-100 h-100">
-                    <BsFullscreen
-                      size={28}
-                      className=" fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"
-                    />
-                  </div>
-                </Card>
-              </GlightBox>
-            </Col>
-          </Row>
-        </Container>
-      </section>
+          </Col>
+        </Row>
+      </Container>
 
       <Modal size="lg" centered show={isOpen} onHide={toggle} className="fade">
         <ModalHeader>
           <h5 className="modal-title" id="mapmodalLabel">
-            View Our Hotel Location
+            View Concert Location
           </h5>
           <button type="button" onClick={toggle} className="btn-close" />
         </ModalHeader>
@@ -115,7 +392,7 @@ const HotelGallery = () => {
           <iframe
             className="w-100"
             height={400}
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425878428698!3d40.74076684379132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sGoogle!5e0!3m2!1sen!2sin!4v1586000412513!5m2!1sen!2sin"
+            src="https://www.google.com/maps?q=Los+Angeles&output=embed"
             style={{ border: 0 }}
             title="map"
             aria-hidden="false"
@@ -123,14 +400,18 @@ const HotelGallery = () => {
           />
         </div>
         <div className="modal-footer">
-          <button type="button" className="btn btn-sm btn-primary mb-0 items-center">
-            <BsPinMapFill className="me-2" />
-            View In Google Map
-          </button>
+          <a
+            href="https://www.google.com/maps?q=Los+Angeles"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-sm btn-primary mb-0 items-center"
+          >
+            <BsPinMapFill className="me-2" /> View In Google Map
+          </a>
         </div>
       </Modal>
-    </>
+    </main>
   )
 }
 
-export default HotelGallery
+export default ConcertDetailPage

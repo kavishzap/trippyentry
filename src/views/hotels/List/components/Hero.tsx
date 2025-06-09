@@ -8,14 +8,25 @@ const Hero = () => {
       <Container>
         <div
           className="rounded-3 p-3 p-sm-5"
-          style={{ backgroundImage: `url(${bgImg5})`, backgroundPosition: 'center center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}
+          style={{
+            backgroundImage: `url(${bgImg5})`,
+            backgroundPosition: 'center center',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+          }}
         >
-          <Row className="row my-2 my-xl-5">
+          <Row className="my-2 my-xl-5">
             <Col md={8} className="mx-auto">
               <h1 className="text-center text-white">Events</h1>
             </Col>
           </Row>
-          <AvailabilityFilter />
+
+          {/* Centered Filter */}
+          <Row className="justify-content-center">
+            <Col md={10} lg={8}>
+              <AvailabilityFilter />
+            </Col>
+          </Row>
         </div>
       </Container>
     </section>

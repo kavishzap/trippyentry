@@ -1,16 +1,6 @@
-import { TextFormInput } from '@/components'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { Col, Container, Row } from 'react-bootstrap'
-import { useForm } from 'react-hook-form'
-import * as yup from 'yup'
 
 const ActionBox = () => {
-  const actionboxSchema = yup.object({
-    email: yup.string().required('Please enter your email'),
-  })
-  const { control, handleSubmit } = useForm({
-    resolver: yupResolver(actionboxSchema),
-  })
   return (
     <section className="pt-0 pt-md-5 mb-6">
       <Container className="position-relative">
@@ -28,25 +18,24 @@ const ActionBox = () => {
           </figure>
           <Row>
             <Col md={7} className="mx-auto text-center py-5">
-              <h2 className="mb-4">Subscribe And Get Our Upcoming Event Details </h2>
-              <p className="mb-4"><p className="mb-4">
-                Stay in the loop with the latest concert updates, special announcements, and exclusive offers. Be the first to know — subscribe now and never miss a beat!
-              </p></p>
-              <form onSubmit={handleSubmit(() => { })} className="bg-body shadow rounded-2 p-2">
+              <h2 className="mb-4">Event Notifications Coming Soon!</h2>
+              <p className="mb-4">
+                We’re working behind the scenes to bring you the hottest concert alerts, exclusive deals, and more.
+                <br />Stay tuned — our subscription feature will be live soon.
+              </p>
+              <div className="bg-body shadow rounded-2 p-2">
                 <div className="input-group">
-                  <TextFormInput
-                    name="email"
+                  <input
                     type="email"
+                    disabled
                     className="form-control border-0 me-1"
-                    placeholder="Enter your email"
-                    control={control}
-                    combinedInput
+                    placeholder="Email subscription launching soon..."
                   />
-                  <button type="submit" className="btn btn-dark rounded-2 mb-0">
-                    Subscribe!
+                  <button className="btn btn-secondary rounded-2 mb-0" disabled>
+                    Coming Soon
                   </button>
                 </div>
-              </form>
+              </div>
             </Col>
           </Row>
         </div>

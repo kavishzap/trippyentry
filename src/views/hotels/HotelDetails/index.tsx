@@ -1,22 +1,19 @@
-import { PageMetaData } from '@/components'
-import AboutHotel from './components/AboutHotel'
+import { useEffect } from 'react'
 import FooterWithLinks from '../Home/components/FooterWithLinks'
 import HotelGallery from './components/HotelGallery'
 import TopNavBar4 from '../Home/components/TopNavBar'
 
 const HotelDetails = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <>
-      <PageMetaData title="Hotel - Details" />
-
       <TopNavBar4 />
-
-      <main>
-        
+      <main className='mb-5'>
         <HotelGallery />
-        <AboutHotel />
       </main>
-
       <FooterWithLinks />
     </>
   )
