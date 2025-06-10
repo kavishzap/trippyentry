@@ -31,6 +31,7 @@ import { FaShareAlt } from 'react-icons/fa'
 import { FaCopy, FaMinus, FaPlus } from 'react-icons/fa6'
 import { supabase } from '@/lib/supabaseClient'
 import Swal from 'sweetalert2'
+import { createBooking } from './bookingService'
 
 interface Concert {
   id: string
@@ -89,10 +90,16 @@ const ConcertDetailPage = () => {
     if (error) {
       console.error('Failed to fetch tickets:', error.message)
     } else {
-      setTickets((data || []).map(ticket => JSON.parse(JSON.stringify({ ...ticket, quantity: 0 }))))
-
+      setTickets((data || []).map(ticket => ({
+        ticket_id: ticket.id, // ✅ correctly assign ticket_id
+        ticket_type: ticket.ticket_type || '', // fallback if undefined
+        ticket_name: ticket.ticket_name,
+        price: Number(ticket.price), // ensure it's a number
+        quantity: 0
+      })))
     }
   }
+
 
   const handleIncrement = (ticketId: number, index: number) => {
     setTickets(prevTickets =>
@@ -255,6 +262,20 @@ const ConcertDetailPage = () => {
                     variant="primary"
                     style={{ minWidth: '200px' }}
                     onClick={() => {
+                      const username = localStorage.getItem('zeko_username');
+                      if (!username) {
+                        Swal.fire({
+                          icon: 'warning',
+                          title: 'Please Sign In',
+                          text: 'You need to sign in to book tickets.',
+                          confirmButtonText: 'Go to Login',
+                        }).then(result => {
+                          if (result.isConfirmed) {
+                            window.location.href = '/auth/sign-in';
+                          }
+                        });
+                        return;
+                      }
                       const selected = tickets.filter(t => t.quantity > 0);
                       if (selected.length === 0) {
                         Swal.fire('No tickets selected', 'Please select at least one ticket to book.', 'warning');
@@ -281,21 +302,38 @@ const ConcertDetailPage = () => {
                         showCancelButton: true,
                         confirmButtonText: 'Confirm',
                         cancelButtonText: 'Cancel',
-                      }).then(result => {
+                      }).then(async result => {
                         if (result.isConfirmed) {
-                          // proceed with booking logic
-                          Swal.fire({
-                            icon: 'success',
-                            title: 'Booking Confirmed',
-                            text: 'Redirecting you to payment...',
-                            timer: 1500,
-                            showConfirmButton: false
-                          }).then(() => {
-                            const invoiceId = `INV-${Date.now()}`;
-                            window.location.href = `/pay?invoiceId=${invoiceId}&amount=${total}`;
-                          });
+                          try {
+                            createBooking({
+                              concertId: concert.id,
+                              tickets: selected.map(({ ticket_id, quantity }) => ({
+                                ticket_id,
+                                quantity
+                              })),
+                              total
+                            }).then((bookingId) => {
+                              Swal.fire({
+                                icon: 'success',
+                                title: 'Booking Confirmed',
+                                text: 'Redirecting you to payment...',
+                                timer: 1500,
+                                showConfirmButton: false
+                              }).then(() => {
+                                window.location.href = `/pay?invoiceId=${bookingId}&amount=${total}`;
+                              });
+                            }).catch(err => {
+                              Swal.fire('Error', err.message, 'error')
+                            })
+                          } catch (err: unknown) {
+                            Swal.fire({
+                              icon: 'error',
+                              title: 'Error',
+                              text: `${typeof err === 'object' && err !== null && 'message' in err ? (err as { message?: string }).message : 'Please try again later.'}`,
+                            });
+                          }
                         }
-                      });
+                      })
                     }}
                   >
                     Book Tickets
