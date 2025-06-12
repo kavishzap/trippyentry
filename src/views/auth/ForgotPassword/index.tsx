@@ -1,82 +1,111 @@
-import { TextFormInput } from '@/components'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Col } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
-import { FaFacebookF } from 'react-icons/fa'
-import { FcGoogle } from 'react-icons/fc'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { Col } from 'react-bootstrap'
+import Swal from 'sweetalert2'
 
-import forgotPassImg from '@/assets/images/element/forgot-pass.svg'
-import logoIcon from '@/assets/images/logo-icon.svg'
+import { TextFormInput } from '@/components'
+import { supabase } from '@/lib/supabaseClient'
+
+import forgotPassImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025, 04_13_51 PM.png'
+import logoIcon from '@/assets/newImage/heroSection/black logo.png'
 import { developedByLink, currentYear } from '@/states'
 
+type ForgotPasswordForm = {
+  email: string
+}
+
 const ForgotPassword = () => {
-  const forgotPassFormSchema = yup.object({
-    email: yup.string().email('Please enter a valid email').required('Please enter your email'),
+  const forgotPasswordSchema = yup.object({
+    email: yup.string().email('Please enter a valid email').required('Email is required'),
   })
 
-  const { control, handleSubmit } = useForm({
-    resolver: yupResolver(forgotPassFormSchema),
+  const { control, handleSubmit } = useForm<ForgotPasswordForm>({
+    resolver: yupResolver(forgotPasswordSchema),
+  })
+
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+
+  const onSubmit = handleSubmit(async ({ email }) => {
+    setLoading(true)
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth/reset-password`,
+    })
+    setLoading(false)
+
+    if (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed to send reset email',
+        text: error.message,
+      })
+    } else {
+      Swal.fire({
+        icon: 'success',
+        title: 'Email Sent',
+        text: 'Check your inbox for a password reset link.',
+        confirmButtonText: 'OK',
+      }).then(() => navigate('/auth/sign-in'))
+    }
   })
 
   return (
     <>
-      <Col lg={6} className="d-md-flex align-items-center order-2 order-lg-1">
-        <div className="p-3 p-lg-5">
-          <img src={forgotPassImg} />
+      <Col lg={6} className="d-flex align-items-center order-2 order-lg-1">
+        <div className="p-3">
+          <img src={forgotPassImg} alt="Forgot Password Illustration" />
         </div>
-
         <div className="vr opacity-1 d-none d-lg-block" />
       </Col>
 
-      <Col lg={6} className="order-1">
-        <div className="p-4 p-sm-7">
-          <Link to="/">
-            <img className="mb-4 h-50px" src={logoIcon} alt="logo" />
+      <Col lg={6} className="order-1 d-flex align-items-center">
+        <div className="p-4 p-sm-7 w-100" style={{ maxWidth: '100%', textAlign: 'center' }}>
+          {/* Logo Centered */}
+          <Link to="/" className="d-flex justify-content-center mb-4">
+            <img className="h-50px" src={logoIcon} alt="logo" />
           </Link>
 
-          <h1 className="mb-2 h3">Forgot password?</h1>
-          <p className="mb-sm-0">Enter the email address associated with an account.</p>
+         <h1 className="mb-2 h3" style={{ whiteSpace: 'nowrap' }}>
+          Forgot your password?
+        </h1>
 
-          <form onSubmit={handleSubmit(() => {})} className="mt-sm-4 text-start">
-            <TextFormInput name="email" containerClass="mb-3" label="Enter email id" type="email" control={control} />
+          <p className="mb-0">Enter the email associated with your account.</p>
+
+          <form onSubmit={onSubmit} className="mt-4 text-start">
+            <TextFormInput
+              name="email"
+              containerClass="mb-3"
+              label="Email Address"
+              type="email"
+              autoComplete="off"
+              control={control}
+            />
 
             <div className="mb-3 text-center">
               <p>
-                Back to <Link to="/auth/sign-in">Sign in</Link>
+                Back to <Link to="/auth/sign-in">Login</Link>
               </p>
             </div>
 
-            <div className="d-grid">
-              <button type="submit" className="btn btn-primary">
-                Reset Password
+            <div>
+              <button type="submit" className="btn btn-primary w-100 mb-0" disabled={loading}>
+                {loading ? 'Sending...' : 'Reset Password'}
               </button>
             </div>
 
             <div className="position-relative my-4">
               <hr />
-              <p className="small position-absolute top-50 start-50 translate-middle bg-mode px-2">Or sign in with</p>
-            </div>
-
-            <div className="vstack gap-3">
-              <button type="button" className="btn btn-light mb-0">
-                <FcGoogle size={16} className="fab fa-fw me-2" />
-                Continue with Google
-              </button>
-              <button type="button" className="btn btn-light mb-0">
-                <FaFacebookF size={16} className="fab fa-fw text-facebook me-2" />
-                Continue with Facebook
-              </button>
             </div>
 
             <div className="text-primary-hover text-body mt-3 text-center">
-              {' '}
-              Copyrights ©{currentYear} Booking. Build by{' '}
-              <a href={developedByLink} target="_blank" className="text-body">
+              Copyrights ©{currentYear} Kreyo{' '}
+              <a href={developedByLink} target="_blank" className="text-body" rel="noopener noreferrer">
                 StackBros
               </a>
-              .{' '}
+              .
             </div>
           </form>
         </div>

@@ -1,6 +1,6 @@
 import { Button, Card, Col, Container, Row } from 'react-bootstrap'
-import { BsEnvelope, BsGlobe2, BsHeadset, BsInboxesFill, BsPhone, BsTelephone } from 'react-icons/bs'
-import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa'
+import { BsEnvelope, BsGlobe2, BsHeadset, BsInboxesFill, BsPhone} from 'react-icons/bs'
+import { FaInstagram} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
 const Hero = () => {
@@ -29,12 +29,12 @@ const Hero = () => {
                   <div className="d-flex align-items-center">
                     {' '}
                     <BsPhone className=" me-2" />
-                    +123 456 789
+                    +230 59182520
                   </div>
                 </Button>
                 <Button variant="light" size="sm">
-                  <BsTelephone className=" me-2" />
-                  +(222)4567 586
+                  <BsPhone className=" me-2" />
+                  +230 59182520
                 </Button>
               </div>
             </Card>
@@ -48,7 +48,7 @@ const Hero = () => {
         
               <Link to="mailto:example@gmail.com" className="btn btn-link text-decoration-underline p-0 mb-0 items-center">
                 <BsEnvelope className=" me-1" />
-                example@gmail.com
+                zeko@gmail.com
               </Link>
             </Card>
           </Col>
@@ -67,22 +67,11 @@ const Hero = () => {
               <ul className="list-inline mb-0 items-center gap-">
                 <li className="list-inline-item">
                   {' '}
-                  <Link className="btn btn-sm bg-facebook p-2 mb-0 flex-centered" to="">
-                    <FaFacebookF className="fa-fw" />
-                  </Link>{' '}
-                </li>
-                <li className="list-inline-item">
-                  {' '}
                   <Link className="btn btn-sm bg-instagram p-2 mb-0 flex-centered" to="">
                     <FaInstagram />
                   </Link>{' '}
                 </li>
-                <li className="list-inline-item">
-                  {' '}
-                  <Link className="btn btn-sm bg-twitter p-2 mb-0 flex-centered" to="">
-                    <FaTwitter />
-                  </Link>{' '}
-                </li>
+                
                 <li className="list-inline-item">
                   {' '}
                  

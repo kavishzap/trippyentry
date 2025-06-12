@@ -56,7 +56,7 @@ const UserDashboard = () => {
                 onClick={() => setTab('booking')}
               >
                 <FaCalendarCheck className="me-2" />
-                My Booking
+                My Tickets
               </button>
               <button
                 className="list-group-item list-group-item-action text-danger"

@@ -1,7 +1,6 @@
 import { Col, Container, Image, Row } from 'react-bootstrap'
 import AvailabilityFilter from './AvailabilityFilter'
-
-import Cover from '@/assets/newImage/heroSection/image.png'
+import Cover from '@/assets/newImage/heroSection/pic3.jpg'
 
 const Hero = () => {
   return (
@@ -31,22 +30,24 @@ const Hero = () => {
             <Image src={Cover} className="rounded" />
 
             {/* Bottom Right - Only show on md and up */}
+      
             <figure className="position-absolute end-0 bottom-0 d-none d-md-block">
-              <div className="bg-blur border border-light rounded-3 text-center shadow-lg p-3">
+              <div className="bg-white border border-light rounded-3 text-center p-3" style={{ boxShadow: '0 1rem 2.5rem rgba(0, 0, 0, 0.25)' }}>
                 <div className="fs-2 my-2">🕺</div>
-                <h5 className="text-dark mb-1">Let’s Dance</h5>
+                <h5 className="text-dark mb-1">Let's Dance</h5>
                 <h6 className="text-dark fw-light small mb-0">Feel the Beat</h6>
               </div>
             </figure>
 
             {/* Top Right - Only show on md and up */}
             <div className="position-absolute top-0 end-0 z-index-1 mt-n4 d-none d-md-block">
-              <div className="bg-blur border border-light rounded-3 text-center shadow-lg p-3">
+              <div className="bg-white border border-light rounded-3 text-center p-3" style={{ boxShadow: '0 1rem 2.5rem rgba(0, 0, 0, 0.25)' }}>
                 <div className="fs-2 my-2">🎉</div>
                 <h5 className="text-dark mb-1">Non-Stop</h5>
                 <h6 className="text-dark fw-light small mb-0">Party Vibes</h6>
               </div>
             </div>
+
           </Col>
 
         </Row>

@@ -1,25 +1,25 @@
-import flatpickr from 'flatpickr'
-import { Options } from 'flatpickr/dist/types/options'
-import { useCallback, useEffect, useRef } from 'react'
+import flatpickr from 'flatpickr';
+import { Options } from 'flatpickr/dist/types/options';
+import { useCallback, useEffect, useRef } from 'react';
 
 type FlatpickrProps = {
-  className?: string
-  value?: Date | Date[]
-  options?: Options
-  placeholder?: string
-  getValue?: (date: Date | Date[]) => void
-}
+  className?: string;
+  value?: Date | Date[];
+  options?: Options;
+  placeholder?: string;
+  getValue?: (date: Date | Date[]) => void;
+};
 
 const Flatpicker = ({ className, options, placeholder, value, getValue }: FlatpickrProps) => {
-  const element = useRef<HTMLInputElement | null>(null)
+  const element = useRef<HTMLInputElement | null>(null);
 
   const handleDateChange = useCallback(
     (selectedDates: Date[]) => {
-      const newDate = selectedDates.length === 1 ? selectedDates[0] : selectedDates
-      getValue?.(newDate)
+      const newDate = selectedDates.length === 1 ? selectedDates[0] : selectedDates;
+      getValue?.(newDate);
     },
-    [getValue],
-  )
+    [getValue]
+  );
 
   useEffect(() => {
     if (element.current) {
@@ -27,15 +27,22 @@ const Flatpicker = ({ className, options, placeholder, value, getValue }: Flatpi
         defaultDate: value,
         ...options,
         onChange: (selectedDates) => handleDateChange(selectedDates),
-      })
+        appendTo: document.body, // ✅ This line ensures dropdown is not clipped
+      });
 
       return () => {
-        instance.destroy()
-      }
+        instance.destroy();
+      };
     }
-  }, [value, options, handleDateChange])
+  }, [value, options, handleDateChange]);
 
-    return <input ref={element} className={`form-control flatpickr ${className}`} placeholder={placeholder} />
-}
+  return (
+    <input
+      ref={element}
+      className={`form-control flatpickr ${className}`}
+      placeholder={placeholder}
+    />
+  );
+};
 
-export default Flatpicker
+export default Flatpicker;

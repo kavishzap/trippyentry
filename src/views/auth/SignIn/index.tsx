@@ -52,17 +52,18 @@ const SignIn = () => {
   return (
     <>
       <Col lg={6} className="d-flex align-items-center order-2 order-lg-1">
-        <div className="p-3 p-lg-5">
+        <div className="p-3">
           <img src={signInImg} />
         </div>
         <div className="vr opacity-1 d-none d-lg-block" />
       </Col>
 
-      <Col lg={6} className="order-1">
-        <div className="p-4 p-sm-7">
-          <Link to="/">
-            <img className="h-50px mb-4" src={logoIcon} alt="logo" />
-          </Link>
+      <Col lg={6} className="order-1 d-flex align-items-center">
+      <div className="p-4 p-sm-7 w-100" style={{ maxWidth: '100%', textAlign: 'center' }}>
+        {/* Centered Logo */}
+        <Link to="/" className="d-flex justify-content-center mb-4">
+          <img className="h-50px" src={logoIcon} alt="logo" />
+        </Link>
 
           <h1 className="mb-2 h3">Welcome back</h1>
           <p className="mb-0">
@@ -73,7 +74,7 @@ const SignIn = () => {
             <TextFormInput
               name="email"
               containerClass="mb-3"
-              label="Enter email id"
+              label="Enter Email"
               type="email"
               autoComplete="off"
               control={control}
@@ -82,7 +83,7 @@ const SignIn = () => {
             <PasswordFormInput
               name="password"
               containerClass="mb-3"
-              label="Enter password"
+              label="Enter Password"
               autoComplete="new-password"
               control={control}
             />

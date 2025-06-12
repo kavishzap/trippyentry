@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Card, Button, Form, Spinner } from 'react-bootstrap';
+import { Card, Button, Form, Spinner, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { supabase } from '@/lib/supabaseClient';
 import Swal from 'sweetalert2';
 import Flatpicker from '@/components/Flatpicker';
@@ -81,31 +81,40 @@ const MyProfile = () => {
     if (loading) {
         return (
             <div className="text-center py-5">
-                <Spinner animation="border" />
+                <Spinner animation="border" variant="primary" />
             </div>
         );
     }
 
     return (
-        <Card className="shadow-sm border-0 mb-5">
+        <Card className="shadow border-0 rounded-4 p-3">
             <Card.Body>
                 <div className="d-flex justify-content-between align-items-center mb-4">
-                    <h4 className="mb-0">My Profile</h4>
-                    {!editMode ? (
-                        <Button variant="outline-primary" onClick={() => setEditMode(true)}>
-                            Edit
+                    <h4 className="fw-bold mb-0 text-dark">My Profile</h4> {/* Changed to text-dark */}
+                    <OverlayTrigger
+                        overlay={
+                            <Tooltip>
+                                {editMode ? 'Save your changes' : 'Edit your profile'}
+                            </Tooltip>
+                        }
+                    >
+                        <Button
+                            variant={editMode ? 'success' : 'outline-primary'}
+                            onClick={editMode ? handleSave : () => setEditMode(true)}
+                            disabled={saving}
+                            className="px-4"
+                        >
+                            {saving ? 'Saving...' : editMode ? 'Save' : 'Edit'}
                         </Button>
-                    ) : (
-                        <Button variant="success" onClick={handleSave} disabled={saving}>
-                            {saving ? 'Saving...' : 'Save'}
-                        </Button>
-                    )}
+                    </OverlayTrigger>
                 </div>
 
                 <Form>
-                    <Form.Group className="row mb-3">
-                        <Form.Label className="col-sm-4 fw-semibold">First Name:</Form.Label>
-                        <div className="col-sm-8">
+                    <Row className="mb-3">
+                        <Form.Label column sm={4} className="fw-semibold text-muted">
+                            First Name:
+                        </Form.Label>
+                        <Col sm={8}>
                             {editMode ? (
                                 <Form.Control
                                     type="text"
@@ -113,14 +122,16 @@ const MyProfile = () => {
                                     onChange={(e) => handleChange('firstName', e.target.value)}
                                 />
                             ) : (
-                                <div>{userData.firstName}</div>
+                                <div className="pt-1">{userData.firstName}</div>
                             )}
-                        </div>
-                    </Form.Group>
+                        </Col>
+                    </Row>
 
-                    <Form.Group className="row mb-3">
-                        <Form.Label className="col-sm-4 fw-semibold">Last Name:</Form.Label>
-                        <div className="col-sm-8">
+                    <Row className="mb-3">
+                        <Form.Label column sm={4} className="fw-semibold text-muted">
+                            Last Name:
+                        </Form.Label>
+                        <Col sm={8}>
                             {editMode ? (
                                 <Form.Control
                                     type="text"
@@ -128,21 +139,25 @@ const MyProfile = () => {
                                     onChange={(e) => handleChange('lastName', e.target.value)}
                                 />
                             ) : (
-                                <div>{userData.lastName}</div>
+                                <div className="pt-1">{userData.lastName}</div>
                             )}
-                        </div>
-                    </Form.Group>
+                        </Col>
+                    </Row>
 
-                    <Form.Group className="row mb-3">
-                        <Form.Label className="col-sm-4 fw-semibold">Email:</Form.Label>
-                        <div className="col-sm-8">
-                            <div>{userData.email}</div>
-                        </div>
-                    </Form.Group>
+                    <Row className="mb-3">
+                        <Form.Label column sm={4} className="fw-semibold text-muted">
+                            Email:
+                        </Form.Label>
+                        <Col sm={8}>
+                            <div className="pt-1 text-secondary">{userData.email}</div>
+                        </Col>
+                    </Row>
 
-                    <Form.Group className="row mb-3">
-                        <Form.Label className="col-sm-4 fw-semibold">Date of Birth:</Form.Label>
-                        <div className="col-sm-8">
+                    <Row className="mb-3">
+                        <Form.Label column sm={4} className="fw-semibold text-muted">
+                            Date of Birth:
+                        </Form.Label>
+                        <Col sm={8}>
                             {editMode ? (
                                 <Flatpicker
                                     value={formValues.dob ? new Date(formValues.dob) : undefined}
@@ -156,14 +171,16 @@ const MyProfile = () => {
                                     }}
                                 />
                             ) : (
-                                <div>{userData.dob}</div>
+                                <div className="pt-1">{userData.dob}</div>
                             )}
-                        </div>
-                    </Form.Group>
+                        </Col>
+                    </Row>
 
-                    <Form.Group className="row mb-3">
-                        <Form.Label className="col-sm-4 fw-semibold">Address:</Form.Label>
-                        <div className="col-sm-8">
+                    <Row className="mb-3">
+                        <Form.Label column sm={4} className="fw-semibold text-muted">
+                            Address:
+                        </Form.Label>
+                        <Col sm={8}>
                             {editMode ? (
                                 <Form.Control
                                     as="textarea"
@@ -172,14 +189,16 @@ const MyProfile = () => {
                                     onChange={(e) => handleChange('address', e.target.value)}
                                 />
                             ) : (
-                                <div>{userData.address}</div>
+                                <div className="pt-1">{userData.address}</div>
                             )}
-                        </div>
-                    </Form.Group>
+                        </Col>
+                    </Row>
 
-                    <Form.Group className="row mb-3">
-                        <Form.Label className="col-sm-4 fw-semibold">Phone:</Form.Label>
-                        <div className="col-sm-8">
+                    <Row className="mb-3">
+                        <Form.Label column sm={4} className="fw-semibold text-muted">
+                            Phone:
+                        </Form.Label>
+                        <Col sm={8}>
                             {editMode ? (
                                 <Form.Control
                                     type="tel"
@@ -187,11 +206,10 @@ const MyProfile = () => {
                                     onChange={(e) => handleChange('phone', e.target.value)}
                                 />
                             ) : (
-                                <div>{userData.phone}</div>
+                                <div className="pt-1">{userData.phone}</div>
                             )}
-                        </div>
-                    </Form.Group>
-
+                        </Col>
+                    </Row>
                 </Form>
             </Card.Body>
         </Card>
