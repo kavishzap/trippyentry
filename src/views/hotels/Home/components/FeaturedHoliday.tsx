@@ -1,7 +1,7 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import { FaTicketAlt, FaShuttleVan, FaConciergeBell, FaHeadset, FaStar } from 'react-icons/fa'
 
-import bgImg5 from '@/assets/newImage/heroSection/photo-1533174072545-7a4b6ad7a6c3.jpg'
+import bgImg5 from '@/assets/newImage/heroSection//pic3.jpg'
 import avatar1 from '@/assets/images/avatar/01.jpg'
 import avatar2 from '@/assets/images/avatar/02.jpg'
 import avatar3 from '@/assets/images/avatar/03.jpg'

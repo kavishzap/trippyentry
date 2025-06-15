@@ -1,6 +1,5 @@
 import bgImg5 from '@/assets/newImage/heroSection/photo-1533174072545-7a4b6ad7a6c3.jpg'
 import { Col, Container, Row } from 'react-bootstrap'
-import AvailabilityFilter from '../components/AvailabilityFilter'
 
 const Hero = () => {
   return (
@@ -18,13 +17,16 @@ const Hero = () => {
           <Row className="my-2 my-xl-5">
             <Col md={8} className="mx-auto">
               <h1 className="text-center text-white">Events</h1>
-            </Col>
-          </Row>
-
-          {/* Centered Filter */}
-          <Row className="justify-content-center">
-            <Col md={10} lg={8}>
-              <AvailabilityFilter />
+              {/* <h1
+                className="text-center"
+                style={{
+                  color: 'white',
+                  WebkitTextStroke: '2px black',
+                  fontWeight: 'bold',
+                }}
+              >
+                Events
+              </h1> */}
             </Col>
           </Row>
         </div>
@@ -34,3 +36,4 @@ const Hero = () => {
 }
 
 export default Hero
+

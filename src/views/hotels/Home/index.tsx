@@ -9,22 +9,37 @@ import ActionBox from '@/views/tours/Home/components/ActionBox'
 const HotelHome = () => {
   return (
     <>
-
       <TopNavBar />
 
       <main>
-        
         <Hero />
-
-        <FeaturedHotels />
+        {/* <AvailabilityFilter /> */}
+        <div className="featured-hotels-wrapper">
+          <FeaturedHotels />
+        </div>
 
         <FeaturedHoliday />
 
-        <ActionBox/>
+        <ActionBox />
       </main>
 
       <FooterWithLinks />
 
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            .featured-hotels-wrapper {
+              margin-top: 0;
+            }
+
+            @media (max-width: 639px) {
+              .featured-hotels-wrapper {
+                margin-top: 8.5rem; /* Push down on mobile */
+              }
+            }
+          `,
+        }}
+      />
     </>
   )
 }

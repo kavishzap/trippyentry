@@ -22,6 +22,7 @@ type Concert = {
   concert_location_name: string
   concert_image: string
   price: number
+  minTicketPrice?: number
 }
 
 const ConcertLists = () => {
@@ -30,6 +31,7 @@ const ConcertLists = () => {
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const concertsPerPage = 4
+  const [filters, setFilters] = useState<{ priceRange?: string[] }>({})
 
   useEffect(() => {
     fetchConcerts()
@@ -37,20 +39,69 @@ const ConcertLists = () => {
 
   const fetchConcerts = async () => {
     setLoading(true)
-    const { data, error } = await supabase.from('concerts').select('*')
-    if (error) {
-      console.error('Error fetching concerts:', error.message)
-    } else {
-      setConcerts(data || [])
+    const { data: concertsData, error: concertsError } = await supabase
+      .from('concerts')
+      .select('*')
+
+    if (concertsError) {
+      console.error('Error fetching concerts:', concertsError.message)
+      setLoading(false)
+      return
     }
+
+    const enrichedConcerts = await Promise.all(
+      (concertsData || []).map(async (concert) => {
+        const { data: ticket } = await supabase
+          .from('tickets')
+          .select('price')
+          .eq('concert_id', concert.id)
+          .order('price', { ascending: true })
+          .limit(1)
+          .single()
+
+        return {
+          ...concert,
+          minTicketPrice: ticket?.price || 0, // fallback to 0 if no ticket
+        }
+      })
+    )
+
+    setConcerts(enrichedConcerts)
     setLoading(false)
   }
 
-  const totalPages = Math.ceil(concerts.length / concertsPerPage)
-  const paginatedConcerts = concerts.slice(
+  const filteredConcerts = concerts.filter((concert) => {
+    if (!filters.priceRange || filters.priceRange.length === 0) return true
+
+    const price = concert.minTicketPrice ?? 0
+
+    return filters.priceRange.some((range) => {
+      switch (range) {
+        case 'Up to Rs 500':
+          return price <= 500
+        case 'Rs 500 - Rs 1000':
+          return price > 500 && price <= 1000
+        case 'Rs 1000 - Rs 1500':
+          return price > 1000 && price <= 1500
+        case 'Rs 1500 - Rs 2000':
+          return price > 1500 && price <= 2000
+        case 'Rs 2000+':
+          return price > 2000
+        default:
+          return true
+      }
+    })
+  })
+
+
+
+  const paginatedConcerts = filteredConcerts.slice(
     (currentPage - 1) * concertsPerPage,
     currentPage * concertsPerPage
   )
+
+  const totalPages = Math.ceil(filteredConcerts.length / concertsPerPage)
+
 
   const goToPage = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -78,7 +129,7 @@ const ConcertLists = () => {
         <Row>
           <Col xl={4} xxl={3}>
             <div className="d-none d-xl-block">
-              <HotelListFilter />
+              <HotelListFilter onApplyFilter={setFilters} />
             </div>
             <Offcanvas
               placement="end"
@@ -95,7 +146,7 @@ const ConcertLists = () => {
                 </h5>
               </OffcanvasHeader>
               <OffcanvasBody className="flex-column p-3 p-xl-0">
-                <HotelListFilter />
+                <HotelListFilter onApplyFilter={setFilters} />
               </OffcanvasBody>
             </Offcanvas>
           </Col>

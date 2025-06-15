@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Card, Col, Container, Row, Spinner } from 'react-bootstrap';
+import { Card, Col, Container, Row } from 'react-bootstrap';
 import { BsGeoAlt, BsArrowRight } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/lib/supabaseClient';
+import { BsStars } from 'react-icons/bs';
+import { motion } from 'framer-motion';
+
 
 type Concert = {
   id: number;
@@ -54,13 +57,88 @@ const FeaturedHotels = () => {
     fetchConcertsWithTickets();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="text-center py-5">
-        <Spinner animation="border" />
-      </div>
-    );
-  }
+  const renderCard = (concert: Concert | undefined, index: number) => (
+    <Col key={concert?.id || index} sm={6} xl={3}>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.1, duration: 0.4 }}
+      >
+        <Card className="card-img-scale overflow-hidden bg-transparent h-100 mb-0">
+          <div
+            className="card-img-scale-wrapper rounded-3"
+            style={{
+              height: '350px',
+              overflow: 'hidden',
+              backgroundColor: concert ? 'transparent' : '#e9ecef',
+            }}
+          >
+            {concert ? (
+              <img
+                src={`data:image/jpeg;base64,${concert.concert_image}`}
+                className="card-img"
+                alt="concert image"
+                style={{ height: '100%', width: '100%', objectFit: 'cover' }}
+              />
+            ) : (
+              <div style={{ height: '100%', width: '100%' }} />
+            )}
+            <div className="position-absolute bottom-0 start-0 p-3">
+              {concert ? (
+                <div
+                  className="badge text-bg-dark fs-6 rounded-pill stretched-link d-flex text-truncate"
+                  style={{ maxWidth: '200px' }}
+                >
+                  <BsGeoAlt className="me-2" />
+                  <span className="text-truncate">{concert.concert_location_name}</span>
+                </div>
+              ) : (
+                <div
+                  className="bg-dark bg-opacity-25 rounded-pill"
+                  style={{ height: '1.5rem', width: '120px' }}
+                />
+              )}
+            </div>
+          </div>
+
+          <div className="card-img-scale-wrapper">
+            <h5 className="card-title mt-3 text-truncate" style={{ maxWidth: '100%' }}>
+              {concert ? (
+                <Link
+                  to={`/events/detail?id=${concert.id}`}
+                  className="stretched-link d-inline-block text-truncate"
+                  style={{ maxWidth: '100%' }}
+                >
+                  {concert.concert_name}
+                </Link>
+              ) : (
+                <div className="bg-secondary bg-opacity-25 rounded" style={{ height: '1.5rem', width: '80%' }} />
+              )}
+            </h5>
+
+            <div className="d-flex justify-content-between align-items-center mt-2">
+              {concert ? (
+                <>
+                  <h6 className="text-primary mb-0">
+                    <small className="fw-light">Starting at</small> Rs {concert.price}
+                  </h6>
+                  <button className="btn btn-sm btn-outline-primary">
+                    <BsArrowRight />
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div className="bg-secondary bg-opacity-10 rounded" style={{ height: '1.2rem', width: '50%' }} />
+                  <div className="btn btn-sm btn-outline-primary disabled placeholder">→</div>
+                </>
+              )}
+            </div>
+          </div>
+        </Card>
+      </motion.div>
+    </Col>
+  );
+
 
   return (
     <section>
@@ -70,68 +148,21 @@ const FeaturedHotels = () => {
             <h2 className="mb-0">Featured Events</h2>
           </Col>
         </Row>
+
         <Row className="gx-3 gy-3 gy-md-4">
-          {concerts.map((concert) => (
-            <Col key={concert.id} sm={6} xl={3}>
-              <Card className="card-img-scale overflow-hidden bg-transparent h-100 mb-0">
-                <div className="card-img-scale-wrapper rounded-3" style={{ height: '350px', overflow: 'hidden' }}>
-                  <img
-                    src={`data:image/jpeg;base64,${concert.concert_image}`}
-                    className="card-img"
-                    alt="concert image"
-                    style={{ height: '100%', width: '100%', objectFit: 'cover' }}
-                  />
-                  <div className="position-absolute bottom-0 start-0 p-3">
-                    <div className="badge text-bg-dark fs-6 rounded-pill stretched-link d-flex text-truncate" style={{ maxWidth: '200px' }}>
-                      <BsGeoAlt className="me-2" />
-                      <span className="text-truncate">{concert.concert_location_name}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="card-img-scale-wrapper">
-                  <h5 className="card-title mt-3 text-truncate" style={{ maxWidth: '100%' }}>
-                    <Link to={`/events/detail?id=${concert.id}`} className="stretched-link d-inline-block text-truncate" style={{ maxWidth: '100%' }}>
-                      {concert.concert_name}
-                    </Link>
-                  </h5>
-
-                  <div className="d-flex justify-content-between align-items-center mt-2">
-                    <h6 className="text-primary mb-0">
-                      <small className="fw-light">Starting at</small> Rs {concert.price}
-                    </h6>
-                    <button className="btn btn-sm btn-outline-primary">
-                      <BsArrowRight />
-                    </button>
-                  </div>
-                </div>
-              </Card>
-
-            </Col>
-          ))}
+          {(loading ? Array(4).fill(undefined) : concerts).map((concert, index) =>
+            renderCard(concert, index)
+          )}
         </Row>
 
         <Container className="position-relative mt-5">
           <div className="bg-light rounded-3 position-relative p-4 p-sm-5">
-            <figure className="position-absolute top-50 start-50 d-none d-lg-block translate-middle">
-              <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-25">
-                <defs>
-                  <radialGradient id="lightGlow" cx="0.5" cy="0.5" r="0.6">
-                    <stop offset="0%" stopColor="#00f2fe" />
-                    <stop offset="100%" stopColor="#4facfe" />
-                  </radialGradient>
-                </defs>
-                <circle cx="70" cy="70" r="60" fill="url(#lightGlow)" />
-                <path d="M40 70 L40 50 M50 70 L50 40 M60 70 L60 60 M70 70 L70 30 M80 70 L80 60 M90 70 L90 50 M100 70 L100 40" stroke="white" strokeWidth="4" strokeLinecap="round" />
-                <circle cx="70" cy="85" r="6" fill="white" />
-                <rect x="67" y="85" width="6" height="20" rx="2" fill="white" />
-              </svg>
-            </figure>
-
+            
             <Row className="align-items-center position-relative">
               <Col lg={8}>
-                <div className="d-flex">
-                  <h3>It's time to enjoy 🎉</h3>
+                <div className="d-flex align-items-center gap-2">
+                  <h3 className="mb-0">It's time to enjoy</h3>
+                  <BsStars size={28} className="text-primary" />
                 </div>
                 <p className="mb-3 mb-lg-0">
                   Ready for an unforgettable night? We bring you the hottest concerts and live shows across Mauritius — all tailored to your vibe and budget!

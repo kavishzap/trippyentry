@@ -1,5 +1,6 @@
 import { Col, Container, Image, Row } from 'react-bootstrap'
-
+import { motion, AnimatePresence } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import element6 from '@/assets/images/element/06.svg'
 import element7 from '@/assets/images/element/07.svg'
 import element8 from '@/assets/images/element/08.svg'
@@ -8,7 +9,22 @@ import poster2 from '@/assets/images/about/Poster2.jpeg'
 import poster3 from '@/assets/images/about/Poster3.jpeg'
 
 
+const posters = [
+  { id: 1, src: poster1 },
+  { id: 2, src: poster2 },
+  { id: 3, src: poster3 },
+]
+
 const Hero = () => {
+  const [order, setOrder] = useState(posters)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setOrder((prev) => [prev[2], prev[0], prev[1]])
+    }, 2500)
+
+    return () => clearInterval(interval)
+  }, [])
   return (
     <section className="position-relative py-5">
       <Container>
@@ -37,12 +53,29 @@ const Hero = () => {
 
 
 
+        {/* Posters with Framer Motion */}
         <Row className="justify-content-center mt-8">
           <Col md={10} className="position-relative">
             <div className="image-carousel-static">
-              <Image src={poster1} className="carousel-img back left" />
-              <Image src={poster2} className="carousel-img back right" />
-              <Image src={poster3} className="carousel-img front" />
+              <AnimatePresence>
+                {order.map((poster, index) => (
+                  <motion.img
+                    key={poster.id}
+                    src={poster.src}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{
+                      opacity: 1,
+                      scale: index === 1 ? 1.1 : 0.9,
+                      rotate: index === 0 ? -6 : index === 2 ? 6 : 0,
+                      x: index === 0 ? -180 : index === 2 ? 180 : 0,
+                      zIndex: index === 1 ? 3 : 1,
+                    }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.6 }}
+                    className="carousel-img"
+                  />
+                ))}
+              </AnimatePresence>
             </div>
           </Col>
         </Row>
