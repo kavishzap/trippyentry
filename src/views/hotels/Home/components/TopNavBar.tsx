@@ -33,7 +33,7 @@ const TopNavBar = () => {
       })}
     >
       <Navbar expand="xl">
-        <Container>
+        <Container className=''>
           <LogoBox />
 
           <button

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const Hero = () => {
   return (
-    <section className="pt-4 pt-md-5">
+    <section className="pt-4 pt-md-5 mb-5">
       <Container>
         <Row className="mb-5">
           <Col xl={10}>

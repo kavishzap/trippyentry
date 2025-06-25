@@ -38,45 +38,48 @@ const UserDashboard = () => {
 
   return (
     <>
-      <TopNavBar />
+      <div className="d-flex flex-column min-vh-100">
+        <TopNavBar />
 
-      <main className="container py-5">
-        <div className="row">
-          <div className="col-md-3 mb-4">
-            <div className="list-group">
-              <button
-                className={`list-group-item list-group-item-action ${tab === 'profile' ? 'active' : ''}`}
-                onClick={() => setTab('profile')}
-              >
-                <FaUser className="me-2" />
-                My Profile
-              </button>
-              <button
-                className={`list-group-item list-group-item-action ${tab === 'booking' ? 'active' : ''}`}
-                onClick={() => setTab('booking')}
-              >
-                <FaCalendarCheck className="me-2" />
-                My Tickets
-              </button>
-              <button
-                className="list-group-item list-group-item-action text-danger"
-                onClick={handleSignOut}
-              >
-                <FaSignOutAlt className="me-2" />
-                Sign Out
-              </button>
+        <main className="container py-5 flex-grow-1">
+          <div className="row">
+            <div className="col-md-3 mb-4">
+              <div className="list-group">
+                <button
+                  className={`list-group-item list-group-item-action ${tab === 'profile' ? 'active' : ''}`}
+                  onClick={() => setTab('profile')}
+                >
+                  <FaUser className="me-2" />
+                  My Profile
+                </button>
+                <button
+                  className={`list-group-item list-group-item-action ${tab === 'booking' ? 'active' : ''}`}
+                  onClick={() => setTab('booking')}
+                >
+                  <FaCalendarCheck className="me-2" />
+                  My Tickets
+                </button>
+                <button
+                  className="list-group-item list-group-item-action text-danger"
+                  onClick={handleSignOut}
+                >
+                  <FaSignOutAlt className="me-2" />
+                  Sign Out
+                </button>
+              </div>
+            </div>
+
+            <div className="col-md-9 mb-5">
+              {tab === 'profile' && <MyProfile />}
+              {tab === 'booking' && <MyBookings />}
             </div>
           </div>
+        </main>
 
-          <div className="col-md-9 mb-5">
-            {tab === 'profile' && <MyProfile />}
-            {tab === 'booking' && <MyBookings />}
-          </div>
-        </div>
-      </main>
-
-      <FooterWithLinks />
+        <FooterWithLinks />
+      </div>
     </>
+
   );
 };
 
