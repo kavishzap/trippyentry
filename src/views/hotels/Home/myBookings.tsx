@@ -44,6 +44,15 @@ const MyBookings = () => {
     fetchBookings();
   }, []);
 
+  const hashString = async (input: string): Promise<string> => {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(input);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(hashBuffer))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  };
+
   const fetchBookings = async () => {
     setLoading(true);
     const email = localStorage.getItem('zeko_username');
@@ -218,8 +227,9 @@ const MyBookings = () => {
 
 
       // QR Code
-      const qrValue = `TICKET-${booking.id}`
-      const qrDataUrl = await QRCode.toDataURL(qrValue)
+      const rawQrValue = `TICKET-${booking.id}`;
+      const hashedQrValue = await hashString(rawQrValue); // ✅ secure hash
+      const qrDataUrl = await QRCode.toDataURL(hashedQrValue);
       doc.addImage(qrDataUrl, 'PNG', pageWidth - 50, y - 12, 30, 30)
 
       // Booking Details
@@ -240,11 +250,6 @@ const MyBookings = () => {
 
       // Tickets
       y += 10
-      doc.setFont('helvetica', 'bold')
-      doc.text('Tickets:', margin, y)
-      doc.setFont('helvetica', 'normal')
-      y += 6
-
       const { data: ticketData } = await supabase
         .from('tickets')
         .select('id, ticket_name')
