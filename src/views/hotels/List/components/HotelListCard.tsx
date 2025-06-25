@@ -79,7 +79,7 @@ const HotelListCard = ({ hotel }: { hotel: Concert }) => {
               <h6 className="fw-bold mb-1" style={{ fontSize: '1rem' }}>
                 <Link
                   to={`/events/detail?id=${concertId}`}
-                  className="text-dark text-decoration-none"
+                  className="text-decoration-none text-body dark:text-light"
                 >
                   {concert_name}
                 </Link>
@@ -107,12 +107,12 @@ const HotelListCard = ({ hotel }: { hotel: Concert }) => {
               </Dropdown>
             </div>
 
-            <small className="text-black d-flex align-items-center mb-1">
+            <small className="text-body d-flex align-items-center mb-1">
               <BsGeoAlt className="me-2" size={14} />
               {concert_location_name}
             </small>
 
-            <small className="text-black d-flex align-items-center mb-2">
+            <small className="text-body d-flex align-items-center mb-2">
               <BsCalendar className="me-2" size={14} />
               {concert_date}
             </small>

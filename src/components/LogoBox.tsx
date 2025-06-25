@@ -2,7 +2,7 @@ import { NavbarBrand } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 
-import logoLightSvg from '@/assets/newImage/heroSection/white logo.png'
+import logoLightSvg from '@/assets/newImage/heroSection/ZEKO_LOGO_WHITE-11-10-11-removebg-preview (1) 1.png'
 import logoSvg from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png'
 
 type LogoBoxType = {
