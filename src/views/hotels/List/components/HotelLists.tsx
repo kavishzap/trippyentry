@@ -162,8 +162,8 @@ const ConcertLists = () => {
 
               {/* Pagination */}
               <nav className="d-flex justify-content-center" aria-label="navigation">
-                <ul className="pagination d-inline-block d-md-flex rounded mb-0">
-                  <li className={`page-item mb-0 ${currentPage === 1 ? 'disabled' : ''}`}>
+                <ul className="pagination d-flex flex-wrap justify-content-center gap-3 mb-0">
+                  <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
                     <button className="page-link" onClick={() => goToPage(currentPage - 1)}>
                       <FaAngleLeft />
                     </button>
@@ -172,7 +172,7 @@ const ConcertLists = () => {
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
                     <li
                       key={pageNum}
-                      className={`page-item mb-0 ${currentPage === pageNum ? 'active' : ''}`}
+                      className={`page-item ${currentPage === pageNum ? 'active' : ''}`}
                     >
                       <button className="page-link" onClick={() => goToPage(pageNum)}>
                         {pageNum}
@@ -180,13 +180,14 @@ const ConcertLists = () => {
                     </li>
                   ))}
 
-                  <li className={`page-item mb-0 ${currentPage === totalPages ? 'disabled' : ''}`}>
+                  <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
                     <button className="page-link" onClick={() => goToPage(currentPage + 1)}>
                       <FaAngleRight />
                     </button>
                   </li>
                 </ul>
               </nav>
+
             </div>
           </Col>
         </Row>

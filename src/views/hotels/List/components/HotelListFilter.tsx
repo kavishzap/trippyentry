@@ -29,10 +29,12 @@ const HotelListFilter = ({ onApplyFilter }: HotelListFilterProps) => {
     onApplyFilter(selected)
   }
 
-
   return (
-    <form className="rounded-3 shadow bg-white" ref={formRef} onSubmit={handleFilter}>
-
+    <form
+      className="rounded-3 shadow bg-body text-body dark:bg-dark dark:text-light"
+      ref={formRef}
+      onSubmit={handleFilter}
+    >
       {/* Price Range Filter */}
       <CardBody className="rounded-0 p-4 border-0">
         <h5 className="mb-3 fw-semibold">Price Range</h5>
@@ -45,7 +47,13 @@ const HotelListFilter = ({ onApplyFilter }: HotelListFilterProps) => {
             { id: 'priceRange5', label: `${currency} 2000+` },
           ].map(({ id, label }) => (
             <div className="form-check" key={id}>
-              <input className="form-check-input" type="checkbox" id={id} name="priceRange" value={label} />
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id={id}
+                name="priceRange"
+                value={label}
+              />
               <label className="form-check-label" htmlFor={id}>
                 {label}
               </label>
@@ -58,7 +66,7 @@ const HotelListFilter = ({ onApplyFilter }: HotelListFilterProps) => {
       <CardBody className="rounded-0 rounded-bottom p-4 border-0">
         <Row className="gap-2">
           <Col>
-            <Button variant="secondary" className="w-100" onClick={handleClearAll}>
+            <Button variant="outline-secondary" className="w-100" onClick={handleClearAll}>
               Clear
             </Button>
           </Col>
