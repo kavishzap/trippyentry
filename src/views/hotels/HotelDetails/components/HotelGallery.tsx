@@ -76,6 +76,7 @@ const ConcertDetailPage = () => {
       console.error('Failed to fetch concert:', error.message)
     } else {
       setConcert(data)
+      console.log('concert_google_map_link:', data.concert_google_map_link) // ✅ Add this line
     }
     setLoading(false)
   }
