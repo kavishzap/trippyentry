@@ -6,18 +6,24 @@ import { supabase } from '@/lib/supabaseClient';
 import { FaTicketAlt, FaMicrophoneAlt, FaMoneyBillWave, FaFileInvoice } from 'react-icons/fa'
 import bannerImg from '@/assets/newImage/heroSection/Group 36.png';
 
-const toBase64 = (url: string): Promise<string> =>
-  fetch(url)
-    .then((res) => res.blob())
-    .then(
-      (blob) =>
-        new Promise((resolve, reject) => {
-          const reader = new FileReader()
-          reader.onloadend = () => resolve(reader.result as string)
-          reader.onerror = reject
-          reader.readAsDataURL(blob)
-        })
-    )
+const toBase64 = (url: string, width = 600): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = url;
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const scaleFactor = width / img.width;
+      canvas.width = width;
+      canvas.height = img.height * scaleFactor;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return reject("No canvas context");
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL("image/jpeg", 0.6)); // JPEG + 60% quality
+    };
+    img.onerror = reject;
+  });
+
 
 type Booking = {
   tickets: {
