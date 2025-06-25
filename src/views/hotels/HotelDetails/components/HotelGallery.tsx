@@ -168,29 +168,30 @@ const ConcertDetailPage = () => {
           <Col lg={8}>
             <h1 className="fs-3 fs-lg-2 fw-bold">{concert.concert_name}</h1>
 
-            <p className="fw-semibold d-flex flex-wrap align-items-center text-black mb-2">
+            <p className="fw-semibold d-flex flex-wrap align-items-center text-body mb-2">
               <BsGeoAlt className="me-2" />
               {concert.concert_location_name}
               <Link
                 to="#"
                 onClick={toggle}
-                className="ms-3 text-decoration-underline d-flex align-items-center"
+                className="ms-3 text-decoration-underline d-flex align-items-center text-primary"
               >
                 <BsEyeFill className="me-1" /> View On Map
               </Link>
             </p>
 
             <div className="d-flex flex-column flex-sm-row gap-2 gap-sm-4 flex-wrap">
-              <span className="d-flex align-items-center text-black">
+              <span className="d-flex align-items-center text-body">
                 <BsCalendarEvent className="me-2" />
                 <strong className="me-1">Date:</strong> {concert.concert_date}
               </span>
-              <span className="d-flex align-items-center text-black">
+              <span className="d-flex align-items-center text-body">
                 <BsClock className="me-2" />
                 <strong className="me-1">Time:</strong> {concert.concert_start_time} – {concert.concert_end_time}
               </span>
             </div>
           </Col>
+
 
           <Col lg={4} className="text-lg-end mt-3 mt-lg-0">
             <Dropdown>
@@ -255,10 +256,11 @@ const ConcertDetailPage = () => {
                     >
                       <div>
                         <h6 className="mb-1">{ticket.ticket_type}</h6>
-                        <small className="fw-semibold text-black">
+                        <small className="fw-semibold text-body">
                           Price: Rs {ticket.price} | {ticket.ticket_name}
                         </small>
                       </div>
+
                       <div className="d-flex align-items-center">
                         <Button
                           size="sm"
@@ -375,21 +377,23 @@ const ConcertDetailPage = () => {
 
           <Col md={6}>
             <h4 className="mb-3">About This Event</h4>
-            <p className="text-black" style={{ whiteSpace: 'pre-line' }}>
+            <p className="text-body" style={{ whiteSpace: 'pre-line' }}>
               {showFullDescription
                 ? concert.concert_description
                 : concert.concert_description.length > 250
                   ? `${concert.concert_description.substring(0, 250)}...`
                   : concert.concert_description}
             </p>
+
             {concert.concert_description.length > 250 && (
               <button
                 onClick={() => setShowFullDescription(!showFullDescription)}
-                className="btn btn-link p-0"
+                className="btn btn-link p-0 text-primary"
               >
                 {showFullDescription ? 'Show Less' : 'See More'}
               </button>
             )}
+
 
             <Card className="bg-transparent mt-4 mb-6">
               <CardHeader className="border-bottom bg-transparent px-0 pt-0">
@@ -436,11 +440,12 @@ const ConcertDetailPage = () => {
                           {index + 1}
                         </div>
                       </div>
-                      <div className="text-black">{step}</div>
+                      <div className="text-body">{step}</div>
                     </li>
                   ))}
                 </ul>
               </CardBody>
+
             </Card>
 
           </Col>
