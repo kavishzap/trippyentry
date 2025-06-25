@@ -104,6 +104,9 @@ const UserDashboard = lazy(() => import('@/views/hotels/Home/userDashboard'))
 
 const PaymentScreen = lazy(() => import('@/views/hotels/HotelDetails/paymentSreen'))
 
+
+const ResetPassword = lazy(() => import('@/views/auth/ForgotPassword/ResetPassword'))
+
 const hotelRoutes: RoutesProps[] = [
   {
     path: '/',
@@ -129,6 +132,11 @@ const hotelRoutes: RoutesProps[] = [
     path: '/hotels/chain',
     name: 'hotels.chain',
     element: <HotelsChain />,
+  },
+   {
+    path: '/auth/reset-password',
+    name: 'hotels.reset-password',
+    element: <ResetPassword />,
   },
   {
     path: '/hotels/resort',

@@ -11,7 +11,7 @@ import { supabase } from '@/lib/supabaseClient'
 
 import forgotPassImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025, 04_13_51 PM.png'
 import logoIcon from '@/assets/newImage/heroSection/black logo.png'
-import { developedByLink, currentYear } from '@/states'
+import { currentYear } from '@/states'
 
 type ForgotPasswordForm = {
   email: string
@@ -68,9 +68,9 @@ const ForgotPassword = () => {
             <img className="h-50px" src={logoIcon} alt="logo" />
           </Link>
 
-         <h1 className="mb-2 h3" style={{ whiteSpace: 'nowrap' }}>
-          Forgot your password?
-        </h1>
+          <h1 className="mb-2 h3" style={{ whiteSpace: 'nowrap' }}>
+            Forgot your password?
+          </h1>
 
           <p className="mb-0">Enter the email associated with your account.</p>
 
@@ -102,10 +102,6 @@ const ForgotPassword = () => {
 
             <div className="text-primary-hover text-body mt-3 text-center">
               Copyrights ©{currentYear} Kreyo{' '}
-              <a href={developedByLink} target="_blank" className="text-body" rel="noopener noreferrer">
-                StackBros
-              </a>
-              .
             </div>
           </form>
         </div>
