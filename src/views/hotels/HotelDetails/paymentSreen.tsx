@@ -105,9 +105,10 @@ const HotelDetails = () => {
                                 <Link to="/" className="btn btn-outline-primary">
                                     Go to Homepage
                                 </Link>
-                                <Link to="/userDashboard" className="btn btn-primary">
+                                <Link to="/userDashboard?tab=booking" className="btn btn-primary">
                                     View My Bookings
                                 </Link>
+
                             </div>
 
 

@@ -63,9 +63,14 @@ const HotelListCard = ({ hotel }: { hotel: Concert }) => {
           <Image
             src={base64Image}
             alt={concert_name}
-            style={{ width: '100%', height: '180px', objectFit: 'cover' }}
+            style={{
+              width: '100%',
+              height: window.innerWidth < 576 ? 'auto' : '180px',
+              objectFit: window.innerWidth < 576 ? 'contain' : 'cover',
+            }}
             className="rounded-2"
           />
+
         </Col>
 
         <Col md={8}>

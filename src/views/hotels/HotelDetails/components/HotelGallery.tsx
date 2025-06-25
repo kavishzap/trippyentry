@@ -21,7 +21,6 @@ import {
   BsCalendarEvent,
   BsClock,
   BsEyeFill,
-  BsFullscreen,
   BsGeoAlt,
   BsPinMapFill,
   BsCheckCircleFill,
@@ -214,25 +213,33 @@ const ConcertDetailPage = () => {
 
         <Row className="g-4 align-items-start">
           <Col md={6}>
-            <Card
-              className="card-grid-lg card-element-hover overflow-hidden"
-              style={{
-                backgroundImage: `url(${base64Image})`,
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                minHeight: cardHeight,
-                cursor: 'default' // optional: avoid pointer cursor
-              }}
-            >
-              <div className="hover-element position-absolute w-100 h-100">
-                <BsFullscreen
-                  size={28}
-                  className="fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"
+            {window.innerWidth < 576 ? (
+              <Card className="overflow-hidden">
+                <img
+                  src={base64Image}
+                  alt="concert image"
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    display: 'block',
+                    borderRadius: '0.5rem'
+                  }}
                 />
-              </div>
-            </Card>
-
-
+              </Card>
+            ) : (
+              <Card
+                className="card-grid-lg card-element-hover overflow-hidden"
+                style={{
+                  backgroundImage: `url(${base64Image})`,
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'cover',
+                  minHeight: cardHeight,
+                  backgroundColor: '#000',
+                  cursor: 'default'
+                }}
+              />
+            )}
             {/* TICKETS SECTION */}
             {tickets.length > 0 && (
               <Card className="mt-4">

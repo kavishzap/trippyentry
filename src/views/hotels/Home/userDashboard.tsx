@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';;
 import Swal from 'sweetalert2';
 import { FaUser, FaCalendarCheck, FaSignOutAlt } from 'react-icons/fa';
 
@@ -9,6 +9,7 @@ import MyProfile from './userProfile';
 import MyBookings from './myBookings';
 
 const UserDashboard = () => {
+  const location = useLocation();
   const [tab, setTab] = useState<'profile' | 'booking'>('profile');
   const navigate = useNavigate();
 
@@ -17,7 +18,14 @@ const UserDashboard = () => {
     if (!username) {
       navigate('/auth/sign-in');
     }
-  }, [navigate]);
+
+    // Read tab from URL
+    const query = new URLSearchParams(location.search);
+    const tabParam = query.get('tab');
+    if (tabParam === 'booking' || tabParam === 'profile') {
+      setTab(tabParam);
+    }
+  }, [location.search, navigate]);
 
   const handleSignOut = async () => {
     const result = await Swal.fire({
@@ -75,8 +83,10 @@ const UserDashboard = () => {
             </div>
           </div>
         </main>
+        <main>
+          <FooterWithLinks />
+        </main>
 
-        <FooterWithLinks />
       </div>
     </>
 

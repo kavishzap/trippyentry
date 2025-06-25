@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
-import { BsGeoAlt, BsArrowRight } from 'react-icons/bs';
+import { BsArrowRight } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/lib/supabaseClient';
 import { BsStars } from 'react-icons/bs';
@@ -68,7 +68,7 @@ const FeaturedHotels = () => {
           <div
             className="card-img-scale-wrapper rounded-3"
             style={{
-              height: '350px',
+              height: window.innerWidth < 576 ? 'auto' : '350px',
               overflow: 'hidden',
               backgroundColor: concert ? 'transparent' : '#e9ecef',
             }}
@@ -76,31 +76,34 @@ const FeaturedHotels = () => {
             {concert ? (
               <img
                 src={`data:image/jpeg;base64,${concert.concert_image}`}
-                className="card-img"
                 alt="concert image"
-                style={{ height: '100%', width: '100%', objectFit: 'cover' }}
+                style={{
+                  width: '100%',
+                  height: window.innerWidth < 576 ? 'auto' : '100%',
+                  objectFit: window.innerWidth < 576 ? 'contain' : 'cover',
+                  display: 'block',
+                  borderRadius: '0.5rem',
+                }}
               />
             ) : (
               <div style={{ height: '100%', width: '100%' }} />
             )}
-            <div className="position-absolute bottom-0 start-0 p-3">
-              {concert ? (
-                <div
-                  className="badge text-bg-dark fs-6 rounded-pill stretched-link d-flex text-truncate"
-                  style={{ maxWidth: '200px' }}
-                >
-                  <BsGeoAlt className="me-2" />
-                  <span className="text-truncate">{concert.concert_location_name}</span>
-                </div>
-              ) : (
-                <div
-                  className="bg-dark bg-opacity-25 rounded-pill"
-                  style={{ height: '1.5rem', width: '120px' }}
-                />
-              )}
-            </div>
           </div>
 
+          {/* Location badge */}
+          {/* {concert && (
+            <div className="mt-2">
+              <div
+                className="badge text-bg-dark fs-6 rounded-pill d-flex text-truncate"
+                style={{ maxWidth: '200px' }}
+              >
+                <BsGeoAlt className="me-2" />
+                <span className="text-truncate">{concert.concert_location_name}</span>
+              </div>
+            </div>
+          )} */}
+
+          {/* Title & Price */}
           <div className="card-img-scale-wrapper">
             <h5 className="card-title mt-3 text-truncate" style={{ maxWidth: '100%' }}>
               {concert ? (
@@ -112,7 +115,10 @@ const FeaturedHotels = () => {
                   {concert.concert_name}
                 </Link>
               ) : (
-                <div className="bg-secondary bg-opacity-25 rounded" style={{ height: '1.5rem', width: '80%' }} />
+                <div
+                  className="bg-secondary bg-opacity-25 rounded"
+                  style={{ height: '1.5rem', width: '80%' }}
+                />
               )}
             </h5>
 
@@ -128,13 +134,17 @@ const FeaturedHotels = () => {
                 </>
               ) : (
                 <>
-                  <div className="bg-secondary bg-opacity-10 rounded" style={{ height: '1.2rem', width: '50%' }} />
+                  <div
+                    className="bg-secondary bg-opacity-10 rounded"
+                    style={{ height: '1.2rem', width: '50%' }}
+                  />
                   <div className="btn btn-sm btn-outline-primary disabled placeholder">→</div>
                 </>
               )}
             </div>
           </div>
         </Card>
+
       </motion.div>
     </Col>
   );
