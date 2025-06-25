@@ -9,6 +9,7 @@ import signInImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025,
 import logoIcon from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png';
 import { currentYear } from '@/states';
 import { supabase } from '@/lib/supabaseClient';
+import logoIcon1 from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png'
 
 type FormValues = {
   firstName: string;
@@ -141,9 +142,21 @@ const SignUp = () => {
 
               {/* Centered logo container */}
               <div className="d-flex justify-content-center mb-3" style={{ width: '100%' }}>
-                <Link to="/">
-                  <img className="h-30px" src={logoIcon} alt="logo" />
+                <Link to="/" className="d-flex justify-content-center mb-4">
+                  {/* Light logo */}
+                  <img
+                    src={logoIcon}
+                    alt="logo"
+                    className="h-40px d-block dark-hide"
+                  />
+                  {/* Dark logo */}
+                  <img
+                    src={logoIcon1}
+                    alt="dark logo"
+                    className="h-40px d-none dark-show"
+                  />
                 </Link>
+
               </div>
 
               {/* Centered heading */}
@@ -209,7 +222,7 @@ const SignUp = () => {
                   {loading ? 'Signing up...' : 'Sign up'}
                 </button>
 
-                
+
                 {/* Centered copyright */}
                 <div
                   className="text-primary-hover text-body small text-center d-flex justify-content-center"

@@ -9,6 +9,7 @@ import { supabase } from '@/lib/supabaseClient'
 import signInImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025, 04_13_51 PM.png'
 import logoIcon from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png'
 import { developedByLink, currentYear } from '@/states'
+import logoIcon1 from '@/assets/newImage/heroSection/ZEKO_LOGO_WHITE-11-10-11-removebg-preview (1) 1.png'
 
 type SignInForm = {
   email: string
@@ -69,8 +70,20 @@ const SignIn = () => {
         <div className="p-4 p-sm-7 w-100" style={{ maxWidth: '100%', textAlign: 'center' }}>
           {/* Centered Logo */}
           <Link to="/" className="d-flex justify-content-center mb-4">
-            <img className="h-40px" src={logoIcon} alt="logo" />
+            {/* Light logo */}
+            <img
+              src={logoIcon}
+              alt="logo"
+              className="h-40px d-block dark-hide"
+            />
+            {/* Dark logo */}
+            <img
+              src={logoIcon1}
+              alt="dark logo"
+              className="h-40px d-none dark-show"
+            />
           </Link>
+
 
           <h1 className="mb-2 h3">Welcome back</h1>
           <p className="mb-0">

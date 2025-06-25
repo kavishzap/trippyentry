@@ -12,6 +12,8 @@ import { supabase } from '@/lib/supabaseClient'
 import signInImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025, 04_13_51 PM.png'
 import logoIcon from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png'
 import { developedByLink, currentYear } from '@/states'
+import logoIcon1 from '@/assets/newImage/heroSection/ZEKO_LOGO_WHITE-11-10-11-removebg-preview (1) 1.png'
+
 
 type ResetPasswordForm = {
   password: string
@@ -81,10 +83,10 @@ const ResetPassword = () => {
             style={{ borderRight: '1px solid rgba(0, 0, 0, 0.05)' }}  // Light pale gray border
           >
             <div className="p-3 text-center w-100">
-              <img 
-                src={signInImg} 
-                style={{ maxWidth: '400px', width: '200%' }} 
-                alt="Reset Password Illustration" 
+              <img
+                src={signInImg}
+                style={{ maxWidth: '400px', width: '200%' }}
+                alt="Reset Password Illustration"
                 className="img-fluid"
               />
             </div>
@@ -95,9 +97,21 @@ const ResetPassword = () => {
             <div className="p-4 p-sm-5 w-100" style={{ maxWidth: '450px' }}>
               {/* Logo */}
               <div className="text-center mb-4">
-                <Link to="/">
-                  <img style={{height:'50px'}} src={logoIcon} alt="logo" />
+                <Link to="/" className="d-flex justify-content-center mb-4">
+                  {/* Light logo */}
+                  <img
+                    src={logoIcon}
+                    alt="logo"
+                    className="h-40px d-block dark-hide"
+                  />
+                  {/* Dark logo */}
+                  <img
+                    src={logoIcon1}
+                    alt="dark logo"
+                    className="h-40px d-none dark-show"
+                  />
                 </Link>
+
               </div>
               {/* Title */}
               <h1 className="text-center mb-3 fs-3">Set New Password</h1>
@@ -122,24 +136,24 @@ const ResetPassword = () => {
                   control={control}
                 />
 
-                <button 
-                  type="submit" 
-                  className="btn btn-primary w-100 py-2 mb-3" 
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100 py-2 mb-3"
                   disabled={loading}
                 >
                   {loading ? 'Updating...' : 'Set Password'}
                 </button>
 
-               <div className="position-relative my-4">
-                  <hr className="my-4" style={{ borderTop: '5px solid #fff', opacity:1}}/>
+                <div className="position-relative my-4">
+                  <hr className="my-4" style={{ borderTop: '5px solid #fff', opacity: 1 }} />
                 </div>
 
                 <div className="text-center text-muted small">
                   Copyrights ©{currentYear} zeko.com{' '}
-                  <a 
-                    href={developedByLink} 
-                    target="_blank" 
-                    className="text-body" 
+                  <a
+                    href={developedByLink}
+                    target="_blank"
+                    className="text-body"
                     rel="noopener noreferrer"
                   >
                     StackBros

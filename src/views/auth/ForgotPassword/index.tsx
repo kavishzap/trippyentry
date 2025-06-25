@@ -12,6 +12,8 @@ import { supabase } from '@/lib/supabaseClient'
 import forgotPassImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025, 04_13_51 PM.png'
 import logoIcon from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png'
 import { currentYear } from '@/states'
+import logoIcon1 from '@/assets/newImage/heroSection/ZEKO_LOGO_WHITE-11-10-11-removebg-preview (1) 1.png'
+
 
 type ForgotPasswordForm = {
   email: string
@@ -63,10 +65,21 @@ const ForgotPassword = () => {
 
       <Col lg={6} className="order-1 d-flex align-items-center">
         <div className="p-4 p-sm-7 w-100" style={{ maxWidth: '100%', textAlign: 'center' }}>
-          {/* Logo Centered */}
           <Link to="/" className="d-flex justify-content-center mb-4">
-            <img className="h-50px" src={logoIcon} alt="logo" />
+            {/* Light logo */}
+            <img
+              src={logoIcon}
+              alt="logo"
+              className="h-40px d-block dark-hide"
+            />
+            {/* Dark logo */}
+            <img
+              src={logoIcon1}
+              alt="dark logo"
+              className="h-40px d-none dark-show"
+            />
           </Link>
+
 
           <h1 className="mb-2 h3" style={{ whiteSpace: 'nowrap' }}>
             Forgot your password?
