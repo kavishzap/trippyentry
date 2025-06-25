@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Row, Card } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 
 import { PasswordFormInput } from '@/components'
 import { supabase } from '@/lib/supabaseClient'
 
-import forgotPassImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025, 04_13_51 PM.png'
+import signInImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025, 04_13_51 PM.png'
 import logoIcon from '@/assets/newImage/heroSection/black logo.png'
 import { developedByLink, currentYear } from '@/states'
 
@@ -23,7 +23,7 @@ const schema = yup.object({
     .string()
     .required('Password is required')
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/,
+      /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?#&])[A-Za-z\d@$!%?#&]{8,}$/,
       'Password must be at least 8 characters and include upper/lowercase, number, and special character'
     ),
   confirmPassword: yup
@@ -71,55 +71,44 @@ const ResetPassword = () => {
   })
 
   return (
-    <div
-      className="w-100"
-      style={{ maxWidth: '100vw', overflowX: 'hidden', boxSizing: 'border-box' }}
-    >
-      <Container fluid className="px-0 mx-0">
-        <Row className="g-0 w-100" style={{ marginRight: 0 }}>
-          <Col lg={6} className="d-md-flex align-items-center order-2 order-lg-1">
-            <div className="p-2">
-              <img
-                src={forgotPassImg}
-                className="img-fluid"
-                style={{ maxHeight: '90vh' }}
-                alt="Reset Password Illustration"
-              />
-            </div>
-            <div className="vr opacity-1 d-none d-lg-block" />
-          </Col>
-
+    <div className="d-flex align-items-center justify-content-center min-vh-100 bg-white">
+      <Card className="w-100" style={{ maxWidth: '1005px', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 0.5rem 2rem rgba(0,0,0,0.08)' }}>
+        <Row className="g-0">
+          {/* Left: Image */}
           <Col
             lg={6}
-            className="order-1 d-flex align-items-center"
-            style={{ overflowX: 'hidden' }}
+            className="d-none d-lg-flex align-items-center justify-content-center bg-white"
+            style={{ borderRight: '1px solid rgba(0, 0, 0, 0.05)' }}  // Light pale gray border
           >
-            <div
-              className="p-3 p-sm-4 w-100"
-              style={{ maxHeight: '90vh', overflow: 'hidden', width: '100vw' }}
-            >
-              <div className="d-flex justify-content-center mb-3" style={{ width: '100%' }}>
+            <div className="p-3 text-center w-100">
+              <img 
+                src={signInImg} 
+                style={{ maxWidth: '400px', width: '200%' }} 
+                alt="Reset Password Illustration" 
+                className="img-fluid"
+              />
+            </div>
+          </Col>
+
+          {/* Right: Form */}
+          <Col lg={6} xs={12} className="d-flex align-items-center justify-content-center bg-white">
+            <div className="p-4 p-sm-5 w-100" style={{ maxWidth: '450px' }}>
+              {/* Logo */}
+              <div className="text-center mb-4">
                 <Link to="/">
-                  <img className="h-40px" src={logoIcon} alt="logo" />
+                  <img style={{height:'50px'}} src={logoIcon} alt="logo" />
                 </Link>
               </div>
-
-              <h1 className="mb-1 h4 d-flex justify-content-center" style={{ width: '100%' }}>
-                Set New Password
-              </h1>
-              <p className="mb-2 small text-center">
-                Enter your new secure password below.
+              {/* Title */}
+              <h1 className="text-center mb-3 fs-3">Set New Password</h1>
+              <p className="text-center mb-4">
+                Back to <Link to="/auth/sign-in">Login</Link>
               </p>
-
-              <form
-                onSubmit={onSubmit}
-                className="mt-3 text-start"
-                autoComplete="off"
-                style={{ maxHeight: 'calc(90vh - 150px)', overflowY: 'auto', overflowX: 'hidden' }}
-              >
+              {/* Form */}
+              <form onSubmit={onSubmit}>
                 <PasswordFormInput
                   name="password"
-                  containerClass="mb-2"
+                  containerClass="mb-3"
                   label="New Password"
                   autoComplete="new-password"
                   control={control}
@@ -127,48 +116,40 @@ const ResetPassword = () => {
 
                 <PasswordFormInput
                   name="confirmPassword"
-                  containerClass="mb-2"
+                  containerClass="mb-4"
                   label="Confirm Password"
                   autoComplete="new-password"
                   control={control}
                 />
 
-                <div className="mb-2 text-center">
-                  <p>
-                    Back to <Link to="/auth/sign-in">Login</Link>
-                  </p>
-                </div>
-
-                <button type="submit" className="btn btn-primary w-100 mt-1 py-2" disabled={loading}>
+                <button 
+                  type="submit" 
+                  className="btn btn-primary w-100 py-2 mb-3" 
+                  disabled={loading}
+                >
                   {loading ? 'Updating...' : 'Set Password'}
                 </button>
 
-                <div className="d-flex align-items-center my-3">
-                  <hr className="flex-grow-1" />
-                  <span className="mx-2 text-muted small">need help?</span>
-                  <hr className="flex-grow-1" />
+               <div className="position-relative my-4">
+                  <hr className="my-4" style={{ borderTop: '5px solid #fff', opacity:1}} />
                 </div>
 
-                <div
-                  className="text-primary-hover text-body small text-center d-flex justify-content-center"
-                  style={{ width: '100%' }}
-                >
+                <div className="text-center text-muted small">
                   Copyrights ©{currentYear} Kreyo{' '}
-                  <a
-                    href={developedByLink}
-                    className="text-body ms-1"
-                    target="_blank"
+                  <a 
+                    href={developedByLink} 
+                    target="_blank" 
+                    className="text-body" 
                     rel="noopener noreferrer"
                   >
                     StackBros
                   </a>
-                  .
                 </div>
               </form>
             </div>
           </Col>
         </Row>
-      </Container>
+      </Card>
     </div>
   )
 }
