@@ -131,7 +131,7 @@ const ResetPassword = () => {
                 </button>
 
                <div className="position-relative my-4">
-                  <hr className="my-4" style={{ borderTop: '5px solid #fff', opacity:1}} />
+                  <hr className="my-4" style={{ borderTop: '5px solid #fff', opacity:1}}/>
                 </div>
 
                 <div className="text-center text-muted small">
