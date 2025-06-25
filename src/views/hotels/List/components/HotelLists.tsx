@@ -13,7 +13,7 @@ import {
 import { FaAngleLeft, FaAngleRight, FaSliders } from 'react-icons/fa6'
 import HotelListCard from './HotelListCard'
 import HotelListFilter from './HotelListFilter'
-import { supabase } from '@/lib/supabaseClient' // Make sure this is setup
+import { supabase } from '@/lib/supabaseClient'
 
 type Concert = {
   id: number
@@ -61,7 +61,7 @@ const ConcertLists = () => {
 
         return {
           ...concert,
-          minTicketPrice: ticket?.price || 0, // fallback to 0 if no ticket
+          minTicketPrice: ticket?.price || 0,
         }
       })
     )
@@ -93,15 +93,12 @@ const ConcertLists = () => {
     })
   })
 
-
-
   const paginatedConcerts = filteredConcerts.slice(
     (currentPage - 1) * concertsPerPage,
     currentPage * concertsPerPage
   )
 
   const totalPages = Math.ceil(filteredConcerts.length / concertsPerPage)
-
 
   const goToPage = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -117,8 +114,8 @@ const ConcertLists = () => {
             <div className="hstack gap-3 justify-content-between justify-content-md-end">
               <Button
                 onClick={toggle}
-                variant="primary-soft"
-                className="btn-primary-check mb-0 d-xl-none"
+                variant="outline-primary"
+                className="mb-0 d-xl-none"
               >
                 <FaSliders className="me-1" /> Show filters
               </Button>
@@ -142,7 +139,7 @@ const ConcertLists = () => {
             >
               <OffcanvasHeader closeButton>
                 <h5 className="offcanvas-title" id="offcanvasSidebarLabel">
-                  Advance Filters
+                  Advanced Filters
                 </h5>
               </OffcanvasHeader>
               <OffcanvasBody className="flex-column p-3 p-xl-0">
@@ -165,7 +162,7 @@ const ConcertLists = () => {
 
               {/* Pagination */}
               <nav className="d-flex justify-content-center" aria-label="navigation">
-                <ul className="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                <ul className="pagination d-inline-block d-md-flex rounded mb-0">
                   <li className={`page-item mb-0 ${currentPage === 1 ? 'disabled' : ''}`}>
                     <button className="page-link" onClick={() => goToPage(currentPage - 1)}>
                       <FaAngleLeft />
