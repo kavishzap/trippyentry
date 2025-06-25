@@ -44,8 +44,15 @@ const SignIn = () => {
         showConfirmButton: false,
         timer: 1200,
       }).then(() => {
-        navigate('/dashboard')
+        const savedPath = localStorage.getItem('hotel_details_path')
+        if (savedPath) {
+          navigate(savedPath)
+          localStorage.removeItem('hotel_details_path') // optional: clear it after use
+        } else {
+          navigate('/dashboard')
+        }
       })
+
     }
   })
 
@@ -59,11 +66,11 @@ const SignIn = () => {
       </Col>
 
       <Col lg={6} className="order-1 d-flex align-items-center">
-      <div className="p-4 p-sm-7 w-100" style={{ maxWidth: '100%', textAlign: 'center' }}>
-        {/* Centered Logo */}
-        <Link to="/" className="d-flex justify-content-center mb-4">
-          <img className="h-50px" src={logoIcon} alt="logo" />
-        </Link>
+        <div className="p-4 p-sm-7 w-100" style={{ maxWidth: '100%', textAlign: 'center' }}>
+          {/* Centered Logo */}
+          <Link to="/" className="d-flex justify-content-center mb-4">
+            <img className="h-50px" src={logoIcon} alt="logo" />
+          </Link>
 
           <h1 className="mb-2 h3">Welcome back</h1>
           <p className="mb-0">

@@ -1,17 +1,35 @@
 import { useEffect, useState } from 'react';
 import { Card, Button, Pagination, Spinner } from 'react-bootstrap';
-import jsPDF from 'jspdf';
+import jsPDF from 'jspdf'
+import QRCode from 'qrcode'
 import { supabase } from '@/lib/supabaseClient';
 import { FaTicketAlt, FaMicrophoneAlt, FaMoneyBillWave, FaFileInvoice } from 'react-icons/fa'
+import bannerImg from '@/assets/newImage/heroSection/Group 36.png';
+
+const toBase64 = (url: string): Promise<string> =>
+  fetch(url)
+    .then((res) => res.blob())
+    .then(
+      (blob) =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader()
+          reader.onloadend = () => resolve(reader.result as string)
+          reader.onerror = reject
+          reader.readAsDataURL(blob)
+        })
+    )
 
 type Booking = {
-  tickets: { ticket_id: number; quantity: number }[] | false;
+  tickets: {
+    ticket_name: string; ticket_id: number; quantity: number
+  }[] | false;
   id: number;
   title: string;
   price: string;
   concertName: string;
   status: 'Paid' | 'Unpaid';
   concertImage?: string;
+  created_at?: string;
 };
 
 const MyBookings = () => {
@@ -20,6 +38,7 @@ const MyBookings = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState<'All' | 'Paid' | 'Unpaid'>('All');
   const itemsPerPage = 5;
+  const [downloadingId, setDownloadingId] = useState<number | null>(null)
 
   useEffect(() => {
     fetchBookings();
@@ -50,7 +69,7 @@ const MyBookings = () => {
       .from('bookings')
       .select('*')
       .eq('userid', userProfile.id)
-      .order('id', { ascending: true });
+      .order('created_at', { ascending: false });
 
     if (bookingError || !bookingData) {
       console.error('Error fetching bookings:', bookingError?.message);
@@ -86,6 +105,7 @@ const MyBookings = () => {
           concertImage,
           status: b.status === 'Paid' ? 'Paid' : 'Unpaid',
           tickets: b.tickets ?? false,
+          created_at: b.created_at,
         };
       })
     );
@@ -108,159 +128,197 @@ const MyBookings = () => {
   const changePage = (page: number) => {
     if (page >= 1 && page <= totalPages) setCurrentPage(page);
   };
-
   const downloadTicket = async (booking: Booking) => {
-    const email = localStorage.getItem('zeko_username');
-    if (!email) return;
 
-    const { data: userProfile } = await supabase
-      .from('user_profiles')
-      .select('id, first_name, last_name, email')
-      .eq('email', email)
-      .single();
+    setDownloadingId(booking.id);
+    try {
+      const email = localStorage.getItem('zeko_username')
+      if (!email) return
 
-    const { data: concert } = await supabase
-      .from('concerts')
-      .select('concert_name, concert_location_name, concert_date, concert_start_time, concert_end_time, concert_image')
-      .eq('concert_name', booking.concertName)
-      .single();
+      const { data: userProfile } = await supabase
+        .from('user_profiles')
+        .select('first_name, last_name, email')
+        .eq('email', email)
+        .single()
 
-    const { data: ticketData } = await supabase
-      .from('tickets')
-      .select('id, ticket_name');
+      const { data: concert } = await supabase
+        .from('concerts')
+        .select('concert_name, concert_location_name, concert_date, concert_start_time, concert_end_time')
+        .eq('concert_name', booking.concertName)
+        .single()
 
-    const doc = new jsPDF('p', 'mm', 'a4');
-    const width = doc.internal.pageSize.getWidth();
-    const margin = 15;
-    let cursorY = margin;
+      const doc = new jsPDF()
+      let y = 20
+      const pageWidth = doc.internal.pageSize.getWidth()
+      const margin = 15
 
-    // Branding stripe
-    doc.setFillColor(0, 180, 180);
-    doc.rect(0, 0, width, 10, 'F');
+      // Header
+      doc.setFontSize(16)
+      doc.setFont('helvetica', 'bold')
+      doc.text('BOOKING VOUCHER', margin, y)
 
-    // Border
-    doc.setDrawColor(0, 180, 180);
-    doc.setLineWidth(1);
-    doc.roundedRect(margin, margin, width - margin * 2, 265, 4, 4, 'S');
+      y += 8
+      doc.setFont('helvetica', 'normal')
+      doc.setFontSize(12)
+      doc.text(`ORDER REFERENCE NO:  TICKET-${booking.id}`, margin, y)
 
-    // Title
-    doc.setFontSize(18);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(40, 40, 40);
-    doc.text(`🎟 Ticket Confirmation`, width / 2, cursorY + 10, { align: 'center' });
+      y += 6
 
-    cursorY += 20;
+      console.log('Booking created at:', booking.created_at)
+      const orderDate = booking.created_at
+        ? new Date(booking.created_at).toLocaleString('en-MU', {
+          year: 'numeric',
+          month: 'short',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+        })
+        : 'N/A'
 
-    // Booking ID
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(100);
-    doc.text(`Booking Ref: #${booking.id}`, margin + 5, cursorY);
-    cursorY += 8;
+      doc.setFontSize(10)
+      doc.text(`Order Date: ${orderDate}`, margin, y)
 
-    // Concert Image
-    const imageSize = 50;
-    const concertImageBase64 = concert?.concert_image || '';
-    if (concertImageBase64) {
+      y += 10
+      doc.setDrawColor(200)
+      doc.setLineWidth(0.5)
+      doc.line(margin, y, pageWidth - margin, y)
+
+      // Event title
+      y += 10
+      doc.setFontSize(14)
+      doc.setFont('helvetica', 'bold')
+      doc.setTextColor(0, 102, 204)
+      doc.text(concert?.concert_name?.toUpperCase() || 'EVENT NAME', pageWidth / 2, y, { align: 'center' })
+
+      // Customer Info
+      y += 10
+      doc.setTextColor(0)
+      doc.setFontSize(12)
+      doc.setFont('helvetica', 'bold')
+      doc.text('Customer Details', margin, y)
+
+      y += 8
+      doc.setFont('helvetica', 'normal')
+      doc.text(`Full Name: ${userProfile?.first_name || ''} ${userProfile?.last_name || ''}`, margin, y)
+
+      y += 6
+      doc.text(`Email: ${userProfile?.email || email}`, margin, y)
+
+      y += 8
+      doc.setFontSize(11)
+      doc.setFont('helvetica', 'bold')
+      if (booking.status === 'Paid') {
+        doc.setTextColor(0, 150, 0) // green
+        doc.text('STATUS OF INVOICE: PAID', margin, y)
+      } else {
+        doc.setTextColor(200, 0, 0) // red
+        doc.text('STATUS OF INVOICE: UNPAID', margin, y)
+      }
+      doc.setTextColor(0) // reset text color
+
+
+      // QR Code
+      const qrValue = `TICKET-${booking.id}`
+      const qrDataUrl = await QRCode.toDataURL(qrValue)
+      doc.addImage(qrDataUrl, 'PNG', pageWidth - 50, y - 12, 30, 30)
+
+      // Booking Details
+      y += 12
+      doc.setFont('helvetica', 'bold')
+      doc.setFontSize(12)
+      doc.text('Booking Details', margin, y)
+
+      y += 8
+      doc.setFont('helvetica', 'normal')
+      doc.text(`Date: ${concert?.concert_date || '-'}`, margin, y)
+      y += 6
+      doc.text(`Start Time: ${concert?.concert_start_time || '-'}`, margin, y)
+      doc.text(`End Time: ${concert?.concert_end_time || '-'}`, margin + 60, y)
+
+      y += 6
+      doc.text(`Location: ${concert?.concert_location_name || '-'}, Mauritius`, margin, y)
+
+      // Tickets
+      y += 10
+      doc.setFont('helvetica', 'bold')
+      doc.text('Tickets:', margin, y)
+      doc.setFont('helvetica', 'normal')
+      y += 6
+
+      const { data: ticketData } = await supabase
+        .from('tickets')
+        .select('id, ticket_name')
+
+      if (Array.isArray(booking.tickets)) {
+        doc.setFont('helvetica', 'bold')
+        doc.text('Tickets:', margin, y)
+        y += 6
+
+        // Table header
+        doc.setFontSize(10)
+        doc.setFont('helvetica', 'bold')
+        doc.text('#', margin + 2, y)
+        doc.text('Ticket Name', margin + 15, y)
+        doc.text('Qty', margin + 120, y)
+        y += 5
+        doc.setDrawColor(180)
+        doc.line(margin, y, pageWidth - margin, y)
+        y += 4
+
+        doc.setFont('helvetica', 'normal')
+        booking.tickets.forEach((ticket, index) => {
+          const ticketName = ticketData?.find(t => t.id === ticket.ticket_id)?.ticket_name || `ID ${ticket.ticket_id}`
+          doc.text(String(index + 1), margin + 2, y)
+          doc.text(ticketName, margin + 15, y)
+          doc.text(String(ticket.quantity), margin + 120, y)
+          y += 6
+        })
+      }
+
+      // Notes
+      y += 10
+      doc.setFont('helvetica', 'bold')
+      doc.text('Notes And Important Conditions:', margin, y)
+      y += 6
+      doc.setFont('helvetica', 'normal')
+      doc.setFontSize(9)
+      const notes = [
+        '• Please bring this voucher and proof of ID.',
+        '• Any extra services not listed are payable at venue.',
+        '• Valid for the date and ticket quantity booked.',
+        '• Venue rules apply: timing, dress code, etc.',
+        '• Zeko is not responsible for loss/damage of belongings.',
+      ]
+      notes.forEach((line) => {
+        doc.text(line, margin + 2, y)
+        y += 5
+      })
+
+      // Footer
+      y += 5
+      doc.setFontSize(10)
+      doc.setTextColor(80)
+      doc.text('Need Help? Call us at +230 5918 2520 or visit www.zeko.com', margin, y)
+
+      const bannerBase64 = await toBase64(bannerImg)
+      const pageHeight = doc.internal.pageSize.getHeight()
+      const bannerHeight = 50 // or adjust based on image
+
       doc.addImage(
-        concertImageBase64,
+        bannerBase64,
         'PNG',
-        margin + 5,
-        cursorY,
-        imageSize,
-        imageSize,
-        undefined,
-        'FAST'
-      );
+        margin,                        // X: align with other content
+        pageHeight - bannerHeight - 10, // Y: 10px margin from bottom
+        pageWidth - 2 * margin,        // width: full minus side margins
+        bannerHeight
+      )
+
+      // Save PDF
+      doc.save(`Ticket-${booking.id}.pdf`)
+    } finally {
+      setDownloadingId(null)
     }
-
-    // Concert title
-    doc.setFontSize(14);
-    doc.setFont('helvetica', 'bold');
-    const concertTitle = concert?.concert_name?.toUpperCase() || 'EVENT';
-    const titleX = margin + imageSize + 10;
-    const titleY = cursorY + 10;
-    const wrappedTitle = doc.splitTextToSize(concertTitle, width - titleX - margin);
-    doc.text(wrappedTitle, titleX, titleY);
-
-    cursorY += imageSize + 10;
-
-    // Customer Info
-    doc.setFontSize(11);
-    doc.setTextColor(50);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Customer Details:', margin + 5, cursorY);
-    cursorY += 6;
-
-    doc.setFont('helvetica', 'normal');
-    doc.text(`Name: ${userProfile?.first_name || ''} ${userProfile?.last_name || ''}`, margin + 10, cursorY);
-    cursorY += 5;
-    doc.text(`Email: ${userProfile?.email || email}`, margin + 10, cursorY);
-    cursorY += 10;
-
-    // Tickets
-    doc.setFont('helvetica', 'bold');
-    doc.text('Tickets:', margin + 5, cursorY);
-    cursorY += 6;
-
-    doc.setFont('helvetica', 'normal');
-    if (booking.tickets && Array.isArray(booking.tickets)) {
-      booking.tickets.forEach((ticket) => {
-        const name = ticketData?.find(t => t.id === ticket.ticket_id)?.ticket_name || `Ticket ID ${ticket.ticket_id}`;
-        doc.text(`• ${name} — ${ticket.quantity}`, margin + 10, cursorY);
-        cursorY += 5;
-      });
-    }
-
-    cursorY += 8;
-    doc.setDrawColor(180);
-    doc.line(margin + 5, cursorY, width - margin - 5, cursorY); // divider
-    cursorY += 8;
-
-    // Event Info
-    doc.setFont('helvetica', 'bold');
-    doc.text('Event Details:', margin + 5, cursorY);
-    cursorY += 6;
-
-    doc.setFont('helvetica', 'normal');
-    doc.text(`Date: ${concert?.concert_date || '-'}`, margin + 10, cursorY);
-    cursorY += 5;
-    doc.text(`Time: ${concert?.concert_start_time || '-'} - ${concert?.concert_end_time || '-'}`, margin + 10, cursorY);
-    cursorY += 5;
-    doc.text(`Venue: ${concert?.concert_location_name || '-'}, Mauritius`, margin + 10, cursorY);
-    cursorY += 10;
-
-    // Total
-    doc.setFont('helvetica', 'bold');
-    doc.text(`Total Paid: ${booking.price}`, margin + 5, cursorY);
-    cursorY += 12;
-
-    // Footer
-    doc.setDrawColor(180);
-    doc.line(margin + 5, cursorY, width - margin - 5, cursorY); // divider
-    cursorY += 10;
-
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(0, 180, 180);
-    doc.text('🎫 zeko | ticketbox.mu', margin + 5, cursorY);
-    cursorY += 7;
-
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(80);
-    doc.text('Hotline: +230 5252 8233', margin + 5, cursorY);
-    cursorY += 5;
-    doc.text('Email: customers@ticketbox.mu', margin + 5, cursorY);
-    cursorY += 5;
-    doc.text('Website: www.ticketbox.mu', margin + 5, cursorY);
-    cursorY += 5;
-    doc.text('Please arrive at least 30 minutes before start time.', margin + 5, cursorY);
-
-    doc.save(`Ticket-${booking.id}.pdf`);
-  };
-
-
+  }
   return (
     <div>
       {/* Always show buttons */}
@@ -346,9 +404,20 @@ const MyBookings = () => {
                               variant="outline-primary"
                               className="fw-semibold px-4 py-2 rounded-pill"
                               onClick={() => downloadTicket(booking)}
+                              disabled={downloadingId === booking.id}
                             >
-                              <FaFileInvoice className="me-2" /> Download
+                              {downloadingId === booking.id ? (
+                                <>
+                                  <Spinner size="sm" animation="border" className="me-2" />
+                                  Generating...
+                                </>
+                              ) : (
+                                <>
+                                  <FaFileInvoice className="me-2" /> Download
+                                </>
+                              )}
                             </Button>
+
                           </div>
                         </div>
                       </div>

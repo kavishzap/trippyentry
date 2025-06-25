@@ -107,8 +107,15 @@ const SignUp = () => {
         title: 'Registration Successful',
         text: 'You have been registered successfully!',
       }).then(() => {
-        navigate('/dashboard');
-      });
+        const savedPath = localStorage.getItem('hotel_details_path')
+        if (savedPath) {
+          navigate(savedPath)
+          localStorage.removeItem('hotel_details_path') // Optional: clear it
+        } else {
+          navigate('/dashboard')
+        }
+      })
+
     }
   };
 
@@ -202,39 +209,7 @@ const SignUp = () => {
                   {loading ? 'Signing up...' : 'Sign up'}
                 </button>
 
-                <div className="d-flex align-items-center my-3">
-                  <hr className="flex-grow-1" />
-                  <span className="mx-2 text-muted small">or sign in with</span>
-                  <hr className="flex-grow-1" />
-                </div>
-
-
-                <div className="d-flex justify-content-center mb-3">
-                  <button
-                    type="button"
-                    className="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-2"
-                    onClick={async () => {
-                      setLoading(true);
-                      const { error } = await supabase.auth.signInWithOAuth({
-                        provider: 'google',
-                      });
-                      setLoading(false);
-                      if (error) {
-                        Swal.fire({ icon: 'error', title: 'Google Sign-in Failed', text: error.message });
-                      }
-                    }}
-                    disabled={loading}
-                  >
-                    <img
-                      src="https://developers.google.com/identity/images/g-logo.png"
-                      alt="Google"
-                      style={{ width: '20px', height: '20px' }}
-                    />
-                    <span>Continue with Google</span>
-                  </button>
-                </div>
-
-
+                
                 {/* Centered copyright */}
                 <div
                   className="text-primary-hover text-body small text-center d-flex justify-content-center"

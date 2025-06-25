@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Card, Button, Form, Spinner, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { supabase } from '@/lib/supabaseClient';
 import Swal from 'sweetalert2';
-import Flatpicker from '@/components/Flatpicker';
+// import Flatpicker from '@/components/Flatpicker';
 
 const MyProfile = () => {
     const [editMode, setEditMode] = useState(false);
@@ -153,7 +153,7 @@ const MyProfile = () => {
                         </Col>
                     </Row>
 
-                    <Row className="mb-3">
+                    {/* <Row className="mb-3">
                         <Form.Label column sm={4} className="fw-semibold text-muted">
                             Date of Birth:
                         </Form.Label>
@@ -174,9 +174,9 @@ const MyProfile = () => {
                                 <div className="pt-1">{userData.dob}</div>
                             )}
                         </Col>
-                    </Row>
+                    </Row> */}
 
-                    <Row className="mb-3">
+                    {/* <Row className="mb-3">
                         <Form.Label column sm={4} className="fw-semibold text-muted">
                             Address:
                         </Form.Label>
@@ -192,9 +192,9 @@ const MyProfile = () => {
                                 <div className="pt-1">{userData.address}</div>
                             )}
                         </Col>
-                    </Row>
+                    </Row> */}
 
-                    <Row className="mb-3">
+                    {/* <Row className="mb-3">
                         <Form.Label column sm={4} className="fw-semibold text-muted">
                             Phone:
                         </Form.Label>
@@ -209,7 +209,7 @@ const MyProfile = () => {
                                 <div className="pt-1">{userData.phone}</div>
                             )}
                         </Col>
-                    </Row>
+                    </Row> */}
                 </Form>
             </Card.Body>
         </Card>

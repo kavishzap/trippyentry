@@ -12,6 +12,7 @@ export const createBooking = async ({
 }) => {
   const username = localStorage.getItem('zeko_username')
   if (!username) throw new Error('User not logged in')
+console.log('Username from localStorage:', username)
 
   // Get user id from profile table using username
   const { data: userData, error: userError } = await supabase
