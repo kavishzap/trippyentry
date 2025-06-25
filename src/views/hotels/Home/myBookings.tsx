@@ -118,7 +118,7 @@ const MyBookings = () => {
           price: `${Number(b.total || 0).toFixed(2)} MUR`,
           concertName,
           concertImage,
-          status: b.status === 'Paid' ? 'Paid' : 'Unpaid',
+          status: b.status === 'TRUE' ? 'Paid' : 'Unpaid',
           tickets: b.tickets ?? false,
           created_at: b.created_at,
         };

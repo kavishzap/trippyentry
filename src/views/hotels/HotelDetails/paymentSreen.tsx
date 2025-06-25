@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import FooterWithLinks from '../Home/components/FooterWithLinks'
 import TopNavBar4 from '../Home/components/TopNavBar'
 import { Container, Card, CardBody } from 'react-bootstrap'
@@ -9,7 +9,7 @@ const HotelDetails = () => {
     const location = useLocation()
     const searchParams = new URLSearchParams(location.search)
 
-    const accountNumber = '000450759547'
+    const accountNumber = '000045239695'
     const amount = Number(searchParams.get('amount')) || 0
     const invoiceParam = searchParams.get('invoiceId')
     const invoiceId = invoiceParam ? `INV-${invoiceParam}` : 'INV-UNKNOWN'
@@ -63,31 +63,51 @@ const HotelDetails = () => {
                             {/* Manual Bank Transfer Option */}
                             <div className="mb-4 d-flex justify-content-center">
                                 <div className="text-center">
-                                    <h5 className="mb-2">Pay Directly to MCB Account</h5>
+                                    <h5 className="mb-4">Pay Directly to MCB Account</h5>
                                     <ul className="list-unstyled mb-0">
                                         <li>
-                                            <strong>Bank:</strong> MCB (Mauritius Commercial Bank)
+                                            <p className="fs-5">
+                                                <strong>Bank:</strong> MCB (Mauritius Commercial Bank)
+                                            </p>
                                         </li>
                                         <li>
-                                            <strong>Account Number:</strong>{' '}
-                                            <span className="text-primary">{accountNumber}</span>
+                                            <p className="fs-5">
+                                                <strong>Account Number:</strong>{' '}
+                                                <span className="text-primary">{accountNumber}</span>
+                                            </p>
                                         </li>
                                         <li>
-                                            <strong>Amount:</strong> Rs {amount}
+                                            <p className="fs-5">
+                                                <strong>Amount:</strong> Rs {amount}
+                                            </p>
                                         </li>
                                         <li>
-                                            <strong>Description:</strong> {invoiceId}
+                                            <p className="fs-5">
+                                                <strong>Description:</strong> {invoiceId}
+                                            </p>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
+
                             <div className="d-flex justify-content-center">
                                 <div className="mt-4 alert alert-info text-center" style={{ maxWidth: '600px' }}>
                                     <strong>Note:</strong> After payment, please take a screenshot of your confirmation.
-                                    Your booking will be confirmed within 1 hour.
+                                    Your booking will be confirmed within a few hours via mail or please call on{' '}
+                                    <a href="tel:59182520" className="text-decoration-underline fw-semibold">59182520</a>{' '}
+                                    to accelerate confirmation.
                                     <br />
                                     <strong>More payment options will be available soon.</strong>
                                 </div>
+
+                            </div>
+                            <div className="text-center mt-4 d-flex justify-content-center gap-3 flex-wrap">
+                                <Link to="/" className="btn btn-outline-primary">
+                                    Go to Homepage
+                                </Link>
+                                <Link to="/userDashboard" className="btn btn-primary">
+                                    View My Bookings
+                                </Link>
                             </div>
 
 

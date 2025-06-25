@@ -18,8 +18,9 @@ const HotelDetails = () => {
       <main className="flex-grow-1 mb-5">
         <HotelGallery />
       </main>
-
-      <FooterWithLinks />
+      <main className="">
+        <FooterWithLinks />
+      </main>
     </div>
   )
 }

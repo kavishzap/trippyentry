@@ -10,7 +10,7 @@ import { TextFormInput } from '@/components'
 import { supabase } from '@/lib/supabaseClient'
 
 import forgotPassImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025, 04_13_51 PM.png'
-import logoIcon from '@/assets/newImage/heroSection/black logo.png'
+import logoIcon from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png'
 import { currentYear } from '@/states'
 
 type ForgotPasswordForm = {
@@ -101,7 +101,7 @@ const ForgotPassword = () => {
             </div>
 
             <div className="text-primary-hover text-body mt-3 text-center">
-              Copyrights ©{currentYear} Kreyo{' '}
+              Copyrights ©{currentYear} zeko.com{' '}
             </div>
           </form>
         </div>

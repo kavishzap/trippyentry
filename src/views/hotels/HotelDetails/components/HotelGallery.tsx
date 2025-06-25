@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useLocation, Link } from 'react-router-dom'
-import { GlightBox } from '@/components'
 import { useToggle } from '@/hooks'
 import {
   Card,
@@ -34,6 +33,7 @@ import Swal from 'sweetalert2'
 import { createBooking } from './bookingService'
 
 interface Concert {
+  concert_google_map_link: string | undefined
   id: string
   concert_name: string
   concert_location_name: string
@@ -58,7 +58,7 @@ const ConcertDetailPage = () => {
   const { isOpen, toggle } = useToggle()
   const [concert, setConcert] = useState<Concert | null>(null)
   const [tickets, setTickets] = useState<(Ticket & { quantity: number })[]>([])
-
+  const [cardHeight, setCardHeight] = useState('860px');
   const [loading, setLoading] = useState(true)
   const [showFullDescription, setShowFullDescription] = useState(false)
 
@@ -80,6 +80,26 @@ const ConcertDetailPage = () => {
     }
     setLoading(false)
   }
+
+  useEffect(() => {
+    const updateCardHeight = () => {
+      const width = window.innerWidth;
+      if (width < 576) {
+        setCardHeight('320px');
+      } else if (width < 768) {
+        setCardHeight('450px');
+      } else {
+        setCardHeight('860px');
+      }
+    };
+
+    updateCardHeight(); // run once on mount
+    window.addEventListener('resize', updateCardHeight);
+
+    return () => {
+      window.removeEventListener('resize', updateCardHeight);
+    };
+  }, []);
 
   const fetchTickets = async () => {
     const { data, error } = await supabase
@@ -194,24 +214,24 @@ const ConcertDetailPage = () => {
 
         <Row className="g-4 align-items-start">
           <Col md={6}>
-            <GlightBox data-glightbox data-gallery="gallery" image={base64Image}>
-              <Card
-                className="card-grid-lg card-element-hover card-overlay-hover overflow-hidden"
-                style={{
-                  backgroundImage: `url(${base64Image})`,
-                  backgroundPosition: 'center',
-                  backgroundSize: 'cover',
-                  minHeight: '360px',
-                }}
-              >
-                <div className="hover-element position-absolute w-100 h-100">
-                  <BsFullscreen
-                    size={28}
-                    className="fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"
-                  />
-                </div>
-              </Card>
-            </GlightBox>
+            <Card
+              className="card-grid-lg card-element-hover overflow-hidden"
+              style={{
+                backgroundImage: `url(${base64Image})`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                minHeight: cardHeight,
+                cursor: 'default' // optional: avoid pointer cursor
+              }}
+            >
+              <div className="hover-element position-absolute w-100 h-100">
+                <BsFullscreen
+                  size={28}
+                  className="fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"
+                />
+              </div>
+            </Card>
+
 
             {/* TICKETS SECTION */}
             {tickets.length > 0 && (
@@ -371,16 +391,16 @@ const ConcertDetailPage = () => {
                 <ul className="list-group list-group-borderless mb-2">
                   <li className="list-group-item d-flex align-items-start">
                     <BsCheckCircleFill size={20} className="me-2 mt-1 text-success" />
-                    Drinking and smoking within controlled limits are permitted at the venue but please do not create a mess or ruckus.
+                    Any form of harassment, aggression, or disorderly behavior will result in removal from the venue.
                   </li>
                   <li className="list-group-item d-flex align-items-start">
                     <BsCheckCircleFill size={18} className="me-2 mt-1 text-success" />
-                    Drugs and intoxicating illegal products are banned and not to be brought to or consumed at the event.
+                    Respect fellow attendees, performers, and staff at all times.
                   </li>
                 </ul>
                 <div className="bg-danger bg-opacity-10 rounded-2 p-3">
                   <p className="mb-0 text-danger">
-                    Smoke alarm not reported — The host hasn't reported a smoke alarm at the venue. We suggest bringing a portable detector.
+                    Valid ID and a confirmed ticket are required for entry.
                   </p>
                 </div>
               </CardBody>
@@ -396,7 +416,7 @@ const ConcertDetailPage = () => {
                     'Click the "Book Tickets" button.',
                     'Cross-check your booking details and confirm.',
                     'An Invoice ID will be shown on screen.',
-                    'Scan to pay via MCB account (details provided). Use the Invoice ID in the payment description.',
+                    'Select Pay via MCB Account as your preferred payment method and use the Invoice ID in the payment description.',
                     'Once payment is verified, download your invoice from the "My Bookings" section under your user profile.',
                   ].map((step, index) => (
                     <li key={index} className="mb-4 d-flex">
@@ -430,7 +450,7 @@ const ConcertDetailPage = () => {
           <iframe
             className="w-100"
             height={400}
-            src="https://www.google.com/maps?q=Los+Angeles&output=embed"
+            src={concert.concert_google_map_link}
             style={{ border: 0 }}
             title="map"
             aria-hidden="false"
@@ -439,13 +459,14 @@ const ConcertDetailPage = () => {
         </div>
         <div className="modal-footer">
           <a
-            href="https://www.google.com/maps?q=Los+Angeles"
+            href={concert.concert_google_map_link}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-sm btn-primary mb-0 items-center"
           >
             <BsPinMapFill className="me-2" /> View In Google Map
           </a>
+
         </div>
       </Modal>
     </main>

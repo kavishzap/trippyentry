@@ -1,6 +1,6 @@
 import { Button, Card, Col, Container, Row } from 'react-bootstrap'
-import { BsEnvelope, BsGlobe2, BsHeadset, BsInboxesFill, BsPhone} from 'react-icons/bs'
-import { FaInstagram} from 'react-icons/fa'
+import { BsEnvelope, BsGlobe2, BsHeadset, BsInboxesFill, BsPhone } from 'react-icons/bs'
+import { FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
 const Hero = () => {
@@ -11,8 +11,8 @@ const Hero = () => {
           <Col xl={10}>
             <h1>Let's connect and get to know each other</h1>
             <p className="lead mb-0">
-               Whether you’ve got questions about an event, need help with your ticket, or just want to say hi—we’re here for you. 
-               Reach out anytime and let’s make your experience unforgettable!
+              Whether you’ve got questions about an event, need help with your ticket, or just want to say hi—we’re here for you.
+              Reach out anytime and let’s make your experience unforgettable!
             </p>
           </Col>
         </Row>
@@ -23,18 +23,18 @@ const Hero = () => {
                 <BsHeadset className=" fs-5" />
               </div>
               <h5>Call us</h5>
-             
+
               <div className="d-grid gap-3 d-sm-block">
                 <Button size="sm" variant="primary-soft me-1">
                   <div className="d-flex align-items-center">
                     {' '}
                     <BsPhone className=" me-2" />
-                    +230 59182520
+                    +230 5839 3719
                   </div>
                 </Button>
                 <Button variant="light" size="sm">
                   <BsPhone className=" me-2" />
-                  +230 59182520
+                  +230 5918 2520
                 </Button>
               </div>
             </Card>
@@ -45,10 +45,10 @@ const Hero = () => {
                 <BsInboxesFill className=" fs-5" />
               </div>
               <h5>Email us</h5>
-        
+
               <Link to="mailto:example@gmail.com" className="btn btn-link text-decoration-underline p-0 mb-0 items-center">
                 <BsEnvelope className=" me-1" />
-                zeko@gmail.com
+                zeko.mru@gmail.com
               </Link>
             </Card>
           </Col>
@@ -63,20 +63,37 @@ const Hero = () => {
                 <BsGlobe2 className=" fs-5" />
               </div>
               <h5>Social media</h5>
-             
-              <ul className="list-inline mb-0 items-center gap-">
+
+              <ul className="list-inline mb-0 items-center d-flex gap-2">
                 <li className="list-inline-item">
-                  {' '}
-                  <Link className="btn btn-sm bg-instagram p-2 mb-0 flex-centered" to="">
+                  <Link
+                    className="btn btn-sm bg-instagram p-2 mb-0 flex-centered text-white"
+                    to="https://www.instagram.com/"
+                    target="_blank"
+                  >
                     <FaInstagram />
-                  </Link>{' '}
+                  </Link>
                 </li>
-                
                 <li className="list-inline-item">
-                  {' '}
-                 
+                  <Link
+                    className="btn btn-sm bg-primary p-2 mb-0 flex-centered text-white"
+                    to="https://www.facebook.com/"
+                    target="_blank"
+                  >
+                    <FaFacebook />
+                  </Link>
+                </li>
+                <li className="list-inline-item">
+                  <Link
+                    className="btn btn-sm bg-dark p-2 mb-0 flex-centered text-white"
+                    to="https://www.tiktok.com/"
+                    target="_blank"
+                  >
+                    <FaTiktok />
+                  </Link>
                 </li>
               </ul>
+
             </Card>
           </Col>
         </Row>

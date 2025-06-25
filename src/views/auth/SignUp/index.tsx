@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 
 import { PasswordFormInput, TextFormInput } from '@/components';
 import signInImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025, 04_13_51 PM.png';
-import logoIcon from '@/assets/newImage/heroSection/black logo.png';
+import logoIcon from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png';
 import { currentYear } from '@/states';
 import { supabase } from '@/lib/supabaseClient';
 
@@ -142,7 +142,7 @@ const SignUp = () => {
               {/* Centered logo container */}
               <div className="d-flex justify-content-center mb-3" style={{ width: '100%' }}>
                 <Link to="/">
-                  <img className="h-40px" src={logoIcon} alt="logo" />
+                  <img className="h-30px" src={logoIcon} alt="logo" />
                 </Link>
               </div>
 
@@ -215,7 +215,7 @@ const SignUp = () => {
                   className="text-primary-hover text-body small text-center d-flex justify-content-center"
                   style={{ width: '100%' }}
                 >
-                  Copyrights ©{currentYear} Kreyo.
+                  Copyrights ©{currentYear} Zeko.com
                 </div>
               </form>
             </div>

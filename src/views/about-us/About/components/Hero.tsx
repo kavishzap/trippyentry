@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 import element6 from '@/assets/images/element/06.svg'
 import element7 from '@/assets/images/element/07.svg'
 import element8 from '@/assets/images/element/08.svg'
-import poster1 from '@/assets/images/about/Poster1.jpeg'
-import poster2 from '@/assets/images/about/Poster2.jpeg'
-import poster3 from '@/assets/images/about/Poster3.jpeg'
+import poster1 from '@/assets/newImage/heroSection/WhatsApp Image 2025-06-25 at 09.53.11_639e5b43.jpg'
+import poster2 from '@/assets/newImage/heroSection/WhatsApp Image 2025-06-25 at 09.53.12_28965afb.jpg'
+import poster3 from '@/assets/newImage/heroSection/WhatsApp Image 2025-06-25 at 20.17.46_7e5ec18f.jpg'
 
 
 const posters = [

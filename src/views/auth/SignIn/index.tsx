@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 import { supabase } from '@/lib/supabaseClient'
 
 import signInImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025, 04_13_51 PM.png'
-import logoIcon from '@/assets/newImage/heroSection/black logo.png'
+import logoIcon from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png'
 import { developedByLink, currentYear } from '@/states'
 
 type SignInForm = {
@@ -69,7 +69,7 @@ const SignIn = () => {
         <div className="p-4 p-sm-7 w-100" style={{ maxWidth: '100%', textAlign: 'center' }}>
           {/* Centered Logo */}
           <Link to="/" className="d-flex justify-content-center mb-4">
-            <img className="h-50px" src={logoIcon} alt="logo" />
+            <img className="h-40px" src={logoIcon} alt="logo" />
           </Link>
 
           <h1 className="mb-2 h3">Welcome back</h1>
@@ -109,7 +109,7 @@ const SignIn = () => {
             </div>
 
             <div className="text-primary-hover text-body mt-3 text-center">
-              Copyrights ©{currentYear} Kreyo{' '}
+              Copyrights ©{currentYear} zeko.com{' '}
               <a href={developedByLink} target="_blank" className="text-body" rel="noopener noreferrer"></a>.
             </div>
           </form>

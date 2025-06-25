@@ -14,18 +14,18 @@ const HotelPolicies = () => {
          
           <li className="list-group-item d-flex align-items-start">
             <BsCheckCircleFill size={24} className=" me-2" />
-            Drinking and smoking within controlled limits are permitted at the farmhouse but please do not create a mess or ruckus at the house.
+            Respect fellow attendees, performers, and staff at all times.
           </li>
           <li className="list-group-item d-flex align-items-start">
             <BsCheckCircleFill size={18} className=" me-2" />
-            Drugs and intoxicating illegal products are banned and not to be brought to the house or consumed.
+            Any form of harassment, aggression, or disorderly behavior will result in removal from the venue.
           </li>
         </ul>
       
        
         <div className="bg-danger bg-opacity-10 rounded-2 p-3 mb-5">
           <p className="mb-0 text-danger">
-            Smoke alarm not reported — The host hasn't reported a smoke alarm on the property. We suggest bringing a portable detector for your trip.
+           Valid ID and a confirmed ticket are required for entry.
           </p>
         </div>
       </CardBody>

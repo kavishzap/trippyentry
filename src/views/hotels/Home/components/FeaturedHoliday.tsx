@@ -1,12 +1,12 @@
 import { Col, Container, Row } from 'react-bootstrap'
-import { FaTicketAlt, FaShuttleVan, FaConciergeBell, FaHeadset, FaStar } from 'react-icons/fa'
+import { FaTicketAlt, FaShuttleVan, FaConciergeBell, FaHeadset } from 'react-icons/fa'
 
 import bgImg5 from '@/assets/newImage/heroSection//pic3.jpg'
-import avatar1 from '@/assets/images/avatar/01.jpg'
-import avatar2 from '@/assets/images/avatar/02.jpg'
-import avatar3 from '@/assets/images/avatar/03.jpg'
-import avatar4 from '@/assets/images/avatar/04.jpg'
-import element1 from '@/assets/images/element/01.svg'
+// import avatar1 from '@/assets/images/avatar/01.jpg'
+// import avatar2 from '@/assets/images/avatar/02.jpg'
+// import avatar3 from '@/assets/images/avatar/03.jpg'
+// import avatar4 from '@/assets/images/avatar/04.jpg'
+// import element1 from '@/assets/images/element/01.svg'
 
 const FeaturedHoliday = () => {
   return (
@@ -24,7 +24,7 @@ const FeaturedHoliday = () => {
             <img src={bgImg5} className="rounded-3 position-relative" style={{ maxHeight: '550px', width: '100%', objectFit: 'cover' }} />
 
 
-            <div className="position-absolute bottom-0 start-0 z-index-1 mb-4 ms-5">
+            {/* <div className="position-absolute bottom-0 start-0 z-index-1 mb-4 ms-5">
               <div className="bg-body d-flex d-inline-block rounded-3 position-relative p-3">
                 <img src={element1} className="position-absolute top-0 start-0 translate-middle w-40px" />
 
@@ -60,13 +60,13 @@ const FeaturedHoliday = () => {
                   </h6>
                 </div>
               </div>
-            </div>
+            </div> */}
           </Col>
 
           <Col lg={6}>
             <h2 className="mb-3 mb-lg-5 text-center text-lg-start">Why Choose Us?</h2>
             <p className="mb-3 mb-lg-5 text-center text-lg-start">
-              Elevate your event experience with Kreyo.mu — from quick ticketing to food deals and smooth rides, we make your concerts unforgettable!
+              Elevate your event experience with zeko.com — from quick ticketing to food deals and smooth rides, we make your concerts unforgettable!
             </p>
 
             <Row className="g-4">
