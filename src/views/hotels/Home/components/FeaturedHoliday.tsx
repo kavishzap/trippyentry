@@ -1,7 +1,7 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import { FaTicketAlt, FaShuttleVan, FaConciergeBell, FaHeadset } from 'react-icons/fa'
 
-import bgImg5 from '@/assets/newImage/heroSection//pic3.jpg'
+import bgImg5 from '@/assets/newImage/heroSection/WhatsApp Image 2025-06-25 at 20.17.46_7e5ec18f.jpg'
 // import avatar1 from '@/assets/images/avatar/01.jpg'
 // import avatar2 from '@/assets/images/avatar/02.jpg'
 // import avatar3 from '@/assets/images/avatar/03.jpg'
@@ -14,14 +14,19 @@ const FeaturedHoliday = () => {
       <Container>
         <Row className="g-4 justify-content-between align-items-center">
           <Col lg={5} className="position-relative">
-            <figure className="position-absolute top-0 start-0 translate-middle z-index-1 ms-4">
+            {/* <figure className="position-absolute top-0 start-0 translate-middle z-index-1 ms-4">
               <svg className="fill-primary" width="77px" height="77px">
                 <path d="M76.997,41.258 L45.173,41.258 L67.676,63.760 L63.763,67.673 L41.261,45.171 L41.261,76.994 L35.728,76.994 L35.728,45.171 L13.226,67.673 L9.313,63.760 L31.816,41.258 L-0.007,41.258 L-0.007,35.725 L31.816,35.725 L9.313,13.223 L13.226,9.311 L35.728,31.813 L35.728,-0.010 L41.261,-0.010 L41.261,31.813 L63.763,9.311 L67.676,13.223 L45.174,35.725 L76.997,35.725 L76.997,41.258 Z" />
               </svg>
-            </figure>
+            </figure> */}
 
 
-            <img src={bgImg5} className="rounded-3 position-relative" style={{ maxHeight: '550px', width: '100%', objectFit: 'cover' }} />
+            <img
+              src={bgImg5}
+              className="rounded-3 position-relative"
+              style={{ height: '570px', width: '100%', objectFit: 'cover' }}
+            />
+
 
 
             {/* <div className="position-absolute bottom-0 start-0 z-index-1 mb-4 ms-5">

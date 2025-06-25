@@ -149,7 +149,9 @@ const FeaturedHotels = () => {
           </Col>
         </Row>
 
-        <Row className="gx-3 gy-3 gy-md-4">
+        <Row
+          className={`gy-3 gy-md-4 ${concerts.length < 4 ? 'justify-content-center gap-3' : 'gx-3'}`}
+        >
           {(loading ? Array(4).fill(undefined) : concerts).map((concert, index) =>
             renderCard(concert, index)
           )}
@@ -157,7 +159,7 @@ const FeaturedHotels = () => {
 
         <Container className="position-relative mt-5">
           <div className="bg-light rounded-3 position-relative p-4 p-sm-5">
-            
+
             <Row className="align-items-center position-relative">
               <Col lg={8}>
                 <div className="d-flex align-items-center gap-2">
