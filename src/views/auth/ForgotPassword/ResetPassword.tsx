@@ -13,6 +13,7 @@ import signInImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025,
 import logoIcon from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png'
 import { developedByLink, currentYear } from '@/states'
 import logoIcon1 from '@/assets/newImage/heroSection/ZEKO_LOGO_WHITE-11-10-11-removebg-preview (1) 1.png'
+import clsx from 'clsx'
 
 
 type ResetPasswordForm = {
@@ -98,19 +99,18 @@ const ResetPassword = () => {
               {/* Logo */}
               <div className="text-center mb-4">
                 <Link to="/" className="d-flex justify-content-center mb-4">
-                  {/* Light logo */}
                   <img
                     src={logoIcon}
                     alt="logo"
-                    className="h-40px d-block dark-hide"
+                    className={clsx('h-40px navbar-brand-item light-mode-item')}
                   />
-                  {/* Dark logo */}
                   <img
                     src={logoIcon1}
                     alt="dark logo"
-                    className="h-40px d-none dark-show"
+                    className={clsx('h-40px navbar-brand-item dark-mode-item')}
                   />
                 </Link>
+
 
               </div>
               {/* Title */}

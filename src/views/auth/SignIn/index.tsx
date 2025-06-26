@@ -10,6 +10,7 @@ import signInImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025,
 import logoIcon from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png'
 import { developedByLink, currentYear } from '@/states'
 import logoIcon1 from '@/assets/newImage/heroSection/ZEKO_LOGO_WHITE-11-10-11-removebg-preview (1) 1.png'
+import clsx from 'clsx'
 
 type SignInForm = {
   email: string
@@ -70,19 +71,18 @@ const SignIn = () => {
         <div className="p-4 p-sm-7 w-100" style={{ maxWidth: '100%', textAlign: 'center' }}>
           {/* Centered Logo */}
           <Link to="/" className="d-flex justify-content-center mb-4">
-            {/* Light logo */}
             <img
               src={logoIcon}
               alt="logo"
-              className="h-40px d-block dark-hide"
+              className={clsx('h-40px navbar-brand-item light-mode-item')}
             />
-            {/* Dark logo */}
             <img
               src={logoIcon1}
               alt="dark logo"
-              className="h-40px d-none dark-show"
+              className={clsx('h-40px navbar-brand-item dark-mode-item')}
             />
           </Link>
+
 
 
           <h1 className="mb-2 h3">Welcome back</h1>

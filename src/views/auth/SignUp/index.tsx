@@ -10,6 +10,7 @@ import logoIcon from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-remove
 import { currentYear } from '@/states';
 import { supabase } from '@/lib/supabaseClient';
 import logoIcon1 from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png'
+import clsx from 'clsx';
 
 type FormValues = {
   firstName: string;
@@ -143,19 +144,18 @@ const SignUp = () => {
               {/* Centered logo container */}
               <div className="d-flex justify-content-center mb-3" style={{ width: '100%' }}>
                 <Link to="/" className="d-flex justify-content-center mb-4">
-                  {/* Light logo */}
                   <img
                     src={logoIcon}
                     alt="logo"
-                    className="h-40px d-block dark-hide"
+                    className={clsx('h-40px navbar-brand-item light-mode-item')}
                   />
-                  {/* Dark logo */}
                   <img
                     src={logoIcon1}
                     alt="dark logo"
-                    className="h-40px d-none dark-show"
+                    className={clsx('h-40px navbar-brand-item dark-mode-item')}
                   />
                 </Link>
+
 
               </div>
 
