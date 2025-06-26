@@ -65,12 +65,12 @@ const HotelListCard = ({ hotel }: { hotel: Concert }) => {
             alt={concert_name}
             style={{
               width: '100%',
-              height: window.innerWidth < 576 ? 'auto' : '180px',
-              objectFit: window.innerWidth < 576 ? 'contain' : 'cover',
+              height: 'auto',
+              objectFit: 'contain',
+              maxHeight: '500px', // Optional: limit very tall images
             }}
             className="rounded-2"
           />
-
         </Col>
 
         <Col md={8}>

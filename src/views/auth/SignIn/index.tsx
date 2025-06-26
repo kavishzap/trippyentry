@@ -87,7 +87,9 @@ const SignIn = () => {
 
           <h1 className="mb-2 h3">Welcome back</h1>
           <p className="mb-0">
-            New here?<Link to="/auth/sign-up"> Create an account</Link>
+            New here? <Link to="/auth/sign-up" className="text-primary text-decoration-underline">
+               Create an account
+            </Link>
           </p>
 
           <form onSubmit={onSubmit} className="mt-4 text-start">

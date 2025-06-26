@@ -56,7 +56,6 @@ const ConcertDetailPage = () => {
   const { isOpen, toggle } = useToggle()
   const [concert, setConcert] = useState<Concert | null>(null)
   const [tickets, setTickets] = useState<(Ticket & { quantity: number; stock: number })[]>([])
-  const [cardHeight, setCardHeight] = useState('860px');
   const [loading, setLoading] = useState(true)
   const [showFullDescription, setShowFullDescription] = useState(false)
 
@@ -79,26 +78,6 @@ const ConcertDetailPage = () => {
     }
     setLoading(false)
   }
-
-  useEffect(() => {
-    const updateCardHeight = () => {
-      const width = window.innerWidth;
-      if (width < 576) {
-        setCardHeight('320px');
-      } else if (width < 768) {
-        setCardHeight('450px');
-      } else {
-        setCardHeight('860px');
-      }
-    };
-
-    updateCardHeight(); // run once on mount
-    window.addEventListener('resize', updateCardHeight);
-
-    return () => {
-      window.removeEventListener('resize', updateCardHeight);
-    };
-  }, []);
 
   const fetchTickets = async () => {
     const { data, error } = await supabase
@@ -215,33 +194,29 @@ const ConcertDetailPage = () => {
 
         <Row className="g-4 align-items-start">
           <Col md={6}>
-            {window.innerWidth < 576 ? (
-              <Card className="overflow-hidden">
+            <Card className="bg-transparent border-0 overflow-auto p-0">
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  overflowX: 'auto',
+                  overflowY: 'auto',
+                  maxWidth: '100%',
+                }}
+              >
                 <img
                   src={base64Image}
                   alt="concert image"
                   style={{
-                    width: '100%',
+                    maxWidth: '100%',
                     height: 'auto',
-                    display: 'block',
-                    borderRadius: '0.5rem'
+                    borderRadius: '0.5rem',
                   }}
                 />
-              </Card>
-            ) : (
-              <Card
-                className="card-grid-lg card-element-hover overflow-hidden"
-                style={{
-                  backgroundImage: `url(${base64Image})`,
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: 'cover',
-                  minHeight: cardHeight,
-                  backgroundColor: '#000',
-                  cursor: 'default'
-                }}
-              />
-            )}
+              </div>
+            </Card>
+
             {/* TICKETS SECTION */}
             {tickets.length > 0 && (
               <Card className="mt-4">
@@ -421,7 +396,7 @@ const ConcertDetailPage = () => {
                 </ul>
                 <div className="bg-danger bg-opacity-10 rounded-2 p-3">
                   <p className="mb-0 text-danger">
-                    Valid ID and a confirmed ticket are required for entry.
+                    Confirmed ticket are required for entry.
                   </p>
                 </div>
               </CardBody>

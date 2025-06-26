@@ -83,7 +83,7 @@ const TopNavBar = () => {
                     textDecoration: 'none',
                   }}
                 >
-                  <FaUser className="text-dark" size={16} />
+                  <FaUser className="text-body" size={16} />
                 </Link>
 
               </Dropdown>

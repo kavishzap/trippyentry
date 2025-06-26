@@ -8,7 +8,7 @@ const FooterWithLinks = () => {
   return (
     <footer className="bg-dark text-light">
       <Container>
-        <Row className="g-5 text-center justify-content-center">
+        <Row className="g-5 text-center justify-content-center mt-5">
           {/* Logo & Contact */}
           <Col xs={12} md={6} lg={4}>
             <Link to="/">

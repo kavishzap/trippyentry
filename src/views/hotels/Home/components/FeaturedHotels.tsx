@@ -58,37 +58,50 @@ const FeaturedHotels = () => {
   }, []);
 
   const renderCard = (concert: Concert | undefined, index: number) => (
-    <Col key={concert?.id || index} sm={6} xl={3}>
+    <Col key={concert?.id || index} xs={12} sm={6} md={6} lg={4}>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.1, duration: 0.4 }}
       >
         <Card className="card-img-scale overflow-hidden bg-transparent h-100 mb-0">
-          <div
-            className="card-img-scale-wrapper rounded-3"
-            style={{
-              height: window.innerWidth < 576 ? 'auto' : '350px',
-              overflow: 'hidden',
-              backgroundColor: concert ? 'transparent' : '#e9ecef',
-            }}
+          <Link
+            to={`/events/detail?id=${concert?.id}`}
+            className="d-block position-relative"
+            style={{ textDecoration: 'none' }}
           >
-            {concert ? (
-              <img
-                src={`data:image/jpeg;base64,${concert.concert_image}`}
-                alt="concert image"
-                style={{
-                  width: '100%',
-                  height: window.innerWidth < 576 ? 'auto' : '100%',
-                  objectFit: window.innerWidth < 576 ? 'contain' : 'cover',
-                  display: 'block',
-                  borderRadius: '0.5rem',
-                }}
-              />
-            ) : (
-              <div style={{ height: '100%', width: '100%' }} />
-            )}
-          </div>
+            <div
+              className="card-img-scale-wrapper rounded-3"
+              style={{
+                width: '100%',
+                overflow: 'hidden',
+                backgroundColor: concert ? 'transparent' : '#e9ecef',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '1rem',
+              }}
+            >
+              {concert ? (
+                <img
+                  src={`data:image/jpeg;base64,${concert.concert_image}`}
+                  alt="concert image"
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    maxHeight: '550px', // increased from 400px to 550px
+                    objectFit: 'contain',
+                    borderRadius: '0.75rem', // optional: more rounding
+                  }}
+                />
+
+              ) : (
+                <div style={{ height: '100%', width: '100%' }} />
+              )}
+            </div>
+          </Link>
+
+
 
           {/* Location badge */}
           {/* {concert && (
