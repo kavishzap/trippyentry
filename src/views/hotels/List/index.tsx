@@ -16,6 +16,22 @@ const HotelsList = () => {
       </main>
 
       <FooterWithLinks />
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+      html, body {
+        overflow-x: hidden !important;
+      }
+
+      main {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+      }
+    `,
+        }}
+      />
+
     </>
   )
 }

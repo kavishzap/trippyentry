@@ -28,18 +28,31 @@ const HotelHome = () => {
       <style
         dangerouslySetInnerHTML={{
           __html: `
-            .featured-hotels-wrapper {
-              margin-top: 0;
-            }
+      /* Prevent unwanted horizontal scroll globally */
+      body, html {
+        overflow-x: hidden !important;
+      }
 
-            @media (max-width: 639px) {
-              .featured-hotels-wrapper {
-                margin-top: 8.5rem; /* Push down on mobile */
-              }
-            }
-          `,
+      /* Prevent any child overflow from Hero or images */
+      main {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+      }
+
+      .featured-hotels-wrapper {
+        margin-top: 0;
+      }
+
+      @media (max-width: 639px) {
+        .featured-hotels-wrapper {
+          margin-top: 8.5rem; /* Push down on mobile */
+        }
+      }
+    `,
         }}
       />
+
     </>
   )
 }
