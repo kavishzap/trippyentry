@@ -427,13 +427,14 @@ const MyBookings = () => {
                             </h5>
                             <p className="mb-1">
                               <FaLocationPin className="me-2" />
-                              <span className="text-dark">{booking.concertLocation || 'Unknown Location'}</span>
+                              <span className="text-body">{booking.concertLocation || 'Unknown Location'}</span>
                             </p>
 
                             <p className="mb-1">
                               <FaMoneyBillWave className="me-2" />
-                              <span className="text-dark">{booking.price}</span>
+                              <span className="text-body">{booking.price}</span>
                             </p>
+
                             <p className="mb-0">
                               <FaFileInvoice className="me-2" />
                               <span

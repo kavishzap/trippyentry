@@ -90,7 +90,7 @@ const MyProfile = () => {
         <Card className="shadow border-0 rounded-4 p-3">
             <Card.Body>
                 <div className="d-flex justify-content-between align-items-center mb-4">
-                    <h4 className="fw-bold mb-0 text-dark">My Profile</h4> {/* Changed to text-dark */}
+                    <h4 className="fw-bold mb-0 text-body">My Profile</h4>
                     <OverlayTrigger
                         overlay={
                             <Tooltip>
