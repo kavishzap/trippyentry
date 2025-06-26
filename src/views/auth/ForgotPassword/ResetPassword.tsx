@@ -26,9 +26,10 @@ const schema = yup.object({
     .string()
     .required('Password is required')
     .matches(
-      /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?#&])[A-Za-z\d@$!%?#&]{8,}$/,
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/,
       'Password must be at least 8 characters and include upper/lowercase, number, and special character'
-    ),
+    )
+  ,
   confirmPassword: yup
     .string()
     .required('Confirm your password')
