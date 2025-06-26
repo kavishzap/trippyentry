@@ -22,7 +22,6 @@ import {
   BsClock,
   BsEyeFill,
   BsGeoAlt,
-  BsPinMapFill,
   BsCheckCircleFill,
 } from 'react-icons/bs'
 import { FaShareAlt } from 'react-icons/fa'
@@ -56,7 +55,7 @@ const ConcertDetailPage = () => {
   const id = searchParams.get('id')
   const { isOpen, toggle } = useToggle()
   const [concert, setConcert] = useState<Concert | null>(null)
-  const [tickets, setTickets] = useState<(Ticket & { quantity: number })[]>([])
+  const [tickets, setTickets] = useState<(Ticket & { quantity: number; stock: number })[]>([])
   const [cardHeight, setCardHeight] = useState('860px');
   const [loading, setLoading] = useState(true)
   const [showFullDescription, setShowFullDescription] = useState(false)
@@ -111,11 +110,12 @@ const ConcertDetailPage = () => {
       console.error('Failed to fetch tickets:', error.message)
     } else {
       setTickets((data || []).map(ticket => ({
-        ticket_id: ticket.id, // ✅ correctly assign ticket_id
-        ticket_type: ticket.ticket_type || '', // fallback if undefined
+        ticket_id: ticket.id,
+        ticket_type: ticket.ticket_type || '',
         ticket_name: ticket.ticket_name,
-        price: Number(ticket.price), // ensure it's a number
-        quantity: 0
+        price: Number(ticket.price),
+        quantity: 0,
+        stock: Number(ticket.quantity), // from DB
       })))
     }
   }
@@ -251,7 +251,7 @@ const ConcertDetailPage = () => {
                 <CardBody>
                   {tickets.map((ticket, index) => (
                     <div
-                      key={`${ticket.ticket_id}-${index}`}
+                      key={ticket.ticket_id}
                       className="d-flex justify-content-between align-items-center mb-3"
                     >
                       <div>
@@ -259,6 +259,9 @@ const ConcertDetailPage = () => {
                         <small className="fw-semibold text-body">
                           Price: Rs {ticket.price} | {ticket.ticket_name}
                         </small>
+                        {ticket.stock === 0 && (
+                          <div className="text-danger fw-bold small mt-1">Sold Out</div>
+                        )}
                       </div>
 
                       <div className="d-flex align-items-center">
@@ -267,18 +270,23 @@ const ConcertDetailPage = () => {
                           variant="outline-secondary"
                           className="me-2"
                           onClick={() => handleDecrement(ticket.ticket_id, index)}
+                          disabled={ticket.stock === 0 || ticket.quantity === 0}
                         >
                           <FaMinus />
                         </Button>
+
                         <span className="px-2">{ticket.quantity}</span>
+
                         <Button
                           size="sm"
                           variant="outline-secondary"
                           className="ms-2"
                           onClick={() => handleIncrement(ticket.ticket_id, index)}
+                          disabled={ticket.stock === 0 || ticket.quantity >= ticket.stock}
                         >
                           <FaPlus />
                         </Button>
+
 
                       </div>
                     </div>
@@ -321,13 +329,13 @@ const ConcertDetailPage = () => {
                       Swal.fire({
                         title: 'Confirm Booking',
                         html: `
-        <div class="text-start">
-          <strong>Tickets Selected:</strong><br/>
-          ${ticketList}
-          <hr/>
-          <strong>Total: Rs ${total}</strong>
-        </div>
-      `,
+          <div class="text-start">
+            <strong>Tickets Selected:</strong><br/>
+            ${ticketList}
+            <hr/>
+            <strong>Total: Rs ${total}</strong>
+          </div>
+        `,
                         icon: 'info',
                         showCancelButton: true,
                         confirmButtonText: 'Confirm',
@@ -363,11 +371,12 @@ const ConcertDetailPage = () => {
                             });
                           }
                         }
-                      })
+                      });
                     }}
                   >
                     Book Tickets
                   </Button>
+
 
                 </CardBody>
 
@@ -470,7 +479,7 @@ const ConcertDetailPage = () => {
             tabIndex={0}
           />
         </div>
-        <div className="modal-footer">
+        {/* <div className="modal-footer">
           <a
             href={concert.concert_google_map_link}
             target="_blank"
@@ -480,7 +489,7 @@ const ConcertDetailPage = () => {
             <BsPinMapFill className="me-2" /> View In Google Map
           </a>
 
-        </div>
+        </div> */}
       </Modal>
     </main>
   )
