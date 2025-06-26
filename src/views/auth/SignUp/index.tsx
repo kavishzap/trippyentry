@@ -9,7 +9,7 @@ import signInImg from '@/assets/newImage/heroSection/ChatGPT Image May 31, 2025,
 import logoIcon from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png';
 import { currentYear } from '@/states';
 import { supabase } from '@/lib/supabaseClient';
-import logoIcon1 from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png'
+import logoIcon1 from '@/assets/newImage/heroSection/ZEKO_LOGO_WHITE-11-10-11-removebg-preview (1) 1.png'
 import clsx from 'clsx';
 
 type FormValues = {
