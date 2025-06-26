@@ -157,6 +157,7 @@ const SignUp = () => {
                 </Link>
 
 
+
               </div>
 
               {/* Centered heading */}
