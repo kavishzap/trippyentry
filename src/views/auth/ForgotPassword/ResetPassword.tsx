@@ -150,7 +150,7 @@ const ResetPassword = () => {
                 </div>
 
                 <div className="text-center text-muted small">
-                  Copyrights ©{currentYear} zeko.com{' '}
+                  Copyrights ©{currentYear} zekomru.com{' '}
                   <a
                     href={developedByLink}
                     target="_blank"

@@ -124,7 +124,7 @@ const SignIn = () => {
             </div>
 
             <div className="text-primary-hover text-body mt-3 text-center">
-              Copyrights ©{currentYear} zeko.com{' '}
+              Copyrights ©{currentYear} zekomru.com{' '}
               <a href={developedByLink} target="_blank" className="text-body" rel="noopener noreferrer"></a>.
             </div>
           </form>

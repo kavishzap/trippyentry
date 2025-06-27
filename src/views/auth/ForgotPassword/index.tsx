@@ -114,7 +114,7 @@ const ForgotPassword = () => {
             </div>
 
             <div className="text-primary-hover text-body mt-3 text-center">
-              Copyrights ©{currentYear} zeko.com{' '}
+              Copyrights ©{currentYear} zekomru.com{' '}
             </div>
           </form>
         </div>

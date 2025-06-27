@@ -71,7 +71,7 @@ const FeaturedHoliday = () => {
           <Col lg={6}>
             <h2 className="mb-3 mb-lg-5 text-center text-lg-start">Why Choose Us?</h2>
             <p className="mb-3 mb-lg-5 text-center text-lg-start">
-              Elevate your event experience with zeko.com — from quick ticketing to food deals and smooth rides, we make your concerts unforgettable!
+              Elevate your event experience with zekomru.com — from quick ticketing to food deals and smooth rides, we make your concerts unforgettable!
             </p>
 
             <Row className="g-4">

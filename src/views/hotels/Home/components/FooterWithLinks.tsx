@@ -33,7 +33,7 @@ const FooterWithLinks = () => {
         <Row>
           <Col>
             <div className="d-flex justify-content-center text-center text-secondary small py-3">
-              © {currentYear} zeko.com. All rights reserved.
+              © {currentYear} zekomru.com. All rights reserved.
             </div>
           </Col>
         </Row>

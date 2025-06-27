@@ -229,7 +229,7 @@ const SignUp = () => {
                   className="text-primary-hover text-body small text-center d-flex justify-content-center"
                   style={{ width: '100%' }}
                 >
-                  Copyrights ©{currentYear} Zeko.com
+                  Copyrights ©{currentYear} zekomru.com
                 </div>
               </form>
             </div>
