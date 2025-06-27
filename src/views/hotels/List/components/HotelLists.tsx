@@ -21,6 +21,7 @@ type Concert = {
   concert_date: string
   concert_location_name: string
   concert_image: string
+  front_image: string
   price: number
   minTicketPrice?: number
 }
