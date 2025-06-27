@@ -24,17 +24,22 @@ type Concert = {
   concert_name: string
   concert_date: string
   concert_location_name: string
-  concert_image: string
+  concert_image: string,
+  front_image: string
   price: number // Optional or fallback
+  concert_description?: string
 }
 
 const HotelListCard = ({ hotel }: { hotel: Concert }) => {
-  const { concert_image, concert_name, concert_date, concert_location_name, id: concertId } = hotel
+  const { front_image, concert_image, concert_name, concert_date, concert_location_name, id: concertId, concert_description = '', } = hotel
   const [minTicketPrice, setMinTicketPrice] = useState<number | null>(null)
 
-  const base64Image = concert_image.startsWith('data:')
-    ? concert_image
-    : `data:image/jpeg;base64,${concert_image}`
+  const truncate = (text: string, maxLength: number): string => {
+    return text.length > maxLength ? text.slice(0, maxLength) + '...' : text
+  }
+  const base64Image1 = concert_image.startsWith('data:')
+    ? front_image
+    : `data:image/jpeg;base64,${front_image}`
 
   useEffect(() => {
     const fetchMinPrice = async () => {
@@ -60,17 +65,19 @@ const HotelListCard = ({ hotel }: { hotel: Concert }) => {
     <Card className="shadow-sm border-0 rounded-3 p-2">
       <Row className="g-2 align-items-center">
         <Col md={4}>
-          <Image
-            src={base64Image}
-            alt={concert_name}
-            style={{
-              width: '100%',
-              height: 'auto',
-              objectFit: 'contain',
-              maxHeight: '500px', // Optional: limit very tall images
-            }}
-            className="rounded-2"
-          />
+          <Link to={`/events/detail?id=${concertId}`} className="d-block">
+            <Image
+              src={base64Image1}
+              alt={concert_name}
+              style={{
+                width: '100%',
+                height: 'auto',
+                objectFit: 'contain',
+                maxHeight: '500px', // Optional: limit very tall images
+              }}
+              className="rounded-2"
+            />
+          </Link>
         </Col>
 
         <Col md={8}>
@@ -107,6 +114,13 @@ const HotelListCard = ({ hotel }: { hotel: Concert }) => {
               </Dropdown>
             </div>
 
+            {/* Truncated Description */}
+            {concert_description && (
+              <p className="text-body small mb-2" style={{ lineHeight: '1.3rem' }}>
+                {truncate(concert_description, 140)}
+              </p>
+            )}
+
             <small className="text-body d-flex align-items-center mb-1">
               <BsGeoAlt className="me-2" size={14} />
               {concert_location_name}
@@ -136,6 +150,8 @@ const HotelListCard = ({ hotel }: { hotel: Concert }) => {
                 </Button>
               </Link>
             </div>
+
+
           </CardBody>
         </Col>
       </Row>

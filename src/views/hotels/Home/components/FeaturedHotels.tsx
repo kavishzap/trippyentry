@@ -13,6 +13,7 @@ type Concert = {
   concert_date: string;
   concert_location_name: string;
   concert_image: string;
+  front_image: string;
   price: number;
 };
 
@@ -84,7 +85,7 @@ const FeaturedHotels = () => {
             >
               {concert ? (
                 <img
-                  src={`data:image/jpeg;base64,${concert.concert_image}`}
+                  src={`data:image/jpeg;base64,${concert.front_image}`}
                   alt="concert image"
                   style={{
                     width: '100%',
@@ -142,7 +143,7 @@ const FeaturedHotels = () => {
                     <small className="fw-light">Starting at</small> Rs {concert.price}
                   </h6>
                   <button className="btn btn-sm btn-outline-primary">
-                    <BsArrowRight />
+                    Book Now <BsArrowRight />
                   </button>
                 </>
               ) : (

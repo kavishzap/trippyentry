@@ -16,6 +16,7 @@ type Booking = {
   concertName: string;
   status: 'Paid' | 'Unpaid';
   concertImage?: string;
+  frontImage?: string;
   created_at?: string;
   concertLocation?: string;
 };
@@ -78,11 +79,12 @@ const MyBookings = () => {
       bookingData.map(async (b) => {
         let concertName = 'Unknown Concert';
         let concertImage = '';
+        let frontImage = '';
 
         if (b.concertid) {
           const { data: concertData, error: concertError } = await supabase
             .from('concerts')
-            .select('concert_name, concert_image, concert_location_name')
+            .select('concert_name, concert_image, concert_location_name, front_image')
             .eq('id', b.concertid)
             .single();
 
@@ -90,6 +92,7 @@ const MyBookings = () => {
             concertName = concertData.concert_name;
             concertImage = concertData.concert_image;
             concertLocation = concertData.concert_location_name;
+            frontImage = concertData.front_image;
           } else if (concertError) {
             console.warn(`Error fetching concert for booking ${b.id}`, concertError.message);
           }
@@ -101,6 +104,7 @@ const MyBookings = () => {
           price: `${Number(b.total || 0).toFixed(2)} MUR`,
           concertName,
           concertImage,
+          frontImage,
           concertLocation,
           status: b.status ? 'Paid' : 'Unpaid',
           tickets: b.tickets ?? false,
@@ -189,10 +193,10 @@ const MyBookings = () => {
 
       // Add concert image
       // Add concert image on the left, QR on the right (side by side)
-      if (booking.concertImage) {
-        const concertImageBase64 = booking.concertImage.startsWith('data:')
-          ? booking.concertImage
-          : `data:image/jpeg;base64,${booking.concertImage}`;
+      if (booking.frontImage) {
+        const concertImageBase64 = booking.frontImage.startsWith('data:')
+          ? booking.frontImage
+          : `data:image/jpeg;base64,${booking.frontImage}`;
         try {
           const imgWidth = 40;
           const imgHeight = 50;
@@ -476,11 +480,11 @@ const MyBookings = () => {
                   <Card.Body>
                     <div className="row g-3 align-items-center">
                       <div className="col-md-3">
-                        {booking.concertImage && (
+                        {booking.frontImage && (
                           <img
-                            src={booking.concertImage.startsWith('data:')
+                            src={booking.frontImage.startsWith('data:')
                               ? booking.concertImage
-                              : `data:image/jpeg;base64,${booking.concertImage}`}
+                              : `data:image/jpeg;base64,${booking.frontImage}`}
                             alt="Concert"
                             className="img-fluid rounded-3"
                             style={{
