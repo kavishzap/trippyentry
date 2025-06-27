@@ -9,7 +9,7 @@ const HotelDetails = () => {
     const location = useLocation()
     const searchParams = new URLSearchParams(location.search)
 
-    const accountNumber = '000045239695'
+    const accountNumber = '000452396956'
     const amount = Number(searchParams.get('amount')) || 0
     const invoiceParam = searchParams.get('invoiceId')
     const invoiceId = invoiceParam ? `INV-${invoiceParam}` : 'INV-UNKNOWN'
