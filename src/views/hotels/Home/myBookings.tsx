@@ -341,77 +341,74 @@ const MyBookings = () => {
       doc.setFontSize(9);
 
       const terms = [
+        'Terms and Conditions – Sam Garrett Live in Mauritius',
         '1. Ticket Purchase & Entry',
-        '• Tickets are non-refundable and non-transferable, unless the event is cancelled or rescheduled.',
-        '• Entry will only be granted upon presentation of a valid ticket (physical or digital).',
-        '• Lost, stolen, or damaged tickets will not be replaced or refunded.',
+        '* Tickets are non-refundable and non-transferable, unless the event is cancelled or rescheduled.',
+        '* Entry will only be granted upon presentation of a valid ticket (physical or digital).',
+        '* Lost, stolen, or damaged tickets will not be replaced or refunded.',
 
         '',
         '2. Safety & Conduct',
-        '• This is a family-friendly, alcohol-free and controlled substance-free event.',
-        '• Security checks may be conducted at the entry point. Dangerous or prohibited items (including but not limited to weapons, glass containers, and fireworks) are strictly forbidden.',
-        '• The organisers reserve the right to refuse entry or remove any individual who engages in disruptive, unsafe, or inappropriate behaviour, without refund.',
+        'This is a family-friendly, alcohol-free, drug-free, and controlled substance-free event.',
+        'Security checks may be conducted at the entry point. Dangerous or prohibited items (including but not limited to weapons, glass containers, and fireworks) are strictly forbidden.',
+        'The organisers reserve the right to refuse entry or remove any individual who engages in disruptive, unsafe, or inappropriate behaviour, without refund.',
 
         '',
         '3. Children & Supervision',
-        '• Children under the age of 12 must be accompanied by a responsible adult at all times.',
-        '• Parents and guardians are solely responsible for the supervision and safety of their children throughout the event.',
+        '* Children under the age of 12 must be accompanied by a responsible adult at all times.',
+        '* Parents and guardians are solely responsible for the supervision and safety of their children throughout the event.',
 
         '',
         '4. Filming & Photography',
-        '• By attending, you consent to being filmed and photographed for promotional purposes by the organisers.',
-        '• Personal photography is allowed; however, professional equipment (e.g., DSLRs, drones, tripods) is not permitted without prior written approval.',
+        '* By attending, you consent to being filmed and photographed for promotional purposes by the organisers.',
+        '* Personal photography is allowed; however, professional equipment (e.g., DSLRs, drones, tripods) is not permitted without prior written approval.',
 
         '',
         '5. Environment & Respect',
-        '• Please respect the venue and natural surroundings. Use the bins provided and avoid littering.',
-        '• This event promotes conscious, eco-friendly, and sustainable values. Be mindful of your environmental impact.',
+        '* Please respect the venue and natural surroundings. Use the bins provided and avoid littering.',
+        '* This event promotes conscious, eco-friendly, and sustainable values. Be mindful of your environmental impact.',
 
         '',
         '6. Liability',
-        '• The organisers are not responsible for any loss, injury, illness, or damage to persons or personal belongings during the event, including but not limited to theft, accidents, or natural occurrences.',
-        '• Attendees participate at their own risk and are solely responsible for their personal safety and belongings.',
-        '• By attending, you agree to waive any claims against the organisers, venue, sponsors, artists, and affiliates.',
+        '* The organisers are not responsible for any loss, injury, illness, or damage to persons or personal belongings during the event, including but not limited to theft, accidents, or natural occurrences.',
+        '* Attendees participate at their own risk and are solely responsible for their personal safety and belongings.',
+        '* By attending, you agree to waive any claims against the organisers, venue, sponsors, artists, and affiliates.',
 
         '',
         '7. Force Majeure',
-        '• The organisers shall not be held liable for any cancellation, delay, or alteration of the event due to circumstances beyond their control, including but not limited to natural disasters, extreme weather, strikes, government regulations, or public health emergencies.',
-        '• In such cases, the event may be postponed or rescheduled. No refunds will be issued unless otherwise announced by the organisers.',
+        '* The organisers shall not be held liable for any cancellation, delay, or alteration of the event due to circumstances beyond their control, including but not limited to natural disasters, extreme weather, strikes, government regulations, or public health emergencies.',
+        '* In such cases, the event may be postponed or rescheduled. No refunds will be issued unless otherwise announced by the organisers.',
 
         '',
-        '8. Program Changes',
-        '• The organisers reserve the right to change the event schedule, artist line-up, or venue at their sole discretion. These changes do not entitle ticket holders to a refund or compensation.',
+        '8. Medical Attention',
+        '* Basic first aid support will be available on-site, but the organisers are not liable for any medical emergencies.',
+        '* Attendees are responsible for managing their own medical conditions.',
+        '* By attending, you acknowledge and accept full responsibility for your own health and well-being.',
 
         '',
-        '9. Medical Attention',
-        '• Basic first aid support will be available on-site, but the organisers are not liable for any medical emergencies.',
-        '• Attendees are responsible for managing their own medical conditions.',
-        '• By attending, you acknowledge and accept full responsibility for your own health and well-being.',
+        '9. Assumption of Risk',
+        '* Attending a live concert involves inherent risks, including but not limited to crowd density, high sound levels and uneven ground.',
+        '* By entering the event premises, you voluntarily assume all such risks.',
 
         '',
-        '10. Assumption of Risk',
-        '• Attending a live concert involves inherent risks, including but not limited to crowd density, high sound levels and uneven ground.',
-        '• By entering the event premises, you voluntarily assume all such risks.',
+        '10. Prohibited Behaviour',
+        '* The organisers have a zero-tolerance policy for harassment, aggressive conduct, hate speech, or discriminatory behaviour of any kind.',
+        '* Any individual engaging in such behaviour may be removed immediately and without refund, and may be subject to legal action if necessary.',
 
         '',
-        '11. Prohibited Behaviour',
-        '• The organisers have a zero-tolerance policy for harassment, aggressive conduct, hate speech, or discriminatory behaviour of any kind.',
-        '• Any individual engaging in such behaviour may be removed immediately and without refund, and may be subject to legal action if necessary.',
-
-        '',
-        '12. Dispute Resolution & Governing Law',
-        '• These terms and conditions shall be governed by the laws of the Republic of Mauritius.',
-        '• In the event of a dispute or claim arising from this event, all parties agree to first attempt to resolve the matter amicably.',
-        '• If an amicable resolution is not possible, the dispute shall be subject to the exclusive jurisdiction of the courts of Mauritius.'
+        '11. Dispute Resolution & Governing Law',
+        '* These terms and conditions shall be governed by the laws of the Republic of Mauritius.',
+        '* In the event of a dispute or claim arising from this event, all parties agree to first attempt to resolve the matter amicably.',
+        '* If an amicable resolution is not possible, the dispute shall be subject to the exclusive jurisdiction of the courts of Mauritius.'
       ];
+
 
       terms.forEach(line => {
         const safeBottom = 270;
         const lineHeight = 5;
+        const wrapped = doc.splitTextToSize(line, pageWidth - margin * 2);
 
-        const lines = doc.splitTextToSize(line, pageWidth - margin * 2);
-
-        lines.forEach((wrappedLine: string) => {
+        wrapped.forEach((wrappedLine: string | string[]) => {
           if (y + lineHeight > safeBottom) {
             doc.addPage();
             y = 20;
@@ -419,8 +416,8 @@ const MyBookings = () => {
           doc.text(wrappedLine, margin, y);
           y += lineHeight;
         });
-
       });
+
 
       // Footer
       y += 5
