@@ -9,7 +9,7 @@ const HotelDetails = () => {
     const location = useLocation()
     const searchParams = new URLSearchParams(location.search)
 
-    const accountNumber = '000452396956'
+    const accountNumber = '000045239695'
     const amount = Number(searchParams.get('amount')) || 0
     const invoiceParam = searchParams.get('invoiceId')
     const invoiceId = invoiceParam ? `INV-${invoiceParam}` : 'INV-UNKNOWN'
@@ -29,6 +29,7 @@ const HotelDetails = () => {
                     <Card className="shadow-sm">
                         <CardBody>
                             <h3 className="mb-4 justify-content-center text-center">Complete Payment to confirm booking</h3>
+                             <h5 className="mb-4 justify-content-center text-center">And Go to My bookings in User Section to download your ticket</h5>
                             {/* <p className='mb-4 justify-content-center text-center'>To complete your booking, please follow these steps:</p> */}
                             {/* <div className="text-center mt-4">
                                 <h5 className="mb-3">Scan this QR to Pay via Juice:</h5>
@@ -63,7 +64,7 @@ const HotelDetails = () => {
                             {/* Manual Bank Transfer Option */}
                             <div className="mb-4 d-flex justify-content-center">
                                 <div className="text-center">
-                                    <h5 className="mb-4">Pay Directly to MCB Account</h5>
+                                    <h5 className="mb-4">Pay Directly to MCB Account: </h5>
                                     <ul className="list-unstyled mb-0">
                                         <li>
                                             <p className="fs-5">
