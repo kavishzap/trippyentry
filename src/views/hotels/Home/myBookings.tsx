@@ -406,14 +406,21 @@ const MyBookings = () => {
       ];
 
       terms.forEach(line => {
-        if (y >= 270) { // page bottom safety margin
-          doc.addPage();
-          y = 20;
-        }
-        doc.text(line, margin, y);
-        y += 5;
-      });
+        const safeBottom = 270;
+        const lineHeight = 5;
 
+        const lines = doc.splitTextToSize(line, pageWidth - margin * 2);
+
+        lines.forEach((wrappedLine: string | string[]) => {
+          if (y + lineHeight > safeBottom) {
+            doc.addPage();
+            y = 20;
+          }
+
+          doc.text(wrappedLine, margin, y);
+          y += lineHeight;
+        });
+      });
 
       // Footer
       y += 5
