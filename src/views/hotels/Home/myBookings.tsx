@@ -510,23 +510,20 @@ const MyBookings = () => {
                             </p>
                           </div>
                           <div className="text-md-end">
-                            <Button
-                              variant="outline-primary"
-                              className="fw-semibold px-4 py-2 rounded-pill"
-                              onClick={() => downloadTicket(booking)}
-                              disabled={downloadingId === booking.id}
-                            >
-                              {downloadingId === booking.id ? (
-                                <>
-                                  <Spinner size="sm" animation="border" className="me-2" />
-                                  Generating...
-                                </>
-                              ) : (
-                                <>
-                                  <FaFileInvoice className="me-2" /> Download
-                                </>
-                              )}
-                            </Button>
+                            {booking.status === 'Paid' ? (
+                              <button
+                                className="btn btn-primary"
+                                onClick={() => downloadTicket(booking)}
+                                disabled={downloadingId === booking.id}
+                              >
+                                {downloadingId === booking.id ? 'Downloading...' : 'Download Ticket'}
+                              </button>
+                            ) : (
+                              <span className="text-body fst-italic">
+                                Awaiting admin approval – Ticket will be available once payment is confirmed. If you've already made the payment, please allow some time for processing.
+                              </span>
+
+                            )}
 
                           </div>
                         </div>

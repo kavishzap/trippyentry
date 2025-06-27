@@ -23,10 +23,10 @@ type FormValues = {
   phone: string;
 };
 
-const isStrongPassword = (password: string) => {
-  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/;
-  return regex.test(password);
-};
+// const isStrongPassword = (password: string) => {
+//   const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/;
+//   return regex.test(password);
+// };
 
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
@@ -58,22 +58,14 @@ const SignUp = () => {
       return;
     }
 
-    if (!isStrongPassword(password)) {
+    if (password.length < 8) {
       Swal.fire({
         icon: 'warning',
         title: 'Weak Password',
-        html: `Your password must contain:
-          <ul style="text-align: left;">
-            <li>At least 8 characters</li>
-            <li>1 uppercase letter</li>
-            <li>1 lowercase letter</li>
-            <li>1 number</li>
-            <li>1 special character (@$!%*?#&)</li>
-          </ul>`,
+        text: 'Password must be at least 8 characters long.',
       });
       return;
     }
-
     setLoading(true);
 
     const { error, data: result } = await supabase.auth.signUp({
