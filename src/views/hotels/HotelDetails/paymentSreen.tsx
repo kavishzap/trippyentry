@@ -1,35 +1,53 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import FooterWithLinks from '../Home/components/FooterWithLinks'
 import TopNavBar4 from '../Home/components/TopNavBar'
-import { Container, Card, CardBody } from 'react-bootstrap'
+import { Container, Card, CardBody, Toast, ToastContainer } from 'react-bootstrap'
+
 // import QRCode from 'react-qr-code'
 
 const HotelDetails = () => {
     const location = useLocation()
     const searchParams = new URLSearchParams(location.search)
-
+    const [showToast, setShowToast] = useState(false)
     const accountNumber = '000452396956'
     const amount = Number(searchParams.get('amount')) || 0
     const invoiceParam = searchParams.get('invoiceId')
     const invoiceId = invoiceParam ? `INV-${invoiceParam}` : 'INV-UNKNOWN'
 
-    // const juiceUrl = `https://juice.mcb.mu/qrpay?acc=${accountNumber}&amt=${amount}&ref=${invoiceId}`
-
     useEffect(() => {
         window.scrollTo(0, 0)
+        setShowToast(true)
+
+        const timeout = setTimeout(() => {
+            setShowToast(false)
+        }, 8000)
+
+        return () => clearTimeout(timeout)
     }, [])
+
+
 
     return (
         <>
             <TopNavBar4 />
-
+            {/* Toast */}
+            <ToastContainer position="top-end" className="p-3" style={{ zIndex: 9999 }}>
+                <Toast show={showToast} onClose={() => setShowToast(false)} delay={8000} autohide>
+                    <Toast.Header>
+                        <strong className="me-auto text-success">Action Required</strong>
+                    </Toast.Header>
+                    <Toast.Body>
+                        Your booking is temporarily reserved. Please complete the payment within 30 minutes to avoid automatic cancellation.
+                    </Toast.Body>
+                </Toast>
+            </ToastContainer>
             <main className="py-5">
                 <Container className='mb-5'>
                     <Card className="shadow-sm">
                         <CardBody>
                             <h3 className="mb-4 justify-content-center text-center">Complete Payment to confirm booking</h3>
-                             <h5 className="mb-4 justify-content-center text-center">And Go to My bookings in User Section to download your ticket</h5>
+                            <h5 className="mb-4 justify-content-center text-center">And Go to My bookings in User Section to download your ticket</h5>
                             {/* <p className='mb-4 justify-content-center text-center'>To complete your booking, please follow these steps:</p> */}
                             {/* <div className="text-center mt-4">
                                 <h5 className="mb-3">Scan this QR to Pay via Juice:</h5>
@@ -119,6 +137,22 @@ const HotelDetails = () => {
             </main>
 
             <FooterWithLinks />
+
+            <style
+                dangerouslySetInnerHTML={{
+                    __html: `
+      html, body {
+        overflow-x: hidden !important;
+      }
+
+      main {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+      }
+    `,
+                }}
+            />
         </>
     )
 }
