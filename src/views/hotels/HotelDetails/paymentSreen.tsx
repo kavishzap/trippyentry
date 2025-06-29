@@ -33,15 +33,36 @@ const HotelDetails = () => {
             <TopNavBar4 />
             {/* Toast */}
             <ToastContainer position="top-end" className="p-3" style={{ zIndex: 9999 }}>
-                <Toast show={showToast} onClose={() => setShowToast(false)} delay={8000} autohide>
-                    <Toast.Header>
-                        <strong className="me-auto text-success">Action Required</strong>
+                <Toast
+                    show={showToast}
+                    onClose={() => setShowToast(false)}
+                    delay={8000}
+                    autohide
+                    style={{
+                        backgroundColor: '#1c1c2e',
+                        color: '#ffffff',
+                        borderLeft: '4px solid #00e676',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+                        minWidth: '300px',
+                    }}
+                >
+                    <Toast.Header
+                        closeButton={false}
+                        style={{
+                            backgroundColor: 'transparent',
+                            borderBottom: 'none',
+                            color: '#00e676',
+                            fontWeight: 600,
+                        }}
+                    >
+                        <strong className="me-auto">Action Required</strong>
                     </Toast.Header>
-                    <Toast.Body>
+                    <Toast.Body style={{ fontSize: '0.95rem', color: '#e0e0e0' }}>
                         Your booking is temporarily reserved. Please complete the payment within 30 minutes to avoid automatic cancellation.
                     </Toast.Body>
                 </Toast>
             </ToastContainer>
+
             <main className="py-5">
                 <Container className='mb-5'>
                     <Card className="shadow-sm">
