@@ -234,7 +234,12 @@ const ConcertDetailPage = () => {
                         <small className="fw-semibold text-body">
                           Price: Rs {ticket.price} | {ticket.ticket_name}
                         </small>
-                        {ticket.stock === 0 && (
+                        {/* Show available stock */}
+                        {ticket.stock > 0 ? (
+                          <div className="text-success small">
+                            <strong>{ticket.stock} tickets left</strong>
+                          </div>
+                        ) : (
                           <div className="text-danger fw-bold small mt-1">Sold Out</div>
                         )}
                       </div>
