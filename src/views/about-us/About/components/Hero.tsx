@@ -6,13 +6,13 @@ import element7 from '@/assets/images/element/07.svg'
 import element8 from '@/assets/images/element/08.svg'
 import poster1 from '@/assets/newImage/heroSection/WhatsApp Image 2025-06-25 at 09.53.11_639e5b43.jpg'
 import poster2 from '@/assets/newImage/heroSection/WhatsApp Image 2025-06-25 at 09.53.12_28965afb.jpg'
-import poster3 from '@/assets/newImage/heroSection/WhatsApp Image 2025-06-25 at 20.17.46_7e5ec18f.jpg'
+import poster4 from '@/assets/newImage/heroSection/WhatsApp Image 2025-07-12 at 12.39.48_7b246a2c.jpg'
 
 
 const posters = [
   { id: 1, src: poster1 },
   { id: 2, src: poster2 },
-  { id: 3, src: poster3 },
+  { id: 3, src: poster4 },
 ]
 
 const Hero = () => {
