@@ -68,7 +68,7 @@ const Hero = () => {
                 <li className="list-inline-item">
                   <Link
                     className="btn btn-sm bg-instagram p-2 mb-0 flex-centered text-white"
-                    to="https://www.instagram.com/"
+                    to="https://www.instagram.com/zekomru/"
                     target="_blank"
                   >
                     <FaInstagram />
@@ -77,7 +77,7 @@ const Hero = () => {
                 <li className="list-inline-item">
                   <Link
                     className="btn btn-sm bg-primary p-2 mb-0 flex-centered text-white"
-                    to="https://www.facebook.com/"
+                    to="https://www.facebook.com/share/1C33xLMwhG/?mibextid=wwXIfr"
                     target="_blank"
                   >
                     <FaFacebook />
@@ -86,7 +86,7 @@ const Hero = () => {
                 <li className="list-inline-item">
                   <Link
                     className="btn btn-sm bg-dark p-2 mb-0 flex-centered text-white"
-                    to="https://www.tiktok.com/"
+                    to="https://www.tiktok.com/@zekomru"
                     target="_blank"
                   >
                     <FaTiktok />
