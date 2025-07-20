@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import poster1 from '@/assets/newImage/heroSection/WhatsApp Image 2025-06-25 at 09.53.11_639e5b43.jpg'
 import poster2 from '@/assets/newImage/heroSection/WhatsApp Image 2025-06-25 at 09.53.12_28965afb.jpg'
-import poster4 from '@/assets/newImage/heroSection/WhatsApp Image 2025-07-12 at 12.39.48_7b246a2c.jpg'
+import poster4 from '@/assets/newImage/heroSection/YF_artwork 1.png'
 
 
 const posters = [

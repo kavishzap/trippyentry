@@ -87,35 +87,20 @@ const FeaturedHotels = () => {
                 <img
                   src={`data:image/jpeg;base64,${concert.front_image}`}
                   alt="concert image"
+                  loading="lazy"
                   style={{
-                    width: '100%',
-                    height: 'auto',
-                    maxHeight: '550px', // increased from 400px to 550px
-                    objectFit: 'contain',
-                    borderRadius: '0.75rem', // optional: more rounding
+                    width: '120%',
+                    height: '450px', // Fixed height
+                    borderRadius: '0.75rem',
                   }}
                 />
+
 
               ) : (
                 <div style={{ height: '100%', width: '100%' }} />
               )}
             </div>
           </Link>
-
-
-
-          {/* Location badge */}
-          {/* {concert && (
-            <div className="mt-2">
-              <div
-                className="badge text-bg-dark fs-6 rounded-pill d-flex text-truncate"
-                style={{ maxWidth: '200px' }}
-              >
-                <BsGeoAlt className="me-2" />
-                <span className="text-truncate">{concert.concert_location_name}</span>
-              </div>
-            </div>
-          )} */}
 
           {/* Title & Price */}
           <div className="card-img-scale-wrapper">
