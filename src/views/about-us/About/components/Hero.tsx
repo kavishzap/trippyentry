@@ -5,13 +5,12 @@ import element6 from '@/assets/images/element/06.svg'
 import element7 from '@/assets/images/element/07.svg'
 import element8 from '@/assets/images/element/08.svg'
 import poster1 from '@/assets/newImage/heroSection/WhatsApp Image 2025-06-25 at 09.53.11_639e5b43.jpg'
-import poster2 from '@/assets/newImage/heroSection/WhatsApp Image 2025-06-25 at 09.53.12_28965afb.jpg'
 import poster4 from '@/assets/newImage/heroSection/YF_artwork 1.png'
-
+import poster6 from '@/assets/newImage/heroSection/WhatsApp Image 2025-07-22 at 19.14.44_0b7b427d.jpg'
 
 const posters = [
   { id: 1, src: poster1 },
-  { id: 2, src: poster2 },
+  { id: 2, src: poster6 },
   { id: 3, src: poster4 },
 ]
 
