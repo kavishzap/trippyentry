@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Card, Col, Container, Row } from 'react-bootstrap';
-import { BsArrowRight } from 'react-icons/bs';
+import { BsArrowRight, BsStars } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/lib/supabaseClient';
-import { BsStars } from 'react-icons/bs';
 import { motion } from 'framer-motion';
-
 
 type Concert = {
   id: number;
@@ -27,7 +25,7 @@ const FeaturedHotels = () => {
         .from('concerts')
         .select('*')
         .order('id', { ascending: false })
-        .limit(4);
+        .limit(3); // Only 3 for one row
 
       if (concertError || !concertsData) return;
 
@@ -59,7 +57,7 @@ const FeaturedHotels = () => {
   }, []);
 
   const renderCard = (concert: Concert | undefined, index: number) => (
-    <Col key={concert?.id || index} xs={12} sm={6} md={6} lg={4}>
+    <Col key={concert?.id || index} xs={12} sm={6} md={4}>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -90,19 +88,16 @@ const FeaturedHotels = () => {
                   loading="lazy"
                   style={{
                     width: '120%',
-                    height: '450px', // Fixed height
+                    height: '450px',
                     borderRadius: '0.75rem',
                   }}
                 />
-
-
               ) : (
                 <div style={{ height: '100%', width: '100%' }} />
               )}
             </div>
           </Link>
 
-          {/* Title & Price */}
           <div className="card-img-scale-wrapper">
             <h5 className="card-title mt-3 text-truncate" style={{ maxWidth: '100%' }}>
               {concert ? (
@@ -143,11 +138,9 @@ const FeaturedHotels = () => {
             </div>
           </div>
         </Card>
-
       </motion.div>
     </Col>
   );
-
 
   return (
     <section>
@@ -158,17 +151,14 @@ const FeaturedHotels = () => {
           </Col>
         </Row>
 
-        <Row
-          className={`gy-3 gy-md-4 ${concerts.length < 4 ? 'justify-content-center gap-3' : 'gx-3'}`}
-        >
-          {(loading ? Array(4).fill(undefined) : concerts).map((concert, index) =>
+        <Row className="gx-3 gy-3">
+          {(loading ? Array(3).fill(undefined) : concerts.slice(0, 3)).map((concert, index) =>
             renderCard(concert, index)
           )}
         </Row>
 
         <Container className="position-relative mt-5">
           <div className="bg-light rounded-3 position-relative p-4 p-sm-5">
-
             <Row className="align-items-center position-relative">
               <Col lg={8}>
                 <div className="d-flex align-items-center gap-2">
@@ -176,7 +166,8 @@ const FeaturedHotels = () => {
                   <BsStars size={28} className="text-primary" />
                 </div>
                 <p className="mb-3 mb-lg-0">
-                  Ready for an unforgettable night? We bring you the hottest concerts and live shows across Mauritius — all tailored to your vibe and budget!
+                  Ready for an unforgettable night? We bring you the hottest concerts and live shows
+                  across Mauritius — all tailored to your vibe and budget!
                 </p>
               </Col>
               <Col lg={4} className="text-lg-end">
