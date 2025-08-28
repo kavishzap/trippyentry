@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 import poster1 from '@/assets/newImage/heroSection/WhatsApp Image 2025-06-25 at 09.53.11_639e5b43.jpg'
-import poster6 from '@/assets/newImage/heroSection/WhatsApp Image 2025-07-22 at 19.14.44_0b7b427d.jpg'
+import poster6 from '@/assets/newImage/heroSection/bob.png'
 import poster4 from '@/assets/newImage/heroSection/YF_artwork 1.png'
 
 

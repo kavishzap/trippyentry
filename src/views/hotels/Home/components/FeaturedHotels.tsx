@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { Card, Col, Container, Row } from 'react-bootstrap';
-import { BsArrowRight, BsStars } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
-import { supabase } from '@/lib/supabaseClient';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from "react";
+import { Card, Col, Container, Row } from "react-bootstrap";
+import { BsArrowRight, BsStars } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import { supabase } from "@/lib/supabaseClient";
+import { motion } from "framer-motion";
 
 type Concert = {
   id: number;
@@ -22,18 +22,18 @@ const FeaturedHotels = () => {
   useEffect(() => {
     const fetchConcertsWithTickets = async () => {
       const { data: concertsData, error: concertError } = await supabase
-        .from('concerts')
-        .select('*')
-        .order('id', { ascending: false })
+        .from("concerts")
+        .select("*")
+        .order("id", { ascending: true })
         .limit(3); // Only 3 for one row
 
       if (concertError || !concertsData) return;
 
       const concertIds = concertsData.map((c) => c.id);
       const { data: ticketsData, error: ticketError } = await supabase
-        .from('tickets')
-        .select('concert_id, price')
-        .in('concert_id', concertIds);
+        .from("tickets")
+        .select("concert_id, price")
+        .in("concert_id", concertIds);
 
       if (ticketError || !ticketsData) return;
 
@@ -67,18 +67,18 @@ const FeaturedHotels = () => {
           <Link
             to={`/events/detail?id=${concert?.id}`}
             className="d-block position-relative"
-            style={{ textDecoration: 'none' }}
+            style={{ textDecoration: "none" }}
           >
             <div
               className="card-img-scale-wrapper rounded-3"
               style={{
-                width: '100%',
-                overflow: 'hidden',
-                backgroundColor: concert ? 'transparent' : '#e9ecef',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '1rem',
+                width: "100%",
+                overflow: "hidden",
+                backgroundColor: concert ? "transparent" : "#e9ecef",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "1rem",
               }}
             >
               {concert ? (
@@ -87,31 +87,34 @@ const FeaturedHotels = () => {
                   alt="concert image"
                   loading="lazy"
                   style={{
-                    width: '120%',
-                    height: '450px',
-                    borderRadius: '0.75rem',
+                    width: "120%",
+                    height: "450px",
+                    borderRadius: "0.75rem",
                   }}
                 />
               ) : (
-                <div style={{ height: '100%', width: '100%' }} />
+                <div style={{ height: "100%", width: "100%" }} />
               )}
             </div>
           </Link>
 
           <div className="card-img-scale-wrapper">
-            <h5 className="card-title mt-3 text-truncate" style={{ maxWidth: '100%' }}>
+            <h5
+              className="card-title mt-3 text-truncate"
+              style={{ maxWidth: "100%" }}
+            >
               {concert ? (
                 <Link
                   to={`/events/detail?id=${concert.id}`}
                   className="stretched-link d-inline-block text-truncate"
-                  style={{ maxWidth: '100%' }}
+                  style={{ maxWidth: "100%" }}
                 >
                   {concert.concert_name}
                 </Link>
               ) : (
                 <div
                   className="bg-secondary bg-opacity-25 rounded"
-                  style={{ height: '1.5rem', width: '80%' }}
+                  style={{ height: "1.5rem", width: "80%" }}
                 />
               )}
             </h5>
@@ -120,7 +123,8 @@ const FeaturedHotels = () => {
               {concert ? (
                 <>
                   <h6 className="text-primary mb-0">
-                    <small className="fw-light">Starting at</small> Rs {concert.price}
+                    <small className="fw-light">Starting at</small> Rs{" "}
+                    {concert.price}
                   </h6>
                   <button className="btn btn-sm btn-outline-primary">
                     Book Now <BsArrowRight />
@@ -130,9 +134,11 @@ const FeaturedHotels = () => {
                 <>
                   <div
                     className="bg-secondary bg-opacity-10 rounded"
-                    style={{ height: '1.2rem', width: '50%' }}
+                    style={{ height: "1.2rem", width: "50%" }}
                   />
-                  <div className="btn btn-sm btn-outline-primary disabled placeholder">→</div>
+                  <div className="btn btn-sm btn-outline-primary disabled placeholder">
+                    →
+                  </div>
                 </>
               )}
             </div>
@@ -151,9 +157,9 @@ const FeaturedHotels = () => {
           </Col>
         </Row>
 
-        <Row className="gx-3 gy-3">
-          {(loading ? Array(3).fill(undefined) : concerts.slice(0, 3)).map((concert, index) =>
-            renderCard(concert, index)
+        <Row className="gx-3 gy-3 justify-content-center">
+          {(loading ? Array(3).fill(undefined) : concerts.slice(0, 3)).map(
+            (concert, index) => renderCard(concert, index)
           )}
         </Row>
 
@@ -166,8 +172,9 @@ const FeaturedHotels = () => {
                   <BsStars size={28} className="text-primary" />
                 </div>
                 <p className="mb-3 mb-lg-0">
-                  Ready for an unforgettable night? We bring you the hottest concerts and live shows
-                  across Mauritius — all tailored to your vibe and budget!
+                  Ready for an unforgettable night? We bring you the hottest
+                  concerts and live shows across Mauritius — all tailored to
+                  your vibe and budget!
                 </p>
               </Col>
               <Col lg={4} className="text-lg-end">
