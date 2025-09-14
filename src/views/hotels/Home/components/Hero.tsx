@@ -2,15 +2,11 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
-import poster1 from '@/assets/newImage/heroSection/WhatsApp Image 2025-06-25 at 09.53.11_639e5b43.jpg'
-import poster6 from '@/assets/newImage/heroSection/bob.png'
-import poster4 from '@/assets/newImage/heroSection/YF_artwork 1.png'
-
 
 const posters = [
-  { id: 1, src: poster1 },
-  { id: 2, src: poster6 },
-  { id: 3, src: poster4 },
+  { id: 1, src: 'https://lomezonmvcwxsdjbnimh.supabase.co/storage/v1/object/sign/hosted_img/sam.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zOWM2ODdjNC1hM2MxLTQyZjUtOGJmMi1hYTg2NDJkZTY0NDYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJob3N0ZWRfaW1nL3NhbS5qcGciLCJpYXQiOjE3NTc4ODY5MjYsImV4cCI6MTgxODM2NjkyNn0.OV0vmMcj_f_xKy_wnlawz1AdyRpIaEpWNpmGAgLX--M' },
+  { id: 2, src: 'https://lomezonmvcwxsdjbnimh.supabase.co/storage/v1/object/sign/hosted_img/img1.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zOWM2ODdjNC1hM2MxLTQyZjUtOGJmMi1hYTg2NDJkZTY0NDYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJob3N0ZWRfaW1nL2ltZzEuanBnIiwiaWF0IjoxNzU3ODg3MjIxLCJleHAiOjE4MTgzNjcyMjF9.EWnY9ujfqLw6o5y7Je9RWiPKYJ7jMnMvmMWnXcS7s_4' },
+  { id: 3, src: 'https://lomezonmvcwxsdjbnimh.supabase.co/storage/v1/object/sign/hosted_img/img2.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zOWM2ODdjNC1hM2MxLTQyZjUtOGJmMi1hYTg2NDJkZTY0NDYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJob3N0ZWRfaW1nL2ltZzIuanBnIiwiaWF0IjoxNzU3ODg3MjQzLCJleHAiOjE4MTgzNjcyNDN9.IPERVN4RlK4SnHpd1ANPk6m4Fb4Y-teOk6c2tfclhxQ' },
 ]
 
 const Hero = () => {

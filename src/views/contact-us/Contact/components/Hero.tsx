@@ -1,105 +1,273 @@
-import { Button, Card, Col, Container, Row } from 'react-bootstrap'
-import { BsEnvelope, BsGlobe2, BsHeadset, BsInboxesFill, BsPhone } from 'react-icons/bs'
-import { FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Card, Col, Container, Row } from "react-bootstrap";
+import {
+  BsEnvelope,
+  BsGlobe2,
+  BsHeadset,
+  BsInboxesFill,
+  BsPhone,
+} from "react-icons/bs";
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
+import { motion } from "framer-motion";
 
-const Hero = () => {
+const ContactHero = () => {
   return (
-    <section className="pt-4 pt-md-5 mb-5">
+    <section className="contact-section pt-4 pt-md-5 mb-5 position-relative overflow-hidden">
       <Container>
         <Row className="mb-5">
           <Col xl={10}>
-            <h1>Let's connect and get to know each other</h1>
-            <p className="lead mb-0">
-              Whether you’ve got questions about an event, need help with your ticket, or just want to say hi—we’re here for you.
-              Reach out anytime and let’s make your experience unforgettable!
+            <h1 className="contact-title mb-2">
+              Let&apos;s connect and get to know{" "}
+              <span className="contact-title-white">each other</span>
+            </h1>
+            <p className="lead mb-0 contact-sub">
+              Whether you’ve got questions about an event, need help with your
+              ticket, or just want to say hi—we’re here for you. Reach out
+              anytime and let’s make your experience unforgettable!
             </p>
           </Col>
         </Row>
-        <Row className="g-4">
-          <Col md={6} xl={4}>
-            <Card className="card-body shadow text-center align-items-center">
-              <div className="icon-lg bg-info bg-opacity-10 text-info rounded-circle mb-2 flex-centered">
-                <BsHeadset className=" fs-5" />
-              </div>
-              <h5>Call us</h5>
 
-              <div className="d-grid gap-3 d-sm-block">
-                <Button size="sm" variant="primary-soft me-1">
-                  <div className="d-flex align-items-center">
-                    {' '}
-                    <BsPhone className=" me-2" />
-                    +230 5839 3719
-                  </div>
-                </Button>
-                <Button variant="light" size="sm">
-                  <BsPhone className=" me-2" />
-                  +230 5918 2520
-                </Button>
-              </div>
-            </Card>
+        {/* ✅ align-items-stretch + d-flex cols ensures equal-height cards */}
+        <Row className="g-4 align-items-stretch">
+          {/* Call us */}
+          <Col md={6} xl={4} className="d-flex">
+            <motion.div
+              className="w-100"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35 }}
+            >
+              <Card className="contact-card contact-info h-100 text-center p-4 p-md-4 d-flex flex-column">
+                <div className="contact-icon">
+                  <BsHeadset />
+                </div>
+                <h5 className="mt-2">Call us</h5>
+
+                {/* Actions pinned with mt-auto keeps heights consistent */}
+                <div className="actions d-flex flex-wrap justify-content-center gap-2 mt-5">
+                  <a
+                    href="tel:+23055063356"
+                    className="contact-chip"
+                    aria-label="Call +230 5839 3719"
+                  >
+                    <BsPhone className="me-2" /> +230 5506 3356
+                  </a>
+                </div>
+              </Card>
+            </motion.div>
           </Col>
-          <Col md={6} xl={4}>
-            <Card className="card-body shadow text-center align-items-center">
-              <div className="icon-lg bg-danger bg-opacity-10 text-danger rounded-circle mb-2 flex-centered">
-                <BsInboxesFill className=" fs-5" />
-              </div>
-              <h5>Email us</h5>
 
-              <Link to="mailto:example@gmail.com" className="btn btn-link text-decoration-underline p-0 mb-0 items-center">
-                <BsEnvelope className=" me-1" />
-                zeko.mru@gmail.com
-              </Link>
-            </Card>
+          {/* Email us */}
+          <Col md={6} xl={4} className="d-flex">
+            <motion.div
+              className="w-100"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.05 }}
+            >
+              <Card className="contact-card contact-danger h-100 text-center p-4 p-md-4 d-flex flex-column">
+                <div className="contact-icon">
+                  <BsInboxesFill />
+                </div>
+                <h5 className="mt-2">Email us</h5>
+
+                {/* ✅ Hard-center the email link */}
+                <div className="actions d-flex justify-content-center  mt-5">
+                  <a
+                    href="mailto:zeko.mru@gmail.com"
+                    className="contact-link"
+                    aria-label="Email zeko.mru@gmail.com"
+                  >
+                    <BsEnvelope className="me-2" />
+                    zeko.mru@gmail.com
+                  </a>
+                </div>
+              </Card>
+            </motion.div>
           </Col>
-          <Col xl={4} className="position-relative">
-            <figure className="position-absolute top-0 end-0 z-index-1 mt-n4 ms-n7">
-              <svg className="fill-warning" width="77px" height="77px">
-                <path d="M76.997,41.258 L45.173,41.258 L67.676,63.760 L63.763,67.673 L41.261,45.171 L41.261,76.994 L35.728,76.994 L35.728,45.171 L13.226,67.673 L9.313,63.760 L31.816,41.258 L-0.007,41.258 L-0.007,35.725 L31.816,35.725 L9.313,13.223 L13.226,9.311 L35.728,31.813 L35.728,-0.010 L41.261,-0.010 L41.261,31.813 L63.763,9.311 L67.676,13.223 L45.174,35.725 L76.997,35.725 L76.997,41.258 Z" />
-              </svg>
-            </figure>
-            <Card className="card-body shadow text-center align-items-center">
-              <div className="icon-lg bg-orange bg-opacity-10 text-orange rounded-circle mb-2 flex-centered">
-                <BsGlobe2 className=" fs-5" />
-              </div>
-              <h5>Social media</h5>
 
-              <ul className="list-inline mb-0 items-center d-flex gap-2">
-                <li className="list-inline-item">
-                  <Link
-                    className="btn btn-sm bg-instagram p-2 mb-0 flex-centered text-white"
-                    to="https://www.instagram.com/zekomru/"
+          {/* Social media */}
+          <Col xl={4} className="d-flex position-relative">
+            <motion.div
+              className="w-100"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.1 }}
+            >
+              <Card className="contact-card contact-orange h-100 text-center p-4 p-md-4 d-flex flex-column">
+                <div className="contact-icon">
+                  <BsGlobe2 />
+                </div>
+                <h5 className="mt-2">Social media</h5>
+
+                <div className="actions d-flex justify-content-center gap-2  mt-5">
+                  <a
+                    className="social-btn ig"
+                    href="https://www.instagram.com/zekomru/"
                     target="_blank"
+                    rel="noreferrer"
+                    aria-label="Instagram"
+                    title="@zekomru"
                   >
                     <FaInstagram />
-                  </Link>
-                </li>
-                <li className="list-inline-item">
-                  <Link
-                    className="btn btn-sm bg-primary p-2 mb-0 flex-centered text-white"
-                    to="https://www.facebook.com/share/1C33xLMwhG/?mibextid=wwXIfr"
+                  </a>
+                  <a
+                    className="social-btn fb"
+                    href="https://www.facebook.com/share/1C33xLMwhG/?mibextid=wwXIfr"
                     target="_blank"
+                    rel="noreferrer"
+                    aria-label="Facebook"
+                    title="ZEKO MRU"
                   >
                     <FaFacebook />
-                  </Link>
-                </li>
-                <li className="list-inline-item">
-                  <Link
-                    className="btn btn-sm bg-dark p-2 mb-0 flex-centered text-white"
-                    to="https://www.tiktok.com/@zekomru"
+                  </a>
+                  <a
+                    className="social-btn tt"
+                    href="https://www.tiktok.com/@zekomru"
                     target="_blank"
+                    rel="noreferrer"
+                    aria-label="TikTok"
+                    title="@zekomru"
                   >
                     <FaTiktok />
-                  </Link>
-                </li>
-              </ul>
-
-            </Card>
+                  </a>
+                </div>
+              </Card>
+            </motion.div>
           </Col>
         </Row>
       </Container>
-    </section>
-  )
+
+      {/* Styles */}
+      <style>{`
+  /* Inherit page background */
+  .contact-section { background: transparent; }
+.contact-title{
+  background: linear-gradient(90deg, var(--title-grad-a, #60a5fa), var(--title-grad-b, #22d3ee));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-export default Hero
+/* force white just for the span */
+.contact-title .contact-title-white{
+  background: none !important;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: #fff; /* Safari/Chromium */
+  color: #fff;                   /* Firefox/others */
+}
+  .contact-title {
+    line-height: 1.15;
+    letter-spacing: .2px;
+    /* keep your title gradient if you like — or make it plain by removing these 2 lines */
+    background: linear-gradient(90deg, var(--title-grad-a, #60a5fa), var(--title-grad-b, #22d3ee));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .contact-sub { color: var(--body-muted, #6b7280); }
+
+  /* Equal height + neutral cards */
+  .contact-card {
+    border: 1px solid var(--panel-border, rgba(0,0,0,0.06));
+    box-shadow: var(--panel-shadow, 0 12px 28px rgba(0,0,0,0.08));
+    border-radius: 1rem;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 260px;
+  }
+  @media (min-width: 1200px) {
+    .contact-card { min-height: 280px; }
+  }
+  .contact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 36px rgba(0,0,0,0.12);
+    border-color: rgba(0,0,0,0.08);
+  }
+
+  /* Remove colored glow overlays */
+  .contact-card::after { content: none !important; }
+
+  /* Neutral icon pill (no color gradient) */
+  .contact-icon {
+    width: 64px; height: 64px;
+    border-radius: 9999px;
+    display: grid; place-items: center;
+    margin-inline: auto; margin-bottom: .5rem;
+    font-size: 24px;
+    box-shadow: 0 8px 18px rgba(0,0,0,.06);
+    background: var(--icon-bg, rgba(0,0,0,0.06));
+    color: var(--icon-fg, #111827);
+    border: 1px solid color-mix(in srgb, var(--icon-bg, rgba(0,0,0,0.06)) 35%, transparent);
+  }
+
+  /* Chips / links */
+  .contact-chip,
+  .contact-chip:visited {
+    display: inline-flex; align-items: center; gap: .25rem;
+    padding: .5rem .75rem; border-radius: .75rem; text-decoration: none;
+    font-weight: 600; border: 1px solid rgba(0,0,0,.12);
+    color: inherit; background: rgba(0,0,0,.04);
+    backdrop-filter: saturate(1.1) blur(4px);
+    transition: transform .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .contact-chip:hover { transform: translateY(-1px); background: rgba(0,0,0,.06); }
+
+  .contact-link,
+  .contact-link:visited {
+    display: inline-flex; align-items: center;
+    font-weight: 600; text-decoration: none;
+    padding: .25rem 0;
+    color: var(--link-fg, #0ea5e9);
+    border-bottom: 2px solid rgba(14,165,233,.3);
+    transition: color .2s ease, border-color .2s ease, transform .2s ease;
+  }
+  .contact-link:hover { color: var(--link-fg-hover, #38bdf8); border-color: rgba(56,189,248,.5); transform: translateY(-1px); }
+
+  /* Social buttons (brand colors kept) */
+  .social-btn {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: grid; place-items: center;
+    color: #fff; text-decoration: none;
+    transition: transform .2s ease, filter .2s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,.2);
+  }
+  .social-btn:hover { transform: translateY(-2px) scale(1.03); filter: saturate(1.1); }
+  .social-btn.ig { background: linear-gradient(135deg,#f58529,#feda77,#dd2a7b,#8134af,#515bd4); }
+  .social-btn.fb { background: #1877f2; }
+  .social-btn.tt { background: #000000; }
+
+  /* Light/Dark tokens */
+  :where([data-bs-theme="light"] .contact-section, .light .contact-section) {
+    --body-muted: #475569;
+    --panel-bg: #ffffff;
+    --panel-border: rgba(0,0,0,0.06);
+    --panel-shadow: 0 12px 28px rgba(0,0,0,0.08);
+    --icon-bg: rgba(0,0,0,0.06);
+    --icon-fg: #111827;
+    --title-grad-a: #3b82f6; /* only affects the page title, not cards */
+    --title-grad-b: #06b6d4;
+    --link-fg: #0ea5e9; --link-fg-hover: #0284c7;
+  }
+  :where([data-bs-theme="dark"] .contact-section, .dark .contact-section) {
+    --body-muted: #9ca3af;
+    --panel-bg: #0b1220;
+    --panel-border: rgba(255,255,255,0.08);
+    --panel-shadow: 0 18px 48px rgba(0,0,0,0.55);
+    --icon-bg: rgba(255,255,255,0.08);
+    --icon-fg: #e5e7eb;
+    --title-grad-a: #93c5fd; --title-grad-b: #67e8f9; /* only the page title */
+    --link-fg: #38bdf8; --link-fg-hover: #7dd3fc;
+  }
+
+  @media (max-width: 576px) {
+    .contact-card { padding: 1.25rem; }
+  }
+`}</style>
+    </section>
+  );
+};
+
+export default ContactHero;

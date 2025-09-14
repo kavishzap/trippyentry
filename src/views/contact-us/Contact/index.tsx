@@ -13,11 +13,6 @@ const Contact = () => {
 
       <main>
         <Hero />
-        {/* <div className='mb-5'>
-          <ContactForm />
-        </div> */}
-
-
       </main>
 
       <FooterWithLinks />
