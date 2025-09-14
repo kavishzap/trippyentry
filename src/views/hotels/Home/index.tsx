@@ -5,14 +5,14 @@ import Hero from "./components/Hero";
 // import OfferSlider from './components/OfferSlider'
 import TopNavBar from "./components/TopNavBar";
 // import ActionBox from "@/views/tours/Home/components/ActionBox";
-import ReminderBanner from "./ReminderBanner";
+// import ReminderBanner from "./ReminderBanner";
 
 const HotelHome = () => {
   return (
     <>
       <TopNavBar />
 
-      <ReminderBanner />
+      {/* <ReminderBanner /> */}
       <main>
         <Hero />
         <div className="featured-hotels-wrapper">
