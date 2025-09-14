@@ -131,8 +131,8 @@ const ZekoLanding = () => {
 
     /* Tokens used by Hero / Our Story / panels */
     --chip-bg: color-mix(in srgb, var(--bs-body-color) 6%, transparent);
-    --title-grad-a: #60a5fa;   /* keep your nice highlight gradient */
-    --title-grad-b: #22d3ee;
+    --title-grad-a: #ffffffff;   /* keep your nice highlight gradient */
+    --title-grad-b: #ffffffff;
     --hero-sub: var(--bs-secondary-color);
     --body-muted: var(--bs-secondary-color);
 

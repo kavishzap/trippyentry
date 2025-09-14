@@ -159,7 +159,7 @@ const ContactHero = () => {
     line-height: 1.15;
     letter-spacing: .2px;
     /* keep your title gradient if you like — or make it plain by removing these 2 lines */
-    background: linear-gradient(90deg, var(--title-grad-a, #60a5fa), var(--title-grad-b, #22d3ee));
+    background: linear-gradient(90deg, var(--title-grad-a, #ffffffff), var(--title-grad-b, #ffffffff));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -258,7 +258,7 @@ const ContactHero = () => {
     --panel-shadow: 0 18px 48px rgba(0,0,0,0.55);
     --icon-bg: rgba(255,255,255,0.08);
     --icon-fg: #e5e7eb;
-    --title-grad-a: #93c5fd; --title-grad-b: #67e8f9; /* only the page title */
+    --title-grad-a: #ffffffff; --title-grad-b: #ffffffff; /* only the page title */
     --link-fg: #38bdf8; --link-fg-hover: #7dd3fc;
   }
 

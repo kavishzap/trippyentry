@@ -244,62 +244,26 @@ const FeaturedHotels = () => {
         </Row>
 
         <Container className="position-relative mt-5">
-          <div className="cta-card rounded-4 p-4 p-sm-5 shadow-lg">
-            <Row className="align-items-center gy-4">
-              {/* Left: Text */}
-              <Col lg={8} className="text-center text-lg-start">
-                <div className="d-flex align-items-center justify-content-center justify-content-lg-start gap-2 mb-3">
-                  <h2 className="fw-bold display-6 mb-0 text-light">
-                    It's time to <span className="highlight">enjoy</span>
-                  </h2>
-                  <BsStars size={32} className="text-warning animate-star" />
+          <div className="bg-light rounded-3 position-relative p-4 p-sm-5">
+            <Row className="align-items-center position-relative">
+              <Col lg={8}>
+                <div className="d-flex align-items-center gap-2">
+                  <h3 className="mb-0">It's time to enjoy</h3>
+                  <BsStars size={28} className="text-primary" />
                 </div>
-                <p className="mb-0 lead text-light opacity-90">
+                <p className="mb-3 mb-lg-0">
                   Ready for an unforgettable night? We bring you the hottest
                   concerts and live shows across Mauritius — all tailored to
                   your vibe and budget!
                 </p>
               </Col>
-
-              {/* Right: Button */}
-              <Col lg={4} className="text-center text-lg-end">
-                <Link
-                  to="/events"
-                  className="btn btn-lg btn-warning fw-semibold shadow-sm px-4 py-2"
-                >
-                  View Events →
+              <Col lg={4} className="text-lg-end">
+                <Link to="/events" className="btn btn-lg btn-dark mb-0">
+                  View More events...
                 </Link>
               </Col>
             </Row>
           </div>
-
-          <style>{`
-        .cta-card {
-          background: linear-gradient(135deg, #1e293b, #0f172a);
-          position: relative;
-          overflow: hidden;
-        }
-        .cta-card::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(circle at top left, rgba(255,255,255,0.08), transparent 60%),
-                      radial-gradient(circle at bottom right, rgba(255,255,255,0.05), transparent 70%);
-          pointer-events: none;
-        }
-        .highlight {
-          background: linear-gradient(90deg, #facc15, #f59e0b);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-        .animate-star {
-          animation: twinkle 1.5s infinite ease-in-out;
-        }
-        @keyframes twinkle {
-          0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.2); opacity: 0.6; }
-        }
-      `}</style>
         </Container>
       </Container>
     </section>
