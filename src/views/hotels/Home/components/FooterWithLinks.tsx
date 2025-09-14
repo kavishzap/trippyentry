@@ -8,18 +8,18 @@ const FooterWithLinks = () => {
   return (
     <footer className="bg-dark text-light">
       <Container>
-        <Row className="g-5 text-center justify-content-center mt-5">
+        <Row className="g-5 text-center justify-content-center">
           {/* Logo & Contact */}
           <Col xs={12} md={6} lg={4}>
             <Link to="/">
-              <img className="mb-3" src={logoLight} alt="zeko Logo" style={{ maxHeight: '30px' }} />
+              <img className="mb-3 mt-5" src={logoLight} alt="zeko Logo" style={{ maxHeight: '30px' }} />
             </Link>
             <p className="text-secondary small">
               Stay in the loop with the latest concert updates, special announcements, and exclusive offers. Be the first to know — subscribe now and never miss a beat!
             </p>
             <p className="mb-2 d-flex justify-content-center align-items-center text-secondary small">
               <BsTelephone className="me-2" />
-              <Link to="tel:+23059182520" className="text-light text-decoration-none">+230 5918 2520</Link>
+              <Link to="tel:+23055063356" className="text-light text-decoration-none">+230 5506 3356</Link>
             </p>
             <p className="mb-0 d-flex justify-content-center align-items-center text-secondary small">
               <BsEnvelope className="me-2" />

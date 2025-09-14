@@ -1,148 +1,170 @@
-import { Col, Container, Image, Row } from 'react-bootstrap'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useEffect, useState } from 'react'
-import element6 from '@/assets/images/element/06.svg'
-import element7 from '@/assets/images/element/07.svg'
-import element8 from '@/assets/images/element/08.svg'
-import poster1 from '@/assets/newImage/heroSection/WhatsApp Image 2025-06-25 at 09.53.11_639e5b43.jpg'
-import poster4 from '@/assets/newImage/heroSection/YF_artwork 1.png'
-import poster6 from '@/assets/newImage/heroSection/bob.png'
+// ZekoLanding.tsx
+import { Col, Container, Row } from "react-bootstrap";
+import { motion } from "framer-motion";
 
-const posters = [
-  { id: 1, src: poster1 },
-  { id: 2, src: poster6 },
-  { id: 3, src: poster4 },
-]
-
+/* -------------------- Hero -------------------- */
 const Hero = () => {
-  const [order, setOrder] = useState(posters)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setOrder((prev) => [prev[2], prev[0], prev[1]])
-    }, 2500)
-
-    return () => clearInterval(interval)
-  }, [])
   return (
-    <section className="position-relative py-5">
+    <section className="hero-section position-relative py-5 overflow-hidden">
       <Container>
-        <Row className="mb-5">
+       <Row className="mb-4 mb-md-5">
           <Col xl={10} className="mx-auto text-center">
-            <h1>Experience the Magic of Live Music — We'll Get You There</h1>
-            <p className="lead">
-              From VIP to last-minute deals, we help fans catch the biggest concerts, festivals, and live shows. Your next unforgettable night starts here.
+            <h1 className="hero-title fw-bold mb-3">
+              Experience the Magic of Live Music —{" "}
+              <span className="hero-highlight">We&apos;ll Get You There</span>
+            </h1>
+            <p className="lead hero-sub mb-4">
+              From VIP to last-minute deals, we help fans catch the biggest
+              concerts, festivals, and live shows. Your next unforgettable night
+              starts here.
             </p>
-            <div className="hstack gap-3 flex-wrap justify-content-center">
-              <h6 className="bg-mode shadow rounded-2 fw-normal py-2 px-4 items-center gap-1">
-                <Image src={element6} className="h-20px me-2" />
-                Global Customers
-              </h6>
-              <h6 className="bg-mode shadow rounded-2 fw-normal py-2 px-4 items-center gap-1">
-                <Image src={element7} className="h-20px me-2" />
-                Happy Customers
-              </h6>
-              <h6 className="bg-mode shadow rounded-2 fw-normal py-2 px-4 items-center gap-1">
-                <Image src={element8} className="h-20px me-2" />
-                Subscribers
-              </h6>
-            </div>
-          </Col>
-        </Row>
-
-
-
-        {/* Posters with Framer Motion */}
-        <Row className="justify-content-center mt-8">
-          <Col md={10} className="position-relative">
-            <div className="image-carousel-static">
-              <AnimatePresence>
-                {order.map((poster, index) => (
-                  <motion.img
-                    key={poster.id}
-                    src={poster.src}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{
-                      opacity: 1,
-                      scale: index === 1 ? 1.1 : 0.9,
-                      rotate: index === 0 ? -6 : index === 2 ? 6 : 0,
-                      x: index === 0 ? -180 : index === 2 ? 180 : 0,
-                      zIndex: index === 1 ? 3 : 1,
-                    }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.6 }}
-                    className="carousel-img"
-                  />
-                ))}
-              </AnimatePresence>
-            </div>
           </Col>
         </Row>
       </Container>
 
+      <style>{`
+        /* Make section transparent; inherit colors from the unified surface */
+        .hero-section { background: transparent; color: inherit; }
 
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-      .image-carousel-static {
-        position: relative;
-        margin-top: 80px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .carousel-img {
-        width: 220px;
-        height: 320px;
-        border-radius: 1rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        position: absolute;
-        transition: all 0.3s ease-in-out;
-      }
-
-      .carousel-img.front {
-        z-index: 3;
-        transform: scale(1.1);
-      }
-
-      .carousel-img.back {
-        z-index: 1;
-        opacity: 0.7;
-      }
-
-      .carousel-img.left {
-        transform: rotate(-6deg) translateX(-150px);
-      }
-
-      .carousel-img.right {
-        transform: rotate(6deg) translateX(150px);
-      }
-
-      @media (max-width: 768px) {
-        .carousel-img {
-          width: 150px;
-          height: 220px;
+        .hero-title { letter-spacing: .2px; line-height: 1.15; }
+        .hero-highlight {
+          background: linear-gradient(90deg, var(--title-grad-a), var(--title-grad-b));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
-
-        .carousel-img.left {
-          transform: rotate(-4deg) translateX(-80px);
-        }
-
-        .carousel-img.right {
-          transform: rotate(4deg) translateX(80px);
-        }
-
-        .carousel-img.front {
-          transform: scale(1.05);
-        }
-      }
-    `
-        }}
-      />
-
+        .hero-sub { color: var(--hero-sub); }
+        .h-20px { height: 20px; }
+        .bg-mode { background: var(--chip-bg); }
+        .hero-chip { backdrop-filter: saturate(1.2) blur(6px); }
+        @media (max-width: 575.98px) {
+    .hero-section { padding-bottom: 1rem !important; }
+  }
+      `}</style>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+/* -------------------- Our Story -------------------- */
+const OurStory = () => {
+  return (
+    <section
+      className="our-story-section position-relative overflow-hidden"
+      style={{ marginTop: "-80px" }}
+    >
+      <Container>
+        <Row className="align-items-center gy-5 mb-5">
+          <Col lg={6} className="text-center text-lg-start">
+            <h2 className="display-5 fw-bold">
+              Our <span className="highlight">Story</span>
+            </h2>
+            <p className="lead fw-semibold mt-3 text-muted">
+              How we founded ZEKO...
+            </p>
+            <p className="mt-4 our-story-body">
+              ZEKO was born from a simple idea — to make event booking easier,
+              faster, and more accessible for everyone in Mauritius. Whether
+              you're 16 or 60, tech-savvy or not, our mission is to bring live
+              entertainment to your fingertips with zero hassle.
+              <br />
+              <br />
+              We are a team of developers, designers, and event lovers who
+              understand the unique culture and vibrant energy of Mauritius.
+              That’s why we created a platform that bridges traditional
+              ticketing with modern digital convenience — all in one sleek
+              experience.
+              <br />
+              <br />
+              From concerts and festivals to theatre nights and community
+              gatherings, ZEKO empowers both organizers and attendees. Because
+              we believe unforgettable experiences should be for everyone — not
+              just a few.
+            </p>
+          </Col>
+
+          <Col lg={6} className="text-center">
+            <motion.img
+              src="https://lomezonmvcwxsdjbnimh.supabase.co/storage/v1/object/sign/hosted_img/final%20sam.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zOWM2ODdjNC1hM2MxLTQyZjUtOGJmMi1hYTg2NDJkZTY0NDYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJob3N0ZWRfaW1nL2ZpbmFsIHNhbS5qcGciLCJpYXQiOjE3NTc4ODU3MTgsImV4cCI6MTgxODM2NTcxOH0.IQk5CBZTz9k3-kvTGz9CA6k-xG5vZBSGZE16Co4E2QA"
+              alt="Our Story Illustration"
+              className="img-fluid rounded-4 story-illustration"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            />
+          </Col>
+        </Row>
+      </Container>
+
+      <style>{`
+        /* Transparent section; inherit shared background */
+        .our-story-section { padding: 6rem 0; background: transparent; color: inherit; }
+
+        .highlight {
+          background: linear-gradient(90deg, var(--title-grad-a), var(--title-grad-b));
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .our-story-body { color: var(--body-muted); }
+        .story-illustration { box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+
+        /* Dark polish for the image shadow on dark surfaces */
+        :where([data-bs-theme="dark"] .our-story-section, .dark .our-story-section) .story-illustration {
+          box-shadow: 0 18px 48px rgba(0,0,0,0.7);
+        }
+      `}</style>
+    </section>
+  );
+};
+/* -------------------- Page Composer with ONE shared background -------------------- */
+const ZekoLanding = () => {
+  return (
+    <main className="zeko-surface">
+      <Hero />
+      <OurStory />
+      {/* <OurTeam /> */}
+
+      {/* Shared background + tokens (light/dark) */}
+      <style>{`
+        /* Base shared surface (dark-default look) */
+.zeko-surface {
+    /* No background: inherit whatever your app/page uses */
+    background: transparent !important;
+    color: inherit;
+
+    /* Tokens used by Hero / Our Story / panels */
+    --chip-bg: color-mix(in srgb, var(--bs-body-color) 6%, transparent);
+    --title-grad-a: #ffffffff;   /* keep your nice highlight gradient */
+    --title-grad-b: #ffffffff;
+    --hero-sub: var(--bs-secondary-color);
+    --body-muted: var(--bs-secondary-color);
+
+    /* Cards/panels follow Bootstrap theme */
+    --panel-bg: var(--bs-body-bg);
+    --panel-border: var(--bs-border-color-translucent);
+    --panel-shadow: 0 12px 28px rgba(0,0,0,0.08);
+  }
+
+
+        /* Light theme override (Bootstrap data theme or .light) */
+        :where([data-bs-theme="light"] .zeko-surface, .light .zeko-surface) {
+          --surface-a: #f8fafc;
+          --surface-b: #eef2f7;
+          --chip-bg: rgba(0,0,0,0.04);
+          --title-grad-a: #3b82f6;  /* blue-500 */
+          --title-grad-b: #06b6d4;  /* cyan-500 */
+          --hero-sub: #475569;
+          --body-muted: #475569;
+          --panel-bg: #ffffff;
+          --panel-border: rgba(0,0,0,0.06);
+          --panel-shadow: 0 12px 28px rgba(0,0,0,0.08);
+
+          color: #0f172a;
+          background:
+            radial-gradient(1200px 600px at 10% 0%, rgba(99,102,241,0.08), transparent 60%),
+            radial-gradient(1000px 500px at 90% 0%, rgba(34,211,238,0.08), transparent 60%),
+            linear-gradient(180deg, var(--surface-a), var(--surface-b));
+        }
+      `}</style>
+    </main>
+  );
+};
+
+export default ZekoLanding;

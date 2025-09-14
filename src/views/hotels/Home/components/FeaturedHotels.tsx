@@ -15,6 +15,84 @@ type Concert = {
   price: number;
 };
 
+const SkeletonCard = ({ index }: { index: number }) => (
+  <Col xs={12} sm={6} md={4}>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.08, duration: 0.35 }}
+    >
+      <Card className="overflow-hidden bg-transparent h-100 mb-0">
+        <div className="skeleton-card">
+          {/* image area */}
+          <div className="skeleton skeleton-img rounded-3 shimmer" />
+          {/* title line */}
+          <div className="mt-3 skeleton skeleton-line w-75 shimmer" />
+          {/* price + button row */}
+          <div className="d-flex justify-content-between align-items-center mt-3">
+            <div className="skeleton skeleton-line w-50 shimmer" />
+            <div className="skeleton skeleton-btn shimmer" />
+          </div>
+        </div>
+      </Card>
+    </motion.div>
+    <style>{`
+  /* ===== Skeleton / Shimmer ===== */
+  .skeleton-card {
+    padding: 1rem;
+  }
+
+  .skeleton {
+    background: #2a2f3a; /* dark base to fit your dark theme */
+    border-radius: .5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skeleton-img {
+    width: 100%;
+    height: 450px;
+    border-radius: .75rem !important;
+  }
+
+  .skeleton-line {
+    height: 16px;
+  }
+
+  .skeleton-btn {
+    width: 110px;
+    height: 34px;
+    border-radius: .5rem;
+  }
+
+  /* Shimmer effect */
+  .shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0.12) 45%,
+      rgba(255,255,255,0.2) 55%,
+      rgba(255,255,255,0) 100%
+    );
+    animation: shimmer 1.4s infinite;
+  }
+
+  @keyframes shimmer {
+    100% { transform: translateX(100%); }
+  }
+
+  /* Optional: smaller skeleton on very small screens */
+  @media (max-width: 576px) {
+    .skeleton-img { height: 320px; }
+  }
+`}</style>
+  </Col>
+);
+
 const FeaturedHotels = () => {
   const [concerts, setConcerts] = useState<Concert[]>([]);
   const [loading, setLoading] = useState(true);
@@ -24,8 +102,8 @@ const FeaturedHotels = () => {
       const { data: concertsData, error: concertError } = await supabase
         .from("concerts")
         .select("*")
-        .order("id", { ascending: true })
-        .limit(3); // Only 3 for one row
+        .order("id", { ascending: false })
+        .limit(3);
 
       if (concertError || !concertsData) return;
 
@@ -158,9 +236,11 @@ const FeaturedHotels = () => {
         </Row>
 
         <Row className="gx-3 gy-3 justify-content-center">
-          {(loading ? Array(3).fill(undefined) : concerts.slice(0, 3)).map(
-            (concert, index) => renderCard(concert, index)
-          )}
+          {loading
+            ? Array.from({ length: 3 }).map((_, i) => (
+                <SkeletonCard key={i} index={i} />
+              ))
+            : concerts.slice(0, 3).map((concert, i) => renderCard(concert, i))}
         </Row>
 
         <Container className="position-relative mt-5">
