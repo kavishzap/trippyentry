@@ -7,13 +7,14 @@ const Hero = () => {
   return (
     <section className="hero-section position-relative py-5 overflow-hidden">
       <Container>
-       <Row className="mb-4 mb-md-5">
+        <Row className="mb-4 mb-md-5">
           <Col xl={10} className="mx-auto text-center">
-            <h1 className="hero-title fw-bold mb-3">
+            <h1 className="hero-title fw-bold mb-3 text-body">
               Experience the Magic of Live Music —{" "}
               <span className="hero-highlight">We&apos;ll Get You There</span>
             </h1>
-            <p className="lead hero-sub mb-4">
+
+            <p className="lead hero-sub mb-4 text-body-secondary">
               From VIP to last-minute deals, we help fans catch the biggest
               concerts, festivals, and live shows. Your next unforgettable night
               starts here.
@@ -57,10 +58,12 @@ const OurStory = () => {
             <h2 className="display-5 fw-bold">
               Our <span className="highlight">Story</span>
             </h2>
-            <p className="lead fw-semibold mt-3 text-muted">
+
+            <p className="lead fw-semibold mt-3 text-dark">
               How we founded ZEKO...
             </p>
-            <p className="mt-4 our-story-body">
+
+            <p className="mt-4 our-story-body text-dark">
               ZEKO was born from a simple idea — to make event booking easier,
               faster, and more accessible for everyone in Mauritius. Whether
               you're 16 or 60, tech-savvy or not, our mission is to bring live
@@ -79,6 +82,15 @@ const OurStory = () => {
               we believe unforgettable experiences should be for everyone — not
               just a few.
             </p>
+
+            <style>
+              {`
+  /* Force white text in dark mode */
+  [data-bs-theme="dark"] .text-dark {
+    color: #f8f9fa !important;
+  }
+`}
+            </style>
           </Col>
 
           <Col lg={6} className="text-center">

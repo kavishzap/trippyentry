@@ -89,7 +89,7 @@ const ConcertLists = () => {
         })
       );
 
-      setConcerts(enriched);
+      setConcerts(enriched.reverse());
       setLoading(false);
     };
 

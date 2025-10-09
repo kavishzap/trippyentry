@@ -29,6 +29,8 @@ const MyBookings = () => {
   const itemsPerPage = 5;
   const [downloadingId, setDownloadingId] = useState<number | null>(null)
   let concertLocation = '';
+
+  
   useEffect(() => {
     fetchBookings();
   }, []);
@@ -150,7 +152,7 @@ const MyBookings = () => {
         .eq('concert_name', booking.concertName)
         .single()
 
-      const doc = new jsPDF()
+      const doc = new jsPDF({ unit: 'mm', format: 'a4', compress: true });
       let y = 20
       const pageWidth = doc.internal.pageSize.getWidth()
       const margin = 15
@@ -378,7 +380,7 @@ const MyBookings = () => {
       y += 5
       doc.setFontSize(10)
       doc.setTextColor(80)
-      doc.text('Need Help? Call us at +230 5918 2520 or visit www.zekomru.com', margin, y)
+      doc.text('Need Help? Call us at +230 5506 3356 or visit www.zekomru.com', margin, y)
 
       // Save PDF
       doc.save(`Ticket-${booking.id}.pdf`)

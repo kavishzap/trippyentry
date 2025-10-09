@@ -15,11 +15,12 @@ const ContactHero = () => {
       <Container>
         <Row className="mb-5">
           <Col xl={10}>
-            <h1 className="contact-title mb-2">
+            <h1 className="contact-title mb-2 text-body">
               Let&apos;s connect and get to know{" "}
-              <span className="contact-title-white">each other</span>
+              <span className="contact-title-white text-body">each other</span>
             </h1>
-            <p className="lead mb-0 contact-sub">
+
+            <p className="lead mb-0 contact-sub text-body-secondary">
               Whether you’ve got questions about an event, need help with your
               ticket, or just want to say hi—we’re here for you. Reach out
               anytime and let’s make your experience unforgettable!

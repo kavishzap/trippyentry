@@ -10,7 +10,7 @@ const HotelDetails = () => {
     const location = useLocation()
     const searchParams = new URLSearchParams(location.search)
     const [showToast, setShowToast] = useState(false)
-    const accountNumber = '000452396956'
+    const accountNumber = '000454489137'
     const amount = Number(searchParams.get('amount')) || 0
     const invoiceParam = searchParams.get('invoiceId')
     const invoiceId = invoiceParam ? `INV-${invoiceParam}` : 'INV-UNKNOWN'
@@ -134,7 +134,7 @@ const HotelDetails = () => {
                                 <div className="mt-4 alert alert-info text-center" style={{ maxWidth: '600px' }}>
                                     <strong>Note:</strong> After payment, please take a screenshot of your confirmation.
                                     Your booking will be confirmed within a few hours via mail or please call on{' '}
-                                    <a href="tel:59182520" className="text-decoration-underline fw-semibold">59182520</a>{' '}
+                                    <a href="tel:55063356" className="text-decoration-underline fw-semibold">55063356</a>{' '}
                                     to accelerate confirmation.
                                     <br />
                                     <strong>More payment options will be available soon.</strong>

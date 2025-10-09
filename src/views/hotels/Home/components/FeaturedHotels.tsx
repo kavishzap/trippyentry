@@ -37,13 +37,33 @@ const SkeletonCard = ({ index }: { index: number }) => (
       </Card>
     </motion.div>
     <style>{`
-  /* ===== Skeleton / Shimmer ===== */
-  .skeleton-card {
-    padding: 1rem;
+  /* Theme-aware variables */
+  :root {
+    --sk-bg: #e9ecef;              /* light base */
+    --sk-sheen-1: rgba(0,0,0,0);
+    --sk-sheen-2: rgba(0,0,0,0.06);
+    --sk-sheen-3: rgba(0,0,0,0.10);
+  }
+  [data-bs-theme="dark"] {
+    --sk-bg: #2a2f3a;              /* dark base */
+    --sk-sheen-1: rgba(255,255,255,0);
+    --sk-sheen-2: rgba(255,255,255,0.12);
+    --sk-sheen-3: rgba(255,255,255,0.20);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-bs-theme]) {
+      --sk-bg: #2a2f3a;
+      --sk-sheen-1: rgba(255,255,255,0);
+      --sk-sheen-2: rgba(255,255,255,0.12);
+      --sk-sheen-3: rgba(255,255,255,0.20);
+    }
   }
 
+  /* ===== Skeleton / Shimmer ===== */
+  .skeleton-card { padding: 1rem; }
+
   .skeleton {
-    background: #2a2f3a; /* dark base to fit your dark theme */
+    background: var(--sk-bg);
     border-radius: .5rem;
     position: relative;
     overflow: hidden;
@@ -55,9 +75,7 @@ const SkeletonCard = ({ index }: { index: number }) => (
     border-radius: .75rem !important;
   }
 
-  .skeleton-line {
-    height: 16px;
-  }
+  .skeleton-line { height: 16px; }
 
   .skeleton-btn {
     width: 110px;
@@ -65,7 +83,7 @@ const SkeletonCard = ({ index }: { index: number }) => (
     border-radius: .5rem;
   }
 
-  /* Shimmer effect */
+  /* Shimmer effect that adapts to theme via vars */
   .shimmer::after {
     content: "";
     position: absolute;
@@ -73,19 +91,16 @@ const SkeletonCard = ({ index }: { index: number }) => (
     transform: translateX(-100%);
     background: linear-gradient(
       90deg,
-      rgba(255,255,255,0) 0%,
-      rgba(255,255,255,0.12) 45%,
-      rgba(255,255,255,0.2) 55%,
-      rgba(255,255,255,0) 100%
+      var(--sk-sheen-1) 0%,
+      var(--sk-sheen-2) 45%,
+      var(--sk-sheen-3) 55%,
+      var(--sk-sheen-1) 100%
     );
     animation: shimmer 1.4s infinite;
   }
 
-  @keyframes shimmer {
-    100% { transform: translateX(100%); }
-  }
+  @keyframes shimmer { 100% { transform: translateX(100%); } }
 
-  /* Optional: smaller skeleton on very small screens */
   @media (max-width: 576px) {
     .skeleton-img { height: 320px; }
   }
