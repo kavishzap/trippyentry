@@ -31,7 +31,7 @@ type Concert = {
 }
 
 const HotelListCard = ({ hotel }: { hotel: Concert }) => {
-  const { front_image, concert_image, concert_name, concert_date, concert_location_name, id: concertId, concert_description = '', } = hotel
+  const { front_image, concert_name, concert_date, concert_location_name, id: concertId, concert_description = '', } = hotel
   const [minTicketPrice, setMinTicketPrice] = useState<number | null>(null)
 
   const truncate = (text: string, maxLength: number): string => {
