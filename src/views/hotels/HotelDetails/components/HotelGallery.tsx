@@ -136,10 +136,6 @@ const ConcertDetailPage = () => {
     )
   }
 
-  const base64Image = concert.concert_image.startsWith('data:')
-    ? concert.concert_image
-    : `data:image/jpeg;base64,${concert.concert_image}`
-
   return (
     <main className="py-4">
       <Container>
@@ -206,7 +202,7 @@ const ConcertDetailPage = () => {
                 }}
               >
                 <img
-                  src={base64Image}
+                  src={concert.concert_image}
                   alt="concert image"
                   style={{
                     maxWidth: '100%',

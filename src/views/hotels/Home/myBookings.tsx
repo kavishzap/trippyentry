@@ -205,9 +205,6 @@ const MyBookings = () => {
       // Add concert image
       // Add concert image on the left, QR on the right (side by side)
       if (booking.frontImage) {
-        const concertImageBase64 = booking.frontImage.startsWith('data:')
-          ? booking.frontImage
-          : `data:image/jpeg;base64,${booking.frontImage}`;
         try {
           const imgWidth = 40;
           const imgHeight = 50;
@@ -218,8 +215,8 @@ const MyBookings = () => {
           const qrX = pageWidth - margin - qrSize; // Right aligned
           const qrY = y; // Same Y as image
 
-          // Add concert image
-          doc.addImage(concertImageBase64, 'JPEG', imgX, imgY, imgWidth, imgHeight);
+          // Add concert image (now using URL directly)
+          doc.addImage(booking.frontImage, 'JPEG', imgX, imgY, imgWidth, imgHeight);
 
           // Add QR code
           const rawQrValue = `TICKET-${booking.id}`;
@@ -435,9 +432,7 @@ const MyBookings = () => {
                       <div className="col-md-3">
                         {booking.frontImage && (
                           <img
-                            src={booking.frontImage.startsWith('data:')
-                              ? booking.concertImage
-                              : `data:image/jpeg;base64,${booking.frontImage}`}
+                            src={booking.frontImage}
                             alt="Concert"
                             className="img-fluid rounded-3"
                             style={{
