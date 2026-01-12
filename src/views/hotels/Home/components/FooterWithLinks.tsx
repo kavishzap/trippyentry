@@ -1,7 +1,9 @@
 import { BsEnvelope, BsTelephone } from 'react-icons/bs'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, Image, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import logoLight from '@/assets/newImage/heroSection/ZEKO_LOGO_WHITE-11-10-11-removebg-preview (1) 1.png'
+import logoWhite from '@/assets/LOGO_WHITE.png'
+import logoBlack from '@/assets/LOGO_BLACK.png'
 import { currentYear } from '@/states'
 
 const FooterWithLinks = () => {
@@ -32,8 +34,41 @@ const FooterWithLinks = () => {
         <hr className="border-secondary" />
         <Row>
           <Col>
-            <div className="d-flex justify-content-center text-center text-secondary small py-3">
-              © {currentYear} zekomru.com. All rights reserved.
+            <div className="d-flex flex-column align-items-center text-center text-secondary small py-3">
+              <div className="mb-2">
+                © {currentYear} zekomru.com. All rights reserved.
+              </div>
+              <div className="mt-2">
+                <div className="text-secondary mb-2">Powered by</div>
+                <div style={{ position: 'relative', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Image 
+                    src={logoWhite} 
+                    alt="Powered by logo" 
+                    className="dark-mode-item" 
+                    style={{ 
+                      height: '60px', 
+                      width: 'auto',
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)'
+                    }}
+                  />
+                  <Image 
+                    src={logoBlack} 
+                    alt="Powered by logo" 
+                    className="light-mode-item" 
+                    style={{ 
+                      height: '60px', 
+                      width: 'auto',
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)'
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </Col>
         </Row>

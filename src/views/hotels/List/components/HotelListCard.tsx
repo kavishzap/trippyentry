@@ -37,9 +37,6 @@ const HotelListCard = ({ hotel }: { hotel: Concert }) => {
   const truncate = (text: string, maxLength: number): string => {
     return text.length > maxLength ? text.slice(0, maxLength) + '...' : text
   }
-  const base64Image1 = concert_image.startsWith('data:')
-    ? front_image
-    : `data:image/jpeg;base64,${front_image}`
 
   useEffect(() => {
     const fetchMinPrice = async () => {
@@ -67,7 +64,7 @@ const HotelListCard = ({ hotel }: { hotel: Concert }) => {
         <Col md={4}>
           <Link to={`/events/detail?id=${concertId}`} className="d-block">
             <Image
-              src={base64Image1}
+              src={front_image}
               alt={concert_name}
               style={{
                 width: '100%',

@@ -3,6 +3,8 @@ import { FaFacebook, FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa
 import { Link } from 'react-router-dom'
 
 import logoLight from '@/assets/images/logo-light.svg'
+import logoWhite from '@/assets/LOGO_WHITE.png'
+import logoBlack from '@/assets/LOGO_BLACK.png'
 import { developedByLink, currentYear } from '@/states'
 
 const Footer = () => {
@@ -26,6 +28,19 @@ const Footer = () => {
                 StackBros
               </Link>
               .{' '}
+            </div>
+            <div className="text-center text-md-start mt-3">
+              <div className="text-body-secondary mb-2">Powered by</div>
+              <Image 
+                src={logoWhite} 
+                alt="Powered by logo" 
+                className="h-40px dark-mode-item" 
+              />
+              <Image 
+                src={logoBlack} 
+                alt="Powered by logo" 
+                className="h-40px light-mode-item" 
+              />
             </div>
           </Col>
           <Col md={4}>
