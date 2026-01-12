@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useToggle } from '@/hooks'
 import {
   Card,
@@ -20,7 +20,6 @@ import {
 import {
   BsCalendarEvent,
   BsClock,
-  BsEyeFill,
   BsGeoAlt,
   BsCheckCircleFill,
 } from 'react-icons/bs'
@@ -146,13 +145,13 @@ const ConcertDetailPage = () => {
             <p className="fw-semibold d-flex flex-wrap align-items-center text-body mb-2">
               <BsGeoAlt className="me-2" />
               {concert.concert_location_name}
-              <Link
+              {/* <Link
                 to="#"
                 onClick={toggle}
                 className="ms-3 text-decoration-underline d-flex align-items-center text-primary"
               >
                 <BsEyeFill className="me-1" /> View On Map
-              </Link>
+              </Link> */}
             </p>
 
             <div className="d-flex flex-column flex-sm-row gap-2 gap-sm-4 flex-wrap">
