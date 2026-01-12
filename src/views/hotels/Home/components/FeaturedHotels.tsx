@@ -25,48 +25,30 @@ const SkeletonCard = ({ index }: { index: number }) => (
       <Card className="overflow-hidden bg-transparent h-100 mb-0">
         <div className="skeleton-card">
           {/* image area */}
-          <div className="skeleton skeleton-img rounded-3 shimmer" />
+          <div className="skeleton skeleton-img rounded-3" />
           {/* title line */}
-          <div className="mt-3 skeleton skeleton-line w-75 shimmer" />
+          <div className="mt-3 skeleton skeleton-line w-75" />
           {/* price + button row */}
           <div className="d-flex justify-content-between align-items-center mt-3">
-            <div className="skeleton skeleton-line w-50 shimmer" />
-            <div className="skeleton skeleton-btn shimmer" />
+            <div className="skeleton skeleton-line w-50" />
+            <div className="skeleton skeleton-btn" />
           </div>
         </div>
       </Card>
     </motion.div>
     <style>{`
-  /* Theme-aware variables */
-  :root {
-    --sk-bg: #e9ecef;              /* light base */
-    --sk-sheen-1: rgba(0,0,0,0);
-    --sk-sheen-2: rgba(0,0,0,0.06);
-    --sk-sheen-3: rgba(0,0,0,0.10);
-  }
-  [data-bs-theme="dark"] {
-    --sk-bg: #2a2f3a;              /* dark base */
-    --sk-sheen-1: rgba(255,255,255,0);
-    --sk-sheen-2: rgba(255,255,255,0.12);
-    --sk-sheen-3: rgba(255,255,255,0.20);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-bs-theme]) {
-      --sk-bg: #2a2f3a;
-      --sk-sheen-1: rgba(255,255,255,0);
-      --sk-sheen-2: rgba(255,255,255,0.12);
-      --sk-sheen-3: rgba(255,255,255,0.20);
-    }
-  }
-
-  /* ===== Skeleton / Shimmer ===== */
+  /* ===== Skeleton ===== */
   .skeleton-card { padding: 1rem; }
 
   .skeleton {
-    background: var(--sk-bg);
+    background: #e9ecef;
     border-radius: .5rem;
     position: relative;
     overflow: hidden;
+  }
+
+  [data-bs-theme="dark"] .skeleton {
+    background: #2a2f3a;
   }
 
   .skeleton-img {
@@ -82,24 +64,6 @@ const SkeletonCard = ({ index }: { index: number }) => (
     height: 34px;
     border-radius: .5rem;
   }
-
-  /* Shimmer effect that adapts to theme via vars */
-  .shimmer::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform: translateX(-100%);
-    background: linear-gradient(
-      90deg,
-      var(--sk-sheen-1) 0%,
-      var(--sk-sheen-2) 45%,
-      var(--sk-sheen-3) 55%,
-      var(--sk-sheen-1) 100%
-    );
-    animation: shimmer 1.4s infinite;
-  }
-
-  @keyframes shimmer { 100% { transform: translateX(100%); } }
 
   @media (max-width: 576px) {
     .skeleton-img { height: 320px; }
@@ -176,7 +140,7 @@ const FeaturedHotels = () => {
             >
               {concert ? (
                 <img
-                  src={`data:image/jpeg;base64,${concert.front_image}`}
+                  src={concert.front_image}
                   alt="concert image"
                   loading="lazy"
                   style={{

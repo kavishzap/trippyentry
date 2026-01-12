@@ -33,13 +33,20 @@ const MyProfile = () => {
 
             const { user_metadata } = user;
 
+            // Try to fetch from user_profiles table as well
+            const { data: profileData } = await supabase
+                .from('user_profiles')
+                .select('phone, first_name, last_name')
+                .eq('id', user.id)
+                .single();
+
             const profile = {
-                firstName: user_metadata.firstName || '',
-                lastName: user_metadata.lastName || '',
+                firstName: profileData?.first_name || user_metadata.firstName || '',
+                lastName: profileData?.last_name || user_metadata.lastName || '',
                 email: user.email || '',
                 dob: user_metadata.dob || '',
                 address: user_metadata.address || '',
-                phone: user_metadata.phone || '',
+                phone: profileData?.phone || user_metadata.phone || '',
             };
 
             setUserData(profile);
@@ -57,7 +64,16 @@ const MyProfile = () => {
     const handleSave = async () => {
         setSaving(true);
 
-        const { error } = await supabase.auth.updateUser({
+        // Get current user
+        const { data: { user }, error: userError } = await supabase.auth.getUser();
+        if (userError || !user) {
+            setSaving(false);
+            Swal.fire('Error', 'Failed to get user information.', 'error');
+            return;
+        }
+
+        // Update auth metadata
+        const { error: authError } = await supabase.auth.updateUser({
             data: {
                 firstName: formValues.firstName,
                 lastName: formValues.lastName,
@@ -67,10 +83,26 @@ const MyProfile = () => {
             },
         });
 
+        if (authError) {
+            setSaving(false);
+            Swal.fire('Error', 'Failed to update profile.', 'error');
+            return;
+        }
+
+        // Update user_profiles table
+        const { error: profileError } = await supabase
+            .from('user_profiles')
+            .update({
+                first_name: formValues.firstName,
+                last_name: formValues.lastName,
+                phone: formValues.phone,
+            })
+            .eq('id', user.id);
+
         setSaving(false);
 
-        if (error) {
-            Swal.fire('Error', 'Failed to update profile.', 'error');
+        if (profileError) {
+            Swal.fire('Warning', 'Profile updated but database sync failed.', 'warning');
         } else {
             setUserData(formValues);
             setEditMode(false);
@@ -194,7 +226,7 @@ const MyProfile = () => {
                         </Col>
                     </Row> */}
 
-                    {/* <Row className="mb-3">
+                    <Row className="mb-3">
                         <Form.Label column sm={4} className="fw-semibold text-muted">
                             Phone:
                         </Form.Label>
@@ -204,12 +236,13 @@ const MyProfile = () => {
                                     type="tel"
                                     value={formValues.phone}
                                     onChange={(e) => handleChange('phone', e.target.value)}
+                                    placeholder="Enter phone number"
                                 />
                             ) : (
-                                <div className="pt-1">{userData.phone}</div>
+                                <div className="pt-1">{userData.phone || 'Not provided'}</div>
                             )}
                         </Col>
-                    </Row> */}
+                    </Row>
                 </Form>
             </Card.Body>
         </Card>
