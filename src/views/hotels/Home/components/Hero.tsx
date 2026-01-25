@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 const posters = [
   { id: 1, src: 'https://lomezonmvcwxsdjbnimh.supabase.co/storage/v1/object/sign/hosted_img/sam.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zOWM2ODdjNC1hM2MxLTQyZjUtOGJmMi1hYTg2NDJkZTY0NDYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJob3N0ZWRfaW1nL3NhbS5qcGciLCJpYXQiOjE3NTc4ODY5MjYsImV4cCI6MTgxODM2NjkyNn0.OV0vmMcj_f_xKy_wnlawz1AdyRpIaEpWNpmGAgLX--M' },
   { id: 2, src: 'https://lomezonmvcwxsdjbnimh.supabase.co/storage/v1/object/sign/hosted_img/img1.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zOWM2ODdjNC1hM2MxLTQyZjUtOGJmMi1hYTg2NDJkZTY0NDYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJob3N0ZWRfaW1nL2ltZzEuanBnIiwiaWF0IjoxNzU3ODg3MjIxLCJleHAiOjE4MTgzNjcyMjF9.EWnY9ujfqLw6o5y7Je9RWiPKYJ7jMnMvmMWnXcS7s_4' },
-  { id: 3, src: 'https://lomezonmvcwxsdjbnimh.supabase.co/storage/v1/object/sign/hosted_img/img2.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zOWM2ODdjNC1hM2MxLTQyZjUtOGJmMi1hYTg2NDJkZTY0NDYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJob3N0ZWRfaW1nL2ltZzIuanBnIiwiaWF0IjoxNzU3ODg3MjQzLCJleHAiOjE4MTgzNjcyNDN9.IPERVN4RlK4SnHpd1ANPk6m4Fb4Y-teOk6c2tfclhxQ' },
+  { id: 3, src: 'https://lomezonmvcwxsdjbnimh.supabase.co/storage/v1/object/sign/hosted_img/poster.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zOWM2ODdjNC1hM2MxLTQyZjUtOGJmMi1hYTg2NDJkZTY0NDYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJob3N0ZWRfaW1nL3Bvc3Rlci5wbmciLCJpYXQiOjE3NjgyNDk1NDUsImV4cCI6MTc5OTc4NTU0NX0.nDJSyib6dzJZj_k2wjUiiTnXO6JmkYslFuruyqC_L8w' },
 ]
 
 const Hero = () => {
