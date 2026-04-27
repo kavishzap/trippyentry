@@ -6,13 +6,10 @@ import * as yup from "yup";
 import { Col } from "react-bootstrap";
 import Swal from "sweetalert2";
 
-import { TextFormInput } from "@/components";
+import { PageMetaData, TextFormInput } from "@/components";
 import { supabase } from "@/lib/supabaseClient";
 
-import logoIcon from "@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png";
 import { currentYear } from "@/states";
-import logoIcon1 from "@/assets/newImage/heroSection/ZEKO_LOGO_WHITE-11-10-11-removebg-preview (1) 1.png";
-import clsx from "clsx";
 
 type ForgotPasswordForm = {
   email: string;
@@ -58,6 +55,7 @@ const ForgotPassword = () => {
 
   return (
     <>
+      <PageMetaData title="Forgot password" />
       {/* Left: illustration */}
       <Col lg={6} className="order-2 order-lg-1 d-flex align-items-stretch">
         <div className="auth-image-wrap w-100">
@@ -82,16 +80,7 @@ const ForgotPassword = () => {
             to="/"
             className="d-inline-flex align-items-center justify-content-center gap-2 mb-4 text-decoration-none"
           >
-            <img
-              src={logoIcon}
-              alt="ZEKO"
-              className={clsx("h-40px navbar-brand-item light-mode-item")}
-            />
-            <img
-              src={logoIcon1}
-              alt="ZEKO"
-              className={clsx("h-40px navbar-brand-item dark-mode-item")}
-            />
+            <img src="/logo.png" alt="Trippy Entry" className="h-40px" />
           </Link>
 
           <h1 className="mb-2 h3">Forgot your password?</h1>

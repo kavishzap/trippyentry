@@ -4,7 +4,6 @@ import { Button, Card, CardHeader, Image } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import logoIcon from '@/assets/images/logo-icon.svg'
 import { Link } from 'react-router-dom'
 import Flatpicker from '@/components/Flatpicker'
 
@@ -38,7 +37,7 @@ const ProfileSettings = () => {
           <div className="d-flex align-items-center">
             <label className="position-relative me-4" htmlFor="uploadfile-1" title="Replace this pic">
               <span className="avatar avatar-xl">
-                <Image id="uploadfile-1-preview" className="avatar-img rounded-circle border border-white border-3 shadow" src={logoIcon} />
+                <Image id="uploadfile-1-preview" className="avatar-img rounded-circle border border-white border-3 shadow" src="/logo.png" alt="Avatar preview" />
               </span>
             </label>
 

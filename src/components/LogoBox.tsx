@@ -2,19 +2,22 @@ import { NavbarBrand } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 
-import logoLightSvg from '@/assets/newImage/heroSection/ZEKO_LOGO_WHITE-11-10-11-removebg-preview (1) 1.png'
-import logoSvg from '@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png'
-
 type LogoBoxType = {
   imgClassName?: string
   onlyDark?: boolean
 }
 
-const LogoBox = ({ imgClassName, onlyDark }: LogoBoxType) => {
+/** App mark from `public/logo.png` */
+const LOGO_SRC = '/logo.png'
+
+const LogoBox = ({ imgClassName, onlyDark: _onlyDark }: LogoBoxType) => {
   return (
     <NavbarBrand as={Link} to="/">
-      <img className={clsx(!onlyDark && 'light-mode-item', 'navbar-brand-item h-30px', imgClassName)} src={logoSvg} alt="logo" />
-      {!onlyDark && <img className={clsx('dark-mode-item navbar-brand-item h-30px', imgClassName)} src={logoLightSvg} alt="logo" />}
+      <img
+        className={clsx('navbar-brand-item h-30px h-xl-40px', imgClassName)}
+        src={LOGO_SRC}
+        alt="logo"
+      />
     </NavbarBrand>
   )
 }

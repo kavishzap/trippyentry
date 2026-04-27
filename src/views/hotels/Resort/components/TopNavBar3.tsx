@@ -15,7 +15,6 @@ import {
 import { BsCalendarWeek, BsDashCircle, BsPlusCircle } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 
-import logoLight from '@/assets/images/logo-light.svg'
 import { useState } from 'react'
 import Flatpicker from '@/components/Flatpicker'
 
@@ -72,7 +71,7 @@ const TopNavBar3 = () => {
       <Navbar expand={'lg'} className="navbar navbar-dark navbar-expand-lg">
         <div className="container-fluid px-md-5">
           <Link className="navbar-brand" to="/">
-            <Image className="navbar-brand-item" src={logoLight} alt="logo" />
+            <Image className="navbar-brand-item" src="/logo.png" alt="logo" />
           </Link>
 
           <button

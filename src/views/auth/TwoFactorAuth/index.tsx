@@ -3,7 +3,6 @@ import { Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import forgotPassImg from '@/assets/images/element/forgot-pass.svg'
-import logoIcon from '@/assets/images/logo-icon.svg'
 import { developedByLink, currentYear } from '@/states'
 
 type HandleInputChangeType = (id: OTPInputProps['id'], value: OTPInputProps['value']) => void
@@ -70,7 +69,7 @@ const TwoFactorAuth = () => {
       <Col lg={6} className="order-1">
         <div className="p-4 p-sm-7">
           <Link to="/">
-            <img className="mb-4 h-50px" src={logoIcon} alt="logo" />
+            <img className="mb-4 h-50px" src="/logo.png" alt="logo" />
           </Link>
           <h1 className="mb-2 h3">Two factor authentication</h1>
           <p className="mb-sm-0">

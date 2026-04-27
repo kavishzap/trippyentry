@@ -1,10 +1,19 @@
+import { useEffect } from 'react'
+import { SITE_NAME } from '@/config/site'
+
 type PageMetaDataProps = {
   title: string
 }
 
-const PageMetaData = (_: PageMetaDataProps) => {
-  // This component does not render anything but exists for possible future use
-  return null;
+const PageMetaData = ({ title }: PageMetaDataProps) => {
+  useEffect(() => {
+    document.title = `${title} | ${SITE_NAME}`
+    return () => {
+      document.title = SITE_NAME
+    }
+  }, [title])
+
+  return null
 }
 
-export default PageMetaData;
+export default PageMetaData

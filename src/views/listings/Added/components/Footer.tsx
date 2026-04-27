@@ -2,7 +2,6 @@ import { Col, Container, Image, Row } from 'react-bootstrap'
 import { FaFacebook, FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 
-import logoLight from '@/assets/images/logo-light.svg'
 import { developedByLink, currentYear } from '@/states'
 
 const Footer = () => {
@@ -14,7 +13,7 @@ const Footer = () => {
             <div className="text-center text-md-start mb-3 mb-md-0">
               <Link to="/">
                 {' '}
-                <Image className="h-30px" src={logoLight} alt="logo" />{' '}
+                <Image className="h-30px" src="/logo.png" alt="logo" />{' '}
               </Link>
             </div>
           </Col>

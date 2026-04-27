@@ -24,7 +24,6 @@ import { BsBell, BsBookmarkCheck, BsCircleHalf, BsGear, BsHeart, BsInfoCircle, B
 import { Link } from 'react-router-dom'
 
 import { notificationData } from '../data'
-import logoLight from '@/assets/images/logo-light.svg'
 import avatar1 from '@/assets/images/avatar/01.jpg'
 
 type ThemeModeType = {
@@ -90,7 +89,7 @@ const TopNavBar6 = () => {
       <Navbar expand="xl" className="navbar navbar-dark">
         <Container>
           <Link className="navbar-brand" to="">
-            <Image className="navbar-brand-item" src={logoLight} alt="logo" />
+            <Image className="navbar-brand-item" src="/logo.png" alt="logo" />
           </Link>
           <button
             onClick={toggle}

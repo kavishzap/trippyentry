@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 
 import { footerLinks, topLinks } from '@/assets/data/footer-items'
 
-import logoLight from '@/assets/images/logo-light.svg'
 import expresscard from '@/assets/images/element/expresscard.svg'
 import mastercard from '@/assets/images/element/mastercard.svg'
 import paypal from '@/assets/images/element/paypal.svg'
@@ -19,7 +18,7 @@ const FooterWithLinks = () => {
         <Row className="g-4">
           <Col lg={3}>
             <Link to="/">
-              <img className="h-40px" src={logoLight} alt="logo" />
+              <img className="h-40px" src="/logo.png" alt="logo" />
             </Link>
             <p className="my-3 text-body-secondary">Departure defective arranging rapturous did believe him all had supported.</p>
             <p className="mb-2">

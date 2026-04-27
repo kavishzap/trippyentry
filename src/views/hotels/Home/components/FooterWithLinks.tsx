@@ -1,23 +1,22 @@
 import { BsEnvelope, BsTelephone } from 'react-icons/bs'
-import { Col, Container, Image, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import logoLight from '@/assets/newImage/heroSection/ZEKO_LOGO_WHITE-11-10-11-removebg-preview (1) 1.png'
-import logoWhite from '@/assets/LOGO_WHITE.png'
-import logoBlack from '@/assets/LOGO_BLACK.png'
 import { currentYear } from '@/states'
 
 const FooterWithLinks = () => {
   return (
-    <footer className="bg-dark text-light">
-      <Container>
+    <footer className="trippy-footer bg-dark text-light position-relative overflow-hidden">
+      <div className="trippy-footer__grid" aria-hidden />
+      <Container className="position-relative" style={{ zIndex: 1 }}>
         <Row className="g-5 text-center justify-content-center">
           {/* Logo & Contact */}
           <Col xs={12} md={6} lg={4}>
             <Link to="/">
-              <img className="mb-3 mt-5" src={logoLight} alt="zeko Logo" style={{ maxHeight: '30px' }} />
+              <img className="mb-3 mt-5" src="/logo.png" alt="logo" style={{ maxHeight: '30px' }} />
             </Link>
-            <p className="text-secondary small">
-              Stay in the loop with the latest concert updates, special announcements, and exclusive offers. Be the first to know — subscribe now and never miss a beat!
+            <p className="text-light small fw-semibold mb-2">Never Miss the Drop</p>
+            <p className="text-secondary small mb-3">
+              Be first to hear about new raves, secret events, and exclusive offers. Stay plugged into the night.
             </p>
             <p className="mb-2 d-flex justify-content-center align-items-center text-secondary small">
               <BsTelephone className="me-2" />
@@ -35,45 +34,27 @@ const FooterWithLinks = () => {
         <Row>
           <Col>
             <div className="d-flex flex-column align-items-center text-center text-secondary small py-3">
-              <div className="mb-2">
-                © {currentYear} zekomru.com. All rights reserved.
-              </div>
-              <div className="mt-2">
-                <div className="text-secondary mb-2">Powered by</div>
-                <div style={{ position: 'relative', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Image 
-                    src={logoWhite} 
-                    alt="Powered by logo" 
-                    className="dark-mode-item" 
-                    style={{ 
-                      height: '60px', 
-                      width: 'auto',
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)'
-                    }}
-                  />
-                  <Image 
-                    src={logoBlack} 
-                    alt="Powered by logo" 
-                    className="light-mode-item" 
-                    style={{ 
-                      height: '60px', 
-                      width: 'auto',
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)'
-                    }}
-                  />
-                </div>
+              <div>
+                © {currentYear} trippyentry.com. All rights reserved.
               </div>
             </div>
           </Col>
         </Row>
 
       </Container>
+
+      <style>{`
+        .trippy-footer__grid {
+          position: absolute;
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(46, 242, 255, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 46, 230, 0.04) 1px, transparent 1px);
+          background-size: 48px 48px;
+          mask-image: linear-gradient(180deg, black 0%, transparent 85%);
+          pointer-events: none;
+        }
+      `}</style>
     </footer>
   )
 }

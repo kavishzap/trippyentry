@@ -35,7 +35,6 @@ import { FaSearch } from 'react-icons/fa'
 import { useToggle } from '@/hooks'
 import { Link } from 'react-router-dom'
 
-import logoIcon from '@/assets/images/logo-icon.svg'
 import avatar1 from '@/assets/images/avatar/01.jpg'
 import { notificationData } from './data'
 
@@ -102,7 +101,7 @@ const TopBar = ({ toggle }: { toggle: () => void }) => {
         <div className="d-flex align-items-center w-100">
           <div className="d-flex align-items-center d-xl-none">
             <Link className="navbar-brand" to="/">
-              <Image className="navbar-brand-item h-40px" src={logoIcon} />
+              <Image className="navbar-brand-item h-40px" src="/logo.png" alt="logo" />
             </Link>
           </div>
           <div className="navbar-expand-xl sidebar-offcanvas-menu">

@@ -27,8 +27,6 @@ import frFlag from '@/assets/images/flags/fr.svg'
 import grFlag from '@/assets/images/flags/gr.svg'
 import spFlag from '@/assets/images/flags/sp.svg'
 import ukFlag from '@/assets/images/flags/uk.svg'
-import hotelLogoLight from '@/assets/images/logo-hotel-light.svg'
-import hotelLogo from '@/assets/images/logo-hotel.svg'
 
 type flag = {
   flagImg: string
@@ -87,8 +85,7 @@ const TopNavBar2 = () => {
           <Row className="align-items-center">
             <Col xs={4}>
               <Link className="navbar-brand" to="/">
-                <img className="light-mode-item navbar-brand-item d-inline h-40px h-md-60px" src={hotelLogo} alt="logo" />
-                <img className="dark-mode-item navbar-brand-item d-inline h-40px h-md-60px" src={hotelLogoLight} alt="logo" />
+                <img className="navbar-brand-item d-inline h-40px h-md-60px" src="/logo.png" alt="logo" />
               </Link>
             </Col>
             <Col xs={8}>

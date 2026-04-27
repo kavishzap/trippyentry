@@ -3,16 +3,9 @@ import { bookingHomeMenuItems } from '@/assets/data';
 import { LogoBox } from '@/components';
 import { useScrollEvent, useToggle } from '@/hooks';
 import clsx from 'clsx';
-import {
-  Collapse,
-  Container,
-  Dropdown,
-  Nav,
-  Navbar,
-} from 'react-bootstrap';
+import { Collapse, Container, Navbar } from 'react-bootstrap';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
-import { FaUser } from 'react-icons/fa';
-import { FaHotel } from 'react-icons/fa6';
+import { FaHotel, FaRightToBracket, FaUser } from 'react-icons/fa6';
 import { Link, useLocation } from 'react-router-dom';
 
 const TopNavBar = () => {
@@ -28,20 +21,23 @@ const TopNavBar = () => {
 
   return (
     <header
-      className={clsx('navbar-light header-sticky', {
+      className={clsx('trippy-header header-sticky', {
         'header-sticky-on': scrollY >= 400,
       })}
     >
-      <Navbar expand="xl">
-        <Container className=''>
+      <Navbar expand="xl" variant="dark" className="trippy-header__navbar py-2 py-xl-2">
+        <Container className="position-relative">
+          <div className="trippy-header__glow" aria-hidden />
+          <div className="trippy-header__grid" aria-hidden />
+
           <LogoBox />
 
           <button
             onClick={categoryToggle}
-            className="navbar-toggler ms-sm-auto mx-3 me-md-0 p-0 p-sm-2"
+            className="trippy-header__toggler btn ms-sm-auto mx-3 me-md-0 d-xl-none"
             type="button"
             aria-controls="navbarCategoryCollapse"
-            aria-expanded="false"
+            aria-expanded={categoryIsOpen}
             aria-label="Toggle navigation"
           >
             <BsFillGrid3X3GapFill className="me-1" />
@@ -49,53 +45,203 @@ const TopNavBar = () => {
           </button>
 
           <Collapse in={categoryIsOpen}>
-            <div className="navbar-collapse">
-              <ul className="navbar-nav navbar-nav-scroll nav-pills-primary-soft text-center ms-auto p-2 p-xl-0 overflow-y-hidden">
-                {(bookingHomeMenuItems ?? []).map((item, idx) => {
-                  const Icon = item.icon ?? FaHotel;
-                  const activeItem = item.url === pathname;
-                  return (
-                    <li className="nav-item" key={item.key + idx}>
+            <div className="navbar-collapse trippy-header__collapse">
+              <div className="trippy-header__nav-cluster d-flex flex-column align-items-center flex-xl-row align-items-xl-center justify-content-xl-end gap-2 gap-xl-3 w-100 ms-xl-auto p-2 pb-3 p-xl-0 pb-xl-0">
+                <ul className="navbar-nav navbar-nav-scroll nav-pills-primary-soft text-center mb-0 p-xl-0 overflow-y-hidden">
+                  {(bookingHomeMenuItems ?? []).map((item, idx) => {
+                    const Icon = item.icon ?? FaHotel;
+                    const activeItem = item.url === pathname;
+                    return (
+                      <li className="nav-item" key={item.key + idx}>
+                        <Link
+                          to={item.url ?? ''}
+                          className={clsx(
+                            'nav-link trippy-header__nav-link flex-centered',
+                            activeItem && 'active',
+                          )}
+                        >
+                          <Icon className="me-2" size={16} />
+                          {item.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                  <li className="nav-item">
+                    {isLoggedIn ? (
                       <Link
-                        to={item.url ?? ''}
-                        className={clsx('nav-link flex-centered', activeItem && 'active')}
+                        to="/userDashboard"
+                        className={clsx(
+                          'nav-link trippy-header__nav-link flex-centered',
+                          pathname.startsWith('/userDashboard') && 'active',
+                        )}
                       >
-                        <Icon className="me-2" size={16} />
-                        {item.label}
+                        <FaUser className="me-2" size={16} />
+                        Dashboard
                       </Link>
-                    </li>
-                  );
-                })}
-              </ul>
+                    ) : (
+                      <Link
+                        to="/auth/sign-in"
+                        className={clsx(
+                          'nav-link trippy-header__nav-link flex-centered',
+                          pathname.startsWith('/auth/sign-in') && 'active',
+                        )}
+                      >
+                        <FaRightToBracket className="me-2" size={16} />
+                        Login
+                      </Link>
+                    )}
+                  </li>
+                </ul>
+              </div>
             </div>
           </Collapse>
-
-          <Nav className="flex-row align-items-center list-unstyled ms-xl-auto nav">
-            {isLoggedIn ? (
-              <Dropdown className="nav-item ms-3 dropdown" autoClose="outside">
-                <Link
-                  to="/userDashboard"
-                  className="d-flex align-items-center justify-content-center bg-light rounded-2"
-                  style={{
-                    width: '36px',
-                    height: '36px',
-                    padding: 0,
-                    textDecoration: 'none',
-                  }}
-                >
-                  <FaUser className="text-body" size={16} />
-                </Link>
-
-              </Dropdown>
-            ) : (
-              <Link to="/auth/sign-in" className="btn btn-primary ms-3">
-                Login
-              </Link>
-            )}
-          </Nav>
         </Container>
       </Navbar>
-    </header >
+
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+          .trippy-header {
+            --th-cyan: #2ef2ff;
+            --th-magenta: #ff2ee6;
+            --th-violet: #a855ff;
+            --th-bg: #05040d;
+            --th-bg-mid: #0a0620;
+            position: relative;
+            z-index: 1030;
+            background:
+              radial-gradient(ellipse 100% 180% at 50% -60%, rgba(168, 85, 255, 0.35), transparent 55%),
+              radial-gradient(ellipse 80% 120% at 100% 0%, rgba(46, 242, 255, 0.1), transparent 45%),
+              radial-gradient(ellipse 70% 100% at 0% 100%, rgba(255, 46, 230, 0.12), transparent 42%),
+              linear-gradient(180deg, var(--th-bg) 0%, var(--th-bg-mid) 100%);
+            border-bottom: 1px solid rgba(46, 242, 255, 0.22);
+            box-shadow:
+              0 0 48px rgba(46, 242, 255, 0.08),
+              0 4px 24px rgba(0, 0, 0, 0.45);
+          }
+
+          .trippy-header .trippy-header__navbar {
+            position: relative;
+            z-index: 2;
+          }
+
+          .trippy-header__glow {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: conic-gradient(
+              from 200deg at 80% 20%,
+              rgba(46, 242, 255, 0.08),
+              rgba(255, 46, 230, 0.06),
+              rgba(168, 85, 255, 0.1),
+              rgba(46, 242, 255, 0.08)
+            );
+            opacity: 0.7;
+            pointer-events: none;
+            animation: trippy-header-aurora 18s linear infinite;
+          }
+
+          @keyframes trippy-header-aurora {
+            to { transform: rotate(360deg); }
+          }
+
+          .trippy-header__grid {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background-image:
+              linear-gradient(rgba(46, 242, 255, 0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255, 46, 230, 0.04) 1px, transparent 1px);
+            background-size: 28px 28px;
+            mask-image: linear-gradient(180deg, black 0%, transparent 100%);
+            opacity: 0.5;
+            pointer-events: none;
+          }
+
+          /* Logo: always use light mark on neon bar */
+          .trippy-header .dark-mode-item {
+            display: inline-block !important;
+          }
+          .trippy-header .light-mode-item {
+            display: none !important;
+          }
+
+          .trippy-header__nav-link {
+            color: rgba(232, 228, 255, 0.82) !important;
+            letter-spacing: 0.02em;
+            border-radius: 0.5rem;
+            transition: color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+          }
+          .trippy-header__nav-link:hover,
+          .trippy-header__nav-link:focus {
+            color: #fff !important;
+            background: rgba(46, 242, 255, 0.08) !important;
+            box-shadow: 0 0 20px rgba(46, 242, 255, 0.15);
+          }
+          .trippy-header__nav-link.active {
+            color: #fff !important;
+            background: linear-gradient(135deg, rgba(46, 242, 255, 0.18), rgba(255, 46, 230, 0.12)) !important;
+            box-shadow:
+              inset 0 0 0 1px rgba(46, 242, 255, 0.35),
+              0 0 24px rgba(255, 46, 230, 0.12);
+          }
+
+          .trippy-header__toggler {
+            color: rgba(232, 228, 255, 0.9) !important;
+            border: 1px solid rgba(46, 242, 255, 0.35) !important;
+            background: rgba(10, 8, 28, 0.55) !important;
+            box-shadow: 0 0 16px rgba(46, 242, 255, 0.1);
+            padding: 0.4rem 0.65rem !important;
+          }
+          .trippy-header__toggler:hover {
+            border-color: rgba(255, 46, 230, 0.45) !important;
+            box-shadow: 0 0 20px rgba(255, 46, 230, 0.15);
+          }
+
+          .trippy-header__collapse {
+            border-radius: 0.75rem;
+            margin-top: 0.5rem;
+          }
+          @media (min-width: 1200px) {
+            .trippy-header__collapse {
+              margin-top: 0;
+            }
+            .trippy-header__nav-cluster .navbar-nav {
+              align-items: center;
+            }
+          }
+          @media (max-width: 1199.98px) {
+            .trippy-header__collapse {
+              background: rgba(8, 6, 22, 0.92) !important;
+              border: 1px solid rgba(46, 242, 255, 0.2);
+              box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 32px rgba(168, 85, 255, 0.12);
+              backdrop-filter: blur(12px);
+            }
+          }
+
+          /* Sticky / scrolled: stronger glass + neon bar (matches hero depth) */
+          .trippy-header.header-sticky-on {
+            background:
+              radial-gradient(ellipse 90% 160% at 50% -40%, rgba(168, 85, 255, 0.4), transparent 50%),
+              radial-gradient(ellipse 70% 100% at 100% 0%, rgba(46, 242, 255, 0.12), transparent 40%),
+              linear-gradient(180deg, rgba(5, 4, 13, 0.97) 0%, rgba(10, 6, 32, 0.98) 100%) !important;
+            border-bottom-color: rgba(46, 242, 255, 0.28) !important;
+            backdrop-filter: blur(14px) saturate(1.2);
+            -webkit-backdrop-filter: blur(14px) saturate(1.2);
+            box-shadow:
+              0 0 60px rgba(46, 242, 255, 0.1),
+              0 8px 32px rgba(0, 0, 0, 0.55);
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .trippy-header__glow {
+              animation: none !important;
+            }
+          }
+        `,
+        }}
+      />
+    </header>
   );
 };
 

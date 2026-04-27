@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';;
 import Swal from 'sweetalert2';
 import { FaUser, FaCalendarCheck, FaSignOutAlt } from 'react-icons/fa';
 
+import { PageMetaData } from '@/components';
 import TopNavBar from './components/TopNavBar';
 import FooterWithLinks from './components/FooterWithLinks';
 import MyProfile from './userProfile';
@@ -46,6 +47,7 @@ const UserDashboard = () => {
 
   return (
     <>
+      <PageMetaData title="My account" />
       <div className="d-flex flex-column min-vh-100">
         <TopNavBar />
 

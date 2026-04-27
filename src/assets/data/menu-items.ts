@@ -10,7 +10,7 @@ import {
   BsStar,
   BsTicketPerforated,
 } from 'react-icons/bs'
-import { FaFire    , FaInfo, FaPhone, FaHouse } from 'react-icons/fa6'
+import { FaInfo, FaPhone, FaHouse } from 'react-icons/fa6'
 
 export const bookingHomeMenuItems: MenuItemType[] = [
   {
@@ -18,12 +18,6 @@ export const bookingHomeMenuItems: MenuItemType[] = [
     label: 'Home',
     url: '/dashboard',
     icon: FaHouse   ,
-  },
-  {
-    key: 'concerts-home',
-    label: 'Events',
-    url: '/events',
-    icon: FaFire   ,
   },
   {
     key: 'about-us',

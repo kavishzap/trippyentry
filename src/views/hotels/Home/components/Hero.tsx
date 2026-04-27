@@ -1,115 +1,362 @@
 import { Col, Container, Row } from 'react-bootstrap'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 
-
-const posters = [
-  { id: 1, src: 'https://lomezonmvcwxsdjbnimh.supabase.co/storage/v1/object/sign/hosted_img/sam.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zOWM2ODdjNC1hM2MxLTQyZjUtOGJmMi1hYTg2NDJkZTY0NDYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJob3N0ZWRfaW1nL3NhbS5qcGciLCJpYXQiOjE3NTc4ODY5MjYsImV4cCI6MTgxODM2NjkyNn0.OV0vmMcj_f_xKy_wnlawz1AdyRpIaEpWNpmGAgLX--M' },
-  { id: 2, src: 'https://lomezonmvcwxsdjbnimh.supabase.co/storage/v1/object/sign/hosted_img/Final_2_Poster_Mi%20Hai%20Koli%20Poster%20All%20Artists%20Full%20Size.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zOWM2ODdjNC1hM2MxLTQyZjUtOGJmMi1hYTg2NDJkZTY0NDYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJob3N0ZWRfaW1nL0ZpbmFsXzJfUG9zdGVyX01pIEhhaSBLb2xpIFBvc3RlciBBbGwgQXJ0aXN0cyBGdWxsIFNpemUucG5nIiwiaWF0IjoxNzczNDkyNDQ4LCJleHAiOjE4MDUwMjg0NDh9.oGCbb6aQBMIZcOUFQ9idPzeeBbU5aUF_fHKw9eg_FAY' },
-  { id: 3, src: 'https://lomezonmvcwxsdjbnimh.supabase.co/storage/v1/object/sign/hosted_img/poster.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zOWM2ODdjNC1hM2MxLTQyZjUtOGJmMi1hYTg2NDJkZTY0NDYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJob3N0ZWRfaW1nL3Bvc3Rlci5wbmciLCJpYXQiOjE3NjgyNDk1NDUsImV4cCI6MTc5OTc4NTU0NX0.nDJSyib6dzJZj_k2wjUiiTnXO6JmkYslFuruyqC_L8w' },
-]
+const HERO_ART_SRC = '/2.png'
 
 const Hero = () => {
-  const [order, setOrder] = useState(posters)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setOrder((prev) => [prev[2], prev[0], prev[1]])
-    }, 2500)
-
-    return () => clearInterval(interval)
-  }, [])
-
   return (
-    <>
-      <section className="pt-3 pt-lg-5">
-        <Container>
-          <Row className="align-items-center">
-            {/* Left Column - Text */}
-            <Col lg={6} className="mb-4 mb-lg-0">
-              <h1 className="mb-3 mt-md-5 display-5">
-                Find your best Entertainment <br />
-                <span className="position-relative d-inline-block">
-                  Packages.
-                  <span className="position-absolute top-50 start-50 translate-middle z-index-n1 d-none d-md-block mt-4">
-                    <svg width="390.5px" height="21.5px" viewBox="0 0 445.5 21.5">
-                      <path
-                        fill="#cfeb00"
-                        opacity="0.7"
-                        d="M409.9,2.6c-9.7-0.6-19.5-1-29.2-1.5c-3.2-0.2-6.4-0.2-9.7-0.3c-7-0.2-14-0.4-20.9-0.5c-3.9-0.1-7.8-0.2-11.7-0.3c-1.1,0-2.3,0-3.4,0c-2.5,0-5.1,0-7.6,0c-11.5,0-23,0-34.5,0c-2.7,0-5.5,0.1-8.2,0.1c-6.8,0.1-13.6,0.2-20.3,0.3c-7.7,0.1-15.3,0.1-23,0.3c-12.4,0.3-24.8,0.6-37.1,0.9c-7.2,0.2-14.3,0.3-21.5,0.6c-12.3,0.5-24.7,1-37,1.5c-6.7,0.3-13.5,0.5-20.2,0.9C112.7,5.3,99.9,6,87.1,6.7C80.3,7.1,73.5,7.4,66.7,8C54,9.1,41.3,10.1,28.5,11.2c-2.7,0.2-5.5,0.5-8.2,0.7c-5.5,0.5-11,1.2-16.4,1.8c-0.3,0-0.7,0.1-1,0.1c-0.7,0.2-1.2,0.5-1.7,1C0.4,15.6,0,16.6,0,17.6c0,1,0.4,2,1.1,2.7c0.7,0.7,1.8,1.2,2.7,1.1c6.6-0.7,13.2-1.5,19.8-2.1c6.1-0.5,12.3-1,18.4-1.6c6.7-0.6,13.4-1.1,20.1-1.7c2.7-0.2,5.4-0.5,8.1-0.7c10.4-0.6,20.9-1.1,31.3-1.7c6.5-0.4,13-0.7,19.5-1.1c2.7-0.1,5.4-0.3,8.1-0.4c10.3-0.4,20.7-0.8,31-1.2c6.3-0.2,12.5-0.5,18.8-0.7c2.1-0.1,4.2-0.2,6.3-0.2c11.2-0.3,22.3-0.5,33.5-0.8c6.2-0.1,12.5-0.3,18.7-0.4c2.2-0.1,4.4-0.1,6.7-0.1c11.5-0.1,23-0.2,34.6-0.4c7.2-0.1,14.4-0.1,21.6-0.1c12.2,0,24.5,0.1,36.7,0.1c2.4,0,4.8,0.1,7.2,0.2c6.8,0.2,13.5,0.4,20.3,0.6c5.1,0.2,10.1,0.3,15.2,0.4c3.6,0.1,7.2,0.4,10.8,0.6c10.6,0.6,21.1,1.2,31.7,1.8c2.7,0.2,5.4,0.4,8,0.6c2.9,0.2,5.8,0.4,8.6,0.7c0.4,0.1,0.9,0.2,1.3,0.3c1.1,0.2,2.2,0.2,3.2-0.4c0.9-0.5,1.6-1.5,1.9-2.5c0.6-2.2-0.7-4.5-2.9-5.2z"
-                      />
+    <section className="trippy-hero position-relative overflow-hidden">
+      <div className="trippy-hero__aurora" aria-hidden />
+      <div className="trippy-hero__grid" aria-hidden />
+      <div className="trippy-hero__scanlines" aria-hidden />
 
-                    </svg>
-                  </span>
-                </span>
+      <Container className="trippy-hero__inner position-relative z-1 pb-3 pb-lg-5">
+        <Row className="trippy-hero__row align-items-center g-3 g-lg-5">
+          <Col xs={12} lg={6} className="trippy-hero__text-col">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="trippy-hero__eyebrow d-inline-flex align-items-center gap-2 mb-2 mb-lg-3">
+                <span className="trippy-hero__pulse" aria-hidden />
+                <span>Live across Mauritius</span>
+              </div>
+
+              <h1 className="trippy-hero__title mb-2 mb-lg-4">
+                <span className="trippy-hero__title-line trippy-hero__title-line--main">Trippy</span>
+                <span className="trippy-hero__title-line trippy-hero__title-line--accent">Events</span>
               </h1>
 
-              {/* Description */}
-              <p className="lead mb-3 pe-lg-5">
-                Ready for an unforgettable night? We bring you the hottest concerts and live shows across Mauritius — all tailored to your vibe and budget!
+              <p className="trippy-hero__lead text-white mb-3 mb-lg-4">
+                Step into the glow — the hottest concerts, raves, and live shows on the island, curated for your energy
+                and your budget. One portal. Infinite nights.
               </p>
 
-            </Col>
-
-            {/* Right Column - Animated Posters */}
-            <Col lg={6} className="position-relative">
-              <div className="image-carousel-static">
-                <AnimatePresence>
-                  {order.map((poster, index) => (
-                    <motion.img
-                      key={poster.id}
-                      src={poster.src}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{
-                        opacity: 1,
-                        scale: index === 1 ? 1.1 : 0.9,
-                        rotate: index === 0 ? -6 : index === 2 ? 6 : 0,
-                        x: index === 0 ? -180 : index === 2 ? 180 : 0,
-                        zIndex: index === 1 ? 3 : 1,
-                      }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.6 }}
-                      className="carousel-img"
-                    />
-                  ))}
-                </AnimatePresence>
+              <div className="trippy-hero__pills d-flex flex-wrap gap-2 mb-0">
+                <span className="trippy-pill">Feel the Bass</span>
+                <span className="trippy-pill trippy-pill--alt">Chase the Lights</span>
+                <span className="trippy-pill">Live the Night</span>
               </div>
-            </Col>
-          </Row>
-        </Container>
+            </motion.div>
+          </Col>
 
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-          .image-carousel-static {
-            position: relative;
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+          <Col xs={12} lg={6} className="trippy-hero__neon-col">
+            <motion.div
+              className="trippy-hero__visual mx-auto"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <img
+                src={HERO_ART_SRC}
+                alt=""
+                className="trippy-hero__visual-img"
+                width={800}
+                height={800}
+                decoding="async"
+              />
+            </motion.div>
+          </Col>
+        </Row>
+      </Container>
+
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+          .trippy-hero .trippy-hero__inner.container {
+            padding-top: 0;
+          }
+          @media (min-width: 576px) and (max-width: 991.98px) {
+            .trippy-hero .trippy-hero__inner.container {
+              padding-top: 0.25rem;
+            }
+          }
+          @media (min-width: 992px) {
+            .trippy-hero .trippy-hero__inner.container {
+              padding-top: 3rem;
+            }
           }
 
-          .carousel-img {
-            width: 220px;
-            height: 320px;
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+          .trippy-hero {
+            --neon-cyan: #2ef2ff;
+            --neon-magenta: #ff2ee6;
+            --neon-violet: #a855ff;
+            --neon-lime: #c4ff0d;
+            --hero-bg: #05040d;
+            --hero-bg-mid: #0a0620;
+            min-height: clamp(380px, 62vh, 720px);
+            background: transparent;
+            color: #e8e4ff;
+          }
+
+          .trippy-hero__aurora {
             position: absolute;
-            transition: all 0.3s ease-in-out;
+            inset: -40% -20%;
+            background: conic-gradient(from 120deg at 50% 50%,
+              rgba(46, 242, 255, 0.15),
+              rgba(255, 46, 230, 0.12),
+              rgba(168, 85, 255, 0.18),
+              rgba(196, 255, 13, 0.08),
+              rgba(46, 242, 255, 0.15));
+            animation: trippy-aurora-spin 22s linear infinite;
+            opacity: 0.55;
+            filter: blur(60px);
+            pointer-events: none;
+          }
+          @media (max-width: 991.98px) {
+            .trippy-hero__aurora {
+              opacity: 0.32;
+              filter: blur(36px);
+            }
+            .trippy-hero__scanlines {
+              opacity: 0.06;
+            }
+          }
+
+          @keyframes trippy-aurora-spin {
+            to { transform: rotate(360deg); }
+          }
+
+          .trippy-hero__grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+              linear-gradient(rgba(46, 242, 255, 0.04) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255, 46, 230, 0.04) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: linear-gradient(180deg, black 0%, transparent 85%);
+            pointer-events: none;
+          }
+
+          .trippy-hero__scanlines {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+              0deg,
+              transparent,
+              transparent 2px,
+              rgba(0, 0, 0, 0.12) 2px,
+              rgba(0, 0, 0, 0.12) 4px
+            );
+            opacity: 0.25;
+            pointer-events: none;
+          }
+
+          .trippy-hero__eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: rgba(232, 228, 255, 0.72);
+            font-weight: 600;
+          }
+
+          .trippy-hero__pulse {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--neon-magenta);
+            box-shadow: 0 0 12px var(--neon-magenta), 0 0 24px var(--neon-cyan);
+            animation: trippy-pulse 2s ease-in-out infinite;
+          }
+
+          @keyframes trippy-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.65; transform: scale(0.85); }
+          }
+
+          .trippy-hero__title {
+            font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+          }
+
+          .trippy-hero__title-line {
+            display: block;
+          }
+
+          .trippy-hero__title-line--main {
+            font-size: clamp(2.75rem, 8vw, 4.25rem);
+            background: linear-gradient(135deg, #fff 0%, var(--neon-cyan) 45%, var(--neon-violet) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 40px rgba(46, 242, 255, 0.35);
+            filter: drop-shadow(0 0 2px rgba(46, 242, 255, 0.5));
+          }
+
+          .trippy-hero__title-line--accent {
+            font-size: clamp(3rem, 9vw, 4.75rem);
+            background: linear-gradient(90deg, var(--neon-magenta), var(--neon-lime));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: trippy-title-shimmer 6s ease-in-out infinite alternate;
+          }
+
+          @keyframes trippy-title-shimmer {
+            0% { filter: hue-rotate(0deg) brightness(1); }
+            100% { filter: hue-rotate(25deg) brightness(1.08); }
+          }
+
+          .trippy-hero__lead {
+            font-size: clamp(1rem, 2.2vw, 1.15rem);
+            line-height: 1.65;
+            font-weight: 500;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff;
+            max-width: 36rem;
+            /* Crisp bright core + outer neon (glow sits behind the white) */
+            text-shadow:
+              0 0 0.5px #fff,
+              0 0 1px rgba(255, 255, 255, 0.95),
+              0 0 18px rgba(46, 242, 255, 0.45),
+              0 0 36px rgba(46, 242, 255, 0.28),
+              0 0 52px rgba(255, 46, 230, 0.2);
+            filter: drop-shadow(0 0 12px rgba(46, 242, 255, 0.35))
+              drop-shadow(0 0 20px rgba(255, 46, 230, 0.18));
+          }
+
+          /* Mobile / tablet: neon sits behind headline + lead (stacked grid) */
+          @media (max-width: 991.98px) {
+            .trippy-hero__row {
+              display: grid;
+              grid-template-columns: 1fr;
+              grid-template-rows: 1fr;
+            }
+            .trippy-hero__text-col,
+            .trippy-hero__neon-col {
+              grid-column: 1;
+              grid-row: 1;
+            }
+            .trippy-hero__text-col {
+              position: relative;
+              z-index: 2;
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+            }
+            .trippy-hero__neon-col {
+              z-index: 1;
+              display: flex;
+              justify-content: center;
+              align-items: flex-start;
+              align-self: start;
+              justify-self: center;
+              width: 100%;
+              padding-top: 0.75rem;
+              pointer-events: none;
+            }
+            .trippy-hero__visual {
+              width: min(calc(100vw - 1.25rem), 380px);
+              max-width: 100%;
+              opacity: 0.45;
+            }
+            .trippy-hero__visual-img {
+              max-height: min(42vh, 400px);
+              opacity: 0.75;
+            }
+            /* Crisp type: heavy shadows read as blur on small screens */
+            .trippy-hero__title-line--main {
+              text-shadow: none;
+              filter: none;
+            }
+            .trippy-hero__title-line--accent {
+              text-shadow: none;
+              filter: none !important;
+              animation: none !important;
+            }
+            .trippy-hero__lead {
+              color: #ffffff !important;
+              -webkit-text-fill-color: #ffffff;
+              font-weight: 500;
+              text-shadow:
+                0 0 0.5px #fff,
+                0 0 1px rgba(255, 255, 255, 0.95),
+                0 0 14px rgba(46, 242, 255, 0.48),
+                0 0 30px rgba(46, 242, 255, 0.28),
+                0 0 44px rgba(255, 46, 230, 0.18);
+              filter: drop-shadow(0 0 10px rgba(46, 242, 255, 0.32))
+                drop-shadow(0 0 16px rgba(255, 46, 230, 0.16));
+            }
+            .trippy-hero__eyebrow {
+              text-shadow: none;
+            }
+            .trippy-pill,
+            .trippy-pill--alt {
+              backdrop-filter: none;
+              -webkit-backdrop-filter: none;
+            }
+          }
+
+          @media (min-width: 992px) {
+            .trippy-hero__neon-col {
+              pointer-events: auto;
+              padding-top: 0;
+            }
+            .trippy-hero__visual {
+              opacity: 1;
+              max-width: min(100%, 440px);
+            }
+            .trippy-hero__visual-img {
+              opacity: 1;
+            }
+          }
+
+          .trippy-pill {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            padding: 0.45rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid rgba(46, 242, 255, 0.35);
+            color: rgba(200, 255, 255, 0.95);
+            background: rgba(10, 8, 28, 0.65);
+            box-shadow: 0 0 20px rgba(46, 242, 255, 0.08), inset 0 0 20px rgba(46, 242, 255, 0.04);
+            backdrop-filter: blur(8px);
+          }
+
+          .trippy-pill--alt {
+            border-color: rgba(255, 46, 230, 0.4);
+            color: rgba(255, 210, 250, 0.95);
+            box-shadow: 0 0 20px rgba(255, 46, 230, 0.1), inset 0 0 18px rgba(255, 46, 230, 0.05);
+          }
+
+          /* Hero art: full column, PNG only — no rings / glow / motion on image */
+          .trippy-hero__visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 100%;
+          }
+
+          .trippy-hero__visual-img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            max-height: min(52vh, 520px);
+            display: block;
+            object-fit: contain;
+            object-position: center;
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .trippy-hero__aurora {
+              animation: none !important;
+            }
           }
 
           @media (max-width: 768px) {
-            .carousel-img {
-              width: 150px;
-              height: 220px;
-              margin-top: 150px;
+            .trippy-hero {
+              min-height: auto;
+              padding-bottom: 1.5rem;
             }
           }
         `,
-          }}
-        />
-      </section></>
-
+        }}
+      />
+    </section>
   )
 }
 

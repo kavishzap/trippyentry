@@ -2,9 +2,6 @@ import { Col, Container, Image, Row } from 'react-bootstrap'
 import { FaFacebook, FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 
-import logoLight from '@/assets/images/logo-light.svg'
-import logoWhite from '@/assets/LOGO_WHITE.png'
-import logoBlack from '@/assets/LOGO_BLACK.png'
 import { developedByLink, currentYear } from '@/states'
 
 const Footer = () => {
@@ -16,7 +13,7 @@ const Footer = () => {
             <div className="text-center text-md-start mb-3 mb-md-0">
               <Link to="/">
                 {' '}
-                <Image className="h-30px" src={logoLight} alt="logo" />{' '}
+                <Image className="h-30px" src="/logo.png" alt="logo" />{' '}
               </Link>
             </div>
           </Col>
@@ -28,19 +25,6 @@ const Footer = () => {
                 StackBros
               </Link>
               .{' '}
-            </div>
-            <div className="text-center text-md-start mt-3">
-              <div className="text-body-secondary mb-2">Powered by</div>
-              <Image 
-                src={logoWhite} 
-                alt="Powered by logo" 
-                className="h-40px dark-mode-item" 
-              />
-              <Image 
-                src={logoBlack} 
-                alt="Powered by logo" 
-                className="h-40px light-mode-item" 
-              />
             </div>
           </Col>
           <Col md={4}>

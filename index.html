@@ -3,11 +3,12 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/ico" href="./src/assets/newImage/heroSection/image-removebg-preview (1).png" />
-  <title>Zeko</title>
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <meta name="theme-color" content="#05040d" />
+  <title>Trippy Entry</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="author" content="Stackbros">
-  <meta name="description" content="Zeko">
+  <meta name="author" content="Trippy Entry">
+  <meta name="description" content="Discover raves, concerts, and live events. Buy tickets securely and stay plugged into the night with Trippy Entry.">
   <meta name="google-site-verification" content="DV6p6CcpHETBamKSFcV_9XUgJs4p3qXVYdbQ2OBStWI" />
 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,32 +16,189 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap">
 
   <style>
+    /* Match app chrome immediately — no white flash before React */
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: #04030a;
+      color: #e8e4ff;
+    }
+
+    #root:empty {
+      min-height: 100vh;
+    }
+
     #splash-screen {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      background: white;
+      inset: 0;
+      z-index: 9999;
       display: flex;
-      height: 100%;
-      width: 100%;
-      transform: translate(-50%, -50%);
       align-items: center;
       justify-content: center;
-      z-index: 9999;
-      opacity: 1;
-      transition: all 15s linear;
       overflow: hidden;
+      opacity: 1;
+      background:
+        radial-gradient(ellipse 118% 82% at 50% -18%, rgba(168, 85, 255, 0.32), transparent 56%),
+        radial-gradient(ellipse 88% 52% at 100% 38%, rgba(46, 242, 255, 0.1), transparent 50%),
+        radial-gradient(ellipse 78% 56% at 0% 72%, rgba(255, 46, 230, 0.11), transparent 46%),
+        linear-gradient(180deg, #05040d 0%, #0a0620 34%, #07051a 68%, #04030a 100%);
+    }
+
+    #splash-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.14) 2px,
+        rgba(0, 0, 0, 0.14) 4px
+      );
+      opacity: 0.22;
+      pointer-events: none;
+    }
+
+    #splash-screen::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(46, 242, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 46, 230, 0.035) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: linear-gradient(180deg, black 0%, transparent 88%);
+      pointer-events: none;
+      opacity: 0.55;
+    }
+
+    .splash-screen__aurora {
+      position: absolute;
+      inset: -45% -25%;
+      background: conic-gradient(from 200deg at 50% 50%,
+        rgba(46, 242, 255, 0.12),
+        rgba(255, 46, 230, 0.08),
+        rgba(168, 85, 255, 0.14),
+        rgba(196, 255, 13, 0.05),
+        rgba(46, 242, 255, 0.12));
+      animation: splash-aurora-spin 18s linear infinite;
+      opacity: 0.4;
+      filter: blur(48px);
+      pointer-events: none;
+    }
+
+    @keyframes splash-aurora-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .splash-screen__logo-wrap {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .splash-screen__ring {
+      position: absolute;
+      width: min(76vw, 300px);
+      height: min(76vw, 300px);
+      border-radius: 50%;
+      border: 1px solid rgba(46, 242, 255, 0.22);
+      box-shadow:
+        0 0 0 1px rgba(255, 46, 230, 0.08),
+        0 0 48px rgba(46, 242, 255, 0.12);
+      animation: splash-ring-pulse 2.2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes splash-ring-pulse {
+
+      0%,
+      100% {
+        transform: scale(0.96);
+        opacity: 0.55;
+      }
+
+      50% {
+        transform: scale(1);
+        opacity: 0.85;
+      }
+    }
+
+    .splash-screen__logo {
+      position: relative;
+      z-index: 1;
+      height: min(38vw, 148px);
+      width: auto;
+      max-width: min(88vw, 320px);
+      object-fit: contain;
+      animation: splash-logo-in 1.65s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+      filter:
+        drop-shadow(0 0 20px rgba(46, 242, 255, 0.4))
+        drop-shadow(0 0 40px rgba(168, 85, 255, 0.22))
+        drop-shadow(0 12px 28px rgba(0, 0, 0, 0.5));
+    }
+
+    @keyframes splash-logo-in {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     #splash-screen.remove {
-      animation: fadeout 0.7s forwards;
-      z-index: 0;
+      animation: splash-fadeout 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      pointer-events: none;
     }
 
-    @keyframes fadeout {
+    @keyframes splash-fadeout {
       to {
         opacity: 0;
         visibility: hidden;
+        filter: brightness(1.05) blur(12px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .splash-screen__aurora,
+      .splash-screen__ring {
+        animation: none !important;
+      }
+
+      .splash-screen__logo {
+        animation: splash-logo-in-static 0.5s ease forwards;
+      }
+
+      @keyframes splash-logo-in-static {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      #splash-screen.remove {
+        animation: splash-fadeout-simple 0.35s ease forwards;
+      }
+
+      @keyframes splash-fadeout-simple {
+        to {
+          opacity: 0;
+          visibility: hidden;
+        }
       }
     }
   </style>
@@ -49,16 +207,48 @@
 <body>
   <div id="root"></div>
   <div id="splash-screen">
-    <img alt="Logo" class="light" src="./src/assets/newImage/heroSection/ChatGPT Image Jun 26, 2025, 12_34_05 AM.png" style="height: 40%" />
+    <div class="splash-screen__aurora" aria-hidden="true"></div>
+    <div class="splash-screen__logo-wrap">
+      <span class="splash-screen__ring" aria-hidden="true"></span>
+      <img class="splash-screen__logo" src="/logo.png" alt="Trippy Entry" width="240" height="80" decoding="sync" />
+    </div>
   </div>
   <script type="module" src="/src/main"></script>
   <script>
-    const rootEl = document.querySelector('#root')
-    new MutationObserver(() => {
-      document.querySelector('#splash-screen')?.classList.add('remove');
-    }).observe(rootEl, { childList: true });
+    (function () {
+      var MIN_MS = 2800;
+      var t0 = performance.now();
+      var rootEl = document.querySelector('#root');
+      var dismissed = false;
+      var dismissScheduled = false;
+
+      function dismissSplash() {
+        if (dismissed) return;
+        dismissed = true;
+        document.querySelector('#splash-screen')?.classList.add('remove');
+      }
+
+      function scheduleDismiss() {
+        if (!rootEl || !rootEl.childNodes.length) return;
+        if (dismissed || dismissScheduled) return;
+        dismissScheduled = true;
+        var elapsed = performance.now() - t0;
+        var wait = Math.max(0, MIN_MS - elapsed);
+        setTimeout(dismissSplash, wait);
+      }
+
+      if (rootEl) {
+        new MutationObserver(function () {
+          scheduleDismiss();
+        }).observe(rootEl, { childList: true });
+      }
+
+      if (rootEl && rootEl.childNodes.length) {
+        scheduleDismiss();
+      }
+    })();
   </script>
-  <noscript>Zekomru is a modern ticketing platform for concerts and live events, making it easy to discover events, buy tickets securely, and enjoy unforgettable experiences.</noscript>
+  <noscript>Trippy Entry is a modern ticketing platform for concerts and live events—discover shows, buy tickets securely, and never miss the drop.</noscript>
 </body>
 
 </html>

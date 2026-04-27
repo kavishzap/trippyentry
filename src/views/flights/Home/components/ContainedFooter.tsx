@@ -3,7 +3,6 @@ import { type IconType } from 'react-icons'
 import { FaFacebookF, FaGithub, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 
-import logoLight from '@/assets/images/logo-light.svg'
 import { developedByLink, currentYear } from '@/states'
 
 const footerLinks = ['About', 'Policy', 'Terms & Conditions']
@@ -29,7 +28,7 @@ const ContainedFooter = () => {
             </Col>
             <Col lg={3} className="text-center">
               <Link className="me-0" to="/">
-                <Image className="h-60px" src={logoLight} alt="footer logo" />
+                <Image className="h-60px" src="/logo.png" alt="footer logo" />
               </Link>
               <div className="text-body-secondary text-primary-hover mt-3">
                 {' '}

@@ -1,15 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
-import { PasswordFormInput, TextFormInput } from "@/components";
+import { PageMetaData, PasswordFormInput, TextFormInput } from "@/components";
 import { Col } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { supabase } from "@/lib/supabaseClient";
 
-import logoIcon from "@/assets/newImage/heroSection/ZEKO_LOGO_BLACK_BG-11-removebg-preview 1.png";
 import { developedByLink, currentYear } from "@/states";
-import logoIcon1 from "@/assets/newImage/heroSection/ZEKO_LOGO_WHITE-11-10-11-removebg-preview (1) 1.png";
-import clsx from "clsx";
 
 type SignInForm = {
   email: string;
@@ -58,12 +55,13 @@ const SignIn = () => {
 
   return (
     <>
+      <PageMetaData title="Sign in" />
       {/* Left: Hero image */}
       <Col lg={6} className="order-2 order-lg-1 d-flex align-items-stretch">
         <div className="auth-image-wrap w-100">
           <img
             src="https://lomezonmvcwxsdjbnimh.supabase.co/storage/v1/object/sign/hosted_img/final%20sam.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zOWM2ODdjNC1hM2MxLTQyZjUtOGJmMi1hYTg2NDJkZTY0NDYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJob3N0ZWRfaW1nL2ZpbmFsIHNhbS5qcGciLCJpYXQiOjE3NTc4OTA4NTIsImV4cCI6MTgxODM3MDg1Mn0.BcllDdwWeWWvscd67-HD8mfp9N0W5fBr08mAJa8HqO8"
-            alt="ZEKO — concerts and live shows"
+            alt="Trippy Entry — concerts and live shows"
             className="auth-img rounded-4 shadow-lg"
             loading="lazy"
           />
@@ -79,16 +77,7 @@ const SignIn = () => {
             to="/"
             className="d-inline-flex align-items-center justify-content-center gap-2 mb-4 text-decoration-none"
           >
-            <img
-              src={logoIcon}
-              alt="ZEKO"
-              className={clsx("h-40px navbar-brand-item light-mode-item")}
-            />
-            <img
-              src={logoIcon1}
-              alt="ZEKO"
-              className={clsx("h-40px navbar-brand-item dark-mode-item")}
-            />
+            <img src="/logo.png" alt="Trippy Entry" className="h-40px" />
           </Link>
 
           <h1 className="mb-2 h3">Welcome back</h1>
