@@ -1,16 +1,20 @@
 import { AuthLayout, DefaultLayout } from '@/layouts'
 import { appRoutes, authRoutes } from '@/routes/index'
 // import { useAuthContext } from '@/states'
-import {  Route, Routes, type RouteProps } from 'react-router-dom'
+import { Route, Routes, type RouteProps } from 'react-router-dom'
 
 const AppRouter = (props: RouteProps) => {
   // const { isAuthenticated } = useAuthContext()
 
   return (
     <Routes>
-      {(appRoutes || []).map((route, idx) => (
-        <Route key={idx + route.name} path={route.path} element={<DefaultLayout {...props}>{route.element}</DefaultLayout>} />
-      ))}
+      {(appRoutes || []).map((route, idx) => {
+        const useTrippyAuthShell = route.path === '/auth/reset-password'
+        const Layout = useTrippyAuthShell ? AuthLayout : DefaultLayout
+        return (
+          <Route key={idx + route.name} path={route.path} element={<Layout {...props}>{route.element}</Layout>} />
+        )
+      })}
 
       {(authRoutes || []).map((route, idx) => (
         <Route key={idx + route.name} path={route.path} element={<AuthLayout {...props}>{route.element}</AuthLayout>} />

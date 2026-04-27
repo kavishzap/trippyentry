@@ -320,6 +320,11 @@ const aboutUsRoutes: RoutesProps[] = [
     name: 'about',
     element: <AboutPage />,
   },
+  {
+    path: '/page/about',
+    name: 'about-alias',
+    element: <AboutPage />,
+  },
   // {
   //   path: '/pages/our-team',
   //   name: 'our-team',
@@ -331,6 +336,11 @@ const contactUsRoutes: RoutesProps[] = [
   {
     path: '/pages/contact',
     name: 'contact',
+    element: <Contact />,
+  },
+  {
+    path: '/page/contact',
+    name: 'contact-alias',
     element: <Contact />,
   },
   // {

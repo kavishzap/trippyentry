@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Card, Button, Form, Spinner, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Form, Spinner, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { supabase } from '@/lib/supabaseClient';
 import Swal from 'sweetalert2';
 // import Flatpicker from '@/components/Flatpicker';
@@ -112,17 +112,16 @@ const MyProfile = () => {
 
     if (loading) {
         return (
-            <div className="text-center py-5">
-                <Spinner animation="border" variant="primary" />
+            <div className="text-center py-5 trippy-dash-panel">
+                <Spinner animation="border" role="status" />
             </div>
         );
     }
 
     return (
-        <Card className="shadow border-0 rounded-4 p-3">
-            <Card.Body>
-                <div className="d-flex justify-content-between align-items-center mb-4">
-                    <h4 className="fw-bold mb-0 text-body">My Profile</h4>
+        <div className="trippy-dash-panel">
+                <div className="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                    <h2 className="trippy-dash-title mb-0">My Profile</h2>
                     <OverlayTrigger
                         overlay={
                             <Tooltip>
@@ -130,21 +129,25 @@ const MyProfile = () => {
                             </Tooltip>
                         }
                     >
-                        <Button
-                            variant={editMode ? 'success' : 'outline-primary'}
+                        <button
+                            type="button"
                             onClick={editMode ? handleSave : () => setEditMode(true)}
                             disabled={saving}
-                            className="px-4"
+                            className={
+                                editMode
+                                    ? 'trippy-dash-btn trippy-dash-btn--accent px-4'
+                                    : 'trippy-dash-btn px-4'
+                            }
                         >
                             {saving ? 'Saving...' : editMode ? 'Save' : 'Edit'}
-                        </Button>
+                        </button>
                     </OverlayTrigger>
                 </div>
 
                 <Form>
                     <Row className="mb-3">
-                        <Form.Label column sm={4} className="fw-semibold text-muted">
-                            First Name:
+                        <Form.Label column sm={4} className="trippy-dash-label">
+                            First Name
                         </Form.Label>
                         <Col sm={8}>
                             {editMode ? (
@@ -160,8 +163,8 @@ const MyProfile = () => {
                     </Row>
 
                     <Row className="mb-3">
-                        <Form.Label column sm={4} className="fw-semibold text-muted">
-                            Last Name:
+                        <Form.Label column sm={4} className="trippy-dash-label">
+                            Last Name
                         </Form.Label>
                         <Col sm={8}>
                             {editMode ? (
@@ -171,17 +174,17 @@ const MyProfile = () => {
                                     onChange={(e) => handleChange('lastName', e.target.value)}
                                 />
                             ) : (
-                                <div className="pt-1">{userData.lastName}</div>
+                                <div className="pt-1 trippy-dash-value">{userData.lastName}</div>
                             )}
                         </Col>
                     </Row>
 
                     <Row className="mb-3">
-                        <Form.Label column sm={4} className="fw-semibold text-muted">
-                            Email:
+                        <Form.Label column sm={4} className="trippy-dash-label">
+                            Email
                         </Form.Label>
                         <Col sm={8}>
-                            <div className="pt-1 text-secondary">{userData.email}</div>
+                            <div className="pt-1 trippy-dash-value text-break">{userData.email}</div>
                         </Col>
                     </Row>
 
@@ -227,8 +230,8 @@ const MyProfile = () => {
                     </Row> */}
 
                     <Row className="mb-3">
-                        <Form.Label column sm={4} className="fw-semibold text-muted">
-                            Phone:
+                        <Form.Label column sm={4} className="trippy-dash-label">
+                            Phone
                         </Form.Label>
                         <Col sm={8}>
                             {editMode ? (
@@ -239,13 +242,12 @@ const MyProfile = () => {
                                     placeholder="Enter phone number"
                                 />
                             ) : (
-                                <div className="pt-1">{userData.phone || 'Not provided'}</div>
+                                <div className="pt-1 trippy-dash-value">{userData.phone || 'Not provided'}</div>
                             )}
                         </Col>
                     </Row>
                 </Form>
-            </Card.Body>
-        </Card>
+        </div>
     );
 };
 

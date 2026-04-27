@@ -1,274 +1,345 @@
-import { Card, Col, Container, Row } from "react-bootstrap";
-import {
-  BsEnvelope,
-  BsGlobe2,
-  BsHeadset,
-  BsInboxesFill,
-  BsPhone,
-} from "react-icons/bs";
-import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { Col, Container, Row } from 'react-bootstrap'
+import { BsEnvelope, BsHeadset, BsInboxesFill, BsPhone } from 'react-icons/bs'
+import { motion } from 'framer-motion'
+
+/** Same artwork as About Us (`OurStory` hero). */
+const CONTACT_HERO_IMG = encodeURI('/ChatGPT Image Apr 28, 2026, 01_41_28 AM.png')
 
 const ContactHero = () => {
   return (
-    <section className="contact-section pt-4 pt-md-5 mb-5 position-relative overflow-hidden">
-      <Container>
-        <Row className="mb-5">
-          <Col xl={10}>
-            <h1 className="contact-title mb-2 text-body">
-              Let&apos;s connect and get to know{" "}
-              <span className="contact-title-white text-body">each other</span>
-            </h1>
+    <section className="trippy-contact-hero position-relative overflow-hidden">
+      <div className="trippy-contact-hero__aurora" aria-hidden />
+      <div className="trippy-contact-hero__grid" aria-hidden />
+      <div className="trippy-contact-hero__scanlines" aria-hidden />
 
-            <p className="lead mb-0 contact-sub text-body-secondary">
-              Whether you’ve got questions about an event, need help with your
-              ticket, or just want to say hi—we’re here for you. Reach out
-              anytime and let’s make your experience unforgettable!
-            </p>
-          </Col>
-        </Row>
-
-        {/* ✅ align-items-stretch + d-flex cols ensures equal-height cards */}
-        <Row className="g-4 align-items-stretch">
-          {/* Call us */}
-          <Col md={6} xl={4} className="d-flex">
+      <Container className="position-relative z-1 py-4 py-md-5 pb-lg-4">
+        <Row className="align-items-center gy-4 gy-lg-5">
+          <Col lg={6} className="order-2 order-lg-1">
             <motion.div
-              className="w-100"
-              initial={{ opacity: 0, y: 18 }}
+              className="trippy-contact-hero__visual-wrap mx-auto mx-lg-0"
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Card className="contact-card contact-info h-100 text-center p-4 p-md-4 d-flex flex-column">
-                <div className="contact-icon">
+              <img
+                src={CONTACT_HERO_IMG}
+                alt=""
+                className="trippy-contact-hero__visual-img"
+                loading="lazy"
+                decoding="async"
+              />
+            </motion.div>
+          </Col>
+
+          <Col lg={6} className="order-1 order-lg-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="text-center text-lg-start"
+            >
+              <div className="trippy-contact-hero__eyebrow d-inline-flex align-items-center gap-2 mb-3">
+                <span className="trippy-contact-hero__pulse" aria-hidden />
+                <span>Open channel</span>
+              </div>
+              <h1 className="trippy-contact-hero__title mb-0">
+                <span className="trippy-contact-hero__title-line trippy-contact-hero__title-line--main">Enter the</span>
+                <span className="trippy-contact-hero__title-line trippy-contact-hero__title-line--accent">Connection</span>
+              </h1>
+              <p className="trippy-contact-hero__lead mx-auto mx-lg-0 mt-3 mb-0">
+                Whether you need support or just want to tap in, we&apos;re here to keep your journey smooth and
+                unforgettable.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="trippy-contact-channels mt-4 mt-lg-4"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-24px' }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <a href="tel:+23055063356" className="trippy-contact-channel trippy-contact-channel--phone">
+                <span className="trippy-contact-channel__glyph" aria-hidden>
                   <BsHeadset />
-                </div>
-                <h5 className="mt-2">Call us</h5>
+                </span>
+                <span className="trippy-contact-channel__body">
+                  <span className="trippy-contact-channel__kicker">Call</span>
+                  <span className="trippy-contact-channel__value">
+                    <BsPhone className="trippy-contact-channel__value-icon" aria-hidden />
+                    +230 5506 3356
+                  </span>
+                </span>
+                <span className="trippy-contact-channel__arrow" aria-hidden />
+              </a>
 
-                {/* Actions pinned with mt-auto keeps heights consistent */}
-                <div className="actions d-flex flex-wrap justify-content-center gap-2 mt-5">
-                  <a
-                    href="tel:+23055063356"
-                    className="contact-chip"
-                    aria-label="Call +230 5839 3719"
-                  >
-                    <BsPhone className="me-2" /> +230 5506 3356
-                  </a>
-                </div>
-              </Card>
-            </motion.div>
-          </Col>
-
-          {/* Email us */}
-          <Col md={6} xl={4} className="d-flex">
-            <motion.div
-              className="w-100"
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.05 }}
-            >
-              <Card className="contact-card contact-danger h-100 text-center p-4 p-md-4 d-flex flex-column">
-                <div className="contact-icon">
+              <a href="mailto:zeko.mru@gmail.com" className="trippy-contact-channel trippy-contact-channel--mail">
+                <span className="trippy-contact-channel__glyph" aria-hidden>
                   <BsInboxesFill />
-                </div>
-                <h5 className="mt-2">Email us</h5>
-
-                {/* ✅ Hard-center the email link */}
-                <div className="actions d-flex justify-content-center  mt-5">
-                  <a
-                    href="mailto:zeko.mru@gmail.com"
-                    className="contact-link"
-                    aria-label="Email zeko.mru@gmail.com"
-                  >
-                    <BsEnvelope className="me-2" />
+                </span>
+                <span className="trippy-contact-channel__body">
+                  <span className="trippy-contact-channel__kicker">Email</span>
+                  <span className="trippy-contact-channel__value">
+                    <BsEnvelope className="trippy-contact-channel__value-icon" aria-hidden />
                     zeko.mru@gmail.com
-                  </a>
-                </div>
-              </Card>
-            </motion.div>
-          </Col>
-
-          {/* Social media */}
-          <Col xl={4} className="d-flex position-relative">
-            <motion.div
-              className="w-100"
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.1 }}
-            >
-              <Card className="contact-card contact-orange h-100 text-center p-4 p-md-4 d-flex flex-column">
-                <div className="contact-icon">
-                  <BsGlobe2 />
-                </div>
-                <h5 className="mt-2">Social media</h5>
-
-                <div className="actions d-flex justify-content-center gap-2  mt-5">
-                  <a
-                    className="social-btn ig"
-                    href="https://www.instagram.com/zekomru/"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Instagram"
-                    title="@zekomru"
-                  >
-                    <FaInstagram />
-                  </a>
-                  <a
-                    className="social-btn fb"
-                    href="https://www.facebook.com/share/1C33xLMwhG/?mibextid=wwXIfr"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Facebook"
-                    title="ZEKO MRU"
-                  >
-                    <FaFacebook />
-                  </a>
-                  <a
-                    className="social-btn tt"
-                    href="https://www.tiktok.com/@zekomru"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="TikTok"
-                    title="@zekomru"
-                  >
-                    <FaTiktok />
-                  </a>
-                </div>
-              </Card>
+                  </span>
+                </span>
+                <span className="trippy-contact-channel__arrow" aria-hidden />
+              </a>
             </motion.div>
           </Col>
         </Row>
       </Container>
 
-      {/* Styles */}
       <style>{`
-  /* Inherit page background */
-  .contact-section { background: transparent; }
-.contact-title{
-  background: linear-gradient(90deg, var(--title-grad-a, #60a5fa), var(--title-grad-b, #22d3ee));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+        .trippy-contact-hero {
+          --tc-cyan: #2ef2ff;
+          --tc-magenta: #ff2ee6;
+          --tc-violet: #a855ff;
+          color: #e8e4ff;
+          background: transparent;
+        }
+        .trippy-contact-hero__aurora {
+          position: absolute;
+          inset: -45% -20%;
+          background: conic-gradient(from 200deg at 50% 45%,
+            rgba(46, 242, 255, 0.12),
+            rgba(255, 46, 230, 0.1),
+            rgba(168, 85, 255, 0.14),
+            rgba(46, 242, 255, 0.1));
+          opacity: 0.48;
+          filter: blur(52px);
+          pointer-events: none;
+          animation: trippy-contact-aurora 26s linear infinite;
+        }
+        @keyframes trippy-contact-aurora {
+          to { transform: rotate(360deg); }
+        }
+        .trippy-contact-hero__grid {
+          position: absolute;
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(46, 242, 255, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 46, 230, 0.035) 1px, transparent 1px);
+          background-size: 42px 42px;
+          mask-image: linear-gradient(180deg, black 0%, transparent 90%);
+          pointer-events: none;
+          opacity: 0.55;
+        }
+        .trippy-contact-hero__scanlines {
+          position: absolute;
+          inset: 0;
+          background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.1) 2px,
+            rgba(0, 0, 0, 0.1) 4px
+          );
+          opacity: 0.12;
+          pointer-events: none;
+        }
+        .trippy-contact-hero__eyebrow {
+          font-size: 0.7rem;
+          font-weight: 700;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: rgba(46, 242, 255, 0.88);
+        }
+        .trippy-contact-hero__pulse {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: var(--tc-magenta);
+          box-shadow: 0 0 12px var(--tc-magenta), 0 0 22px var(--tc-cyan);
+          animation: trippy-contact-pulse 2s ease-in-out infinite;
+        }
+        @keyframes trippy-contact-pulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.65; transform: scale(0.88); }
+        }
+        .trippy-contact-hero__title {
+          font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+          font-weight: 800;
+          letter-spacing: -0.03em;
+          line-height: 1.05;
+        }
+        .trippy-contact-hero__title-line { display: block; }
+        .trippy-contact-hero__title-line--main {
+          font-size: clamp(2.1rem, 5.5vw, 3.25rem);
+          background: linear-gradient(135deg, #fff 0%, var(--tc-cyan) 48%, var(--tc-violet) 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+        .trippy-contact-hero__title-line--accent {
+          font-size: clamp(2.35rem, 6vw, 3.6rem);
+          background: linear-gradient(90deg, var(--tc-magenta), var(--tc-violet), var(--tc-cyan));
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+        .trippy-contact-hero__lead {
+          max-width: 38rem;
+          font-size: clamp(0.95rem, 1.9vw, 1.12rem);
+          line-height: 1.65;
+          font-weight: 500;
+          color: rgba(255, 255, 255, 0.9);
+        }
 
-/* force white just for the span */
-.contact-title .contact-title-white{
-  background: none !important;
-  -webkit-background-clip: initial;
-  -webkit-text-fill-color: #fff; /* Safari/Chromium */
-  color: #fff;                   /* Firefox/others */
-}
-  .contact-title {
-    line-height: 1.15;
-    letter-spacing: .2px;
-    /* keep your title gradient if you like — or make it plain by removing these 2 lines */
-    background: linear-gradient(90deg, var(--title-grad-a, #ffffffff), var(--title-grad-b, #ffffffff));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .contact-sub { color: var(--body-muted, #6b7280); }
+        .trippy-contact-hero__visual-wrap {
+          width: 100%;
+          max-width: min(100%, 420px);
+        }
+        @media (min-width: 992px) {
+          .trippy-contact-hero__visual-wrap {
+            max-width: 100%;
+          }
+        }
+        .trippy-contact-hero__visual-img {
+          display: block;
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+          max-height: min(52vh, 480px);
+          margin-inline: auto;
+          object-fit: contain;
+          object-position: center;
+        }
+        @media (min-width: 992px) {
+          .trippy-contact-hero__visual-img {
+            max-height: min(70vh, 560px);
+            margin-inline: 0;
+          }
+        }
 
-  /* Equal height + neutral cards */
-  .contact-card {
-    border: 1px solid var(--panel-border, rgba(0,0,0,0.06));
-    box-shadow: var(--panel-shadow, 0 12px 28px rgba(0,0,0,0.08));
-    border-radius: 1rem;
-    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-    position: relative;
-    overflow: hidden;
+        .trippy-contact-channels {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+        }
 
-    display: flex;
-    flex-direction: column;
-    min-height: 260px;
-  }
-  @media (min-width: 1200px) {
-    .contact-card { min-height: 280px; }
-  }
-  .contact-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 36px rgba(0,0,0,0.12);
-    border-color: rgba(0,0,0,0.08);
-  }
+        .trippy-contact-channel {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 1.15rem 0;
+          text-decoration: none !important;
+          color: inherit;
+          border-bottom: 1px solid rgba(46, 242, 255, 0.14);
+          transition: background 0.2s ease, padding-left 0.2s ease;
+        }
+        .trippy-contact-channel:first-of-type {
+          border-top: 1px solid rgba(46, 242, 255, 0.14);
+        }
+        .trippy-contact-channel:hover {
+          background: linear-gradient(90deg, rgba(46, 242, 255, 0.06), transparent 55%);
+          padding-left: 0.35rem;
+        }
+        .trippy-contact-channel__glyph {
+          flex-shrink: 0;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+          font-size: 1.2rem;
+          color: #fff;
+          border: 1px solid rgba(46, 242, 255, 0.4);
+          background: rgba(46, 242, 255, 0.08);
+          box-shadow: 0 0 20px rgba(46, 242, 255, 0.12);
+        }
+        .trippy-contact-channel--mail .trippy-contact-channel__glyph {
+          border-color: rgba(255, 46, 230, 0.4);
+          background: rgba(255, 46, 230, 0.08);
+          box-shadow: 0 0 20px rgba(255, 46, 230, 0.1);
+        }
+        .trippy-contact-channel__body {
+          flex: 1;
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          text-align: left;
+          gap: 0.2rem;
+        }
+        .trippy-contact-channel__kicker {
+          font-size: 0.68rem;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: rgba(46, 242, 255, 0.75);
+        }
+        .trippy-contact-channel--mail .trippy-contact-channel__kicker {
+          color: rgba(255, 46, 230, 0.78);
+        }
+        .trippy-contact-channel__value {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-weight: 700;
+          font-size: clamp(1rem, 2.4vw, 1.2rem);
+          letter-spacing: -0.02em;
+          color: #fff;
+        }
+        .trippy-contact-channel__value-icon {
+          opacity: 0.85;
+          font-size: 1.05rem;
+        }
+        .trippy-contact-channel__arrow {
+          flex-shrink: 0;
+          width: 10px;
+          height: 10px;
+          border-right: 2px solid rgba(46, 242, 255, 0.5);
+          border-bottom: 2px solid rgba(46, 242, 255, 0.5);
+          transform: rotate(-45deg);
+          opacity: 0.6;
+          transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .trippy-contact-channel:hover .trippy-contact-channel__arrow {
+          opacity: 1;
+          transform: rotate(-45deg) translate(2px, -2px);
+        }
 
-  /* Remove colored glow overlays */
-  .contact-card::after { content: none !important; }
+        @media (min-width: 768px) {
+          .trippy-contact-channels {
+            flex-direction: row;
+            align-items: stretch;
+            border-top: 1px solid rgba(46, 242, 255, 0.14);
+            border-bottom: 1px solid rgba(46, 242, 255, 0.14);
+          }
+          .trippy-contact-channel {
+            flex: 1;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 1.5rem 1.25rem;
+            border-bottom: none;
+            border-top: none;
+            border-right: 1px solid rgba(46, 242, 255, 0.12);
+          }
+          .trippy-contact-channel:first-of-type {
+            border-top: none;
+          }
+          .trippy-contact-channel:last-of-type {
+            border-right: none;
+          }
+          .trippy-contact-channel:hover {
+            padding-left: 1.25rem;
+            background: linear-gradient(180deg, rgba(46, 242, 255, 0.07), transparent 70%);
+          }
+          .trippy-contact-channel__arrow {
+            display: none;
+          }
+        }
 
-  /* Neutral icon pill (no color gradient) */
-  .contact-icon {
-    width: 64px; height: 64px;
-    border-radius: 9999px;
-    display: grid; place-items: center;
-    margin-inline: auto; margin-bottom: .5rem;
-    font-size: 24px;
-    box-shadow: 0 8px 18px rgba(0,0,0,.06);
-    background: var(--icon-bg, rgba(0,0,0,0.06));
-    color: var(--icon-fg, #111827);
-    border: 1px solid color-mix(in srgb, var(--icon-bg, rgba(0,0,0,0.06)) 35%, transparent);
-  }
-
-  /* Chips / links */
-  .contact-chip,
-  .contact-chip:visited {
-    display: inline-flex; align-items: center; gap: .25rem;
-    padding: .5rem .75rem; border-radius: .75rem; text-decoration: none;
-    font-weight: 600; border: 1px solid rgba(0,0,0,.12);
-    color: inherit; background: rgba(0,0,0,.04);
-    backdrop-filter: saturate(1.1) blur(4px);
-    transition: transform .2s ease, background .2s ease, border-color .2s ease;
-  }
-  .contact-chip:hover { transform: translateY(-1px); background: rgba(0,0,0,.06); }
-
-  .contact-link,
-  .contact-link:visited {
-    display: inline-flex; align-items: center;
-    font-weight: 600; text-decoration: none;
-    padding: .25rem 0;
-    color: var(--link-fg, #0ea5e9);
-    border-bottom: 2px solid rgba(14,165,233,.3);
-    transition: color .2s ease, border-color .2s ease, transform .2s ease;
-  }
-  .contact-link:hover { color: var(--link-fg-hover, #38bdf8); border-color: rgba(56,189,248,.5); transform: translateY(-1px); }
-
-  /* Social buttons (brand colors kept) */
-  .social-btn {
-    width: 40px; height: 40px; border-radius: 10px;
-    display: grid; place-items: center;
-    color: #fff; text-decoration: none;
-    transition: transform .2s ease, filter .2s ease;
-    box-shadow: 0 8px 20px rgba(0,0,0,.2);
-  }
-  .social-btn:hover { transform: translateY(-2px) scale(1.03); filter: saturate(1.1); }
-  .social-btn.ig { background: linear-gradient(135deg,#f58529,#feda77,#dd2a7b,#8134af,#515bd4); }
-  .social-btn.fb { background: #1877f2; }
-  .social-btn.tt { background: #000000; }
-
-  /* Light/Dark tokens */
-  :where([data-bs-theme="light"] .contact-section, .light .contact-section) {
-    --body-muted: #475569;
-    --panel-bg: #ffffff;
-    --panel-border: rgba(0,0,0,0.06);
-    --panel-shadow: 0 12px 28px rgba(0,0,0,0.08);
-    --icon-bg: rgba(0,0,0,0.06);
-    --icon-fg: #111827;
-    --title-grad-a: #3b82f6; /* only affects the page title, not cards */
-    --title-grad-b: #06b6d4;
-    --link-fg: #0ea5e9; --link-fg-hover: #0284c7;
-  }
-  :where([data-bs-theme="dark"] .contact-section, .dark .contact-section) {
-    --body-muted: #9ca3af;
-    --panel-bg: #0b1220;
-    --panel-border: rgba(255,255,255,0.08);
-    --panel-shadow: 0 18px 48px rgba(0,0,0,0.55);
-    --icon-bg: rgba(255,255,255,0.08);
-    --icon-fg: #e5e7eb;
-    --title-grad-a: #ffffffff; --title-grad-b: #ffffffff; /* only the page title */
-    --link-fg: #38bdf8; --link-fg-hover: #7dd3fc;
-  }
-
-  @media (max-width: 576px) {
-    .contact-card { padding: 1.25rem; }
-  }
-`}</style>
+        @media (prefers-reduced-motion: reduce) {
+          .trippy-contact-hero__aurora { animation: none !important; }
+          .trippy-contact-hero__pulse { animation: none !important; }
+        }
+      `}</style>
     </section>
-  );
-};
+  )
+}
 
-export default ContactHero;
+export default ContactHero

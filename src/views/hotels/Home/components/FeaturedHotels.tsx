@@ -34,7 +34,7 @@ function formatEventDate(iso: string) {
 const DESC_PREVIEW_LEN = 250
 
 /** Decorative art under the 2-col featured row (spans full width, centered). */
-const FEATURED_UNDER_ART_SRC = '/4.png'
+const FEATURED_UNDER_ART_SRC = encodeURI('/ChatGPT Image Apr 28, 2026, 01_55_16 AM.png')
 
 const FeaturedHotels = () => {
   const [concert, setConcert] = useState<Concert | null>(null)
@@ -120,14 +120,16 @@ const FeaturedHotels = () => {
 
         {loading ? (
           <div className="trippy-featured__shell trippy-featured__shell--skeleton" aria-busy="true">
-            <div className="trippy-featured__visual-skel" />
-            <div className="trippy-featured__copy-skel">
-              <div className="trippy-featured__skel-line trippy-featured__skel-line--lg" />
-              <div className="trippy-featured__skel-line trippy-featured__skel-line--md" />
-              <div className="trippy-featured__skel-line trippy-featured__skel-line--sm" />
-              <div className="trippy-featured__skel-cta" />
-            </div>
             <div className="trippy-featured__span-art-skel" aria-hidden />
+            <div className="trippy-featured__shell-grid">
+              <div className="trippy-featured__visual-skel" />
+              <div className="trippy-featured__copy-skel">
+                <div className="trippy-featured__skel-line trippy-featured__skel-line--lg" />
+                <div className="trippy-featured__skel-line trippy-featured__skel-line--md" />
+                <div className="trippy-featured__skel-line trippy-featured__skel-line--sm" />
+                <div className="trippy-featured__skel-cta" />
+              </div>
+            </div>
           </div>
         ) : concert ? (
           <motion.div
@@ -137,23 +139,34 @@ const FeaturedHotels = () => {
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
-            <Link to={detailHref} className="trippy-featured__visual-link text-decoration-none">
-              <div className="trippy-featured__visual">
-                <div className="trippy-featured__visual-glow" aria-hidden />
-                <img
-                  src={concert.front_image}
-                  alt={concert.concert_name}
-                  className="trippy-featured__img"
-                  width={960}
-                  height={640}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div className="trippy-featured__visual-frame" aria-hidden />
-              </div>
-            </Link>
+            <div className="trippy-featured__span-art" aria-hidden>
+              <img
+                src={FEATURED_UNDER_ART_SRC}
+                alt=""
+                className="trippy-featured__span-art-img"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
 
-            <div className="trippy-featured__copy">
+            <div className="trippy-featured__shell-grid">
+              <Link to={detailHref} className="trippy-featured__visual-link text-decoration-none">
+                <div className="trippy-featured__visual">
+                  <div className="trippy-featured__visual-glow" aria-hidden />
+                  <img
+                    src={concert.front_image}
+                    alt={concert.concert_name}
+                    className="trippy-featured__img"
+                    width={960}
+                    height={640}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="trippy-featured__visual-frame" aria-hidden />
+                </div>
+              </Link>
+
+              <div className="trippy-featured__copy">
               <Link to={detailHref} className="trippy-featured__title-link text-decoration-none">
                 <h3 className="trippy-featured__title">{concert.concert_name}</h3>
               </Link>
@@ -203,15 +216,6 @@ const FeaturedHotels = () => {
                 <BsArrowRight className="trippy-featured__cta-icon" aria-hidden />
               </Link>
             </div>
-
-            <div className="trippy-featured__span-art" aria-hidden>
-              <img
-                src={FEATURED_UNDER_ART_SRC}
-                alt=""
-                className="trippy-featured__span-art-img"
-                loading="lazy"
-                decoding="async"
-              />
             </div>
           </motion.div>
         ) : (
@@ -328,80 +332,124 @@ const FeaturedHotels = () => {
 
         .trippy-featured__shell {
           position: relative;
+          isolation: isolate;
+          overflow: visible;
+        }
+
+        /* Two columns live here so background art can sit behind this grid only */
+        .trippy-featured__shell-grid {
+          position: relative;
+          z-index: 1;
           display: grid;
           gap: 1rem;
           align-items: start;
-          /* Room for bottom art inside same block as the 2 cols (not a separate grid row) */
-          padding-bottom: calc(clamp(100px, 18vw, 220px) + 0.5rem);
         }
 
         @media (min-width: 992px) {
-          .trippy-featured__shell {
+          .trippy-featured__shell-grid {
             grid-template-columns: 1.12fr 1fr;
             gap: 1.25rem 1.75rem;
             align-items: center;
-            padding-bottom: calc(clamp(120px, 14vw, 260px) + 0.75rem);
           }
         }
 
-        /* Wide art anchored to bottom of shell: spans visually under both columns */
+        /* Bottom art: true background layer (behind both columns), does not add layout height */
         .trippy-featured__span-art {
           position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;
+          z-index: 0;
+          inset: 32% -10% -18% -10%;
+          width: auto;
+          height: auto;
           display: flex;
-          justify-content: center;
           align-items: flex-end;
-          padding-inline: 0.25rem;
+          justify-content: center;
           pointer-events: none;
         }
 
+        @media (min-width: 992px) {
+          .trippy-featured__span-art {
+            /* Larger bleed + room so background art reads bigger on desktop */
+            inset: 6% -20% -32% -20%;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(-4.25rem);
+          }
+        }
+
+        @media (max-width: 991.98px) {
+          .trippy-featured__span-art {
+            inset: 42% -8% -20% -8%;
+          }
+        }
+
         .trippy-featured__span-art-img {
-          width: min(100%, 920px);
-          max-width: 100%;
-          height: auto;
-          max-height: clamp(100px, 18vw, 220px);
+          width: min(104%, 980px);
+          max-width: none;
+          height: 100%;
+          max-height: min(420px, 52vh);
+          margin: 0 auto;
           display: block;
           object-fit: contain;
           object-position: center bottom;
-          opacity: 0.92;
-          filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.35))
-            drop-shadow(0 0 24px rgba(46, 242, 255, 0.12));
+          opacity: 0.4;
+          -webkit-mask-image: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.92) 35%,
+            rgba(0, 0, 0, 0.35) 72%,
+            rgba(0, 0, 0, 0) 100%
+          );
+          mask-image: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.92) 35%,
+            rgba(0, 0, 0, 0.35) 72%,
+            rgba(0, 0, 0, 0) 100%
+          );
+          filter: drop-shadow(0 0 40px rgba(168, 85, 255, 0.2))
+            drop-shadow(0 0 28px rgba(46, 242, 255, 0.12));
         }
 
         @media (min-width: 992px) {
           .trippy-featured__span-art-img {
-            max-height: clamp(120px, 14vw, 260px);
+            width: min(122%, 1240px);
+            height: auto;
+            max-height: min(720px, 64vh);
+            margin-inline: auto;
+            object-fit: contain;
+            object-position: center center;
+            opacity: 0.45;
           }
         }
 
         @media (max-width: 575.98px) {
-          .trippy-featured__shell {
-            padding-bottom: calc(min(120px, 28vw) + 0.5rem);
-          }
           .trippy-featured__span-art-img {
-            max-height: min(120px, 28vw);
+            max-height: min(320px, 46vh);
+            opacity: 0.36;
           }
         }
 
         .trippy-featured__span-art-skel {
           position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          bottom: 0.35rem;
-          width: min(calc(100% - 0.5rem), 920px);
-          height: clamp(72px, 14vw, 120px);
+          z-index: 0;
+          inset: 38% -6% -12% -6%;
+          width: auto;
+          height: auto;
           border-radius: 0.65rem;
+          opacity: 0.35;
           background: linear-gradient(110deg,
             rgba(42, 38, 72, 0.75) 0%,
             rgba(72, 68, 110, 0.45) 45%,
             rgba(42, 38, 72, 0.75) 90%);
           background-size: 200% 100%;
           animation: tfeat-shimmer 1.4s ease-in-out infinite;
+          -webkit-mask-image: linear-gradient(to top, black 0%, transparent 85%);
+          mask-image: linear-gradient(to top, black 0%, transparent 85%);
         }
 
         .trippy-featured__visual-link {
+          position: relative;
+          z-index: 1;
           display: block;
           border-radius: 0.85rem;
         }
@@ -479,6 +527,8 @@ const FeaturedHotels = () => {
         }
 
         .trippy-featured__copy {
+          position: relative;
+          z-index: 1;
           display: flex;
           flex-direction: column;
           gap: 0.55rem;
@@ -677,6 +727,8 @@ const FeaturedHotels = () => {
         }
 
         .trippy-featured__visual-skel {
+          position: relative;
+          z-index: 1;
           border-radius: 0.85rem;
           aspect-ratio: 16 / 10;
           max-height: min(220px, 48vw);
@@ -707,6 +759,8 @@ const FeaturedHotels = () => {
         }
 
         .trippy-featured__copy-skel {
+          position: relative;
+          z-index: 1;
           display: flex;
           flex-direction: column;
           gap: 0.45rem;

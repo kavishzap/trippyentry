@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Card, Button, Pagination, Spinner } from 'react-bootstrap';
+import { Pagination, Spinner } from 'react-bootstrap';
 import jsPDF from 'jspdf'
 import QRCode from 'qrcode'
 import { supabase } from '@/lib/supabaseClient';
@@ -387,84 +387,86 @@ const MyBookings = () => {
   }
   return (
     <div>
-      {/* Always show buttons */}
-      <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-        <h4 className="mb-0">My Tickets</h4>
-        <div className="d-flex gap-2">
-          {['All', 'Paid', 'Unpaid'].map((status) => (
-            <Button
-              key={status}
-              variant={
-                status === 'All'
-                  ? statusFilter === 'All' ? 'primary' : 'outline-primary'
-                  : status === 'Paid'
-                    ? statusFilter === 'Paid' ? 'success' : 'outline-success'
-                    : statusFilter === 'Unpaid' ? 'danger' : 'outline-danger'
-              }
-              onClick={() => setStatusFilter(status as 'Paid' | 'Unpaid' | 'All')}
-              className="fw-semibold"
-            >
-              {status}
-            </Button>
-          ))}
+      <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <h2 className="trippy-dash-title mb-0">My Tickets</h2>
+        <div className="trippy-dash-pills" role="group" aria-label="Filter by status">
+          {(['All', 'Paid', 'Unpaid'] as const).map((status) => {
+            const active = statusFilter === status
+            const pillClass =
+              status === 'All'
+                ? ''
+                : status === 'Paid'
+                  ? 'trippy-dash-pill--success'
+                  : 'trippy-dash-pill--danger'
+            return (
+              <button
+                key={status}
+                type="button"
+                className={`trippy-dash-pill ${pillClass} ${active ? 'is-active' : ''}`}
+                onClick={() => {
+                  setStatusFilter(status)
+                  setCurrentPage(1)
+                }}
+              >
+                {status}
+              </button>
+            )
+          })}
         </div>
-
       </div>
 
       {loading ? (
-        <div className="text-center py-5">
-          <Spinner animation="border" />
+        <div className="text-center py-5 trippy-dash-panel">
+          <Spinner animation="border" role="status" />
         </div>
       ) : filteredBookings.length === 0 ? (
-        <div className="text-center py-5 text-muted" style={{ fontSize: '1.25rem' }}>
-          <p>No Tickets <FaTicketAlt className="me-2" />  Yet! Start booking your favorite events </p>
+        <div className="text-center py-5 trippy-dash-empty trippy-dash-panel">
+          <p className="mb-0">
+            No tickets <FaTicketAlt className="mx-2" aria-hidden /> yet — start booking your favorite events.
+          </p>
         </div>
-
-
       ) : (
         <>
           <div className="row">
             {paginatedBookings.map((booking) => (
               <div className="col-12 mb-4" key={booking.id}>
-                <Card className="shadow-lg border-0 rounded-4 p-3 bg-light">
-                  <Card.Body>
+                <div className="trippy-dash-ticket">
                     <div className="row g-3 align-items-center">
                       <div className="col-md-3">
                         {booking.frontImage && (
                           <img
                             src={booking.frontImage}
-                            alt="Concert"
-                            className="img-fluid rounded-3"
+                            alt=""
+                            className="img-fluid w-100"
                             style={{
-                              width: '100%',
-                              height: window.innerWidth < 576 ? 'auto' : '180px',
+                              maxHeight: window.innerWidth < 576 ? 220 : 180,
                               objectFit: window.innerWidth < 576 ? 'contain' : 'cover',
                             }}
-
                           />
                         )}
                       </div>
                       <div className="col-md-9">
                         <div className="d-flex justify-content-between flex-column flex-md-row align-items-start gap-3">
                           <div className="flex-grow-1">
-                            <h5 className="fw-bold text-primary mb-2">
-                              <FaTicketAlt className="me-2" /> {booking.concertName}
-                            </h5>
-                            <p className="mb-1">
-                              <FaLocationPin className="me-2" />
-                              <span className="text-body">{booking.concertLocation || 'Unknown Location'}</span>
+                            <h3 className="trippy-dash-event-title mb-2">
+                              <FaTicketAlt className="me-2" aria-hidden /> {booking.concertName}
+                            </h3>
+                            <p className="mb-1 text-muted small">
+                              <FaLocationPin className="me-2" aria-hidden />
+                              <span>{booking.concertLocation || 'Unknown Location'}</span>
                             </p>
 
-                            <p className="mb-1">
-                              <FaMoneyBillWave className="me-2" />
-                              <span className="text-body">{booking.price}</span>
+                            <p className="mb-1 text-muted small">
+                              <FaMoneyBillWave className="me-2" aria-hidden />
+                              <span>{booking.price}</span>
                             </p>
 
                             <p className="mb-0">
-                              <FaFileInvoice className="me-2" />
+                              <FaFileInvoice className="me-2 text-muted" aria-hidden />
                               <span
-                                className={`badge ${booking.status === 'Paid' ? 'bg-success' : 'bg-danger'
-                                  } px-3 py-1`}
+                                className={`badge px-3 py-2 rounded-pill ${
+                                  booking.status === 'Paid' ? 'trippy-dash-badge-paid' : 'trippy-dash-badge-unpaid'
+                                }`}
                               >
                                 {booking.status}
                               </span>
@@ -473,32 +475,29 @@ const MyBookings = () => {
                           <div className="text-md-end">
                             {booking.status === 'Paid' ? (
                               <button
-                                className="btn btn-primary"
+                                type="button"
+                                className="trippy-dash-btn trippy-dash-btn--accent"
                                 onClick={() => downloadTicket(booking)}
                                 disabled={downloadingId === booking.id}
                               >
-                                {downloadingId === booking.id ? 'Downloading...' : 'Download Ticket'}
+                                {downloadingId === booking.id ? 'Downloading...' : 'Download ticket'}
                               </button>
                             ) : (
-                              <span className="text-body fst-italic">
-                                Awaiting admin approval – Ticket will be available once payment is confirmed. If you've already made the payment, please allow some time for processing.
+                              <span className="text-muted fst-italic small" style={{ maxWidth: '22rem', display: 'inline-block' }}>
+                                Awaiting admin approval — your ticket will be available once payment is confirmed. If you&apos;ve already paid, allow some time for processing.
                               </span>
-
                             )}
-
                           </div>
                         </div>
                       </div>
                     </div>
-                  </Card.Body>
-                </Card>
-
+                </div>
               </div>
             ))}
           </div>
 
           {totalPages > 1 && (
-            <div className="d-flex justify-content-center mt-4">
+            <div className="d-flex justify-content-center mt-4 trippy-dash-pagination">
               <Pagination>
                 <Pagination.Prev
                   onClick={() => changePage(currentPage - 1)}

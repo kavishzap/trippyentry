@@ -1,7 +1,7 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import { motion } from 'framer-motion'
 
-const HERO_ART_SRC = '/2.png'
+const HERO_ART_SRC = '/4.png'
 
 const Hero = () => {
   return (
@@ -207,15 +207,8 @@ const Hero = () => {
             color: #ffffff !important;
             -webkit-text-fill-color: #ffffff;
             max-width: 36rem;
-            /* Crisp bright core + outer neon (glow sits behind the white) */
-            text-shadow:
-              0 0 0.5px #fff,
-              0 0 1px rgba(255, 255, 255, 0.95),
-              0 0 18px rgba(46, 242, 255, 0.45),
-              0 0 36px rgba(46, 242, 255, 0.28),
-              0 0 52px rgba(255, 46, 230, 0.2);
-            filter: drop-shadow(0 0 12px rgba(46, 242, 255, 0.35))
-              drop-shadow(0 0 20px rgba(255, 46, 230, 0.18));
+            text-shadow: none;
+            filter: none;
           }
 
           /* Mobile / tablet: neon sits behind headline + lead (stacked grid) */
@@ -248,12 +241,12 @@ const Hero = () => {
               pointer-events: none;
             }
             .trippy-hero__visual {
-              width: min(calc(100vw - 1.25rem), 380px);
+              width: min(calc(100vw - 1.25rem), 430px);
               max-width: 100%;
               opacity: 0.45;
             }
             .trippy-hero__visual-img {
-              max-height: min(42vh, 400px);
+              max-height: min(46vh, 450px);
               opacity: 0.75;
             }
             /* Crisp type: heavy shadows read as blur on small screens */
@@ -270,14 +263,8 @@ const Hero = () => {
               color: #ffffff !important;
               -webkit-text-fill-color: #ffffff;
               font-weight: 500;
-              text-shadow:
-                0 0 0.5px #fff,
-                0 0 1px rgba(255, 255, 255, 0.95),
-                0 0 14px rgba(46, 242, 255, 0.48),
-                0 0 30px rgba(46, 242, 255, 0.28),
-                0 0 44px rgba(255, 46, 230, 0.18);
-              filter: drop-shadow(0 0 10px rgba(46, 242, 255, 0.32))
-                drop-shadow(0 0 16px rgba(255, 46, 230, 0.16));
+              text-shadow: none;
+              filter: none;
             }
             .trippy-hero__eyebrow {
               text-shadow: none;
@@ -296,7 +283,7 @@ const Hero = () => {
             }
             .trippy-hero__visual {
               opacity: 1;
-              max-width: min(100%, 440px);
+              max-width: min(100%, 500px);
             }
             .trippy-hero__visual-img {
               opacity: 1;
@@ -335,7 +322,7 @@ const Hero = () => {
             width: 100%;
             max-width: 100%;
             height: auto;
-            max-height: min(52vh, 520px);
+            max-height: min(58vh, 580px);
             display: block;
             object-fit: contain;
             object-position: center;
