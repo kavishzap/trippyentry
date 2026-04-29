@@ -25,7 +25,7 @@ const TopNavBar = () => {
         'header-sticky-on': scrollY >= 400,
       })}
     >
-      <Navbar expand="xl" variant="dark" className="trippy-header__navbar py-2 py-xl-2">
+      <Navbar expand="xl" variant="dark" className="trippy-header__navbar py-1 py-xl-1">
         <Container className="position-relative">
           <div className="trippy-header__glow" aria-hidden />
           <div className="trippy-header__grid" aria-hidden />
@@ -46,7 +46,7 @@ const TopNavBar = () => {
 
           <Collapse in={categoryIsOpen}>
             <div className="navbar-collapse trippy-header__collapse">
-              <div className="trippy-header__nav-cluster d-flex flex-column align-items-center flex-xl-row align-items-xl-center justify-content-xl-end gap-2 gap-xl-3 w-100 ms-xl-auto p-2 pb-3 p-xl-0 pb-xl-0">
+              <div className="trippy-header__nav-cluster d-flex flex-column align-items-center flex-xl-row align-items-xl-center justify-content-xl-end gap-1 gap-xl-2 w-100 ms-xl-auto p-1 pb-2 p-xl-0 pb-xl-0">
                 <ul className="navbar-nav navbar-nav-scroll nav-pills-primary-soft text-center mb-0 p-xl-0 overflow-y-hidden">
                   {(bookingHomeMenuItems ?? []).map((item, idx) => {
                     const Icon = item.icon ?? FaHotel;
@@ -102,27 +102,60 @@ const TopNavBar = () => {
         dangerouslySetInnerHTML={{
           __html: `
           .trippy-header {
-            --th-cyan: #2ef2ff;
-            --th-magenta: #ff2ee6;
-            --th-violet: #a855ff;
-            --th-bg: #05040d;
-            --th-bg-mid: #0a0620;
+            --th-cyan: #d4af37;
+            --th-magenta: #e8d5a3;
+            --th-bronze: #6b5418;
+            --th-bg: #000000;
+            --th-bg-mid: #0a0805;
             position: relative;
             z-index: 1030;
             background:
-              radial-gradient(ellipse 100% 180% at 50% -60%, rgba(168, 85, 255, 0.35), transparent 55%),
-              radial-gradient(ellipse 80% 120% at 100% 0%, rgba(46, 242, 255, 0.1), transparent 45%),
-              radial-gradient(ellipse 70% 100% at 0% 100%, rgba(255, 46, 230, 0.12), transparent 42%),
+              radial-gradient(ellipse 100% 180% at 50% -60%, rgba(212, 175, 55, 0.35), transparent 55%),
+              radial-gradient(ellipse 80% 120% at 100% 0%, rgba(212, 175, 55, 0.1), transparent 45%),
+              radial-gradient(ellipse 70% 100% at 0% 100%, rgba(232, 213, 163, 0.12), transparent 42%),
               linear-gradient(180deg, var(--th-bg) 0%, var(--th-bg-mid) 100%);
-            border-bottom: 1px solid rgba(46, 242, 255, 0.22);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.22);
             box-shadow:
-              0 0 48px rgba(46, 242, 255, 0.08),
+              0 0 48px rgba(212, 175, 55, 0.08),
               0 4px 24px rgba(0, 0, 0, 0.45);
           }
 
           .trippy-header .trippy-header__navbar {
             position: relative;
             z-index: 2;
+            --bs-navbar-padding-y: 0.35rem;
+          }
+          .trippy-header .navbar-brand {
+            padding-top: 0.4rem !important;
+            padding-bottom: 0.4rem !important;
+          }
+          .trippy-header .navbar-brand .navbar-brand-item.trippy-logo-mark {
+            height: 36px !important;
+            width: auto;
+            max-height: none;
+            object-fit: contain;
+          }
+          @media (min-width: 1200px) {
+            .trippy-header .navbar-brand .navbar-brand-item.trippy-logo-mark {
+              height: 54px !important;
+            }
+          }
+          .trippy-header .navbar-nav .nav-link {
+            padding-top: 0.4rem !important;
+            padding-bottom: 0.4rem !important;
+            line-height: 1.25 !important;
+          }
+          .trippy-header.header-sticky-on .navbar-brand {
+            padding-top: 0.35rem !important;
+            padding-bottom: 0.35rem !important;
+          }
+          .trippy-header.header-sticky-on .navbar-brand .navbar-brand-item.trippy-logo-mark {
+            height: 32px !important;
+          }
+          @media (min-width: 1200px) {
+            .trippy-header.header-sticky-on .navbar-brand .navbar-brand-item.trippy-logo-mark {
+              height: 48px !important;
+            }
           }
 
           .trippy-header__glow {
@@ -131,10 +164,10 @@ const TopNavBar = () => {
             z-index: 0;
             background: conic-gradient(
               from 200deg at 80% 20%,
-              rgba(46, 242, 255, 0.08),
-              rgba(255, 46, 230, 0.06),
-              rgba(168, 85, 255, 0.1),
-              rgba(46, 242, 255, 0.08)
+              rgba(212, 175, 55, 0.08),
+              rgba(232, 213, 163, 0.06),
+              rgba(212, 175, 55, 0.1),
+              rgba(212, 175, 55, 0.08)
             );
             opacity: 0.7;
             pointer-events: none;
@@ -150,8 +183,8 @@ const TopNavBar = () => {
             inset: 0;
             z-index: 1;
             background-image:
-              linear-gradient(rgba(46, 242, 255, 0.05) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255, 46, 230, 0.04) 1px, transparent 1px);
+              linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(232, 213, 163, 0.04) 1px, transparent 1px);
             background-size: 28px 28px;
             mask-image: linear-gradient(180deg, black 0%, transparent 100%);
             opacity: 0.5;
@@ -167,7 +200,7 @@ const TopNavBar = () => {
           }
 
           .trippy-header__nav-link {
-            color: rgba(232, 228, 255, 0.82) !important;
+            color: rgba(232, 213, 163, 0.88) !important;
             letter-spacing: 0.02em;
             border-radius: 0.5rem;
             transition: color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
@@ -175,27 +208,27 @@ const TopNavBar = () => {
           .trippy-header__nav-link:hover,
           .trippy-header__nav-link:focus {
             color: #fff !important;
-            background: rgba(46, 242, 255, 0.08) !important;
-            box-shadow: 0 0 20px rgba(46, 242, 255, 0.15);
+            background: rgba(212, 175, 55, 0.08) !important;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
           }
           .trippy-header__nav-link.active {
             color: #fff !important;
-            background: linear-gradient(135deg, rgba(46, 242, 255, 0.18), rgba(255, 46, 230, 0.12)) !important;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(232, 213, 163, 0.12)) !important;
             box-shadow:
-              inset 0 0 0 1px rgba(46, 242, 255, 0.35),
-              0 0 24px rgba(255, 46, 230, 0.12);
+              inset 0 0 0 1px rgba(212, 175, 55, 0.35),
+              0 0 24px rgba(232, 213, 163, 0.12);
           }
 
           .trippy-header__toggler {
-            color: rgba(232, 228, 255, 0.9) !important;
-            border: 1px solid rgba(46, 242, 255, 0.35) !important;
-            background: rgba(10, 8, 28, 0.55) !important;
-            box-shadow: 0 0 16px rgba(46, 242, 255, 0.1);
+            color: rgba(232, 213, 163, 0.92) !important;
+            border: 1px solid rgba(212, 175, 55, 0.35) !important;
+            background: rgba(12, 10, 6, 0.72) !important;
+            box-shadow: 0 0 16px rgba(212, 175, 55, 0.1);
             padding: 0.4rem 0.65rem !important;
           }
           .trippy-header__toggler:hover {
-            border-color: rgba(255, 46, 230, 0.45) !important;
-            box-shadow: 0 0 20px rgba(255, 46, 230, 0.15);
+            border-color: rgba(232, 213, 163, 0.45) !important;
+            box-shadow: 0 0 20px rgba(232, 213, 163, 0.15);
           }
 
           .trippy-header__collapse {
@@ -212,9 +245,9 @@ const TopNavBar = () => {
           }
           @media (max-width: 1199.98px) {
             .trippy-header__collapse {
-              background: rgba(8, 6, 22, 0.92) !important;
-              border: 1px solid rgba(46, 242, 255, 0.2);
-              box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 32px rgba(168, 85, 255, 0.12);
+              background: rgba(12, 10, 6, 0.94) !important;
+              border: 1px solid rgba(212, 175, 55, 0.2);
+              box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 32px rgba(212, 175, 55, 0.12);
               backdrop-filter: blur(12px);
             }
           }
@@ -222,14 +255,14 @@ const TopNavBar = () => {
           /* Sticky / scrolled: stronger glass + neon bar (matches hero depth) */
           .trippy-header.header-sticky-on {
             background:
-              radial-gradient(ellipse 90% 160% at 50% -40%, rgba(168, 85, 255, 0.4), transparent 50%),
-              radial-gradient(ellipse 70% 100% at 100% 0%, rgba(46, 242, 255, 0.12), transparent 40%),
-              linear-gradient(180deg, rgba(5, 4, 13, 0.97) 0%, rgba(10, 6, 32, 0.98) 100%) !important;
-            border-bottom-color: rgba(46, 242, 255, 0.28) !important;
+              radial-gradient(ellipse 90% 160% at 50% -40%, rgba(212, 175, 55, 0.4), transparent 50%),
+              radial-gradient(ellipse 70% 100% at 100% 0%, rgba(212, 175, 55, 0.12), transparent 40%),
+              linear-gradient(180deg, rgba(8, 6, 4, 0.97) 0%, rgba(14, 11, 6, 0.98) 100%) !important;
+            border-bottom-color: rgba(212, 175, 55, 0.28) !important;
             backdrop-filter: blur(14px) saturate(1.2);
             -webkit-backdrop-filter: blur(14px) saturate(1.2);
             box-shadow:
-              0 0 60px rgba(46, 242, 255, 0.1),
+              0 0 60px rgba(212, 175, 55, 0.1),
               0 8px 32px rgba(0, 0, 0, 0.55);
           }
 

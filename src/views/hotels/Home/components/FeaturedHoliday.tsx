@@ -109,7 +109,7 @@ const FeaturedHoliday = () => {
                 <span className="trippy-why__title-line trippy-why__title-line--accent">TrippyEntry?</span>
               </h2>
 
-              <div className="trippy-why__feats pt-1 pt-lg-2 border-top border-secondary border-opacity-25">
+              <div className="trippy-why__feats trippy-why__feats--rule pt-1 pt-lg-2">
                 {features.map((f) => (
                   <div key={f.title} className="trippy-why__feat mb-2 mb-lg-4">
                     <div className="trippy-why__feat-title">{f.title}</div>
@@ -124,10 +124,10 @@ const FeaturedHoliday = () => {
 
       <style>{`
         .trippy-why-faq {
-          --neon-cyan: #2ef2ff;
-          --neon-magenta: #ff2ee6;
-          --neon-violet: #a855ff;
-          color: #e8e4ff;
+          --neon-cyan: #d4af37;
+          --neon-magenta: #e8d5a3;
+          --neon-bronze: #6b5418;
+          color: #c9b896;
           background: transparent;
           scroll-margin-top: 6.5rem;
         }
@@ -139,12 +139,12 @@ const FeaturedHoliday = () => {
           position: absolute;
           inset: -40% -20%;
           background: conic-gradient(from 120deg at 50% 50%,
-            rgba(46, 242, 255, 0.12),
-            rgba(255, 46, 230, 0.1),
-            rgba(168, 85, 255, 0.16),
-            rgba(46, 242, 255, 0.08),
-            rgba(255, 46, 230, 0.06),
-            rgba(46, 242, 255, 0.12));
+            rgba(212, 175, 55, 0.12),
+            rgba(232, 213, 163, 0.1),
+            rgba(212, 175, 55, 0.16),
+            rgba(212, 175, 55, 0.08),
+            rgba(232, 213, 163, 0.06),
+            rgba(212, 175, 55, 0.12));
           animation: twf-aurora 22s linear infinite;
           opacity: 0.48;
           filter: blur(56px);
@@ -158,8 +158,8 @@ const FeaturedHoliday = () => {
           position: absolute;
           inset: 0;
           background-image:
-            linear-gradient(rgba(46, 242, 255, 0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 46, 230, 0.04) 1px, transparent 1px);
+            linear-gradient(rgba(212, 175, 55, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(232, 213, 163, 0.04) 1px, transparent 1px);
           background-size: 48px 48px;
           mask-image: linear-gradient(180deg, black 0%, transparent 88%);
           pointer-events: none;
@@ -186,7 +186,7 @@ const FeaturedHoliday = () => {
           font-weight: 700;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: rgba(46, 242, 255, 0.85);
+          color: rgba(212, 175, 55, 0.85);
         }
         .trippy-why-faq__pulse {
           width: 7px;
@@ -205,14 +205,14 @@ const FeaturedHoliday = () => {
         .trippy-why-faq__faq-title-line { display: block; }
         .trippy-why-faq__faq-title-line--main {
           font-size: clamp(1.75rem, 4.2vw, 2.5rem);
-          background: linear-gradient(135deg, #fff 0%, var(--neon-cyan) 50%, var(--neon-violet) 100%);
+          background: linear-gradient(135deg, #fff 0%, var(--neon-cyan) 50%, var(--neon-bronze) 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
         }
         .trippy-why-faq__faq-title-line--accent {
           font-size: clamp(1.9rem, 4.6vw, 2.65rem);
-          background: linear-gradient(90deg, var(--neon-magenta), var(--neon-violet), var(--neon-cyan));
+          background: linear-gradient(90deg, var(--neon-magenta), var(--neon-bronze), var(--neon-cyan));
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
@@ -221,7 +221,7 @@ const FeaturedHoliday = () => {
           max-width: 36rem;
           font-size: clamp(0.9rem, 1.65vw, 1.02rem);
           line-height: 1.6;
-          color: rgba(232, 228, 255, 0.78);
+          color: rgba(232, 213, 163, 0.78);
         }
 
         .trippy-why-faq__faq-list {
@@ -232,22 +232,25 @@ const FeaturedHoliday = () => {
 
         .trippy-why-faq__faq-item {
           border-radius: 0.85rem;
-          border: 1px solid rgba(46, 242, 255, 0.22);
-          background: rgba(8, 6, 22, 0.72);
+          border: 1px solid rgba(212, 175, 55, 0.32);
+          background: linear-gradient(180deg, rgba(10, 8, 4, 0.95) 0%, rgba(0, 0, 0, 0.92) 100%);
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+          box-shadow:
+            inset 0 0 0 1px rgba(0, 0, 0, 0.75),
+            inset 0 0 0 2px rgba(212, 175, 55, 0.12),
+            0 8px 32px rgba(0, 0, 0, 0.45);
           overflow: hidden;
           transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
         .trippy-why-faq__faq-item:hover {
-          border-color: rgba(46, 242, 255, 0.38);
+          border-color: rgba(212, 175, 55, 0.38);
         }
         .trippy-why-faq__faq-item[open] {
-          border-color: rgba(255, 46, 230, 0.35);
+          border-color: rgba(232, 213, 163, 0.35);
           box-shadow:
             0 10px 36px rgba(0, 0, 0, 0.4),
-            0 0 28px rgba(168, 85, 255, 0.1);
+            0 0 28px rgba(212, 175, 55, 0.1);
         }
 
         .trippy-why-faq__faq-summary {
@@ -257,8 +260,8 @@ const FeaturedHoliday = () => {
           padding-right: 2.5rem;
           font-weight: 700;
           font-size: clamp(0.9rem, 1.5vw, 1rem);
-          letter-spacing: -0.01em;
-          color: #f4f2ff;
+          letter-spacing: 0.02em;
+          color: #f0e6b8;
           position: relative;
           user-select: none;
         }
@@ -280,15 +283,15 @@ const FeaturedHoliday = () => {
           transform: translateY(-20%) rotate(225deg);
         }
         .trippy-why-faq__faq-summary:hover {
-          color: #fff;
+          color: #fff8e0;
         }
 
         .trippy-why-faq__faq-answer {
           padding: 0 1.15rem 1.1rem;
           font-size: 0.875rem;
           line-height: 1.65;
-          color: rgba(232, 228, 255, 0.82);
-          border-top: 1px solid rgba(46, 242, 255, 0.12);
+          color: rgba(232, 213, 163, 0.82);
+          border-top: 1px solid rgba(212, 175, 55, 0.12);
           padding-top: 0.85rem;
           margin-top: 0;
         }
@@ -309,17 +312,17 @@ const FeaturedHoliday = () => {
 
         .trippy-why__title-line--main {
           font-size: clamp(2.25rem, 6vw, 3.5rem);
-          background: linear-gradient(135deg, #fff 0%, var(--neon-cyan) 45%, var(--neon-violet) 100%);
+          background: linear-gradient(135deg, #fff 0%, var(--neon-cyan) 45%, var(--neon-bronze) 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-          text-shadow: 0 0 40px rgba(46, 242, 255, 0.35);
-          filter: drop-shadow(0 0 2px rgba(46, 242, 255, 0.5));
+          text-shadow: 0 0 40px rgba(212, 175, 55, 0.35);
+          filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.5));
         }
 
         .trippy-why__title-line--accent {
           font-size: clamp(2.4rem, 6.5vw, 3.75rem);
-          background: linear-gradient(90deg, var(--neon-magenta) 0%, var(--neon-violet) 55%, var(--neon-cyan) 100%);
+          background: linear-gradient(90deg, var(--neon-magenta) 0%, var(--neon-bronze) 55%, var(--neon-cyan) 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
@@ -328,8 +331,12 @@ const FeaturedHoliday = () => {
         }
 
         @keyframes twf-title-shimmer {
-          0% { filter: hue-rotate(-6deg) brightness(1); }
-          100% { filter: hue-rotate(8deg) brightness(1.06); }
+          0% { filter: brightness(1); }
+          100% { filter: brightness(1.07); }
+        }
+
+        .trippy-why__feats--rule {
+          border-top: 1px dotted rgba(212, 175, 55, 0.4) !important;
         }
 
         .trippy-why__feat-title {
@@ -337,7 +344,7 @@ const FeaturedHoliday = () => {
           font-weight: 700;
           letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: rgba(46, 242, 255, 0.9);
+          color: rgba(212, 175, 55, 0.9);
           margin-bottom: 0.35rem;
         }
 
@@ -345,8 +352,8 @@ const FeaturedHoliday = () => {
           font-size: clamp(0.8125rem, 1.65vw, 0.9375rem);
           line-height: 1.65;
           font-weight: 500;
-          color: #ffffff !important;
-          -webkit-text-fill-color: #ffffff;
+          color: #c9b896 !important;
+          -webkit-text-fill-color: #c9b896;
           text-shadow: none;
           filter: none;
         }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { Col, Container, Row } from 'react-bootstrap'
@@ -10,9 +10,13 @@ import FooterWithLinks from './components/FooterWithLinks'
 import MyProfile from './userProfile'
 import MyBookings from './myBookings'
 
+const MOBILE_NAV_MAX_PX = 767.98
+
 const UserDashboard = () => {
   const location = useLocation()
   const [tab, setTab] = useState<'profile' | 'booking'>('profile')
+  const [mobilePanelScrollToken, setMobilePanelScrollToken] = useState(0)
+  const contentPanelRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -29,9 +33,25 @@ const UserDashboard = () => {
     }
   }, [location.search, navigate])
 
+  /** After tab switch on stacked (mobile) layout, scroll the main panel into view and focus it for keyboard / SR users */
+  useEffect(() => {
+    if (mobilePanelScrollToken === 0) return
+    const node = contentPanelRef.current
+    if (!node) return
+    const t = window.setTimeout(() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      node.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
+      node.focus({ preventScroll: true })
+    }, 0)
+    return () => window.clearTimeout(t)
+  }, [mobilePanelScrollToken])
+
   const goTab = (next: 'profile' | 'booking') => {
     setTab(next)
     navigate({ pathname: '/userDashboard', search: `?tab=${next}` }, { replace: true })
+    if (typeof window !== 'undefined' && window.matchMedia(`(max-width: ${MOBILE_NAV_MAX_PX}px)`).matches) {
+      setMobilePanelScrollToken((n) => n + 1)
+    }
   }
 
   const handleSignOut = async () => {
@@ -102,8 +122,17 @@ const UserDashboard = () => {
             </Col>
 
             <Col md={8} lg={9}>
-              {tab === 'profile' && <MyProfile />}
-              {tab === 'booking' && <MyBookings />}
+              <div
+                ref={contentPanelRef}
+                id="trippy-dash-main-panel"
+                tabIndex={-1}
+                role="region"
+                aria-label={tab === 'profile' ? 'My profile' : 'My tickets'}
+                className="trippy-dash-main-panel"
+              >
+                {tab === 'profile' && <MyProfile />}
+                {tab === 'booking' && <MyBookings />}
+              </div>
             </Col>
           </Row>
         </Container>
@@ -119,15 +148,15 @@ const UserDashboard = () => {
       }
 
       main.trippy-user-dash-flow {
-        --td-cyan: #2ef2ff;
-        --td-magenta: #ff2ee6;
-        --td-violet: #a855ff;
+        --td-cyan: #d4af37;
+        --td-magenta: #e8d5a3;
+        --td-bronze: #6b5418;
         overflow-x: hidden;
         width: 100%;
         min-height: 56vh;
         position: relative;
-        background-color: #04030a;
-        color: #e8e4ff;
+        background-color: #000000;
+        color: #c9b896;
       }
 
       .trippy-user-dash-flow__base {
@@ -136,10 +165,10 @@ const UserDashboard = () => {
         z-index: 0;
         pointer-events: none;
         background:
-          radial-gradient(ellipse 118% 82% at 50% -18%, rgba(168, 85, 255, 0.28), transparent 56%),
-          radial-gradient(ellipse 88% 52% at 100% 32%, rgba(46, 242, 255, 0.1), transparent 50%),
-          radial-gradient(ellipse 78% 56% at 0% 68%, rgba(255, 46, 230, 0.1), transparent 46%),
-          linear-gradient(180deg, #05040d 0%, #0a0620 38%, #07051a 70%, #04030a 100%);
+          radial-gradient(ellipse 118% 82% at 50% -18%, rgba(107, 84, 24, 0.28), transparent 56%),
+          radial-gradient(ellipse 88% 52% at 100% 32%, rgba(212, 175, 55, 0.1), transparent 50%),
+          radial-gradient(ellipse 78% 56% at 0% 68%, rgba(232, 213, 163, 0.1), transparent 46%),
+          linear-gradient(180deg, #000000 0%, #080602 38%, #030201 70%, #000000 100%);
       }
 
       .trippy-user-dash-flow__scanlines {
@@ -162,19 +191,25 @@ const UserDashboard = () => {
         z-index: 1;
       }
 
+      /* Global theme applies header { background: var(--bs-body-bg) } — skip it here so intro is not a solid bar */
+      main.trippy-user-dash-flow header.trippy-dash-page-head {
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+
       .trippy-dash-page-head__eyebrow {
         font-size: 0.7rem;
         font-weight: 700;
         letter-spacing: 0.22em;
         text-transform: uppercase;
-        color: rgba(46, 242, 255, 0.88);
+        color: rgba(212, 175, 55, 0.88);
       }
       .trippy-dash-page-head__title {
         font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
         font-weight: 800;
         letter-spacing: -0.03em;
         font-size: clamp(1.75rem, 4vw, 2.35rem);
-        background: linear-gradient(135deg, #fff 0%, var(--td-cyan) 48%, var(--td-violet) 100%);
+        background: linear-gradient(135deg, #fff 0%, var(--td-cyan) 48%, var(--td-bronze) 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -182,7 +217,7 @@ const UserDashboard = () => {
       .trippy-dash-page-head__lead {
         max-width: 36rem;
         font-size: clamp(0.9rem, 1.6vw, 1.05rem);
-        color: rgba(255, 255, 255, 0.82);
+        color: rgba(201, 184, 150, 0.9);
         line-height: 1.55;
       }
 
@@ -200,22 +235,22 @@ const UserDashboard = () => {
         text-align: left;
         padding: 0.85rem 1rem;
         border-radius: 0.75rem;
-        border: 1px solid rgba(46, 242, 255, 0.2);
-        background: rgba(8, 6, 22, 0.55);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        background: rgba(12, 10, 6, 0.72);
         color: rgba(255, 255, 255, 0.92);
         font-weight: 600;
         font-size: 0.95rem;
         transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
       }
       .trippy-dash-nav__btn:hover {
-        border-color: rgba(46, 242, 255, 0.45);
-        background: rgba(46, 242, 255, 0.08);
+        border-color: rgba(212, 175, 55, 0.45);
+        background: rgba(212, 175, 55, 0.08);
         color: #fff;
       }
       .trippy-dash-nav__btn.is-active {
-        border-color: rgba(168, 85, 255, 0.55);
-        background: linear-gradient(135deg, rgba(46, 242, 255, 0.12), rgba(255, 46, 230, 0.08));
-        box-shadow: 0 0 24px rgba(168, 85, 255, 0.15);
+        border-color: rgba(107, 84, 24, 0.55);
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(232, 213, 163, 0.08));
+        box-shadow: 0 0 24px rgba(107, 84, 24, 0.15);
         color: #fff;
       }
       .trippy-dash-nav__btn--signout {
@@ -236,14 +271,14 @@ const UserDashboard = () => {
         place-items: center;
         font-size: 1rem;
         flex-shrink: 0;
-        border: 1px solid rgba(46, 242, 255, 0.35);
-        background: rgba(46, 242, 255, 0.06);
+        border: 1px solid rgba(212, 175, 55, 0.35);
+        background: rgba(212, 175, 55, 0.06);
         color: var(--td-cyan);
       }
       .trippy-dash-nav__btn.is-active .trippy-dash-nav__glyph {
-        border-color: rgba(168, 85, 255, 0.5);
+        border-color: rgba(107, 84, 24, 0.5);
         color: #fff;
-        background: rgba(168, 85, 255, 0.15);
+        background: rgba(107, 84, 24, 0.15);
       }
       .trippy-dash-nav__btn--signout .trippy-dash-nav__glyph {
         border-color: rgba(255, 120, 140, 0.4);
@@ -253,8 +288,8 @@ const UserDashboard = () => {
 
       /* Shared panels & forms (profile + tickets live inside this main) */
       .trippy-user-dash-flow .trippy-dash-panel {
-        background: rgba(10, 8, 24, 0.72);
-        border: 1px solid rgba(46, 242, 255, 0.22);
+        background: rgba(14, 11, 6, 0.88);
+        border: 1px solid rgba(212, 175, 55, 0.22);
         border-radius: 1rem;
         padding: 1.35rem 1.5rem;
         backdrop-filter: blur(10px);
@@ -271,7 +306,7 @@ const UserDashboard = () => {
         color: transparent;
       }
       .trippy-user-dash-flow .trippy-dash-label {
-        color: rgba(46, 242, 255, 0.75) !important;
+        color: rgba(212, 175, 55, 0.75) !important;
         font-size: 0.78rem;
         font-weight: 700;
         letter-spacing: 0.06em;
@@ -281,15 +316,15 @@ const UserDashboard = () => {
         color: rgba(255, 255, 255, 0.92);
       }
       .trippy-user-dash-flow .form-control {
-        background: rgba(5, 4, 15, 0.9);
-        border: 1px solid rgba(46, 242, 255, 0.28);
+        background: rgba(8, 7, 4, 0.95);
+        border: 1px solid rgba(212, 175, 55, 0.28);
         color: #fff;
         border-radius: 0.5rem;
       }
       .trippy-user-dash-flow .form-control:focus {
-        border-color: rgba(168, 85, 255, 0.55);
-        box-shadow: 0 0 0 0.2rem rgba(168, 85, 255, 0.2);
-        background: rgba(8, 6, 22, 0.95);
+        border-color: rgba(107, 84, 24, 0.55);
+        box-shadow: 0 0 0 0.2rem rgba(107, 84, 24, 0.2);
+        background: rgba(12, 10, 6, 0.98);
         color: #fff;
       }
       .trippy-user-dash-flow .form-control::placeholder {
@@ -301,21 +336,21 @@ const UserDashboard = () => {
         border-radius: 0.5rem;
         font-weight: 700;
         padding: 0.5rem 1.25rem;
-        border: 1px solid rgba(46, 242, 255, 0.45);
+        border: 1px solid rgba(212, 175, 55, 0.45);
         background: transparent;
         color: var(--td-cyan);
         transition: all 0.2s ease;
       }
       .trippy-user-dash-flow .trippy-dash-btn:hover {
-        background: rgba(46, 242, 255, 0.12);
+        background: rgba(212, 175, 55, 0.12);
         color: #fff;
         border-color: var(--td-cyan);
       }
       .trippy-user-dash-flow .trippy-dash-btn--accent {
         border: none;
-        background: linear-gradient(135deg, rgba(46, 242, 255, 0.35), rgba(168, 85, 255, 0.45));
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.35), rgba(107, 84, 24, 0.45));
         color: #fff;
-        box-shadow: 0 0 20px rgba(46, 242, 255, 0.2);
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
       }
       .trippy-user-dash-flow .trippy-dash-btn--accent:hover {
         filter: brightness(1.08);
@@ -336,20 +371,20 @@ const UserDashboard = () => {
         padding: 0.4rem 1rem;
         font-weight: 700;
         font-size: 0.82rem;
-        border: 1px solid rgba(46, 242, 255, 0.25);
-        background: rgba(5, 4, 15, 0.6);
+        border: 1px solid rgba(212, 175, 55, 0.25);
+        background: rgba(10, 8, 5, 0.75);
         color: rgba(255, 255, 255, 0.85);
         transition: all 0.2s ease;
       }
       .trippy-user-dash-flow .trippy-dash-pill:hover {
-        border-color: rgba(46, 242, 255, 0.45);
+        border-color: rgba(212, 175, 55, 0.45);
         color: #fff;
       }
       .trippy-user-dash-flow .trippy-dash-pill.is-active {
-        border-color: rgba(168, 85, 255, 0.6);
-        background: linear-gradient(135deg, rgba(46, 242, 255, 0.2), rgba(255, 46, 230, 0.12));
+        border-color: rgba(107, 84, 24, 0.6);
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(232, 213, 163, 0.12));
         color: #fff;
-        box-shadow: 0 0 16px rgba(168, 85, 255, 0.2);
+        box-shadow: 0 0 16px rgba(107, 84, 24, 0.2);
       }
       .trippy-user-dash-flow .trippy-dash-pill--success.is-active {
         border-color: rgba(46, 220, 140, 0.55);
@@ -361,8 +396,8 @@ const UserDashboard = () => {
       }
 
       .trippy-user-dash-flow .trippy-dash-ticket {
-        background: rgba(10, 8, 24, 0.72);
-        border: 1px solid rgba(46, 242, 255, 0.18);
+        background: rgba(14, 11, 6, 0.88);
+        border: 1px solid rgba(212, 175, 55, 0.18);
         border-radius: 1rem;
         padding: 1.15rem 1.25rem;
         backdrop-filter: blur(8px);
@@ -379,10 +414,10 @@ const UserDashboard = () => {
       }
       .trippy-user-dash-flow .trippy-dash-ticket img {
         border-radius: 0.65rem;
-        border: 1px solid rgba(46, 242, 255, 0.2);
+        border: 1px solid rgba(212, 175, 55, 0.2);
       }
       .trippy-user-dash-flow .trippy-dash-ticket .text-muted {
-        color: rgba(200, 195, 230, 0.75) !important;
+        color: rgba(201, 184, 150, 0.82) !important;
       }
       .trippy-user-dash-flow .trippy-dash-badge-paid {
         background: rgba(46, 200, 130, 0.25) !important;
@@ -398,18 +433,18 @@ const UserDashboard = () => {
       }
 
       .trippy-user-dash-flow .trippy-dash-pagination .page-link {
-        background: rgba(5, 4, 15, 0.85);
-        border-color: rgba(46, 242, 255, 0.25);
+        background: rgba(10, 8, 5, 0.9);
+        border-color: rgba(212, 175, 55, 0.25);
         color: rgba(255, 255, 255, 0.9);
       }
       .trippy-user-dash-flow .trippy-dash-pagination .page-link:hover {
-        background: rgba(46, 242, 255, 0.12);
-        border-color: rgba(46, 242, 255, 0.45);
+        background: rgba(212, 175, 55, 0.12);
+        border-color: rgba(212, 175, 55, 0.45);
         color: #fff;
       }
       .trippy-user-dash-flow .trippy-dash-pagination .page-item.active .page-link {
-        background: linear-gradient(135deg, rgba(46, 242, 255, 0.35), rgba(168, 85, 255, 0.4));
-        border-color: rgba(168, 85, 255, 0.5);
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.35), rgba(107, 84, 24, 0.4));
+        border-color: rgba(107, 84, 24, 0.5);
         color: #fff;
       }
       .trippy-user-dash-flow .trippy-dash-pagination .page-item.disabled .page-link {
@@ -422,8 +457,39 @@ const UserDashboard = () => {
       }
 
       .trippy-user-dash-flow .trippy-dash-empty {
-        color: rgba(200, 195, 230, 0.85);
+        color: rgba(201, 184, 150, 0.9);
         font-size: 1.1rem;
+      }
+
+      .trippy-user-dash-flow .text-muted {
+        color: rgba(201, 184, 150, 0.78) !important;
+      }
+
+      .trippy-user-dash-flow .form-label,
+      .trippy-user-dash-flow label.col-form-label {
+        color: rgba(212, 175, 55, 0.82) !important;
+      }
+
+      .trippy-user-dash-flow .form-check-input:checked {
+        background-color: #b8922a !important;
+        border-color: #d4af37 !important;
+      }
+
+      .trippy-user-dash-flow .form-check-input:focus {
+        border-color: rgba(212, 175, 55, 0.65);
+        box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.2);
+      }
+
+      /* Mobile: scrollIntoView clears sticky header overlap */
+      .trippy-dash-main-panel {
+        scroll-margin-top: 5.5rem;
+      }
+      .trippy-dash-main-panel:focus {
+        outline: none;
+      }
+      .trippy-dash-main-panel:focus-visible {
+        box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.45);
+        border-radius: 0.75rem;
       }
     `,
         }}

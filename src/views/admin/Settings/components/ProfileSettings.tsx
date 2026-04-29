@@ -37,7 +37,7 @@ const ProfileSettings = () => {
           <div className="d-flex align-items-center">
             <label className="position-relative me-4" htmlFor="uploadfile-1" title="Replace this pic">
               <span className="avatar avatar-xl">
-                <Image id="uploadfile-1-preview" className="avatar-img rounded-circle border border-white border-3 shadow" src="/logo.png" alt="Avatar preview" />
+                <Image id="uploadfile-1-preview" className="avatar-img rounded-circle border border-white border-3 shadow" src="/new_logo.png" alt="Avatar preview" />
               </span>
             </label>
 

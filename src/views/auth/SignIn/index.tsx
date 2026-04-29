@@ -20,36 +20,45 @@ const SignIn = () => {
 
   const onSubmit = handleSubmit(async ({ email, password }) => {
     setLoading(true)
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-    setLoading(false)
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
 
-    if (error) {
+      if (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          text: error.message,
+        })
+      } else {
+        if (data.user?.email) {
+          localStorage.setItem('zeko_username', data.user.email)
+        }
+        Swal.fire({
+          icon: 'success',
+          title: 'Login Successful',
+          showConfirmButton: false,
+          timer: 1200,
+        }).then(() => {
+          const savedPath = localStorage.getItem('hotel_details_path')
+          if (savedPath) {
+            navigate(savedPath)
+            localStorage.removeItem('hotel_details_path')
+          } else {
+            navigate('/dashboard')
+          }
+        })
+      }
+    } catch {
       Swal.fire({
         icon: 'error',
         title: 'Login Failed',
-        text: error.message,
+        text: 'Unable to reach authentication server. Please try again.',
       })
-    } else {
-      if (data.user?.email) {
-        localStorage.setItem('zeko_username', data.user.email)
-      }
-      Swal.fire({
-        icon: 'success',
-        title: 'Login Successful',
-        showConfirmButton: false,
-        timer: 1200,
-      }).then(() => {
-        const savedPath = localStorage.getItem('hotel_details_path')
-        if (savedPath) {
-          navigate(savedPath)
-          localStorage.removeItem('hotel_details_path')
-        } else {
-          navigate('/dashboard')
-        }
-      })
+    } finally {
+      setLoading(false)
     }
   })
 
@@ -64,7 +73,7 @@ const SignIn = () => {
             to="/"
             className="d-inline-flex align-items-center justify-content-center gap-2 mb-4 text-decoration-none"
           >
-            <img src="/logo.png" alt="Trippy Entry" className="h-40px" />
+            <img src="/new_logo.png" alt="Trippy Entry" className="h-40px" />
           </Link>
 
           <h1 className="mb-2 h3">Welcome back</h1>

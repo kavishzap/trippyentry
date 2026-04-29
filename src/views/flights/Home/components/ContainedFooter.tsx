@@ -28,7 +28,7 @@ const ContainedFooter = () => {
             </Col>
             <Col lg={3} className="text-center">
               <Link className="me-0" to="/">
-                <Image className="h-60px" src="/logo.png" alt="footer logo" />
+                <Image className="h-60px" src="/new_logo.png" alt="footer logo" />
               </Link>
               <div className="text-body-secondary text-primary-hover mt-3">
                 {' '}

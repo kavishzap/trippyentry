@@ -79,7 +79,7 @@ const ResetPassword = () => {
             to="/"
             className="d-inline-flex align-items-center justify-content-center gap-2 mb-4 text-decoration-none"
           >
-            <img src="/logo.png" alt="Trippy Entry" className="h-40px" />
+            <img src="/new_logo.png" alt="Trippy Entry" className="h-40px" />
           </Link>
 
           <h1 className="mb-2 h3">Set new password</h1>

@@ -262,7 +262,7 @@ const MyBookings = () => {
       y += 10
       doc.setFontSize(14)
       doc.setFont('helvetica', 'bold')
-      doc.setTextColor(0, 102, 204)
+      doc.setTextColor(180, 145, 50)
       doc.text(concert?.concert_name?.toUpperCase() || 'EVENT NAME', pageWidth / 2, y, { align: 'center' })
 
       // Customer Info

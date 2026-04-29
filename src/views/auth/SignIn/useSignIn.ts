@@ -1,7 +1,6 @@
 import HttpClient from '@/helpers/httpClient'
 import { User, useAuthContext, useNotificationContext } from '@/states'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { type AxiosResponse } from 'axios'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -38,7 +37,7 @@ const useSignIn = () => {
 
   const login = handleSubmit(async (values: LoginFormFields) => {
     try {
-      const res: AxiosResponse<User> = await HttpClient.post('/login', values)
+      const res = await HttpClient.post<User>('/login', values)
       if (res.data.token) {
         saveSession({
           ...(res.data ?? {}),

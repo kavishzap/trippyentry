@@ -59,38 +59,47 @@ const ConcertLists = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState<Filters>({});
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   const concertsPerPage = 4;
 
   useEffect(() => {
     const fetchConcerts = async () => {
       setLoading(true);
-      const { data: concertsData, error: concertsError } = await supabase
-        .from("concerts")
-        .select("*");
+      setFetchError(null);
+      try {
+        const { data: concertsData, error: concertsError } = await supabase
+          .from("concerts")
+          .select("*");
 
-      if (concertsError) {
-        console.error("Error fetching concerts:", concertsError.message);
+        if (concertsError) {
+          console.error("Error fetching concerts:", concertsError.message);
+          setFetchError(concertsError.message);
+          setConcerts([]);
+          return;
+        }
+
+        const enriched = await Promise.all(
+          (concertsData ?? []).map(async (concert) => {
+            const { data: ticket } = await supabase
+              .from("tickets")
+              .select("price")
+              .eq("concert_id", concert.id)
+              .order("price", { ascending: true })
+              .limit(1)
+              .single();
+
+            return { ...concert, minTicketPrice: ticket?.price ?? 0 };
+          })
+        );
+
+        setConcerts(enriched.reverse());
+      } catch {
+        setFetchError("Unable to fetch concerts right now.");
+        setConcerts([]);
+      } finally {
         setLoading(false);
-        return;
       }
-
-      const enriched = await Promise.all(
-        (concertsData ?? []).map(async (concert) => {
-          const { data: ticket } = await supabase
-            .from("tickets")
-            .select("price")
-            .eq("concert_id", concert.id)
-            .order("price", { ascending: false }) // keep your current choice
-            .limit(1)
-            .single();
-
-          return { ...concert, minTicketPrice: ticket?.price ?? 0 };
-        })
-      );
-
-      setConcerts(enriched.reverse());
-      setLoading(false);
     };
 
     fetchConcerts();
@@ -214,9 +223,11 @@ const ConcertLists = () => {
                 ))
               ) : (
                 <div className="empty-state text-center p-5 rounded-3 border">
-                  <h5 className="mb-1">No events match these filters</h5>
+                  <h5 className="mb-1">
+                    {fetchError ? "Unable to load events" : "No events match these filters"}
+                  </h5>
                   <p className="text-secondary mb-3">
-                    Try clearing some filters to see more results.
+                    {fetchError ?? "Try clearing some filters to see more results."}
                   </p>
                   <Button
                     variant="outline-secondary"

@@ -71,7 +71,7 @@ const TopNavBar3 = () => {
       <Navbar expand={'lg'} className="navbar navbar-dark navbar-expand-lg">
         <div className="container-fluid px-md-5">
           <Link className="navbar-brand" to="/">
-            <Image className="navbar-brand-item" src="/logo.png" alt="logo" />
+            <Image className="navbar-brand-item" src="/new_logo.png" alt="logo" />
           </Link>
 
           <button

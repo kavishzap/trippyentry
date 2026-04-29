@@ -85,7 +85,7 @@ const TopNavBar2 = () => {
           <Row className="align-items-center">
             <Col xs={4}>
               <Link className="navbar-brand" to="/">
-                <img className="navbar-brand-item d-inline h-40px h-md-60px" src="/logo.png" alt="logo" />
+                <img className="navbar-brand-item d-inline h-40px h-md-60px" src="/new_logo.png" alt="logo" />
               </Link>
             </Col>
             <Col xs={8}>

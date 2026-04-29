@@ -28,7 +28,7 @@ const Contact = () => {
         overflow-x: hidden;
         width: 100%;
         position: relative;
-        background-color: #04030a;
+        background-color: #000000;
       }
 
       .trippy-contact-flow__base {
@@ -37,10 +37,10 @@ const Contact = () => {
         z-index: 0;
         pointer-events: none;
         background:
-          radial-gradient(ellipse 118% 82% at 50% -18%, rgba(168, 85, 255, 0.28), transparent 56%),
-          radial-gradient(ellipse 88% 52% at 100% 32%, rgba(46, 242, 255, 0.1), transparent 50%),
-          radial-gradient(ellipse 78% 56% at 0% 68%, rgba(255, 46, 230, 0.1), transparent 46%),
-          linear-gradient(180deg, #05040d 0%, #0a0620 38%, #07051a 70%, #04030a 100%);
+          radial-gradient(ellipse 118% 82% at 50% -18%, rgba(212, 175, 55, 0.28), transparent 56%),
+          radial-gradient(ellipse 88% 52% at 100% 32%, rgba(212, 175, 55, 0.1), transparent 50%),
+          radial-gradient(ellipse 78% 56% at 0% 68%, rgba(232, 213, 163, 0.1), transparent 46%),
+          linear-gradient(180deg, #000000 0%, #080602 40%, #030201 72%, #000000 100%);
       }
 
       main.trippy-contact-flow > *:not(.trippy-contact-flow__base) {

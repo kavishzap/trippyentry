@@ -7,14 +7,14 @@ type LogoBoxType = {
   onlyDark?: boolean
 }
 
-/** App mark from `public/logo.png` */
-const LOGO_SRC = '/logo.png'
+/** App mark from `public/new_logo.png` */
+const LOGO_SRC = '/new_logo.png'
 
 const LogoBox = ({ imgClassName, onlyDark: _onlyDark }: LogoBoxType) => {
   return (
     <NavbarBrand as={Link} to="/">
       <img
-        className={clsx('navbar-brand-item h-30px h-xl-40px', imgClassName)}
+        className={clsx('navbar-brand-item trippy-logo-mark', imgClassName)}
         src={LOGO_SRC}
         alt="logo"
       />

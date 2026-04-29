@@ -1,5 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { motion } from "framer-motion";
+import { TRIPPY_MARKETING_POSTER_URL } from '@/lib/marketingPosterUrl'
+
 const OurStory = () => {
   return (
     <section className="our-story-section position-relative overflow-hidden">
@@ -37,7 +39,7 @@ const OurStory = () => {
           {/* Right Illustration */}
           <Col lg={6} className="text-center">
             <motion.img
-              src="https://lomezonmvcwxsdjbnimh.supabase.co/storage/v1/object/sign/hosted_img/final%20sam.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zOWM2ODdjNC1hM2MxLTQyZjUtOGJmMi1hYTg2NDJkZTY0NDYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJob3N0ZWRfaW1nL2ZpbmFsIHNhbS5qcGciLCJpYXQiOjE3NTc4ODU3MTgsImV4cCI6MTgxODM2NTcxOH0.IQk5CBZTz9k3-kvTGz9CA6k-xG5vZBSGZE16Co4E2QA"
+              src={TRIPPY_MARKETING_POSTER_URL}
               alt="Our Story Illustration"
               className="img-fluid rounded-4 story-illustration"
               initial={{ opacity: 0, y: 30 }}

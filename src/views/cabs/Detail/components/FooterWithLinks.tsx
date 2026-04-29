@@ -18,7 +18,7 @@ const FooterWithLinks = () => {
         <Row className="g-4">
           <Col lg={3}>
             <Link to="/">
-              <img className="h-40px" src="/logo.png" alt="logo" />
+              <img className="h-40px" src="/new_logo.png" alt="logo" />
             </Link>
             <p className="my-3 text-body-secondary">Departure defective arranging rapturous did believe him all had supported.</p>
             <p className="mb-2">

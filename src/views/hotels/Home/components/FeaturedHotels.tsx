@@ -31,15 +31,10 @@ function formatEventDate(iso: string) {
   }
 }
 
-const DESC_PREVIEW_LEN = 250
-
-/** Decorative art under the 2-col featured row (spans full width, centered). */
-const FEATURED_UNDER_ART_SRC = encodeURI('/ChatGPT Image Apr 28, 2026, 01_55_16 AM.png')
-
 const FeaturedHotels = () => {
   const [concert, setConcert] = useState<Concert | null>(null)
   const [loading, setLoading] = useState(true)
-  const [showFullDescription, setShowFullDescription] = useState(false)
+  const [fetchError, setFetchError] = useState<string | null>(null)
 
   const detailHref = useMemo(
     () => (concert ? `/events/detail?id=${concert.id}` : '#'),
@@ -48,47 +43,53 @@ const FeaturedHotels = () => {
 
   useEffect(() => {
     const fetchLatestConcert = async () => {
-      const { data: concertsData, error: concertError } = await supabase
-        .from('concerts')
-        .select('*')
-        .order('id', { ascending: false })
-        .limit(1)
+      setFetchError(null)
+      try {
+        const { data: concertsData, error: concertError } = await supabase
+          .from('concerts')
+          .select('*')
+          .order('id', { ascending: false })
+          .limit(1)
 
-      if (concertError || !concertsData?.length) {
+        if (concertError || !concertsData?.length) {
+          setFetchError(concertError?.message ?? 'No events available right now.')
+          setConcert(null)
+          return
+        }
+
+        const row = concertsData[0]
+        const { data: ticketsData, error: ticketError } = await supabase
+          .from('tickets')
+          .select('concert_id, price')
+          .eq('concert_id', row.id)
+
+        let minPrice = 0
+        if (!ticketError && ticketsData?.length) {
+          minPrice = Math.min(...ticketsData.map((t) => Number(t.price) || 0))
+        }
+
+        setConcert({
+          ...row,
+          price: minPrice,
+        } as Concert)
+      } catch {
+        setFetchError('Unable to fetch events right now.')
+        setConcert(null)
+      } finally {
         setLoading(false)
-        return
       }
-
-      const row = concertsData[0]
-      const { data: ticketsData, error: ticketError } = await supabase
-        .from('tickets')
-        .select('concert_id, price')
-        .eq('concert_id', row.id)
-
-      let minPrice = 0
-      if (!ticketError && ticketsData?.length) {
-        minPrice = Math.min(...ticketsData.map((t) => Number(t.price) || 0))
-      }
-
-      setConcert({
-        ...row,
-        price: minPrice,
-      } as Concert)
-      setShowFullDescription(false)
-      setLoading(false)
     }
 
     fetchLatestConcert()
   }, [])
 
   const eventDescription = concert ? String(concert.concert_description ?? '').trim() : ''
-  const descriptionIsLong = eventDescription.length > DESC_PREVIEW_LEN
-  const descriptionShown =
-    !eventDescription
-      ? ''
-      : showFullDescription || !descriptionIsLong
-        ? eventDescription
-        : `${eventDescription.slice(0, DESC_PREVIEW_LEN)}…`
+  const descriptionShown = useMemo(() => {
+    if (!eventDescription) return ''
+    if (eventDescription.length <= 48) return eventDescription
+    const half = Math.floor(eventDescription.length / 2)
+    return `${eventDescription.slice(0, half)}...`
+  }, [eventDescription])
 
   return (
     <section className="trippy-featured position-relative overflow-hidden">
@@ -102,7 +103,7 @@ const FeaturedHotels = () => {
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
+              viewport={{ once: true, amount: 0.05, margin: '0px 0px 120px 0px' }}
               transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               className="text-center text-lg-start"
             >
@@ -120,7 +121,6 @@ const FeaturedHotels = () => {
 
         {loading ? (
           <div className="trippy-featured__shell trippy-featured__shell--skeleton" aria-busy="true">
-            <div className="trippy-featured__span-art-skel" aria-hidden />
             <div className="trippy-featured__shell-grid">
               <div className="trippy-featured__visual-skel" />
               <div className="trippy-featured__copy-skel">
@@ -136,19 +136,9 @@ const FeaturedHotels = () => {
             className="trippy-featured__shell"
             initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
+            viewport={{ once: true, amount: 0.05, margin: '0px 0px 160px 0px' }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="trippy-featured__span-art" aria-hidden>
-              <img
-                src={FEATURED_UNDER_ART_SRC}
-                alt=""
-                className="trippy-featured__span-art-img"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-
             <div className="trippy-featured__shell-grid">
               <Link to={detailHref} className="trippy-featured__visual-link text-decoration-none">
                 <div className="trippy-featured__visual">
@@ -159,10 +149,11 @@ const FeaturedHotels = () => {
                     className="trippy-featured__img"
                     width={960}
                     height={640}
-                    loading="lazy"
+                    loading="eager"
                     decoding="async"
+                    fetchPriority="high"
                   />
-                  <div className="trippy-featured__visual-frame" aria-hidden />
+                  <div className="trippy-featured__frame" aria-hidden />
                 </div>
               </Link>
 
@@ -186,15 +177,6 @@ const FeaturedHotels = () => {
                 <div className="trippy-featured__desc-block">
                   <h4 className="trippy-featured__desc-heading">About This Event</h4>
                   <p className="trippy-featured__desc mb-0">{descriptionShown}</p>
-                  {descriptionIsLong && (
-                    <button
-                      type="button"
-                      className="trippy-featured__desc-toggle"
-                      onClick={() => setShowFullDescription((v) => !v)}
-                    >
-                      {showFullDescription ? 'Show Less' : 'See More'}
-                    </button>
-                  )}
                 </div>
               ) : null}
 
@@ -220,18 +202,18 @@ const FeaturedHotels = () => {
           </motion.div>
         ) : (
           <p className="trippy-featured__empty text-center text-secondary mb-0">
-            New events are on the way — check back soon.
+            {fetchError ?? 'New events are on the way — check back soon.'}
           </p>
         )}
       </Container>
 
       <style>{`
         .trippy-featured {
-          --neon-cyan: #2ef2ff;
-          --neon-magenta: #ff2ee6;
-          --neon-violet: #a855ff;
-          --neon-lime: #c4ff0d;
-          color: #e8e4ff;
+          --neon-cyan: #d4af37;
+          --neon-magenta: #e8d5a3;
+          --neon-bronze: #6b5418;
+          --neon-lime: #c9a227;
+          color: #c9b896;
           background: transparent;
         }
 
@@ -239,11 +221,11 @@ const FeaturedHotels = () => {
           position: absolute;
           inset: -35% -15%;
           background: conic-gradient(from 200deg at 50% 50%,
-            rgba(46, 242, 255, 0.1),
-            rgba(255, 46, 230, 0.08),
-            rgba(168, 85, 255, 0.12),
-            rgba(196, 255, 13, 0.05),
-            rgba(46, 242, 255, 0.1));
+            rgba(212, 175, 55, 0.1),
+            rgba(232, 213, 163, 0.08),
+            rgba(212, 175, 55, 0.12),
+            rgba(212, 175, 55, 0.06),
+            rgba(212, 175, 55, 0.1));
           animation: tfeat-aurora 24s linear infinite;
           opacity: 0.45;
           filter: blur(52px);
@@ -258,8 +240,8 @@ const FeaturedHotels = () => {
           position: absolute;
           inset: 0;
           background-image:
-            linear-gradient(rgba(46, 242, 255, 0.035) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 46, 230, 0.035) 1px, transparent 1px);
+            linear-gradient(rgba(212, 175, 55, 0.035) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(232, 213, 163, 0.035) 1px, transparent 1px);
           background-size: 44px 44px;
           mask-image: linear-gradient(180deg, black 0%, transparent 92%);
           pointer-events: none;
@@ -286,7 +268,7 @@ const FeaturedHotels = () => {
           font-weight: 700;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: rgba(46, 242, 255, 0.85);
+          color: rgba(212, 175, 55, 0.85);
         }
 
         .trippy-featured__pulse {
@@ -316,7 +298,7 @@ const FeaturedHotels = () => {
 
         .trippy-featured__heading-line--main {
           font-size: clamp(1.75rem, 4.5vw, 2.5rem);
-          background: linear-gradient(135deg, #fff 0%, var(--neon-cyan) 50%, var(--neon-violet) 100%);
+          background: linear-gradient(135deg, #fff 0%, var(--neon-cyan) 50%, var(--neon-bronze) 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
@@ -343,187 +325,114 @@ const FeaturedHotels = () => {
           display: grid;
           gap: 1rem;
           align-items: start;
+          /* Avoid min-content blowout from large intrinsic image widths on narrow viewports */
+          grid-template-columns: minmax(0, 1fr);
         }
 
         @media (min-width: 992px) {
           .trippy-featured__shell-grid {
-            grid-template-columns: 1.12fr 1fr;
+            grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
             gap: 1.25rem 1.75rem;
             align-items: center;
           }
-        }
-
-        /* Bottom art: true background layer (behind both columns), does not add layout height */
-        .trippy-featured__span-art {
-          position: absolute;
-          z-index: 0;
-          inset: 32% -10% -18% -10%;
-          width: auto;
-          height: auto;
-          display: flex;
-          align-items: flex-end;
-          justify-content: center;
-          pointer-events: none;
-        }
-
-        @media (min-width: 992px) {
-          .trippy-featured__span-art {
-            /* Larger bleed + room so background art reads bigger on desktop */
-            inset: 6% -20% -32% -20%;
-            align-items: center;
-            justify-content: center;
-            transform: translateY(-4.25rem);
-          }
-        }
-
-        @media (max-width: 991.98px) {
-          .trippy-featured__span-art {
-            inset: 42% -8% -20% -8%;
-          }
-        }
-
-        .trippy-featured__span-art-img {
-          width: min(104%, 980px);
-          max-width: none;
-          height: 100%;
-          max-height: min(420px, 52vh);
-          margin: 0 auto;
-          display: block;
-          object-fit: contain;
-          object-position: center bottom;
-          opacity: 0.4;
-          -webkit-mask-image: linear-gradient(
-            to top,
-            rgba(0, 0, 0, 1) 0%,
-            rgba(0, 0, 0, 0.92) 35%,
-            rgba(0, 0, 0, 0.35) 72%,
-            rgba(0, 0, 0, 0) 100%
-          );
-          mask-image: linear-gradient(
-            to top,
-            rgba(0, 0, 0, 1) 0%,
-            rgba(0, 0, 0, 0.92) 35%,
-            rgba(0, 0, 0, 0.35) 72%,
-            rgba(0, 0, 0, 0) 100%
-          );
-          filter: drop-shadow(0 0 40px rgba(168, 85, 255, 0.2))
-            drop-shadow(0 0 28px rgba(46, 242, 255, 0.12));
-        }
-
-        @media (min-width: 992px) {
-          .trippy-featured__span-art-img {
-            width: min(122%, 1240px);
-            height: auto;
-            max-height: min(720px, 64vh);
-            margin-inline: auto;
-            object-fit: contain;
-            object-position: center center;
-            opacity: 0.45;
-          }
-        }
-
-        @media (max-width: 575.98px) {
-          .trippy-featured__span-art-img {
-            max-height: min(320px, 46vh);
-            opacity: 0.36;
-          }
-        }
-
-        .trippy-featured__span-art-skel {
-          position: absolute;
-          z-index: 0;
-          inset: 38% -6% -12% -6%;
-          width: auto;
-          height: auto;
-          border-radius: 0.65rem;
-          opacity: 0.35;
-          background: linear-gradient(110deg,
-            rgba(42, 38, 72, 0.75) 0%,
-            rgba(72, 68, 110, 0.45) 45%,
-            rgba(42, 38, 72, 0.75) 90%);
-          background-size: 200% 100%;
-          animation: tfeat-shimmer 1.4s ease-in-out infinite;
-          -webkit-mask-image: linear-gradient(to top, black 0%, transparent 85%);
-          mask-image: linear-gradient(to top, black 0%, transparent 85%);
         }
 
         .trippy-featured__visual-link {
           position: relative;
           z-index: 1;
           display: block;
-          border-radius: 0.85rem;
-        }
-
-        @media (min-width: 992px) {
-          .trippy-featured__visual-link {
-            border-radius: 1rem;
-          }
+          min-width: 0;
         }
 
         @media (max-width: 991.98px) {
           .trippy-featured__visual-link {
-            max-width: min(100%, 420px);
+            max-width: min(100%, 380px);
             margin-inline: auto;
+            width: 100%;
           }
         }
 
         .trippy-featured__visual {
           position: relative;
-          border-radius: 0.85rem;
           overflow: hidden;
+          width: 100%;
+          max-width: 380px;
+          margin-inline: auto;
+          min-width: 0;
           aspect-ratio: 16 / 10;
-          max-height: min(220px, 48vw);
+          /* Fallback when aspect-ratio + abs children resolve late on mobile */
+          min-height: clamp(11rem, 58vw, 15rem);
+          border-radius: 1rem;
+          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
         }
 
         @media (min-width: 576px) {
           .trippy-featured__visual {
-            max-height: min(280px, 44vw);
+            max-width: min(100%, 440px);
           }
         }
 
         @media (min-width: 992px) {
           .trippy-featured__visual {
-            max-height: 320px;
+            max-width: none;
+            margin-inline: 0;
+            aspect-ratio: 5 / 4;
+            max-height: min(420px, 52vh);
+            min-height: 0;
             border-radius: 1rem;
           }
         }
 
         .trippy-featured__visual-glow {
           position: absolute;
-          inset: -20%;
-          background: radial-gradient(circle at 50% 50%, rgba(46, 242, 255, 0.25), transparent 55%),
-            radial-gradient(circle at 80% 20%, rgba(255, 46, 230, 0.2), transparent 45%);
+          inset: -8%;
+          z-index: 0;
+          background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.18), transparent 55%),
+            radial-gradient(circle at 70% 30%, rgba(232, 213, 163, 0.14), transparent 50%);
           opacity: 0.7;
           pointer-events: none;
-          z-index: 0;
+        }
+
+        .trippy-featured__frame {
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          border-radius: 1rem;
+          pointer-events: none;
+          box-shadow:
+            inset 0 0 0 1px rgba(212, 175, 55, 0.4),
+            inset 0 0 40px rgba(212, 175, 55, 0.1),
+            0 0 0 1px rgba(232, 213, 163, 0.18);
         }
 
         .trippy-featured__img {
-          position: relative;
+          position: absolute;
+          inset: 0;
           z-index: 1;
           width: 100%;
           height: 100%;
+          max-width: none;
+          min-width: 0;
+          min-height: 0;
           object-fit: cover;
           object-position: center;
-          transform: scale(1.02);
-          transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+          transform: scale(1.14);
+          transition: transform 0.5s ease;
         }
 
         .trippy-featured__visual-link:hover .trippy-featured__img,
         .trippy-featured__visual-link:focus-visible .trippy-featured__img {
-          transform: scale(1.06);
+          transform: scale(1.22);
         }
 
-        .trippy-featured__visual-frame {
-          position: absolute;
-          inset: 0;
-          z-index: 2;
-          border-radius: inherit;
-          box-shadow:
-            inset 0 0 0 1px rgba(46, 242, 255, 0.35),
-            inset 0 0 48px rgba(168, 85, 255, 0.12),
-            0 0 0 1px rgba(255, 46, 230, 0.15);
-          pointer-events: none;
+        @media (prefers-reduced-motion: reduce) {
+          .trippy-featured__img {
+            transition: none;
+          }
+          .trippy-featured__visual-link:hover .trippy-featured__img,
+          .trippy-featured__visual-link:focus-visible .trippy-featured__img {
+            transform: scale(1.14);
+          }
         }
 
         .trippy-featured__copy {
@@ -550,7 +459,7 @@ const FeaturedHotels = () => {
         .trippy-featured__title-link:hover .trippy-featured__title,
         .trippy-featured__title-link:focus-visible .trippy-featured__title {
           color: #fff;
-          text-shadow: 0 0 24px rgba(46, 242, 255, 0.35);
+          text-shadow: 0 0 24px rgba(212, 175, 55, 0.35);
         }
 
         .trippy-featured__title {
@@ -583,7 +492,7 @@ const FeaturedHotels = () => {
           font-weight: 700;
           letter-spacing: 0.16em;
           text-transform: uppercase;
-          color: rgba(46, 242, 255, 0.88);
+          color: rgba(212, 175, 55, 0.88);
           margin: 0.15rem 0 0.25rem;
           text-align: inherit;
         }
@@ -591,26 +500,8 @@ const FeaturedHotels = () => {
         .trippy-featured__desc {
           font-size: 0.8125rem;
           line-height: 1.5;
-          color: rgba(232, 228, 255, 0.82);
+          color: rgba(232, 213, 163, 0.82);
           white-space: pre-line;
-        }
-
-        .trippy-featured__desc-toggle {
-          display: inline-block;
-          margin-top: 0.35rem;
-          padding: 0;
-          border: 0;
-          background: none;
-          font-size: 0.8125rem;
-          font-weight: 600;
-          color: var(--neon-cyan);
-          text-decoration: underline;
-          text-underline-offset: 3px;
-          cursor: pointer;
-        }
-
-        .trippy-featured__desc-toggle:hover {
-          color: #fff;
         }
 
         .trippy-featured__meta {
@@ -631,7 +522,7 @@ const FeaturedHotels = () => {
           align-items: center;
           gap: 0.45rem;
           font-size: 0.8125rem;
-          color: rgba(232, 228, 255, 0.78);
+          color: rgba(232, 213, 163, 0.78);
         }
 
         .trippy-featured__meta-icon {
@@ -658,7 +549,7 @@ const FeaturedHotels = () => {
           font-weight: 700;
           letter-spacing: 0.18em;
           text-transform: uppercase;
-          color: rgba(46, 242, 255, 0.75);
+          color: rgba(212, 175, 55, 0.75);
           margin-bottom: 0.15rem;
           text-align: inherit;
         }
@@ -685,10 +576,10 @@ const FeaturedHotels = () => {
           letter-spacing: 0.04em;
           text-transform: uppercase;
           color: var(--neon-cyan);
-          border: 1px solid rgba(46, 242, 255, 0.55);
+          border: 1px solid rgba(212, 175, 55, 0.55);
           border-radius: 0.5rem;
-          background: rgba(46, 242, 255, 0.06);
-          box-shadow: 0 0 24px rgba(46, 242, 255, 0.12);
+          background: rgba(212, 175, 55, 0.06);
+          box-shadow: 0 0 24px rgba(212, 175, 55, 0.12);
           transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
           align-self: center;
         }
@@ -700,10 +591,10 @@ const FeaturedHotels = () => {
         }
 
         .trippy-featured__cta:hover {
-          color: #05040d;
+          color: #0a0804;
           background: var(--neon-cyan);
           border-color: var(--neon-cyan);
-          box-shadow: 0 0 32px rgba(46, 242, 255, 0.45);
+          box-shadow: 0 0 32px rgba(212, 175, 55, 0.45);
         }
 
         .trippy-featured__cta-icon {
@@ -790,8 +681,8 @@ const FeaturedHotels = () => {
           width: 160px;
           height: 42px;
           border-radius: 0.5rem;
-          border: 1px solid rgba(46, 242, 255, 0.2);
-          background: rgba(46, 242, 255, 0.05);
+          border: 1px solid rgba(212, 175, 55, 0.2);
+          background: rgba(212, 175, 55, 0.05);
         }
       `}</style>
     </section>

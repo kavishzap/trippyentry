@@ -89,7 +89,7 @@ const TopNavBar6 = () => {
       <Navbar expand="xl" className="navbar navbar-dark">
         <Container>
           <Link className="navbar-brand" to="">
-            <Image className="navbar-brand-item" src="/logo.png" alt="logo" />
+            <Image className="navbar-brand-item" src="/new_logo.png" alt="logo" />
           </Link>
           <button
             onClick={toggle}

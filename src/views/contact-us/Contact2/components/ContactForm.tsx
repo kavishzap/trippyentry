@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Link } from 'react-router-dom'
 import { FaFacebookSquare, FaInstagramSquare, FaLinkedin, FaTwitterSquare, FaWhatsappSquare } from 'react-icons/fa'
 
-import about5 from '@/assets/images/about/05.jpg'
+import { TRIPPY_MARKETING_POSTER_URL } from '@/lib/marketingPosterUrl'
 
 const ContactForm = () => {
   const contactFormSchema = yup.object({
@@ -117,7 +117,7 @@ const ContactForm = () => {
                 <circle cx="338.2" cy="338.2" r="2.2" /> <circle cx="146.2" cy="338.2" r="2.2" /> <circle cx="170.2" cy="338.2" r="2.2" />{' '}
               </svg>{' '}
             </figure>
-            <Image src={about5} className="rounded-3 position-relative" />
+            <Image src={TRIPPY_MARKETING_POSTER_URL} className="rounded-3 position-relative" alt="" />
           </Col>
         </Row>
         <Row className="g-4 align-items-center mt-5">

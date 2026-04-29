@@ -2,8 +2,9 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { BsEnvelope, BsHeadset, BsInboxesFill, BsPhone } from 'react-icons/bs'
 import { motion } from 'framer-motion'
 
-/** Same artwork as About Us (`OurStory` hero). */
-const CONTACT_HERO_IMG = encodeURI('/ChatGPT Image Apr 28, 2026, 01_41_28 AM.png')
+import { TRIPPY_MARKETING_POSTER_URL } from '@/lib/marketingPosterUrl'
+
+const CONTACT_HERO_IMG = TRIPPY_MARKETING_POSTER_URL
 
 const ContactHero = () => {
   return (
@@ -22,6 +23,7 @@ const ContactHero = () => {
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
+              <div className="trippy-contact-hero__visual-glow" aria-hidden />
               <img
                 src={CONTACT_HERO_IMG}
                 alt=""
@@ -29,6 +31,7 @@ const ContactHero = () => {
                 loading="lazy"
                 decoding="async"
               />
+              <div className="trippy-contact-hero__visual-frame" aria-hidden />
             </motion.div>
           </Col>
 
@@ -94,20 +97,20 @@ const ContactHero = () => {
 
       <style>{`
         .trippy-contact-hero {
-          --tc-cyan: #2ef2ff;
-          --tc-magenta: #ff2ee6;
-          --tc-violet: #a855ff;
-          color: #e8e4ff;
+          --tc-cyan: #d4af37;
+          --tc-magenta: #e8d5a3;
+          --tc-bronze: #6b5418;
+          color: #c9b896;
           background: transparent;
         }
         .trippy-contact-hero__aurora {
           position: absolute;
           inset: -45% -20%;
           background: conic-gradient(from 200deg at 50% 45%,
-            rgba(46, 242, 255, 0.12),
-            rgba(255, 46, 230, 0.1),
-            rgba(168, 85, 255, 0.14),
-            rgba(46, 242, 255, 0.1));
+            rgba(212, 175, 55, 0.12),
+            rgba(232, 213, 163, 0.1),
+            rgba(212, 175, 55, 0.14),
+            rgba(212, 175, 55, 0.1));
           opacity: 0.48;
           filter: blur(52px);
           pointer-events: none;
@@ -120,8 +123,8 @@ const ContactHero = () => {
           position: absolute;
           inset: 0;
           background-image:
-            linear-gradient(rgba(46, 242, 255, 0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 46, 230, 0.035) 1px, transparent 1px);
+            linear-gradient(rgba(212, 175, 55, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(232, 213, 163, 0.035) 1px, transparent 1px);
           background-size: 42px 42px;
           mask-image: linear-gradient(180deg, black 0%, transparent 90%);
           pointer-events: none;
@@ -145,7 +148,7 @@ const ContactHero = () => {
           font-weight: 700;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: rgba(46, 242, 255, 0.88);
+          color: rgba(212, 175, 55, 0.88);
         }
         .trippy-contact-hero__pulse {
           width: 8px;
@@ -168,14 +171,14 @@ const ContactHero = () => {
         .trippy-contact-hero__title-line { display: block; }
         .trippy-contact-hero__title-line--main {
           font-size: clamp(2.1rem, 5.5vw, 3.25rem);
-          background: linear-gradient(135deg, #fff 0%, var(--tc-cyan) 48%, var(--tc-violet) 100%);
+          background: linear-gradient(135deg, #fff 0%, var(--tc-cyan) 48%, var(--tc-bronze) 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
         }
         .trippy-contact-hero__title-line--accent {
           font-size: clamp(2.35rem, 6vw, 3.6rem);
-          background: linear-gradient(90deg, var(--tc-magenta), var(--tc-violet), var(--tc-cyan));
+          background: linear-gradient(90deg, var(--tc-magenta), var(--tc-bronze), var(--tc-cyan));
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
@@ -188,30 +191,57 @@ const ContactHero = () => {
           color: rgba(255, 255, 255, 0.9);
         }
 
+        /* Hug poster art: full-width box + object-fit:contain caused empty side gutters inside the frame */
         .trippy-contact-hero__visual-wrap {
-          width: 100%;
+          position: relative;
+          display: block;
+          width: fit-content;
           max-width: min(100%, 420px);
+          margin-inline: auto;
+          line-height: 0;
         }
         @media (min-width: 992px) {
           .trippy-contact-hero__visual-wrap {
+            margin-inline: 0;
             max-width: 100%;
           }
         }
+        /* Match About Us poster chrome: soft glow + rounded image + inset gold frame */
+        .trippy-contact-hero__visual-glow {
+          position: absolute;
+          inset: -8%;
+          background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.18), transparent 55%),
+            radial-gradient(circle at 70% 30%, rgba(232, 213, 163, 0.14), transparent 50%);
+          opacity: 0.7;
+          pointer-events: none;
+          z-index: 0;
+        }
         .trippy-contact-hero__visual-img {
+          position: relative;
+          z-index: 1;
           display: block;
-          width: 100%;
+          width: auto;
           max-width: 100%;
           height: auto;
           max-height: min(52vh, 480px);
-          margin-inline: auto;
-          object-fit: contain;
-          object-position: center;
+          border-radius: 1rem;
+          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
         }
         @media (min-width: 992px) {
           .trippy-contact-hero__visual-img {
             max-height: min(70vh, 560px);
-            margin-inline: 0;
           }
+        }
+        .trippy-contact-hero__visual-frame {
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          border-radius: 1rem;
+          pointer-events: none;
+          box-shadow:
+            inset 0 0 0 1px rgba(212, 175, 55, 0.4),
+            inset 0 0 40px rgba(212, 175, 55, 0.1),
+            0 0 0 1px rgba(232, 213, 163, 0.18);
         }
 
         .trippy-contact-channels {
@@ -227,14 +257,14 @@ const ContactHero = () => {
           padding: 1.15rem 0;
           text-decoration: none !important;
           color: inherit;
-          border-bottom: 1px solid rgba(46, 242, 255, 0.14);
+          border-bottom: 1px solid rgba(212, 175, 55, 0.14);
           transition: background 0.2s ease, padding-left 0.2s ease;
         }
         .trippy-contact-channel:first-of-type {
-          border-top: 1px solid rgba(46, 242, 255, 0.14);
+          border-top: 1px solid rgba(212, 175, 55, 0.14);
         }
         .trippy-contact-channel:hover {
-          background: linear-gradient(90deg, rgba(46, 242, 255, 0.06), transparent 55%);
+          background: linear-gradient(90deg, rgba(212, 175, 55, 0.06), transparent 55%);
           padding-left: 0.35rem;
         }
         .trippy-contact-channel__glyph {
@@ -246,14 +276,14 @@ const ContactHero = () => {
           place-items: center;
           font-size: 1.2rem;
           color: #fff;
-          border: 1px solid rgba(46, 242, 255, 0.4);
-          background: rgba(46, 242, 255, 0.08);
-          box-shadow: 0 0 20px rgba(46, 242, 255, 0.12);
+          border: 1px solid rgba(212, 175, 55, 0.4);
+          background: rgba(212, 175, 55, 0.08);
+          box-shadow: 0 0 20px rgba(212, 175, 55, 0.12);
         }
         .trippy-contact-channel--mail .trippy-contact-channel__glyph {
-          border-color: rgba(255, 46, 230, 0.4);
-          background: rgba(255, 46, 230, 0.08);
-          box-shadow: 0 0 20px rgba(255, 46, 230, 0.1);
+          border-color: rgba(232, 213, 163, 0.4);
+          background: rgba(232, 213, 163, 0.08);
+          box-shadow: 0 0 20px rgba(232, 213, 163, 0.1);
         }
         .trippy-contact-channel__body {
           flex: 1;
@@ -269,10 +299,10 @@ const ContactHero = () => {
           font-weight: 700;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(46, 242, 255, 0.75);
+          color: rgba(212, 175, 55, 0.75);
         }
         .trippy-contact-channel--mail .trippy-contact-channel__kicker {
-          color: rgba(255, 46, 230, 0.78);
+          color: rgba(232, 213, 163, 0.78);
         }
         .trippy-contact-channel__value {
           display: inline-flex;
@@ -291,8 +321,8 @@ const ContactHero = () => {
           flex-shrink: 0;
           width: 10px;
           height: 10px;
-          border-right: 2px solid rgba(46, 242, 255, 0.5);
-          border-bottom: 2px solid rgba(46, 242, 255, 0.5);
+          border-right: 2px solid rgba(212, 175, 55, 0.5);
+          border-bottom: 2px solid rgba(212, 175, 55, 0.5);
           transform: rotate(-45deg);
           opacity: 0.6;
           transition: opacity 0.2s ease, transform 0.2s ease;
@@ -306,8 +336,8 @@ const ContactHero = () => {
           .trippy-contact-channels {
             flex-direction: row;
             align-items: stretch;
-            border-top: 1px solid rgba(46, 242, 255, 0.14);
-            border-bottom: 1px solid rgba(46, 242, 255, 0.14);
+            border-top: 1px solid rgba(212, 175, 55, 0.14);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.14);
           }
           .trippy-contact-channel {
             flex: 1;
@@ -316,7 +346,7 @@ const ContactHero = () => {
             padding: 1.5rem 1.25rem;
             border-bottom: none;
             border-top: none;
-            border-right: 1px solid rgba(46, 242, 255, 0.12);
+            border-right: 1px solid rgba(212, 175, 55, 0.12);
           }
           .trippy-contact-channel:first-of-type {
             border-top: none;
@@ -326,7 +356,7 @@ const ContactHero = () => {
           }
           .trippy-contact-channel:hover {
             padding-left: 1.25rem;
-            background: linear-gradient(180deg, rgba(46, 242, 255, 0.07), transparent 70%);
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.07), transparent 70%);
           }
           .trippy-contact-channel__arrow {
             display: none;

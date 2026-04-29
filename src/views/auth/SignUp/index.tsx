@@ -49,48 +49,61 @@ const SignUp = () => {
     const { firstName, lastName, email, phone, password } = data
 
     setLoading(true)
-    const { error, data: result } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { data: { firstName, lastName, phone } },
-    })
-    setLoading(false)
+    try {
+      const { error, data: result } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { firstName, lastName, phone } },
+      })
 
-    if (error) {
+      if (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Registration Failed',
+          text: error.message,
+        })
+        return
+      }
+
+      const user = result.user
+      if (user) {
+        const { error: profileError } = await supabase.from('user_profiles').insert([
+          {
+            id: user.id,
+            first_name: firstName,
+            last_name: lastName,
+            email: user.email,
+            phone: phone,
+          },
+        ])
+
+        if (profileError) {
+          console.warn('Profile insert failed:', profileError.message)
+        }
+
+        localStorage.setItem('zeko_username', user.email || '')
+        Swal.fire({
+          icon: 'success',
+          title: 'Registration Successful',
+          text: 'You have been registered successfully!',
+        }).then(() => {
+          const savedPath = localStorage.getItem('hotel_details_path')
+          if (savedPath) {
+            navigate(savedPath)
+            localStorage.removeItem('hotel_details_path')
+          } else {
+            navigate('/dashboard')
+          }
+        })
+      }
+    } catch {
       Swal.fire({
         icon: 'error',
         title: 'Registration Failed',
-        text: error.message,
+        text: 'Unable to reach authentication server. Please try again.',
       })
-      return
-    }
-
-    const user = result.user
-    if (user) {
-      await supabase.from('user_profiles').insert([
-        {
-          id: user.id,
-          first_name: firstName,
-          last_name: lastName,
-          email: user.email,
-          phone: phone,
-        },
-      ])
-
-      localStorage.setItem('zeko_username', user.email || '')
-      Swal.fire({
-        icon: 'success',
-        title: 'Registration Successful',
-        text: 'You have been registered successfully!',
-      }).then(() => {
-        const savedPath = localStorage.getItem('hotel_details_path')
-        if (savedPath) {
-          navigate(savedPath)
-          localStorage.removeItem('hotel_details_path')
-        } else {
-          navigate('/dashboard')
-        }
-      })
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -105,7 +118,7 @@ const SignUp = () => {
             to="/"
             className="d-inline-flex align-items-center justify-content-center gap-2 mb-4 text-decoration-none"
           >
-            <img src="/logo.png" alt="Trippy Entry" className="h-40px" />
+            <img src="/new_logo.png" alt="Trippy Entry" className="h-40px" />
           </Link>
 
           <h1 className="mb-2 h4">Create new account</h1>

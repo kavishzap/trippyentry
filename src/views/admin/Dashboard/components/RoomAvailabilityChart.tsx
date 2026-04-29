@@ -6,7 +6,7 @@ import { FaCircle } from 'react-icons/fa'
 const getRootColor = (color: string): string => {
   const selector = document.querySelector(':root')
   if (selector) return window.getComputedStyle(selector).getPropertyValue(color)
-  else return '#5143d9'
+  else return '#d4af37'
 }
 
 const RoomAvailabilityChart = () => {

@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import FooterWithLinks from '../Home/components/FooterWithLinks'
 import TopNavBar4 from '../Home/components/TopNavBar'
-import { Container, Card, CardBody, Toast, ToastContainer } from 'react-bootstrap'
+import { Container, Card, CardBody } from 'react-bootstrap'
 
 // import QRCode from 'react-qr-code'
 
 const HotelDetails = () => {
     const location = useLocation()
     const searchParams = new URLSearchParams(location.search)
-    const [showToast, setShowToast] = useState(false)
     const accountNumber = '000454489137'
     const amount = Number(searchParams.get('amount')) || 0
     const invoiceParam = searchParams.get('invoiceId')
@@ -17,13 +16,6 @@ const HotelDetails = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0)
-        setShowToast(true)
-
-        const timeout = setTimeout(() => {
-            setShowToast(false)
-        }, 8000)
-
-        return () => clearTimeout(timeout)
     }, [])
 
 
@@ -31,37 +23,6 @@ const HotelDetails = () => {
     return (
         <>
             <TopNavBar4 />
-            {/* Toast */}
-            <ToastContainer position="top-end" className="p-3" style={{ zIndex: 9999 }}>
-                <Toast
-                    show={showToast}
-                    onClose={() => setShowToast(false)}
-                    delay={8000}
-                    autohide
-                    style={{
-                        backgroundColor: '#1c1c2e',
-                        color: '#ffffff',
-                        borderLeft: '4px solid #00e676',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-                        minWidth: '300px',
-                    }}
-                >
-                    <Toast.Header
-                        closeButton={false}
-                        style={{
-                            backgroundColor: 'transparent',
-                            borderBottom: 'none',
-                            color: '#00e676',
-                            fontWeight: 600,
-                        }}
-                    >
-                        <strong className="me-auto">Action Required</strong>
-                    </Toast.Header>
-                    <Toast.Body style={{ fontSize: '0.95rem', color: '#e0e0e0' }}>
-                        Your booking is temporarily reserved. Please complete the payment within 30 minutes to avoid automatic cancellation.
-                    </Toast.Body>
-                </Toast>
-            </ToastContainer>
 
             <main className="py-5">
                 <Container className='mb-5'>

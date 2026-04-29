@@ -26,16 +26,17 @@ const themeKey = 'data-bs-theme'
 const LayoutProvider = ({ children }: Readonly<{ children: ReactNode }>) => {
   const getSavedTheme = (): LayoutState['theme'] => {
     const foundTheme = localStorage.getItem(themeKey)
-    const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    const preferredTheme: LayoutState['theme'] = 'dark'
     if (foundTheme) {
       if (foundTheme === 'auto') {
-        changeHTMLAttribute(themeKey, preferredTheme)
-        return preferredTheme
+        changeHTMLAttribute(themeKey, 'dark')
+        return 'dark'
       }
       changeHTMLAttribute(themeKey, foundTheme)
       return foundTheme == 'dark' ? 'dark' : 'light'
     } else {
       localStorage.setItem(themeKey, preferredTheme)
+      changeHTMLAttribute(themeKey, preferredTheme)
       return preferredTheme
     }
   }

@@ -157,7 +157,7 @@ const MyProfile = () => {
                                     onChange={(e) => handleChange('firstName', e.target.value)}
                                 />
                             ) : (
-                                <div className="pt-1">{userData.firstName}</div>
+                                <div className="pt-1 trippy-dash-value">{userData.firstName}</div>
                             )}
                         </Col>
                     </Row>

@@ -11,7 +11,7 @@ const CenteredFooter = () => {
       <Container>
         <Row className="mx-auto">
           <Col lg={6} className="mx-auto text-center">
-            <Image className="mx-auto h-60px" src="/logo.png" alt="logo" />
+            <Image className="mx-auto h-60px" src="/new_logo.png" alt="logo" />
             <p className="mt-3 text-white">
               Speedily say has suitable disposal add boy. On forth doubt miles of child. Exercise joy man children rejoiced.
             </p>

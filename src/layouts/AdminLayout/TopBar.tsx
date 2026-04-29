@@ -101,7 +101,7 @@ const TopBar = ({ toggle }: { toggle: () => void }) => {
         <div className="d-flex align-items-center w-100">
           <div className="d-flex align-items-center d-xl-none">
             <Link className="navbar-brand" to="/">
-              <Image className="navbar-brand-item h-40px" src="/logo.png" alt="logo" />
+              <Image className="navbar-brand-item h-40px" src="/new_logo.png" alt="logo" />
             </Link>
           </div>
           <div className="navbar-expand-xl sidebar-offcanvas-menu">

@@ -1,7 +1,8 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import { motion } from 'framer-motion'
 
-const HERO_ART_SRC = '/4.png'
+/** `public/ChatGPT Image Apr 29, 2026, 04_11_50 AM.png` — encodeURI for spaces in URL */
+const HERO_ART_SRC = encodeURI('/ChatGPT Image Apr 29, 2026, 04_11_50 AM.png')
 
 const Hero = () => {
   return (
@@ -79,26 +80,26 @@ const Hero = () => {
           }
 
           .trippy-hero {
-            --neon-cyan: #2ef2ff;
-            --neon-magenta: #ff2ee6;
-            --neon-violet: #a855ff;
-            --neon-lime: #c4ff0d;
-            --hero-bg: #05040d;
-            --hero-bg-mid: #0a0620;
+            --neon-cyan: #d4af37;
+            --neon-magenta: #e8d5a3;
+            --neon-bronze: #6b5418;
+            --neon-lime: #c9a227;
+            --hero-bg: #000000;
+            --hero-bg-mid: #0a0805;
             min-height: clamp(380px, 62vh, 720px);
             background: transparent;
-            color: #e8e4ff;
+            color: #c9b896;
           }
 
           .trippy-hero__aurora {
             position: absolute;
             inset: -40% -20%;
             background: conic-gradient(from 120deg at 50% 50%,
-              rgba(46, 242, 255, 0.15),
-              rgba(255, 46, 230, 0.12),
-              rgba(168, 85, 255, 0.18),
-              rgba(196, 255, 13, 0.08),
-              rgba(46, 242, 255, 0.15));
+              rgba(212, 175, 55, 0.15),
+              rgba(232, 213, 163, 0.12),
+              rgba(212, 175, 55, 0.18),
+              rgba(212, 175, 55, 0.08),
+              rgba(212, 175, 55, 0.15));
             animation: trippy-aurora-spin 22s linear infinite;
             opacity: 0.55;
             filter: blur(60px);
@@ -122,8 +123,8 @@ const Hero = () => {
             position: absolute;
             inset: 0;
             background-image:
-              linear-gradient(rgba(46, 242, 255, 0.04) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255, 46, 230, 0.04) 1px, transparent 1px);
+              linear-gradient(rgba(212, 175, 55, 0.04) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(232, 213, 163, 0.04) 1px, transparent 1px);
             background-size: 48px 48px;
             mask-image: linear-gradient(180deg, black 0%, transparent 85%);
             pointer-events: none;
@@ -147,7 +148,7 @@ const Hero = () => {
             font-size: 0.75rem;
             letter-spacing: 0.28em;
             text-transform: uppercase;
-            color: rgba(232, 228, 255, 0.72);
+            color: rgba(232, 213, 163, 0.72);
             font-weight: 600;
           }
 
@@ -178,12 +179,12 @@ const Hero = () => {
 
           .trippy-hero__title-line--main {
             font-size: clamp(2.75rem, 8vw, 4.25rem);
-            background: linear-gradient(135deg, #fff 0%, var(--neon-cyan) 45%, var(--neon-violet) 100%);
+            background: linear-gradient(135deg, #fff 0%, var(--neon-cyan) 45%, var(--neon-bronze) 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 40px rgba(46, 242, 255, 0.35);
-            filter: drop-shadow(0 0 2px rgba(46, 242, 255, 0.5));
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.35);
+            filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.5));
           }
 
           .trippy-hero__title-line--accent {
@@ -196,8 +197,8 @@ const Hero = () => {
           }
 
           @keyframes trippy-title-shimmer {
-            0% { filter: hue-rotate(0deg) brightness(1); }
-            100% { filter: hue-rotate(25deg) brightness(1.08); }
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.1); }
           }
 
           .trippy-hero__lead {
@@ -262,8 +263,14 @@ const Hero = () => {
             .trippy-hero__lead {
               color: #ffffff !important;
               -webkit-text-fill-color: #ffffff;
-              font-weight: 500;
-              text-shadow: none;
+              font-weight: 600;
+              /* Legible over stacked neon art: dark halo + soft bloom (not title-sized blur) */
+              text-shadow:
+                0 0 1px rgba(0, 0, 0, 1),
+                0 1px 2px rgba(0, 0, 0, 0.95),
+                0 2px 12px rgba(0, 0, 0, 0.88),
+                0 0 24px rgba(0, 0, 0, 0.72),
+                0 0 48px rgba(0, 0, 0, 0.5);
               filter: none;
             }
             .trippy-hero__eyebrow {
@@ -291,22 +298,31 @@ const Hero = () => {
           }
 
           .trippy-pill {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            padding: 0.45rem 0.9rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.5rem 1rem;
             border-radius: 999px;
-            border: 1px solid rgba(46, 242, 255, 0.35);
-            color: rgba(200, 255, 255, 0.95);
-            background: rgba(10, 8, 28, 0.65);
-            box-shadow: 0 0 20px rgba(46, 242, 255, 0.08), inset 0 0 20px rgba(46, 242, 255, 0.04);
-            backdrop-filter: blur(8px);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            color: #f0e6b8;
+            background: linear-gradient(180deg, rgba(18, 14, 8, 0.92) 0%, rgba(6, 5, 3, 0.94) 100%);
+            box-shadow:
+              inset 0 1px 0 rgba(255, 255, 255, 0.06),
+              0 0 0 1px rgba(0, 0, 0, 0.5),
+              0 4px 18px rgba(0, 0, 0, 0.4),
+              0 0 24px rgba(212, 175, 55, 0.12);
+            backdrop-filter: blur(10px);
           }
 
           .trippy-pill--alt {
-            border-color: rgba(255, 46, 230, 0.4);
-            color: rgba(255, 210, 250, 0.95);
-            box-shadow: 0 0 20px rgba(255, 46, 230, 0.1), inset 0 0 18px rgba(255, 46, 230, 0.05);
+            border-color: rgba(212, 175, 55, 0.55);
+            color: #fff8e0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.18) 0%, rgba(14, 11, 6, 0.92) 55%, rgba(6, 5, 3, 0.94) 100%);
+            box-shadow:
+              inset 0 1px 0 rgba(255, 255, 255, 0.08),
+              0 0 0 1px rgba(0, 0, 0, 0.45),
+              0 4px 20px rgba(212, 175, 55, 0.15);
           }
 
           /* Hero art: full column, PNG only — no rings / glow / motion on image */

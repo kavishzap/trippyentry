@@ -1,7 +1,8 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import { motion } from 'framer-motion'
+import { TRIPPY_MARKETING_POSTER_URL } from '@/lib/marketingPosterUrl'
 
-const ABOUT_STORY_IMG = encodeURI('/ChatGPT Image Apr 28, 2026, 01_41_28 AM.png')
+const ABOUT_STORY_IMG = TRIPPY_MARKETING_POSTER_URL
 
 const storyParagraphs = [
   'TrippyEntry started with one vision — to transform the way people enter and experience events. Not just booking tickets, but stepping into a whole new world of sound, lights, and energy.',
@@ -64,10 +65,10 @@ const OurStory = () => (
 
     <style>{`
       .trippy-about-story {
-        --st-cyan: #2ef2ff;
-        --st-magenta: #ff2ee6;
-        --st-violet: #a855ff;
-        color: #e8e4ff;
+        --st-cyan: #d4af37;
+        --st-magenta: #e8d5a3;
+        --st-bronze: #6b5418;
+        color: #c9b896;
         background: transparent;
       }
       .trippy-about-story__scanlines {
@@ -91,7 +92,7 @@ const OurStory = () => (
       }
       .trippy-about-story__heading-line--main {
         font-size: clamp(1.85rem, 4.5vw, 2.65rem);
-        background: linear-gradient(135deg, #fff 0%, var(--st-cyan) 45%, var(--st-violet) 100%);
+        background: linear-gradient(135deg, #fff 0%, var(--st-cyan) 45%, var(--st-bronze) 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -101,8 +102,8 @@ const OurStory = () => (
         font-weight: 700;
         letter-spacing: 0.06em;
         text-transform: uppercase;
-        color: rgba(46, 242, 255, 0.92);
-        border-left: 3px solid rgba(255, 46, 230, 0.65);
+        color: rgba(212, 175, 55, 0.92);
+        border-left: 3px solid rgba(232, 213, 163, 0.65);
         padding-left: 1rem;
         display: inline-block;
         text-align: left;
@@ -112,7 +113,7 @@ const OurStory = () => (
           display: block;
           border-left: 0;
           padding-left: 0;
-          border-bottom: 2px solid rgba(46, 242, 255, 0.35);
+          border-bottom: 2px solid rgba(212, 175, 55, 0.35);
           padding-bottom: 0.75rem;
         }
       }
@@ -123,7 +124,7 @@ const OurStory = () => (
         color: rgba(255, 255, 255, 0.92);
         text-shadow:
           0 0 1px rgba(255, 255, 255, 0.4),
-          0 0 18px rgba(46, 242, 255, 0.12);
+          0 0 18px rgba(212, 175, 55, 0.12);
       }
       .trippy-about-story__pull {
         font-size: clamp(1rem, 1.8vw, 1.08rem) !important;
@@ -132,9 +133,9 @@ const OurStory = () => (
         color: #fff !important;
         padding: 1rem 1.15rem;
         border-radius: 0.75rem;
-        border: 1px solid rgba(46, 242, 255, 0.35);
-        background: linear-gradient(135deg, rgba(46, 242, 255, 0.08), rgba(255, 46, 230, 0.06));
-        box-shadow: inset 0 0 0 1px rgba(255, 46, 230, 0.12), 0 0 28px rgba(168, 85, 255, 0.12);
+        border: 1px solid rgba(212, 175, 55, 0.35);
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(232, 213, 163, 0.06));
+        box-shadow: inset 0 0 0 1px rgba(232, 213, 163, 0.12), 0 0 28px rgba(212, 175, 55, 0.12);
       }
       .trippy-about-story__visual-wrap {
         position: relative;
@@ -144,8 +145,8 @@ const OurStory = () => (
       .trippy-about-story__visual-glow {
         position: absolute;
         inset: -8%;
-        background: radial-gradient(circle at 50% 50%, rgba(46, 242, 255, 0.18), transparent 55%),
-          radial-gradient(circle at 70% 30%, rgba(255, 46, 230, 0.14), transparent 50%);
+        background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.18), transparent 55%),
+          radial-gradient(circle at 70% 30%, rgba(232, 213, 163, 0.14), transparent 50%);
         opacity: 0.7;
         pointer-events: none;
         z-index: 0;
@@ -170,9 +171,9 @@ const OurStory = () => (
         border-radius: 1rem;
         pointer-events: none;
         box-shadow:
-          inset 0 0 0 1px rgba(46, 242, 255, 0.4),
-          inset 0 0 40px rgba(168, 85, 255, 0.1),
-          0 0 0 1px rgba(255, 46, 230, 0.18);
+          inset 0 0 0 1px rgba(212, 175, 55, 0.4),
+          inset 0 0 40px rgba(212, 175, 55, 0.1),
+          0 0 0 1px rgba(232, 213, 163, 0.18);
       }
     `}</style>
   </section>

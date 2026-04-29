@@ -69,7 +69,7 @@ const TwoFactorAuth = () => {
       <Col lg={6} className="order-1">
         <div className="p-4 p-sm-7">
           <Link to="/">
-            <img className="mb-4 h-50px" src="/logo.png" alt="logo" />
+            <img className="mb-4 h-50px" src="/new_logo.png" alt="logo" />
           </Link>
           <h1 className="mb-2 h3">Two factor authentication</h1>
           <p className="mb-sm-0">

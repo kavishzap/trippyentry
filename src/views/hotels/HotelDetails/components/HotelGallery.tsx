@@ -21,7 +21,6 @@ import {
   BsCalendarEvent,
   BsClock,
   BsGeoAlt,
-  BsCheckCircleFill,
 } from 'react-icons/bs'
 import { FaShareAlt } from 'react-icons/fa'
 import { FaCopy, FaMinus, FaPlus } from 'react-icons/fa6'
@@ -35,6 +34,8 @@ interface Concert {
   concert_name: string
   concert_location_name: string
   concert_image: string
+  /** Hero / listing image URL (preferred on detail page) */
+  front_image?: string | null
   concert_description: string
   concert_date: string
   concert_start_time: string
@@ -48,6 +49,9 @@ interface Ticket {
   ticket_name: string
 }
 
+/** Long copy preview length when user collapses via “Show less” (default is full text expanded) */
+const ABOUT_DESC_PREVIEW_MAX = 240
+
 const ConcertDetailPage = () => {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
@@ -56,9 +60,10 @@ const ConcertDetailPage = () => {
   const [concert, setConcert] = useState<Concert | null>(null)
   const [tickets, setTickets] = useState<(Ticket & { quantity: number; stock: number })[]>([])
   const [loading, setLoading] = useState(true)
-  const [showFullDescription, setShowFullDescription] = useState(false)
+  const [showFullDescription, setShowFullDescription] = useState(true)
 
   useEffect(() => {
+    setShowFullDescription(true)
     if (id) {
       fetchConcertDetails()
       fetchTickets()
@@ -135,14 +140,17 @@ const ConcertDetailPage = () => {
     )
   }
 
+  const heroImageUrl =
+    (concert.front_image && String(concert.front_image).trim()) || concert.concert_image || ''
+
   return (
-    <main className="py-4">
+    <main className="py-4 trippy-event-detail">
       <Container>
         <Row className="mb-4">
           <Col lg={8}>
-            <h1 className="fs-3 fs-lg-2 fw-bold">{concert.concert_name}</h1>
+            <h1 className="fs-3 fs-lg-2 fw-bold trippy-event-detail__title">{concert.concert_name}</h1>
 
-            <p className="fw-semibold d-flex flex-wrap align-items-center text-body mb-2">
+            <p className="fw-semibold d-flex flex-wrap align-items-center text-body mb-2 trippy-event-detail__meta">
               <BsGeoAlt className="me-2" />
               {concert.concert_location_name}
               {/* <Link
@@ -155,11 +163,11 @@ const ConcertDetailPage = () => {
             </p>
 
             <div className="d-flex flex-column flex-sm-row gap-2 gap-sm-4 flex-wrap">
-              <span className="d-flex align-items-center text-body">
+              <span className="d-flex align-items-center text-body trippy-event-detail__meta">
                 <BsCalendarEvent className="me-2" />
                 <strong className="me-1">Date:</strong> {concert.concert_date}
               </span>
-              <span className="d-flex align-items-center text-body">
+              <span className="d-flex align-items-center text-body trippy-event-detail__meta">
                 <BsClock className="me-2" />
                 <strong className="me-1">Time:</strong> {concert.concert_start_time} – {concert.concert_end_time}
               </span>
@@ -189,7 +197,7 @@ const ConcertDetailPage = () => {
 
         <Row className="g-4 align-items-start">
           <Col md={6}>
-            <Card className="bg-transparent border-0 overflow-auto p-0">
+            <Card className="trippy-event-detail__panel bg-transparent border-0 overflow-auto p-0">
               <div
                 style={{
                   display: 'flex',
@@ -201,8 +209,9 @@ const ConcertDetailPage = () => {
                 }}
               >
                 <img
-                  src={concert.concert_image}
-                  alt="concert image"
+                  src={heroImageUrl}
+                  alt=""
+                  className="trippy-event-detail__hero-image"
                   style={{
                     maxWidth: '100%',
                     height: 'auto',
@@ -214,11 +223,11 @@ const ConcertDetailPage = () => {
 
             {/* TICKETS SECTION */}
             {tickets.length > 0 && (
-              <Card className="mt-4">
-                <CardHeader className="bg-light border-bottom">
-                  <h5 className="mb-0">Tickets Available</h5>
+              <Card className="mt-4 trippy-event-detail__panel">
+                <CardHeader className="trippy-event-detail__panel-header border-0">
+                  <h5 className="mb-0 trippy-event-detail__panel-header-title">Tickets Available</h5>
                 </CardHeader>
-                <CardBody>
+                <CardBody className="trippy-event-detail__tickets-body">
                   {tickets.map((ticket, index) => (
                     <div
                       key={ticket.ticket_id}
@@ -360,16 +369,18 @@ const ConcertDetailPage = () => {
           </Col>
 
           <Col md={6}>
-            <h4 className="mb-3">About This Event</h4>
-            <p className="text-body" style={{ whiteSpace: 'pre-line' }}>
-              {showFullDescription
-                ? concert.concert_description
-                : concert.concert_description.length > 250
-                  ? `${concert.concert_description.substring(0, 250)}...`
-                  : concert.concert_description}
+            <h4 className="mb-3 trippy-event-detail__subtitle">About This Event</h4>
+            <p className="text-body trippy-event-detail__description" style={{ whiteSpace: 'pre-line' }}>
+              {(() => {
+                const raw = concert.concert_description ?? ''
+                if (showFullDescription) return raw
+                const d = raw.trim()
+                if (d.length <= ABOUT_DESC_PREVIEW_MAX) return raw
+                return `${d.slice(0, ABOUT_DESC_PREVIEW_MAX).trimEnd()}…`
+              })()}
             </p>
 
-            {concert.concert_description.length > 250 && (
+            {concert.concert_description.trim().length > ABOUT_DESC_PREVIEW_MAX && (
               <button
                 onClick={() => setShowFullDescription(!showFullDescription)}
                 className="btn btn-link p-0 text-primary"
@@ -377,64 +388,79 @@ const ConcertDetailPage = () => {
                 {showFullDescription ? 'Show Less' : 'See More'}
               </button>
             )}
-
-
-            <Card className="bg-transparent mt-4 mb-6">
-              <CardHeader className="border-bottom bg-transparent px-0 pt-0">
-                <h5 className="mb-0">Event Policies</h5>
-              </CardHeader>
-              <CardBody className="pt-4 p-0">
-                <ul className="list-group list-group-borderless mb-2">
-                  <li className="list-group-item d-flex align-items-start">
-                    <BsCheckCircleFill size={20} className="me-2 mt-1 text-success" />
-                    Any form of harassment, aggression, or disorderly behavior will result in removal from the venue.
-                  </li>
-                  <li className="list-group-item d-flex align-items-start">
-                    <BsCheckCircleFill size={18} className="me-2 mt-1 text-success" />
-                    Respect fellow attendees, performers, and staff at all times.
-                  </li>
-                </ul>
-                <div className="bg-danger bg-opacity-10 rounded-2 p-3">
-                  <p className="mb-0 text-danger">
-                    Confirmed ticket are required for entry.
-                  </p>
-                </div>
-              </CardBody>
-            </Card>
-            <Card className="bg-transparent mt-4">
-              <CardHeader className="border-bottom bg-transparent px-0 pt-0">
-                <h5 className="mb-0">How to Book</h5>
-              </CardHeader>
-              <CardBody className="pt-4 p-0">
-                <ul className="list-unstyled position-relative ps-3">
-                  {[
-                    'Select your preferred ticket and quantity.',
-                    'Click the "Book Tickets" button.',
-                    'Cross-check your booking details and confirm.',
-                    'An Invoice ID will be shown on screen.',
-                    'Select Pay via MCB Account as your preferred payment method and use the Invoice ID in the payment description.',
-                    'Once payment is verified, download your invoice from the "My Bookings" section under your user profile.',
-                  ].map((step, index) => (
-                    <li key={index} className="mb-4 d-flex">
-                      <div className="me-3 mt-1">
-                        <div
-                          className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
-                          style={{ width: '28px', height: '28px' }}
-                        >
-                          {index + 1}
-                        </div>
-                      </div>
-                      <div className="text-body">{step}</div>
-                    </li>
-                  ))}
-                </ul>
-              </CardBody>
-
-            </Card>
-
           </Col>
         </Row>
       </Container>
+      <style>{`
+        .trippy-event-detail {
+          --neon-cyan: #d4af37;
+          --neon-magenta: #e8d5a3;
+          color: #c9b896;
+        }
+        .trippy-event-detail__title {
+          color: #f0e6b8;
+          letter-spacing: -0.02em;
+        }
+        .trippy-event-detail__subtitle {
+          color: #dcc083;
+          text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        .trippy-event-detail__meta {
+          color: rgba(201, 184, 150, 0.9) !important;
+        }
+        .trippy-event-detail__description {
+          color: rgba(232, 213, 163, 0.92) !important;
+          line-height: 1.65;
+        }
+        .trippy-event-detail__panel {
+          background: rgba(0, 0, 0, 0.88) !important;
+          border: 1px solid rgba(212, 175, 55, 0.24) !important;
+          border-radius: 1rem;
+          box-shadow: 0 0 0 1px rgba(232, 213, 163, 0.08), 0 14px 40px rgba(0, 0, 0, 0.35);
+        }
+        .trippy-event-detail__panel-header {
+          background: linear-gradient(180deg, rgba(212, 175, 55, 0.12), rgba(14, 11, 6, 0.5)) !important;
+          border-bottom: 1px solid rgba(212, 175, 55, 0.28) !important;
+          border-radius: 1rem 1rem 0 0;
+          color: #e8d5a3;
+          padding-top: 1rem;
+          padding-bottom: 1rem;
+        }
+        .trippy-event-detail__panel-header-title {
+          color: #f0e6b8 !important;
+          font-weight: 800;
+          letter-spacing: 0.02em;
+        }
+        .trippy-event-detail__tickets-body {
+          color: rgba(232, 213, 163, 0.92);
+        }
+        .trippy-event-detail__tickets-body h6 {
+          color: #fff;
+          font-weight: 700;
+        }
+        .trippy-event-detail__tickets-body .text-body {
+          color: rgba(201, 184, 150, 0.95) !important;
+        }
+        .trippy-event-detail__tickets-body .text-success {
+          color: #7dffc4 !important;
+        }
+        .trippy-event-detail__tickets-body .text-danger {
+          color: #ffb0bc !important;
+        }
+        .trippy-event-detail__tickets-body .btn-outline-secondary {
+          border-color: rgba(212, 175, 55, 0.45);
+          color: #e8d5a3;
+        }
+        .trippy-event-detail__tickets-body .btn-outline-secondary:hover:not(:disabled) {
+          background: rgba(212, 175, 55, 0.12);
+          border-color: #d4af37;
+          color: #fff;
+        }
+        .trippy-event-detail__hero-image {
+          border-radius: 0.75rem;
+          border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+      `}</style>
 
       <Modal size="lg" centered show={isOpen} onHide={toggle} className="fade">
         <ModalHeader>
