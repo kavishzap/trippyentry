@@ -37,7 +37,7 @@ const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: 'What payment methods are supported?',
-    a: 'We support major cards and other methods shown at checkout for your region. If a payment fails, try another card or contact your bank — you can also reach us and we will look into it with you.',
+    a: 'MCB JUICE OR BANK TRANSFER',
   },
   {
     q: 'VIP tables, group packs, or accessibility — who do I ask?',
