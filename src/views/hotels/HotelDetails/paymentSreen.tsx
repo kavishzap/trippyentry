@@ -9,7 +9,7 @@ import TopNavBar from '../Home/components/TopNavBar'
 const PaymentPage = () => {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
-  const accountNumber = '000454489137'
+  const accountNumber = '000448926024'
   const amount = Number(searchParams.get('amount')) || 0
   const invoiceParam = searchParams.get('invoiceId')
   const invoiceId = invoiceParam ? `INV-${invoiceParam}` : 'INV-UNKNOWN'
@@ -64,8 +64,8 @@ const PaymentPage = () => {
                 <p className="mb-0">
                   <strong>Note</strong> — After payment, take a screenshot of your confirmation. Your booking will
                   be confirmed within a few hours by email, or call{' '}
-                  <a href="tel:+23055063356" className="trippy-pay-page__link">
-                    +230 5506 3356
+                  <a href="tel:+23059182520" className="trippy-pay-page__link">
+                    +230 5918 2520
                   </a>{' '}
                   to speed things up. <strong>More payment options will be available soon.</strong>
                 </p>
@@ -157,6 +157,12 @@ const PaymentPage = () => {
         text-shadow: 0 2px 20px rgba(0,0,0,0.4);
         margin: 0;
         padding: 0 0.25rem;
+      }
+      /* Prevent global header styles from creating a dark highlighted block behind title/subtitle */
+      .trippy-pay-page__head {
+        background: transparent !important;
+        box-shadow: none !important;
+        border: 0 !important;
       }
       .trippy-pay-page__subtitle {
         color: rgba(201, 184, 150, 0.92);

@@ -62,7 +62,7 @@ const ContactHero = () => {
               viewport={{ once: true, margin: '-24px' }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
-              <a href="tel:+23055063356" className="trippy-contact-channel trippy-contact-channel--phone">
+              <a href="tel:+23059182520" className="trippy-contact-channel trippy-contact-channel--phone">
                 <span className="trippy-contact-channel__glyph" aria-hidden>
                   <BsHeadset />
                 </span>
@@ -70,7 +70,7 @@ const ContactHero = () => {
                   <span className="trippy-contact-channel__kicker">Call</span>
                   <span className="trippy-contact-channel__value">
                     <BsPhone className="trippy-contact-channel__value-icon" aria-hidden />
-                    +230 5506 3356
+                    +230 5918 2520
                   </span>
                 </span>
                 <span className="trippy-contact-channel__arrow" aria-hidden />

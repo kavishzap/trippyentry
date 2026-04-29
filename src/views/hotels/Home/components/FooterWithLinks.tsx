@@ -23,8 +23,8 @@ const FooterWithLinks = () => {
             <h3 className="trippy-footer__contact-title h6 text-uppercase mb-3">Contact us</h3>
             <p className="mb-2 d-flex justify-content-center align-items-center justify-content-lg-end small trippy-footer__muted">
               <BsTelephone className="me-2 trippy-footer__icon flex-shrink-0" />
-              <Link to="tel:+23055063356" className="trippy-footer__link text-decoration-none trippy-footer__link--break">
-                +230 5506 3356
+              <Link to="tel:+23059182520" className="trippy-footer__link text-decoration-none trippy-footer__link--break">
+                +230 5918 2520
               </Link>
             </p>
             <p className="mb-0 d-flex justify-content-center align-items-center justify-content-lg-end small trippy-footer__muted">

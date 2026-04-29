@@ -377,7 +377,7 @@ const MyBookings = () => {
       y += 5
       doc.setFontSize(10)
       doc.setTextColor(80)
-      doc.text('Need Help? Call us at +230 5506 3356 or visit www.zekomru.com', margin, y)
+      doc.text('Need Help? Call us at +230 5918 2520 or visit www.zekomru.com', margin, y)
 
       // Save PDF
       doc.save(`Ticket-${booking.id}.pdf`)
