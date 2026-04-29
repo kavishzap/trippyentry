@@ -32,7 +32,7 @@ const topLinks: TopLink[] = [
   { name: 'Hotels', link: '/hotels/home' },
   { name: 'Tour', link: '/tours/home' },
   { name: 'Cabs', link: '/cabs/home' },
-  { name: 'About', link: '/pages/about' },
+  { name: 'About', link: '/dashboard#about' },
   { name: 'Contact us', link: '/pages/contact' },
   { name: 'Blogs', link: '/blogs/blog' },
   { name: 'Services', link: '/help/service' },

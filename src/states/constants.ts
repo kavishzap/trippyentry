@@ -8,4 +8,6 @@ export const buyLink = ''
 
 export const developedByLink = ''
 
-export const supportLink = 'mailto:stackbros07@gmail.com'
+export const supportLink = 'mailto:ticket.trippyentry@gmail.com'
+/** Display address (same target as `supportLink`) for footers and contact lines */
+export const supportEmail = 'ticket.trippyentry@gmail.com'

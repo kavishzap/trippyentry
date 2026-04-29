@@ -1,107 +1,113 @@
 import { Col, Container, Row } from 'react-bootstrap'
+import { motion } from 'framer-motion'
 
 const OurTeam = () => {
   return (
-    <section className="our-team-section pt-0 position-relative overflow-hidden">
-      <Container>
+    <section className="trippy-about-team position-relative overflow-hidden">
+      <div className="trippy-about-team__grid" aria-hidden />
+      <div className="trippy-about-team__scanlines" aria-hidden />
+
+      <Container className="position-relative z-1 py-4 py-lg-5">
         <Row className="justify-content-center">
           <Col xs={12} md={10} lg={8}>
-            <div className="team-panel text-center rounded-4 p-4 p-md-5 shadow-lg">
-              <h2 className="team-title display-6 fw-bold mb-3">Our Team</h2>
-
-              <p className="team-body mt-2 mb-0">
-                Behind ZEKO is a passionate team of developers, designers, and event enthusiasts driven by a shared love for live entertainment. We blend tech innovation with real-world experience to create a seamless, fan-first ticketing platform. Whether we're writing code or curating events, everything we do is built around one goal — making unforgettable experiences easier to access for everyone.
+            <motion.div
+              className="trippy-about-team__panel text-center rounded-4 p-4 p-md-5"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <h2 className="trippy-about-team__title mb-3">
+                <span className="trippy-about-team__title-line trippy-about-team__title-line--main">Our</span>
+                <span className="trippy-about-team__title-line trippy-about-team__title-line--accent">Team</span>
+              </h2>
+              <p className="trippy-about-team__body mt-2 mb-0">
+                Behind TrippyEntry is a passionate crew of developers, designers, and event people — united by a love
+                for live music and the culture around it. We build a fan-first experience for ticketing and entry,
+                from code to the door, so the only thing you have to think about is the next drop.
               </p>
-            </div>
+            </motion.div>
           </Col>
         </Row>
       </Container>
 
-      {/* Styles: light + dark */}
       <style>{`
-        /* ---------- Tokens ---------- */
-        .our-team-section {
-          --bg-start: #f8fafc;        /* light slate-50 */
-          --bg-end:   #eef2f7;        /* light slate-100 */
-          --panel-bg: #ffffff;
-          --panel-border: rgba(0,0,0,0.06);
-          --panel-shadow: 0 12px 28px rgba(0,0,0,0.08);
-          --title-grad-a: #60a5fa;    /* blue-400 */
-          --title-grad-b: #22d3ee;    /* cyan-400 */
-          --body-color: #475569;      /* slate-600 */
-
-          padding: 6rem 0 4rem;
-          background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+        .trippy-about-team {
+          --tmt-cyan: #d4af37;
+          --tmt-magenta: #e8d5a3;
+          --tmt-bronze: #6b5418;
+          --tmt-lime: #c9a227;
+          color: #c9b896;
+          background: transparent;
         }
-
-        /* Subtle background glow */
-        .our-team-section::before {
-          content: "";
+        .trippy-about-team__grid {
           position: absolute;
-          inset: -20% -10% auto -10%;
-          height: 60%;
-          background:
-            radial-gradient(40rem 20rem at 10% 20%, rgba(99,102,241,0.12), transparent 60%),
-            radial-gradient(30rem 18rem at 90% 10%, rgba(34,211,238,0.10), transparent 60%);
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(232, 213, 163, 0.028) 1px, transparent 1px);
+          background-size: 48px 48px;
+          mask-image: linear-gradient(180deg, black 0%, transparent 90%);
           pointer-events: none;
-          filter: blur(2px);
+          opacity: 0.4;
         }
-
-        .team-panel {
-          background: var(--panel-bg);
-          border: 1px solid var(--panel-border);
-          box-shadow: var(--panel-shadow);
-          transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+        .trippy-about-team__scanlines {
+          position: absolute;
+          inset: 0;
+          background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.1) 2px,
+            rgba(0, 0, 0, 0.1) 4px
+          );
+          opacity: 0.1;
+          pointer-events: none;
         }
-        .team-panel:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 18px 36px rgba(0,0,0,0.12);
-          border-color: rgba(0,0,0,0.08);
+        .trippy-about-team__panel {
+          background: rgba(6, 5, 3, 0.55);
+          border: 1px solid rgba(212, 175, 55, 0.22);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          box-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
+          transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
-
-        .team-title {
-          background: linear-gradient(90deg, var(--title-grad-a), var(--title-grad-b));
+        .trippy-about-team__panel:hover {
+          border-color: rgba(212, 175, 55, 0.35);
+          box-shadow: 0 4px 32px rgba(0, 0, 0, 0.45);
+        }
+        .trippy-about-team__title {
+          font-family: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+          font-weight: 800;
+          line-height: 1.1;
+          letter-spacing: -0.02em;
+        }
+        .trippy-about-team__title-line {
+          display: block;
+          line-height: 1.08;
+        }
+        .trippy-about-team__title-line--main {
+          font-size: clamp(1.6rem, 3.8vw, 2.1rem);
+          background: linear-gradient(135deg, #fff8ec 0%, var(--tmt-cyan) 50%, var(--tmt-bronze) 100%);
           -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          letter-spacing: .3px;
+          background-clip: text;
+          color: transparent;
         }
-
-        .team-body {
-          color: var(--body-color);
-          line-height: 1.75;
-          font-size: 1.05rem;
+        .trippy-about-team__title-line--accent {
+          font-size: clamp(1.75rem, 4.2vw, 2.35rem);
+          background: linear-gradient(90deg, var(--tmt-magenta) 0%, var(--tmt-lime) 50%, var(--tmt-cyan) 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
         }
-
-        /* ---------- Dark mode (Bootstrap 5.3 data theme, .dark, or system) ---------- */
-        :where([data-bs-theme="dark"] .our-team-section, .dark .our-team-section) {
-          --bg-start: #0b1220;
-          --bg-end:   #0f172a;
-          --panel-bg: #0b1220;
-          --panel-border: rgba(255,255,255,0.08);
-          --panel-shadow: 0 18px 48px rgba(0,0,0,0.55);
-          --title-grad-a: #93c5fd;  /* blue-300 */
-          --title-grad-b: #67e8f9;  /* cyan-300 */
-          --body-color: #cbd5e1;    /* slate-300 */
+        .trippy-about-team__body {
+          line-height: 1.7;
+          font-size: clamp(0.92rem, 1.75vw, 1.05rem);
+          font-weight: 500;
+          color: rgba(220, 205, 160, 0.9);
         }
-
-        @media (prefers-color-scheme: dark) {
-          .our-team-section:not([data-bs-theme="light"]) {
-            --bg-start: #0b1220;
-            --bg-end:   #0f172a;
-            --panel-bg: #0b1220;
-            --panel-border: rgba(255,255,255,0.08);
-            --panel-shadow: 0 18px 48px rgba(0,0,0,0.55);
-            --title-grad-a: #93c5fd;
-            --title-grad-b: #67e8f9;
-            --body-color: #cbd5e1;
-          }
-        }
-
-        /* Responsive polish */
         @media (max-width: 576px) {
-          .our-team-section { padding: 4.5rem 0 3rem; }
-          .team-panel { padding: 1.25rem; }
-          .team-body { font-size: 1rem; }
+          .trippy-about-team__panel { padding: 1.25rem !important; }
         }
       `}</style>
     </section>

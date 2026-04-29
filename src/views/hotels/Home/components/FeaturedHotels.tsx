@@ -1,20 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import { BsArrowRight, BsCalendarEvent, BsGeoAlt } from 'react-icons/bs'
+import { BsCalendarEvent, BsGeoAlt } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
-import { supabase } from '@/lib/supabaseClient'
 import { motion } from 'framer-motion'
-
-type Concert = {
-  id: number
-  concert_name: string
-  concert_date: string
-  concert_location_name: string
-  concert_image: string
-  front_image: string
-  concert_description?: string | null
-  price: number
-}
+import { type FeaturedConcert } from '../loadFeaturedConcert'
 
 function formatEventDate(iso: string) {
   try {
@@ -31,58 +20,17 @@ function formatEventDate(iso: string) {
   }
 }
 
-const FeaturedHotels = () => {
-  const [concert, setConcert] = useState<Concert | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [fetchError, setFetchError] = useState<string | null>(null)
+type FeaturedHotelsProps = {
+  concert: FeaturedConcert | null
+  loading: boolean
+  fetchError: string | null
+}
 
+const FeaturedHotels = ({ concert, loading, fetchError }: FeaturedHotelsProps) => {
   const detailHref = useMemo(
     () => (concert ? `/events/detail?id=${concert.id}` : '#'),
     [concert],
   )
-
-  useEffect(() => {
-    const fetchLatestConcert = async () => {
-      setFetchError(null)
-      try {
-        const { data: concertsData, error: concertError } = await supabase
-          .from('concerts')
-          .select('*')
-          .order('id', { ascending: false })
-          .limit(1)
-
-        if (concertError || !concertsData?.length) {
-          setFetchError(concertError?.message ?? 'No events available right now.')
-          setConcert(null)
-          return
-        }
-
-        const row = concertsData[0]
-        const { data: ticketsData, error: ticketError } = await supabase
-          .from('tickets')
-          .select('concert_id, price')
-          .eq('concert_id', row.id)
-
-        let minPrice = 0
-        if (!ticketError && ticketsData?.length) {
-          minPrice = Math.min(...ticketsData.map((t) => Number(t.price) || 0))
-        }
-
-        setConcert({
-          ...row,
-          price: minPrice,
-        } as Concert)
-      } catch {
-        setFetchError('Unable to fetch events right now.')
-        setConcert(null)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchLatestConcert()
-  }, [])
-
   const eventDescription = concert ? String(concert.concert_description ?? '').trim() : ''
   const descriptionShown = useMemo(() => {
     if (!eventDescription) return ''
@@ -93,11 +41,10 @@ const FeaturedHotels = () => {
 
   return (
     <section className="trippy-featured position-relative overflow-hidden">
-      <div className="trippy-featured__aurora" aria-hidden />
       <div className="trippy-featured__grid" aria-hidden />
       <div className="trippy-featured__scanlines" aria-hidden />
 
-      <Container className="trippy-featured__inner position-relative z-1 py-3 py-lg-4">
+      <Container className="trippy-featured__inner position-relative z-1 py-4 py-lg-5">
         <Row className="mb-2 mb-lg-3">
           <Col xs={12}>
             <motion.div
@@ -105,7 +52,7 @@ const FeaturedHotels = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.05, margin: '0px 0px 120px 0px' }}
               transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="text-center text-lg-start"
+              className="text-center"
             >
               <div className="trippy-featured__eyebrow d-inline-flex align-items-center gap-2 mb-1">
                 <span className="trippy-featured__pulse" aria-hidden />
@@ -158,20 +105,20 @@ const FeaturedHotels = () => {
               </Link>
 
               <div className="trippy-featured__copy">
-              <Link to={detailHref} className="trippy-featured__title-link text-decoration-none">
-                <h3 className="trippy-featured__title">{concert.concert_name}</h3>
-              </Link>
+                <Link to={detailHref} className="trippy-featured__title-link text-decoration-none w-100 d-block">
+                  <h3 className="trippy-featured__title text-center mx-auto">{concert.concert_name}</h3>
+                </Link>
 
-              <ul className="trippy-featured__meta list-unstyled mb-0">
-                <li className="trippy-featured__meta-item">
-                  <BsCalendarEvent className="trippy-featured__meta-icon" aria-hidden />
-                  <span>{formatEventDate(concert.concert_date)}</span>
-                </li>
-                <li className="trippy-featured__meta-item">
-                  <BsGeoAlt className="trippy-featured__meta-icon" aria-hidden />
-                  <span>{concert.concert_location_name}</span>
-                </li>
-              </ul>
+                <ul className="trippy-featured__meta list-unstyled mb-0">
+                  <li className="trippy-featured__meta-item">
+                    <BsCalendarEvent className="trippy-featured__meta-icon" size={20} aria-hidden />
+                    <span className="trippy-featured__meta-text">{formatEventDate(concert.concert_date)}</span>
+                  </li>
+                  <li className="trippy-featured__meta-item">
+                    <BsGeoAlt className="trippy-featured__meta-icon" size={20} aria-hidden />
+                    <span className="trippy-featured__meta-text">{concert.concert_location_name}</span>
+                  </li>
+                </ul>
 
               {eventDescription ? (
                 <div className="trippy-featured__desc-block">
@@ -193,9 +140,8 @@ const FeaturedHotels = () => {
                 )}
               </div>
 
-              <Link to={detailHref} className="trippy-featured__cta">
+              <Link to={detailHref} className="trippy-dash-btn trippy-cta-frost px-4">
                 <span>View event</span>
-                <BsArrowRight className="trippy-featured__cta-icon" aria-hidden />
               </Link>
             </div>
             </div>
@@ -215,25 +161,6 @@ const FeaturedHotels = () => {
           --neon-lime: #c9a227;
           color: #c9b896;
           background: transparent;
-        }
-
-        .trippy-featured__aurora {
-          position: absolute;
-          inset: -35% -15%;
-          background: conic-gradient(from 200deg at 50% 50%,
-            rgba(212, 175, 55, 0.1),
-            rgba(232, 213, 163, 0.08),
-            rgba(212, 175, 55, 0.12),
-            rgba(212, 175, 55, 0.06),
-            rgba(212, 175, 55, 0.1));
-          animation: tfeat-aurora 24s linear infinite;
-          opacity: 0.45;
-          filter: blur(52px);
-          pointer-events: none;
-        }
-
-        @keyframes tfeat-aurora {
-          to { transform: rotate(360deg); }
         }
 
         .trippy-featured__grid {
@@ -331,8 +258,8 @@ const FeaturedHotels = () => {
 
         @media (min-width: 992px) {
           .trippy-featured__shell-grid {
-            grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
-            gap: 1.25rem 1.75rem;
+            grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+            gap: 1.5rem 2.25rem;
             align-items: center;
           }
         }
@@ -440,15 +367,22 @@ const FeaturedHotels = () => {
           z-index: 1;
           display: flex;
           flex-direction: column;
-          gap: 0.55rem;
-          text-align: center;
           align-items: center;
+          text-align: center;
+          gap: 0.85rem;
+          width: 100%;
+          min-width: 0;
+          padding: 0 0.25rem;
+        }
+
+        @media (min-width: 576px) {
+          .trippy-featured__copy { gap: 1rem; padding: 0; }
         }
 
         @media (min-width: 992px) {
           .trippy-featured__copy {
-            text-align: start;
-            align-items: flex-start;
+            max-width: 32rem;
+            margin-inline: auto;
           }
         }
 
@@ -463,142 +397,173 @@ const FeaturedHotels = () => {
         }
 
         .trippy-featured__title {
-          font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-          font-weight: 800;
-          font-size: clamp(1.35rem, 3.5vw, 1.85rem);
-          line-height: 1.2;
+          font-family: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+          font-weight: 700;
+          font-size: clamp(1.4rem, 3.6vw, 1.9rem);
+          line-height: 1.3;
           letter-spacing: -0.02em;
-          color: #f4f2ff;
-          margin: 0;
+          color: #f8f4ed;
+          margin: 0 auto;
+          max-width: 22rem;
           transition: color 0.2s ease, text-shadow 0.2s ease;
+        }
+
+        @media (min-width: 768px) {
+          .trippy-featured__title { max-width: 28rem; }
         }
 
         .trippy-featured__desc-block {
           text-align: center;
           width: 100%;
-          max-width: 40rem;
+          max-width: 36rem;
           margin-inline: auto;
         }
 
-        @media (min-width: 992px) {
-          .trippy-featured__desc-block {
-            text-align: left;
-            margin-inline: 0;
-          }
-        }
-
         .trippy-featured__desc-heading {
-          font-size: 0.72rem;
-          font-weight: 700;
-          letter-spacing: 0.16em;
+          font-size: 0.75rem;
+          font-weight: 600;
+          letter-spacing: 0.2em;
           text-transform: uppercase;
           color: rgba(212, 175, 55, 0.88);
-          margin: 0.15rem 0 0.25rem;
-          text-align: inherit;
+          margin: 0.2rem 0 0.35rem;
         }
 
         .trippy-featured__desc {
-          font-size: 0.8125rem;
-          line-height: 1.5;
-          color: rgba(232, 213, 163, 0.82);
+          font-size: 0.9rem;
+          line-height: 1.6;
+          color: rgba(232, 213, 163, 0.86);
           white-space: pre-line;
         }
 
         .trippy-featured__meta {
           display: flex;
           flex-direction: column;
-          gap: 0.3rem;
           align-items: center;
+          justify-content: center;
+          gap: 0.6rem;
+          width: 100%;
+          max-width: 32rem;
+          margin-inline: auto;
         }
 
-        @media (min-width: 992px) {
+        @media (min-width: 480px) {
           .trippy-featured__meta {
-            align-items: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            column-gap: 1.75rem;
+            row-gap: 0.5rem;
           }
         }
 
         .trippy-featured__meta-item {
           display: inline-flex;
           align-items: center;
-          gap: 0.45rem;
-          font-size: 0.8125rem;
-          color: rgba(232, 213, 163, 0.78);
+          justify-content: center;
+          gap: 0.5rem;
+          min-height: 1.75rem;
+        }
+
+        .trippy-featured__meta-text {
+          font-size: 0.95rem;
+          line-height: 1.4;
+          font-weight: 500;
+          color: rgba(240, 228, 200, 0.92);
+          text-align: left;
+        }
+
+        @media (min-width: 768px) {
+          .trippy-featured__meta-text { font-size: 1.05rem; }
         }
 
         .trippy-featured__meta-icon {
           color: var(--neon-cyan);
           flex-shrink: 0;
-          opacity: 0.9;
+          opacity: 0.95;
         }
 
         .trippy-featured__price-row {
-          padding-top: 0.1rem;
+          padding-top: 0.25rem;
           width: 100%;
           text-align: center;
         }
 
-        @media (min-width: 992px) {
-          .trippy-featured__price-row {
-            text-align: left;
-          }
+        .trippy-featured__price {
+          display: block;
         }
 
         .trippy-featured__price-label {
           display: block;
-          font-size: 0.65rem;
-          font-weight: 700;
-          letter-spacing: 0.18em;
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(212, 175, 55, 0.75);
-          margin-bottom: 0.15rem;
-          text-align: inherit;
+          color: rgba(212, 175, 55, 0.8);
+          margin-bottom: 0.2rem;
         }
 
         .trippy-featured__price-value {
-          font-size: 1.35rem;
+          font-size: 1.65rem;
           font-weight: 800;
           letter-spacing: -0.02em;
-          background: linear-gradient(90deg, #fff, var(--neon-cyan));
+          line-height: 1.1;
+          background: linear-gradient(90deg, #fff8ec, var(--neon-cyan));
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
+        }
+
+        @media (min-width: 768px) {
+          .trippy-featured__price-value { font-size: 1.95rem; }
         }
 
         .trippy-featured__cta {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 0.5rem;
-          margin-top: 0.15rem;
-          padding: 0.5rem 1rem;
-          font-weight: 700;
-          font-size: 0.9rem;
-          letter-spacing: 0.04em;
+          gap: 0.4rem;
+          margin-top: 0.25rem;
+          padding: 0.5rem 1.2rem;
+          font-family: "DM Sans", system-ui, sans-serif;
+          font-weight: 600;
+          font-size: 0.75rem;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: var(--neon-cyan);
-          border: 1px solid rgba(212, 175, 55, 0.55);
-          border-radius: 0.5rem;
-          background: rgba(212, 175, 55, 0.06);
-          box-shadow: 0 0 24px rgba(212, 175, 55, 0.12);
-          transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+          color: #f0e4c8 !important;
+          border: 1px solid rgba(212, 175, 55, 0.5);
+          border-radius: 999px;
+          background: linear-gradient(180deg, rgba(18, 14, 8, 0.9) 0%, rgba(6, 5, 3, 0.88) 100%) !important;
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.05),
+            0 1px 0 rgba(0, 0, 0, 0.45),
+            0 2px 12px rgba(0, 0, 0, 0.35);
           align-self: center;
+          transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease, transform 0.15s ease;
         }
 
-        @media (min-width: 992px) {
-          .trippy-featured__cta {
-            align-self: flex-start;
-          }
+        .trippy-featured__cta:hover,
+        .trippy-featured__cta:focus-visible {
+          color: #fffef8 !important;
+          border-color: rgba(240, 220, 150, 0.7) !important;
+          background: linear-gradient(180deg, rgba(212, 175, 55, 0.18) 0%, rgba(8, 6, 3, 0.92) 100%) !important;
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.08),
+            0 0 0 1px rgba(212, 175, 55, 0.12),
+            0 4px 20px rgba(0, 0, 0, 0.4),
+            0 0 24px rgba(212, 175, 55, 0.18) !important;
+          filter: brightness(1.03);
+          transform: translateY(-1px);
         }
 
-        .trippy-featured__cta:hover {
-          color: #0a0804;
-          background: var(--neon-cyan);
-          border-color: var(--neon-cyan);
-          box-shadow: 0 0 32px rgba(212, 175, 55, 0.45);
+        .trippy-featured__cta:focus-visible {
+          outline: 2px solid rgba(212, 175, 55, 0.45);
+          outline-offset: 2px;
         }
 
-        .trippy-featured__cta-icon {
-          font-size: 1.1rem;
+        @media (prefers-reduced-motion: reduce) {
+          .trippy-featured__cta:hover,
+          .trippy-featured__cta:focus-visible { transform: none; }
         }
 
         .trippy-featured__empty {
@@ -654,16 +619,11 @@ const FeaturedHotels = () => {
           z-index: 1;
           display: flex;
           flex-direction: column;
+          align-items: center;
           gap: 0.45rem;
           width: 100%;
           max-width: 360px;
           margin-inline: auto;
-        }
-
-        @media (min-width: 992px) {
-          .trippy-featured__copy-skel {
-            margin-inline: 0;
-          }
         }
 
         .trippy-featured__skel-line {
@@ -679,8 +639,8 @@ const FeaturedHotels = () => {
         .trippy-featured__skel-cta {
           margin-top: 0.5rem;
           width: 160px;
-          height: 42px;
-          border-radius: 0.5rem;
+          height: 40px;
+          border-radius: 999px;
           border: 1px solid rgba(212, 175, 55, 0.2);
           background: rgba(212, 175, 55, 0.05);
         }

@@ -133,11 +133,7 @@ const MyProfile = () => {
                             type="button"
                             onClick={editMode ? handleSave : () => setEditMode(true)}
                             disabled={saving}
-                            className={
-                                editMode
-                                    ? 'trippy-dash-btn trippy-dash-btn--accent px-4'
-                                    : 'trippy-dash-btn px-4'
-                            }
+                            className="trippy-dash-btn trippy-cta-frost px-4"
                         >
                             {saving ? 'Saving...' : editMode ? 'Save' : 'Edit'}
                         </button>

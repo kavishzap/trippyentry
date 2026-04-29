@@ -45,7 +45,6 @@ const HotelBooking = lazy(() => import('@/views/hotels/Booking'))
 // const HeroImageGallery = lazy(() => import('@/views/heroes/ImageGallery'))
 // const HeroSplit = lazy(() => import('@/views/heroes/Split'))
 
-const AboutPage = lazy(() => import('@/views/about-us/About'))
 // const OurTeamPage = lazy(() => import('@/views/about-us/OurTeam'))
 
 const Contact = lazy(() => import('@/views/contact-us/Contact'))
@@ -318,12 +317,12 @@ const aboutUsRoutes: RoutesProps[] = [
   {
     path: '/pages/about',
     name: 'about',
-    element: <AboutPage />,
+    element: <Navigate to="/dashboard#about" replace />,
   },
   {
     path: '/page/about',
     name: 'about-alias',
-    element: <AboutPage />,
+    element: <Navigate to="/dashboard#about" replace />,
   },
   // {
   //   path: '/pages/our-team',

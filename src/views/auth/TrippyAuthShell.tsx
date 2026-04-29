@@ -13,8 +13,13 @@ const TRIPPY_AUTH_CSS = `
     --ta-gold-bright: #f0e6b8;
     --ta-gold-deep: #8a7028;
     --ta-bronze: #6b5418;
+    /* Match hero “Buy ticket” glass pill */
+    --hero-glass-surface: rgba(8, 6, 5, 0.42);
+    --hero-glass-surface-hover: rgba(12, 10, 8, 0.55);
+    --hero-glass-border: rgba(255, 255, 255, 0.22);
     position: relative;
     min-height: 100vh;
+    min-height: 100dvh;
     width: 100%;
     overflow-x: hidden;
     background-color: #000000;
@@ -27,13 +32,24 @@ const TRIPPY_AUTH_CSS = `
     z-index: 0;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 118% 82% at 50% -18%, rgba(212, 175, 55, 0.2), transparent 54%),
-      radial-gradient(ellipse 88% 52% at 100% 32%, rgba(212, 175, 55, 0.12), transparent 52%),
-      radial-gradient(ellipse 78% 56% at 0% 68%, rgba(212, 175, 55, 0.08), transparent 46%),
-      radial-gradient(1px 1px at 12% 20%, rgba(212, 175, 55, 0.5), transparent),
-      radial-gradient(1px 1px at 78% 40%, rgba(255, 255, 255, 0.25), transparent),
-      radial-gradient(1px 1px at 44% 88%, rgba(212, 175, 55, 0.4), transparent),
-      linear-gradient(180deg, #000000 0%, #050302 45%, #000000 100%);
+      radial-gradient(ellipse 118% 82% at 50% -18%, rgba(212, 175, 55, 0.3), transparent 56%),
+      radial-gradient(ellipse 88% 52% at 100% 38%, rgba(212, 175, 55, 0.1), transparent 50%),
+      radial-gradient(ellipse 78% 56% at 0% 72%, rgba(232, 213, 163, 0.11), transparent 46%),
+      linear-gradient(180deg, #000000 0%, #080602 42%, #030201 72%, #000000 100%);
+  }
+
+  .trippy-auth-flow__grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    /* Same grid treatment as home hero */
+    background-image:
+      linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232, 213, 163, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(180deg, black 0%, transparent 88%);
+    opacity: 0.35;
   }
 
   .trippy-auth-flow__scanlines {
@@ -45,10 +61,10 @@ const TRIPPY_AUTH_CSS = `
       0deg,
       transparent,
       transparent 2px,
-      rgba(0, 0, 0, 0.1) 2px,
-      rgba(0, 0, 0, 0.1) 4px
+      rgba(0, 0, 0, 0.12) 2px,
+      rgba(0, 0, 0, 0.12) 4px
     );
-    opacity: 0.12;
+    opacity: 0.08;
   }
 
   .trippy-auth-flow .trippy-auth-section {
@@ -57,140 +73,273 @@ const TRIPPY_AUTH_CSS = `
   }
 
   .trippy-auth-flow .trippy-auth-shell {
-    background: linear-gradient(180deg, rgba(8, 7, 5, 0.96) 0%, rgba(0, 0, 0, 0.98) 100%);
-    border: 1px solid rgba(212, 175, 55, 0.45);
-    border-radius: 1rem;
+    position: relative;
+    z-index: 1;
+    background: rgba(6, 5, 3, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.22);
+    border-radius: 1.125rem;
     overflow: hidden;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px) saturate(1.1);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
     box-shadow:
-      inset 0 0 0 1px rgba(0, 0, 0, 0.85),
-      inset 0 0 0 2px rgba(212, 175, 55, 0.2),
-      0 20px 56px rgba(0, 0, 0, 0.65);
+      0 4px 0 rgba(0, 0, 0, 0.35) inset,
+      0 24px 64px rgba(0, 0, 0, 0.55);
+  }
+  .trippy-auth-flow .trippy-auth-shell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232, 213, 163, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(180deg, black 0%, transparent 88%);
+    opacity: 0.45;
+  }
+  .trippy-auth-flow .trippy-auth-shell > .row {
+    position: relative;
+    z-index: 1;
   }
 
   .trippy-auth-flow .auth-image-wrap {
-    padding: 1rem 1rem 1rem 1.25rem;
+    padding: 1.5rem 1.25rem;
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: center;
     min-height: 100%;
-    border-bottom: 1px dotted rgba(212, 175, 55, 0.35);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+    background: rgba(0, 0, 0, 0.2);
   }
   @media (min-width: 992px) {
     .trippy-auth-flow .auth-image-wrap {
       border-bottom: none;
-      border-right: 1px dotted rgba(212, 175, 55, 0.35);
+      border-right: 1px solid rgba(212, 175, 55, 0.12);
     }
   }
 
   .trippy-auth-flow .auth-img {
     width: 100%;
-    max-width: min(100%, 440px);
+    max-width: min(100%, 400px);
     height: auto;
-    max-height: min(52vh, 480px);
+    max-height: min(50vh, 420px);
     object-fit: contain;
     object-position: center;
     display: block;
   }
   @media (min-width: 992px) {
     .trippy-auth-flow .auth-img {
-      max-height: min(72vh, 620px);
+      max-height: min(70vh, 580px);
     }
   }
 
   .trippy-auth-flow .auth-panel {
-    color: rgba(201, 184, 150, 0.95);
+    color: rgba(220, 205, 170, 0.95);
   }
 
   .trippy-auth-flow .auth-panel h1 {
-    font-family: "Cinzel Decorative", "Cinzel", serif;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    background: linear-gradient(180deg, var(--ta-gold-bright) 0%, var(--ta-gold) 48%, var(--ta-gold-deep) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    color: #f5f0e6 !important;
+    background: none;
+    -webkit-text-fill-color: #f5f0e6;
   }
 
   .trippy-auth-flow .auth-panel p,
   .trippy-auth-flow .auth-panel .text-body {
-    color: rgba(222, 205, 168, 0.9) !important;
+    color: rgba(200, 185, 150, 0.9) !important;
+    font-size: 0.9375rem;
   }
 
-  .trippy-auth-flow .auth-panel a:not(.auth-submit) {
-    color: var(--ta-gold-bright) !important;
-    font-weight: 600;
+  .trippy-auth-flow .auth-panel a:not(.auth-submit):not(.trippy-auth-back) {
+    color: #e8d5a3 !important;
+    font-weight: 500;
   }
-  .trippy-auth-flow .auth-panel a:not(.auth-submit):hover {
-    color: #fff0cb !important;
+  .trippy-auth-flow .auth-panel a:not(.auth-submit):not(.trippy-auth-back):hover {
+    color: #fff4d0 !important;
+  }
+
+  .trippy-auth-flow .auth-panel .trippy-auth-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: rgba(200, 185, 150, 0.92) !important;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: "DM Sans", system-ui, sans-serif;
+  }
+  .trippy-auth-flow .auth-panel .trippy-auth-back:hover,
+  .trippy-auth-flow .auth-panel .trippy-auth-back:focus-visible {
+    color: #fff6dd !important;
+  }
+  .trippy-auth-flow .auth-panel .trippy-auth-back .trippy-auth-back__icon {
+    flex-shrink: 0;
+    font-size: 1rem;
   }
 
   .trippy-auth-flow .form-label {
-    color: rgba(232, 203, 142, 0.9) !important;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    color: rgba(220, 205, 160, 0.88) !important;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    margin-bottom: 0.35rem;
   }
 
   .trippy-auth-flow .form-control {
-    background: rgba(0, 0, 0, 0.9) !important;
-    border: 1px solid rgba(212, 175, 55, 0.38) !important;
-    color: #e8d5a3 !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgba(212, 175, 55, 0.28) !important;
+    color: #f2ebd8 !important;
     border-radius: 0.5rem;
+    padding: 0.55rem 0.85rem;
   }
   .trippy-auth-flow .form-control:focus {
-    border-color: rgba(212, 175, 55, 0.75) !important;
-    box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.28) !important;
-    background: rgba(0, 0, 0, 0.95) !important;
-    color: #f6e4ba !important;
+    border-color: rgba(212, 175, 55, 0.6) !important;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.18) !important;
+    background: rgba(0, 0, 0, 0.55) !important;
+    color: #fffcf0 !important;
   }
   .trippy-auth-flow .form-control::placeholder {
-    color: rgba(244, 228, 186, 0.35);
+    color: rgba(200, 180, 130, 0.4);
   }
 
   .trippy-auth-flow .auth-submit {
     cursor: pointer;
-    font-weight: 700;
-    border: 1px solid #f0e6b8;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border: 1px solid rgba(212, 175, 55, 0.5);
     border-radius: 999px;
-    padding: 0.65rem 1rem;
-    background: linear-gradient(180deg, #e8c76a 0%, #d4af37 45%, #8a7028 100%) !important;
-    color: #0a0804 !important;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    padding: 0.6rem 1.25rem;
+    background: linear-gradient(180deg, #e4c15c 0%, #c9a227 100%) !important;
+    color: #0f0c06 !important;
+    letter-spacing: 0.04em;
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.35),
-      0 0 0 1px rgba(0, 0, 0, 0.55),
-      0 4px 22px rgba(212, 175, 55, 0.28);
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 2px 12px rgba(0, 0, 0, 0.35);
+    transition: filter 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
   }
-  .trippy-auth-flow .auth-submit:hover:not(:disabled) {
-    filter: brightness(1.08);
+  .trippy-auth-flow .auth-submit:hover:not(:disabled):not(.auth-submit--hero-frost) {
+    filter: brightness(1.05);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.25),
+      0 4px 20px rgba(212, 175, 55, 0.25);
     color: #0a0804 !important;
+  }
+  .trippy-auth-flow .auth-submit:active:not(:disabled):not(.auth-submit--hero-frost) {
+    transform: translateY(1px);
   }
   .trippy-auth-flow .auth-submit:disabled {
     opacity: 0.55;
   }
 
+  /* Sign in — same glass pill CTA as home “Buy ticket” (Hero) */
+  .trippy-auth-flow .auth-panel .auth-submit.auth-submit--hero-frost {
+    position: relative;
+    isolation: isolate;
+    filter: none !important;
+    min-height: 2.75rem;
+    padding: 0.7rem 1.85rem;
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    background: var(--hero-glass-surface) !important;
+    border: 1px solid var(--hero-glass-border) !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    box-shadow:
+      0 4px 28px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(14px) saturate(1.12);
+    -webkit-backdrop-filter: blur(14px) saturate(1.12);
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
+  @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .trippy-auth-flow .auth-panel .auth-submit.auth-submit--hero-frost {
+      background: rgba(12, 10, 8, 0.75) !important;
+    }
+  }
+  .trippy-auth-flow .auth-panel .auth-submit.auth-submit--hero-frost:hover:not(:disabled),
+  .trippy-auth-flow .auth-panel .auth-submit.auth-submit--hero-frost:focus-visible {
+    color: #ffffff !important;
+    background: var(--hero-glass-surface-hover) !important;
+    border-color: rgba(240, 215, 150, 0.55) !important;
+    box-shadow:
+      0 0 0 1px rgba(240, 220, 160, 0.35),
+      0 0 24px rgba(212, 175, 55, 0.38),
+      0 0 44px rgba(255, 224, 160, 0.14),
+      0 6px 32px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    transform: translateY(-2px);
+  }
+  .trippy-auth-flow .auth-panel .auth-submit.auth-submit--hero-frost:focus-visible {
+    outline: 2px solid rgba(240, 200, 120, 0.45);
+    outline-offset: 3px;
+  }
+  .trippy-auth-flow .auth-panel .auth-submit.auth-submit--hero-frost:active:not(:disabled) {
+    transform: translateY(0);
+    background: rgba(6, 5, 4, 0.5) !important;
+    border-color: rgba(212, 175, 55, 0.28) !important;
+    box-shadow:
+      0 0 12px rgba(212, 175, 55, 0.15),
+      0 4px 24px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  .trippy-auth-flow .auth-panel .auth-submit.auth-submit--hero-frost .spinner-border-sm {
+    border-color: rgba(255, 255, 255, 0.2);
+    border-right-color: rgba(255, 255, 255, 0.9);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .trippy-auth-flow .auth-panel .auth-submit.auth-submit--hero-frost:hover,
+    .trippy-auth-flow .auth-panel .auth-submit.auth-submit--hero-frost:focus-visible {
+      transform: none;
+    }
+  }
+
   .trippy-auth-flow .auth-panel hr {
     border: 0;
-    border-top: 1px dotted rgba(212, 175, 55, 0.45);
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
     opacity: 1;
   }
 
   .trippy-auth-flow .auth-panel .text-muted,
   .trippy-auth-flow .auth-panel .small.text-body {
-    color: rgba(184, 160, 113, 0.82) !important;
+    color: rgba(160, 140, 100, 0.9) !important;
   }
 
   .trippy-auth-flow .spinner-border-sm {
-    border-color: rgba(255, 255, 255, 0.35);
-    border-right-color: transparent;
+    border-color: rgba(20, 18, 10, 0.35);
+    border-right-color: #0a0804;
+  }
+
+  .trippy-auth-flow .auth-panel .trippy-auth-form-login__footer {
+    color: rgba(130, 115, 88, 0.95) !important;
+  }
+  .trippy-auth-flow .auth-panel .trippy-auth-form-login__subtle-link {
+    color: rgba(200, 185, 145, 0.9) !important;
+  }
+  .trippy-auth-flow .auth-panel .trippy-auth-form-login__inline-link {
+    border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+    padding-bottom: 1px;
+  }
+  .trippy-auth-flow .auth-panel .trippy-auth-form-login__inline-link:hover {
+    border-bottom-color: rgba(212, 175, 55, 0.5);
   }
 
   @media (max-width: 575.98px) {
-    .trippy-auth-flow .auth-panel { padding: 1.25rem !important; }
+    .trippy-auth-flow .auth-panel { padding: 1.5rem !important; }
   }
 `
 
@@ -203,6 +352,7 @@ export function TrippyAuthFlow({ children }: { children: ReactNode }) {
   return (
     <main className="trippy-auth-flow">
       <div className="trippy-auth-flow__base" aria-hidden />
+      <div className="trippy-auth-flow__grid" aria-hidden />
       <div className="trippy-auth-flow__scanlines" aria-hidden />
       <TrippyAuthStyles />
       {children}

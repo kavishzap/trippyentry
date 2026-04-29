@@ -49,30 +49,29 @@ const FAQ_ITEMS: FaqItem[] = [
 const FeaturedHoliday = () => {
   return (
     <section className="trippy-why-faq position-relative overflow-hidden">
-      <div className="trippy-why-faq__aurora" aria-hidden />
       <div className="trippy-why-faq__grid" aria-hidden />
       <div className="trippy-why-faq__scanlines" aria-hidden />
 
       <Container className="trippy-why-faq__inner position-relative z-1 py-3 py-md-4 py-lg-5">
-        <Row className="align-items-start gy-4 gy-lg-5 gx-lg-4 gx-xl-5">
+        <Row className="align-items-start gy-5 gy-lg-5 gx-lg-4 gx-xl-5">
           <Col xs={12} lg={6}>
             <div id="faqs" className="trippy-why-faq__faq-col">
               <motion.div
-                className="text-center text-lg-start mb-3 mb-lg-4"
+                className="text-center mb-3 mb-lg-4"
                 initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               >
-                <div className="trippy-why-faq__eyebrow d-inline-flex align-items-center gap-2 mb-2">
+                {/* <div className="trippy-why-faq__eyebrow d-inline-flex align-items-center justify-content-center gap-2 mb-2">
                   <span className="trippy-why-faq__pulse trippy-why-faq__pulse--faq" aria-hidden />
                   <span>Quick answers</span>
-                </div>
+                </div> */}
                 <h2 className="trippy-why-faq__faq-title mb-0">
                   <span className="trippy-why-faq__faq-title-line trippy-why-faq__faq-title-line--main">FAQs</span>
                   <span className="trippy-why-faq__faq-title-line trippy-why-faq__faq-title-line--accent">before you go</span>
                 </h2>
-                <p className="trippy-why-faq__faq-intro mx-auto mx-lg-0 mt-3 mb-0">
+                <p className="trippy-why-faq__faq-intro mx-auto mt-3 mb-0">
                   The essentials — tickets, access, payments, and how to reach a human when the night gets complicated.
                 </p>
               </motion.div>
@@ -98,20 +97,20 @@ const FeaturedHoliday = () => {
 
           <Col xs={12} lg={6}>
             <motion.div
-              className="text-lg-end text-center"
+              className="trippy-why__col text-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             >
-              <h2 className="trippy-why__title mb-2 mb-lg-4">
+              <h2 className="trippy-why__title mb-3 mb-lg-4">
                 <span className="trippy-why__title-line trippy-why__title-line--main">Why</span>
                 <span className="trippy-why__title-line trippy-why__title-line--accent">TrippyEntry?</span>
               </h2>
 
               <div className="trippy-why__feats trippy-why__feats--rule pt-1 pt-lg-2">
                 {features.map((f) => (
-                  <div key={f.title} className="trippy-why__feat mb-2 mb-lg-4">
+                  <div key={f.title} className="trippy-why__feat mb-3 mb-lg-4">
                     <div className="trippy-why__feat-title">{f.title}</div>
                     <p className="trippy-why__feat-body mb-0">{f.body}</p>
                   </div>
@@ -127,31 +126,13 @@ const FeaturedHoliday = () => {
           --neon-cyan: #d4af37;
           --neon-magenta: #e8d5a3;
           --neon-bronze: #6b5418;
+          --neon-lime: #c9a227;
           color: #c9b896;
           background: transparent;
           scroll-margin-top: 6.5rem;
         }
         @media (min-width: 992px) {
           .trippy-why-faq { scroll-margin-top: 5.5rem; }
-        }
-
-        .trippy-why-faq__aurora {
-          position: absolute;
-          inset: -40% -20%;
-          background: conic-gradient(from 120deg at 50% 50%,
-            rgba(212, 175, 55, 0.12),
-            rgba(232, 213, 163, 0.1),
-            rgba(212, 175, 55, 0.16),
-            rgba(212, 175, 55, 0.08),
-            rgba(232, 213, 163, 0.06),
-            rgba(212, 175, 55, 0.12));
-          animation: twf-aurora 22s linear infinite;
-          opacity: 0.48;
-          filter: blur(56px);
-          pointer-events: none;
-        }
-        @keyframes twf-aurora {
-          to { transform: rotate(360deg); }
         }
 
         .trippy-why-faq__grid {
@@ -181,87 +162,96 @@ const FeaturedHoliday = () => {
 
         .trippy-why-faq__inner { z-index: 2; }
 
+        .trippy-why-faq__faq-col {
+          width: 100%;
+          max-width: 40rem;
+          margin-inline: auto;
+          padding: 0 0.25rem;
+        }
+        @media (min-width: 992px) {
+          .trippy-why-faq__faq-col { padding: 0; }
+        }
+
         .trippy-why-faq__eyebrow {
-          font-size: 0.68rem;
-          font-weight: 700;
-          letter-spacing: 0.22em;
+          font-size: 0.72rem;
+          font-weight: 600;
+          letter-spacing: 0.24em;
           text-transform: uppercase;
-          color: rgba(212, 175, 55, 0.85);
+          color: rgba(212, 175, 55, 0.9);
         }
         .trippy-why-faq__pulse {
-          width: 7px;
-          height: 7px;
+          width: 8px;
+          height: 8px;
           border-radius: 50%;
           background: var(--neon-magenta);
           box-shadow: 0 0 10px var(--neon-magenta);
         }
 
         .trippy-why-faq__faq-title {
-          font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+          font-family: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
           font-weight: 800;
           letter-spacing: -0.03em;
           line-height: 1.08;
         }
         .trippy-why-faq__faq-title-line { display: block; }
         .trippy-why-faq__faq-title-line--main {
-          font-size: clamp(1.75rem, 4.2vw, 2.5rem);
-          background: linear-gradient(135deg, #fff 0%, var(--neon-cyan) 50%, var(--neon-bronze) 100%);
+          font-size: clamp(1.8rem, 4.2vw, 2.4rem);
+          background: linear-gradient(135deg, #fff8ec 0%, var(--neon-cyan) 50%, var(--neon-bronze) 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
         }
         .trippy-why-faq__faq-title-line--accent {
-          font-size: clamp(1.9rem, 4.6vw, 2.65rem);
-          background: linear-gradient(90deg, var(--neon-magenta), var(--neon-bronze), var(--neon-cyan));
+          font-size: clamp(1.95rem, 4.6vw, 2.65rem);
+          background: linear-gradient(90deg, var(--neon-magenta), var(--neon-lime));
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
         }
         .trippy-why-faq__faq-intro {
-          max-width: 36rem;
-          font-size: clamp(0.9rem, 1.65vw, 1.02rem);
-          line-height: 1.6;
-          color: rgba(232, 213, 163, 0.78);
+          max-width: 32rem;
+          font-size: clamp(0.95rem, 1.8vw, 1.08rem);
+          line-height: 1.65;
+          color: rgba(230, 215, 175, 0.88);
         }
 
         .trippy-why-faq__faq-list {
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
+          gap: 0.65rem;
+          width: 100%;
         }
 
         .trippy-why-faq__faq-item {
-          border-radius: 0.85rem;
-          border: 1px solid rgba(212, 175, 55, 0.32);
-          background: linear-gradient(180deg, rgba(10, 8, 4, 0.95) 0%, rgba(0, 0, 0, 0.92) 100%);
+          border-radius: 1rem;
+          border: 1px solid rgba(212, 175, 55, 0.24);
+          background: rgba(6, 5, 3, 0.55);
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
-          box-shadow:
-            inset 0 0 0 1px rgba(0, 0, 0, 0.75),
-            inset 0 0 0 2px rgba(212, 175, 55, 0.12),
-            0 8px 32px rgba(0, 0, 0, 0.45);
+          box-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
           overflow: hidden;
+          text-align: left;
           transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
         .trippy-why-faq__faq-item:hover {
-          border-color: rgba(212, 175, 55, 0.38);
+          border-color: rgba(212, 175, 55, 0.4);
         }
         .trippy-why-faq__faq-item[open] {
-          border-color: rgba(232, 213, 163, 0.35);
-          box-shadow:
-            0 10px 36px rgba(0, 0, 0, 0.4),
-            0 0 28px rgba(212, 175, 55, 0.1);
+          border-color: rgba(212, 175, 55, 0.45);
+          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
         }
 
         .trippy-why-faq__faq-summary {
           list-style: none;
           cursor: pointer;
-          padding: 1rem 1.15rem;
-          padding-right: 2.5rem;
-          font-weight: 700;
-          font-size: clamp(0.9rem, 1.5vw, 1rem);
-          letter-spacing: 0.02em;
-          color: #f0e6b8;
+          padding: 1rem 1.2rem 1rem 1.2rem;
+          padding-right: 2.6rem;
+          font-family: "DM Sans", system-ui, sans-serif;
+          font-weight: 600;
+          font-size: clamp(0.98rem, 1.8vw, 1.08rem);
+          line-height: 1.4;
+          letter-spacing: 0.01em;
+          color: #f4eed9;
           position: relative;
           user-select: none;
         }
@@ -269,93 +259,118 @@ const FeaturedHoliday = () => {
         .trippy-why-faq__faq-summary::after {
           content: "";
           position: absolute;
-          right: 1.1rem;
+          right: 1.15rem;
           top: 50%;
-          width: 10px;
-          height: 10px;
+          width: 8px;
+          height: 8px;
           border-right: 2px solid var(--neon-cyan);
           border-bottom: 2px solid var(--neon-cyan);
-          transform: translateY(-60%) rotate(45deg);
+          transform: translateY(-50%) rotate(45deg);
           transition: transform 0.25s ease;
-          opacity: 0.85;
+          opacity: 0.8;
         }
         .trippy-why-faq__faq-item[open] .trippy-why-faq__faq-summary::after {
-          transform: translateY(-20%) rotate(225deg);
+          transform: translateY(-50%) rotate(225deg);
         }
         .trippy-why-faq__faq-summary:hover {
-          color: #fff8e0;
+          color: #fffef8;
         }
 
         .trippy-why-faq__faq-answer {
-          padding: 0 1.15rem 1.1rem;
-          font-size: 0.875rem;
-          line-height: 1.65;
-          color: rgba(232, 213, 163, 0.82);
+          padding: 0 1.2rem 1.15rem;
+          font-size: 0.95rem;
+          line-height: 1.7;
+          color: rgba(220, 205, 160, 0.88);
           border-top: 1px solid rgba(212, 175, 55, 0.12);
-          padding-top: 0.85rem;
+          padding-top: 0.9rem;
           margin-top: 0;
+        }
+        @media (min-width: 768px) {
+          .trippy-why-faq__faq-answer { font-size: 1.02rem; }
+        }
+
+        .trippy-why__col {
+          width: 100%;
+          max-width: 36rem;
+          margin-inline: auto;
+          padding: 0 0.25rem;
+        }
+        @media (min-width: 992px) {
+          .trippy-why__col { padding: 0; }
         }
 
         .trippy-why__title {
-          font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+          font-family: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
           font-weight: 800;
-          line-height: 1.12;
-          letter-spacing: -0.03em;
-          overflow: visible;
+          line-height: 1.1;
+          letter-spacing: -0.02em;
         }
 
         .trippy-why__title-line {
           display: block;
-          line-height: 1.1;
-          overflow: visible;
+          line-height: 1.08;
         }
 
         .trippy-why__title-line--main {
-          font-size: clamp(2.25rem, 6vw, 3.5rem);
-          background: linear-gradient(135deg, #fff 0%, var(--neon-cyan) 45%, var(--neon-bronze) 100%);
+          font-size: clamp(1.8rem, 4.2vw, 2.5rem);
+          background: linear-gradient(135deg, #fff8ec 0%, var(--neon-cyan) 50%, var(--neon-bronze) 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-          text-shadow: 0 0 40px rgba(212, 175, 55, 0.35);
-          filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.5));
         }
 
         .trippy-why__title-line--accent {
-          font-size: clamp(2.4rem, 6.5vw, 3.75rem);
-          background: linear-gradient(90deg, var(--neon-magenta) 0%, var(--neon-bronze) 55%, var(--neon-cyan) 100%);
+          font-size: clamp(1.95rem, 4.6vw, 2.75rem);
+          background: linear-gradient(90deg, var(--neon-magenta) 0%, var(--neon-bronze) 50%, var(--neon-cyan) 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-          animation: twf-title-shimmer 6s ease-in-out infinite alternate;
-          padding-bottom: 0.22em;
         }
 
-        @keyframes twf-title-shimmer {
-          0% { filter: brightness(1); }
-          100% { filter: brightness(1.07); }
+        @keyframes trippy-why-title-pulse {
+          0%, 100% {
+            filter: brightness(1) drop-shadow(0 0 4px rgba(212, 175, 55, 0.1));
+          }
+          50% {
+            filter: brightness(1.1) drop-shadow(0 0 18px rgba(255, 220, 170, 0.28));
+          }
+        }
+        .trippy-why-faq__faq-title-line--main,
+        .trippy-why-faq__faq-title-line--accent,
+        .trippy-why__title-line--main,
+        .trippy-why__title-line--accent {
+          animation: trippy-why-title-pulse 3.2s ease-in-out infinite;
+        }
+        .trippy-why-faq__faq-title-line--accent,
+        .trippy-why__title-line--accent {
+          animation-delay: 0.4s;
         }
 
         .trippy-why__feats--rule {
-          border-top: 1px dotted rgba(212, 175, 55, 0.4) !important;
+          border-top: 1px solid rgba(212, 175, 55, 0.18) !important;
+          max-width: 32rem;
+          margin-left: auto;
+          margin-right: auto;
         }
 
         .trippy-why__feat-title {
-          font-size: 0.8rem;
-          font-weight: 700;
-          letter-spacing: 0.12em;
+          font-size: 0.78rem;
+          font-weight: 600;
+          letter-spacing: 0.16em;
           text-transform: uppercase;
-          color: rgba(212, 175, 55, 0.9);
-          margin-bottom: 0.35rem;
+          color: rgba(212, 175, 55, 0.92);
+          margin-bottom: 0.4rem;
+        }
+        @media (min-width: 768px) {
+          .trippy-why__feat-title { font-size: 0.82rem; }
         }
 
         .trippy-why__feat-body {
-          font-size: clamp(0.8125rem, 1.65vw, 0.9375rem);
+          font-size: clamp(0.9rem, 1.75vw, 1.05rem);
           line-height: 1.65;
           font-weight: 500;
-          color: #c9b896 !important;
-          -webkit-text-fill-color: #c9b896;
-          text-shadow: none;
-          filter: none;
+          color: rgba(210, 195, 160, 0.92) !important;
+          -webkit-text-fill-color: rgba(210, 195, 160, 0.92);
         }
 
         .trippy-why__feat:last-child {
@@ -366,21 +381,15 @@ const FeaturedHoliday = () => {
           .trippy-why-faq__scanlines {
             opacity: 0.1;
           }
-          .trippy-why__title-line--main {
-            text-shadow: none;
-            filter: none;
-          }
-          .trippy-why__title-line--accent {
-            text-shadow: none;
-            filter: none !important;
-            animation: none !important;
-          }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .trippy-why-faq__aurora,
+          .trippy-why-faq__faq-title-line--main,
+          .trippy-why-faq__faq-title-line--accent,
+          .trippy-why__title-line--main,
           .trippy-why__title-line--accent {
             animation: none !important;
+            filter: none;
           }
         }
       `}</style>

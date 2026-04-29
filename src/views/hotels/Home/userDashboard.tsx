@@ -62,11 +62,33 @@ const UserDashboard = () => {
       showCancelButton: true,
       confirmButtonText: 'Yes, sign out',
       cancelButtonText: 'Cancel',
+      customClass: {
+        popup: 'trippy-swal2-popup',
+        title: 'trippy-swal2-title',
+        htmlContainer: 'trippy-swal2-html',
+        confirmButton: 'trippy-swal2-confirm',
+        cancelButton: 'trippy-swal2-cancel',
+        actions: 'trippy-swal2-actions',
+      },
+      color: '#c9b896',
     })
 
     if (result.isConfirmed) {
       localStorage.removeItem('zeko_username')
-      Swal.fire('Signed out!', 'You have been successfully signed out.', 'success')
+      await Swal.fire({
+        title: 'Signed out',
+        text: 'You have been successfully signed out.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        customClass: {
+          popup: 'trippy-swal2-popup',
+          title: 'trippy-swal2-title',
+          htmlContainer: 'trippy-swal2-html',
+          confirmButton: 'trippy-swal2-confirm',
+          actions: 'trippy-swal2-actions',
+        },
+        color: '#c9b896',
+      })
       navigate('/')
     }
   }
@@ -78,19 +100,21 @@ const UserDashboard = () => {
 
       <main className="trippy-user-dash-flow">
         <div className="trippy-user-dash-flow__base" aria-hidden />
+        <div className="trippy-user-dash-flow__grid" aria-hidden />
         <div className="trippy-user-dash-flow__scanlines" aria-hidden />
 
-        <Container className="position-relative z-1 py-4 py-lg-5">
-          <header className="trippy-dash-page-head mb-4 mb-lg-5">
+        <div className="trippy-user-dash-flow__view">
+        <Container fluid="xxl" className="position-relative z-1 trippy-user-dash-flow__inner px-3 px-sm-4 px-lg-5">
+          <header className="trippy-dash-page-head text-center text-md-start mb-4 mb-lg-5">
             <p className="trippy-dash-page-head__eyebrow mb-2">Account</p>
             <h1 className="trippy-dash-page-head__title mb-0">Your portal</h1>
-            <p className="trippy-dash-page-head__lead mb-0 mt-2">
+            <p className="trippy-dash-page-head__lead mb-0 mt-2 mx-auto mx-md-0">
               Profile and tickets — same energy as the rest of TrippyEntry.
             </p>
           </header>
 
-          <Row className="g-4 g-lg-5">
-            <Col md={4} lg={3}>
+          <Row className="trippy-user-dash-flow__row g-4 gy-4 gx-md-3 gx-lg-4 gx-xl-5 align-items-stretch">
+            <Col md={4} lg={3} className="trippy-user-dash-flow__nav-col d-flex flex-column">
               <nav className="trippy-dash-nav" aria-label="Account sections">
                 <button
                   type="button"
@@ -121,14 +145,14 @@ const UserDashboard = () => {
               </nav>
             </Col>
 
-            <Col md={8} lg={9}>
+            <Col md={8} lg={9} className="trippy-user-dash-flow__panel-col d-flex flex-column">
               <div
                 ref={contentPanelRef}
                 id="trippy-dash-main-panel"
                 tabIndex={-1}
                 role="region"
                 aria-label={tab === 'profile' ? 'My profile' : 'My tickets'}
-                className="trippy-dash-main-panel"
+                className="trippy-dash-main-panel h-100 flex-grow-1 w-100 d-flex flex-column"
               >
                 {tab === 'profile' && <MyProfile />}
                 {tab === 'booking' && <MyBookings />}
@@ -136,6 +160,7 @@ const UserDashboard = () => {
             </Col>
           </Row>
         </Container>
+        </div>
       </main>
 
       <FooterWithLinks />
@@ -151,13 +176,51 @@ const UserDashboard = () => {
         --td-cyan: #d4af37;
         --td-magenta: #e8d5a3;
         --td-bronze: #6b5418;
+        --td-header-offset: max(5.5rem, calc(env(safe-area-inset-top, 0px) + 4.5rem));
         overflow-x: hidden;
         width: 100%;
-        min-height: 56vh;
+        min-height: 100dvh;
+        min-height: 100svh;
         position: relative;
         background-color: #000000;
         color: #c9b896;
+        display: flex;
+        flex-direction: column;
+        padding-top: var(--td-header-offset);
+        padding-bottom: 2.5rem;
+        box-sizing: border-box;
       }
+      .trippy-user-dash-flow__view {
+        flex: 1 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        min-height: 0;
+      }
+      .trippy-user-dash-flow__inner {
+        width: 100%;
+        max-width: 72rem;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+      @media (min-width: 992px) {
+        .trippy-user-dash-flow__inner { padding-top: 1rem; padding-bottom: 1.5rem; }
+      }
+      .trippy-user-dash-flow__row {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      @media (min-width: 768px) {
+        .trippy-user-dash-flow__row { --bs-gutter-x: 1.75rem; }
+      }
+      @media (min-width: 1200px) {
+        .trippy-user-dash-flow__row { --bs-gutter-x: 2.5rem; }
+      }
+      .trippy-user-dash-flow__nav-col .trippy-dash-nav { height: 100%; }
 
       .trippy-user-dash-flow__base {
         position: absolute;
@@ -169,6 +232,23 @@ const UserDashboard = () => {
           radial-gradient(ellipse 88% 52% at 100% 32%, rgba(212, 175, 55, 0.1), transparent 50%),
           radial-gradient(ellipse 78% 56% at 0% 68%, rgba(232, 213, 163, 0.1), transparent 46%),
           linear-gradient(180deg, #000000 0%, #080602 38%, #030201 70%, #000000 100%);
+      }
+
+      .trippy-user-dash-flow__grid {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(212, 175, 55, 0.055) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(232, 213, 163, 0.04) 1px, transparent 1px);
+        background-size: 48px 48px;
+        background-position: center top;
+        mask-image: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0.65) 55%, transparent 92%);
+        opacity: 0.38;
+      }
+      @media (max-width: 767.98px) {
+        .trippy-user-dash-flow__grid { opacity: 0.3; }
       }
 
       .trippy-user-dash-flow__scanlines {
@@ -186,7 +266,7 @@ const UserDashboard = () => {
         opacity: 0.12;
       }
 
-      main.trippy-user-dash-flow > *:not(.trippy-user-dash-flow__base):not(.trippy-user-dash-flow__scanlines) {
+      main.trippy-user-dash-flow > *:not(.trippy-user-dash-flow__base):not(.trippy-user-dash-flow__grid):not(.trippy-user-dash-flow__scanlines) {
         position: relative;
         z-index: 1;
       }
@@ -208,6 +288,8 @@ const UserDashboard = () => {
         font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
         font-weight: 800;
         letter-spacing: -0.03em;
+        line-height: 1.1;
+        padding-top: 0.15em;
         font-size: clamp(1.75rem, 4vw, 2.35rem);
         background: linear-gradient(135deg, #fff 0%, var(--td-cyan) 48%, var(--td-bronze) 100%);
         -webkit-background-clip: text;
@@ -224,17 +306,21 @@ const UserDashboard = () => {
       .trippy-dash-nav {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.75rem;
+      }
+      @media (min-width: 768px) {
+        .trippy-dash-nav { gap: 0.85rem; }
       }
       .trippy-dash-nav__btn {
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 0.9rem;
         width: 100%;
         text-align: left;
-        padding: 0.85rem 1rem;
-        border-radius: 0.75rem;
+        min-height: 3.4rem;
+        padding: 1rem 1.15rem;
+        border-radius: 0.85rem;
         border: 1px solid rgba(212, 175, 55, 0.2);
         background: rgba(12, 10, 6, 0.72);
         color: rgba(255, 255, 255, 0.92);
@@ -256,7 +342,9 @@ const UserDashboard = () => {
       .trippy-dash-nav__btn--signout {
         border-color: rgba(255, 80, 120, 0.35);
         color: rgba(255, 160, 180, 0.95);
-        margin-top: 0.25rem;
+        margin-top: 0.5rem;
+        padding-top: 1.05rem;
+        padding-bottom: 1.05rem;
       }
       .trippy-dash-nav__btn--signout:hover {
         border-color: rgba(255, 100, 140, 0.55);
@@ -264,12 +352,12 @@ const UserDashboard = () => {
         color: #fff;
       }
       .trippy-dash-nav__glyph {
-        width: 40px;
-        height: 40px;
+        width: 44px;
+        height: 44px;
         border-radius: 50%;
         display: grid;
         place-items: center;
-        font-size: 1rem;
+        font-size: 1.05rem;
         flex-shrink: 0;
         border: 1px solid rgba(212, 175, 55, 0.35);
         background: rgba(212, 175, 55, 0.06);
@@ -291,8 +379,9 @@ const UserDashboard = () => {
         background: rgba(14, 11, 6, 0.88);
         border: 1px solid rgba(212, 175, 55, 0.22);
         border-radius: 1rem;
-        padding: 1.35rem 1.5rem;
-        backdrop-filter: blur(10px);
+        padding: 1.5rem 1.65rem;
+        backdrop-filter: blur(4px) saturate(1.05);
+        -webkit-backdrop-filter: blur(4px) saturate(1.05);
         box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
       }
       .trippy-user-dash-flow .trippy-dash-title {
@@ -329,35 +418,6 @@ const UserDashboard = () => {
       }
       .trippy-user-dash-flow .form-control::placeholder {
         color: rgba(255, 255, 255, 0.35);
-      }
-
-      .trippy-user-dash-flow .trippy-dash-btn {
-        cursor: pointer;
-        border-radius: 0.5rem;
-        font-weight: 700;
-        padding: 0.5rem 1.25rem;
-        border: 1px solid rgba(212, 175, 55, 0.45);
-        background: transparent;
-        color: var(--td-cyan);
-        transition: all 0.2s ease;
-      }
-      .trippy-user-dash-flow .trippy-dash-btn:hover {
-        background: rgba(212, 175, 55, 0.12);
-        color: #fff;
-        border-color: var(--td-cyan);
-      }
-      .trippy-user-dash-flow .trippy-dash-btn--accent {
-        border: none;
-        background: linear-gradient(135deg, rgba(212, 175, 55, 0.35), rgba(107, 84, 24, 0.45));
-        color: #fff;
-        box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-      }
-      .trippy-user-dash-flow .trippy-dash-btn--accent:hover {
-        filter: brightness(1.08);
-        color: #fff;
-      }
-      .trippy-user-dash-flow .trippy-dash-btn:disabled {
-        opacity: 0.55;
       }
 
       .trippy-user-dash-flow .trippy-dash-pills {
@@ -400,7 +460,8 @@ const UserDashboard = () => {
         border: 1px solid rgba(212, 175, 55, 0.18);
         border-radius: 1rem;
         padding: 1.15rem 1.25rem;
-        backdrop-filter: blur(8px);
+        backdrop-filter: blur(3px) saturate(1.04);
+        -webkit-backdrop-filter: blur(3px) saturate(1.04);
       }
       .trippy-user-dash-flow .trippy-dash-ticket h5,
       .trippy-user-dash-flow .trippy-dash-ticket .trippy-dash-event-title {
@@ -482,7 +543,11 @@ const UserDashboard = () => {
 
       /* Mobile: scrollIntoView clears sticky header overlap */
       .trippy-dash-main-panel {
-        scroll-margin-top: 5.5rem;
+        scroll-margin-top: calc(5.5rem + 0.75rem);
+        min-height: 12rem;
+      }
+      @media (min-width: 768px) {
+        .trippy-dash-main-panel { min-height: 18rem; }
       }
       .trippy-dash-main-panel:focus {
         outline: none;
@@ -491,6 +556,31 @@ const UserDashboard = () => {
         box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.45);
         border-radius: 0.75rem;
       }
+
+      /* SweetAlert2 (popup) — CTA look lives in _trippy-cta-frost.scss */
+      .swal2-container { z-index: 20000 !important; }
+      .swal2-popup.trippy-swal2-popup {
+        background: linear-gradient(180deg, rgba(16, 12, 8, 0.99), rgba(5, 4, 2, 0.99)) !important;
+        border: 1px solid rgba(212, 175, 55, 0.32) !important;
+        border-radius: 1rem !important;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65) !important;
+        padding: 1.5rem 1.35rem 1.6rem !important;
+      }
+      h2#swal2-title.trippy-swal2-title,
+      .swal2-title.trippy-swal2-title {
+        color: #f0e6b8 !important;
+        font-size: 1.05rem !important;
+        font-weight: 800 !important;
+        line-height: 1.35 !important;
+        letter-spacing: 0.06em !important;
+        text-transform: uppercase !important;
+        padding: 0 0.25rem 0.5rem !important;
+      }
+      .swal2-html-container.trippy-swal2-html,
+      .swal2-html-container { color: rgba(201, 184, 150, 0.95) !important; font-size: 0.95rem !important; }
+      .swal2-icon { border-color: rgba(212, 175, 55, 0.35) !important; }
+      .swal2-icon.swal2-success { border-color: rgba(120, 220, 180, 0.5) !important; color: #8be8c0 !important; }
+      .swal2-icon.swal2-warning { border-color: #e8c76a !important; color: #e8c76a !important; }
     `,
         }}
       />

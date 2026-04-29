@@ -476,7 +476,7 @@ const MyBookings = () => {
                             {booking.status === 'Paid' ? (
                               <button
                                 type="button"
-                                className="trippy-dash-btn trippy-dash-btn--accent"
+                                className="trippy-dash-btn trippy-cta-frost trippy-cta-frost--compact"
                                 onClick={() => downloadTicket(booking)}
                                 disabled={downloadingId === booking.id}
                               >

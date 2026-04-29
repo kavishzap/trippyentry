@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { BsArrowLeft } from 'react-icons/bs'
 import Swal from 'sweetalert2'
 
 import { PageMetaData, TextFormInput } from '@/components'
@@ -56,51 +57,72 @@ const ForgotPassword = () => {
       <TrippyAuthHeroCol />
 
       <TrippyAuthFormCol>
-        <div className="auth-panel p-4 p-sm-5 w-100 mx-auto text-center" style={{ maxWidth: '420px' }}>
-          <Link
-            to="/"
-            className="d-inline-flex align-items-center justify-content-center gap-2 mb-4 text-decoration-none"
-          >
-            <img src="/new_logo.png" alt="Trippy Entry" className="h-40px" />
-          </Link>
+        <div
+          className="auth-panel trippy-auth-form-login p-4 p-sm-5 w-100 mx-auto position-relative"
+          style={{ maxWidth: '420px' }}
+        >
+          <div className="d-flex align-items-center justify-content-start mb-3">
+            <Link to="/" className="trippy-auth-back">
+              <BsArrowLeft className="trippy-auth-back__icon" aria-hidden />
+              <span>Back</span>
+            </Link>
+          </div>
 
-          <h1 className="mb-2 h3">Forgot your password?</h1>
-          <p className="mb-0">Enter the email associated with your account.</p>
+          <div className="text-center">
+            <Link
+              to="/dashboard"
+              className="d-inline-block mb-4 text-decoration-none"
+            >
+              <img src="/new_logo.png" alt="Trippy Entry" className="h-40px" />
+            </Link>
+
+            <h1 className="mb-2 h4">Forgot your password?</h1>
+            <p className="mb-0 small" style={{ opacity: 0.9 }}>
+              Enter the email associated with your account and we&apos;ll send a reset link.
+            </p>
+          </div>
 
           <form onSubmit={onSubmit} className="mt-4 text-start" noValidate>
             <TextFormInput
               name="email"
-              containerClass="mb-3"
-              label="Email Address"
+              containerClass="mb-4"
+              label="Email"
               type="email"
               autoComplete="email"
               control={control}
               disabled={loading}
             />
 
-            <div className="mb-3 text-center">
-              <p className="mb-0">
-                Back to <Link to="/auth/sign-in">Login</Link>
-              </p>
-            </div>
-
-            <button type="submit" className="w-100 mb-0 auth-submit" disabled={loading} aria-busy={loading}>
+            <button
+              type="submit"
+              className="w-100 auth-submit auth-submit--hero-frost d-inline-flex align-items-center justify-content-center"
+              disabled={loading}
+              aria-busy={loading}
+            >
               {loading ? (
                 <>
                   <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" />
                   Sending…
                 </>
               ) : (
-                'Reset Password'
+                'Send reset link'
               )}
             </button>
-
-            <div className="position-relative my-4">
-              <hr />
-            </div>
-
-            <div className="mt-3 text-center small">Copyrights ©{currentYear} zekomru.com</div>
           </form>
+
+          <p className="mt-4 mb-0 text-center small" style={{ opacity: 0.95 }}>
+            Remember your password?{' '}
+            <Link
+              to="/auth/sign-in"
+              className="text-decoration-none trippy-auth-form-login__inline-link fw-semibold"
+            >
+              Sign in
+            </Link>
+          </p>
+
+          <p className="mt-3 mb-0 text-center small trippy-auth-form-login__footer">
+            © {currentYear} trippyentry.com
+          </p>
         </div>
       </TrippyAuthFormCol>
     </>

@@ -28,10 +28,13 @@ const FooterWithLinks = () => {
               </Link>
             </p>
             <p className="mb-0">
-              <Link to="" className="text-body-secondary text-primary-hover d-flex align-items-center">
+              <a
+                href="mailto:ticket.trippyentry@gmail.com"
+                className="text-body-secondary text-primary-hover d-flex align-items-center"
+              >
                 <BsEnvelope className=" me-2" />
-                example@gmail.com
-              </Link>
+                ticket.trippyentry@gmail.com
+              </a>
             </p>
           </Col>
           <Col lg={8} className="ms-auto">

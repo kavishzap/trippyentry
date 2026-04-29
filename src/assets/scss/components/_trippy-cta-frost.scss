@@ -1,0 +1,206 @@
+// Trippy “Buy ticket” frosted CTA — shared: home hero, pay page, dashboard, Swal (trippy-swal2-*)
+.trippy-cta-frost,
+button.trippy-cta-frost,
+a.trippy-cta-frost,
+.trippy-user-dash-flow .trippy-dash-btn {
+  --hero-glass-surface: rgba(8, 6, 5, 0.42);
+  --hero-glass-surface-hover: rgba(12, 10, 8, 0.55);
+  --hero-glass-border: rgba(255, 255, 255, 0.22);
+  --hero-glass-border-hover: rgba(255, 255, 255, 0.32);
+
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(12rem, 100%);
+  min-height: 0;
+  padding: 0.7rem 1.85rem;
+  border-radius: 999px;
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  line-height: 1.2;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  color: rgba(255, 255, 255, 0.95) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.95);
+  background: var(--hero-glass-surface) !important;
+  border: 1px solid var(--hero-glass-border) !important;
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px) saturate(1.12);
+  -webkit-backdrop-filter: blur(14px) saturate(1.12);
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, color 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .trippy-cta-frost,
+  button.trippy-cta-frost,
+  a.trippy-cta-frost,
+  .trippy-user-dash-flow .trippy-dash-btn {
+    background: rgba(12, 10, 8, 0.75) !important;
+  }
+}
+
+.trippy-cta-frost:hover,
+.trippy-cta-frost:focus-visible,
+button.trippy-cta-frost:hover,
+button.trippy-cta-frost:focus-visible,
+a.trippy-cta-frost:hover,
+a.trippy-cta-frost:focus-visible,
+.trippy-user-dash-flow .trippy-dash-btn:hover,
+.trippy-user-dash-flow .trippy-dash-btn:focus-visible {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff;
+  background: var(--hero-glass-surface-hover) !important;
+  border-color: rgba(240, 215, 150, 0.55) !important;
+  box-shadow: 0 0 0 1px rgba(240, 220, 160, 0.35), 0 0 24px rgba(212, 175, 55, 0.38),
+    0 0 44px rgba(255, 224, 160, 0.14), 0 6px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  transform: translateY(-2px);
+}
+
+.trippy-cta-frost:focus-visible,
+button.trippy-cta-frost:focus-visible,
+a.trippy-cta-frost:focus-visible,
+.trippy-user-dash-flow .trippy-dash-btn:focus-visible {
+  outline: 2px solid rgba(240, 200, 120, 0.45);
+  outline-offset: 3px;
+}
+
+.trippy-cta-frost:active,
+button.trippy-cta-frost:active,
+a.trippy-cta-frost:active,
+.trippy-user-dash-flow .trippy-dash-btn:active {
+  transform: translateY(0);
+  background: rgba(6, 5, 4, 0.5) !important;
+  border-color: rgba(212, 175, 55, 0.28) !important;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.15), 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+// Pay page: two CTAs in one row
+.trippy-cta-frost--fit {
+  min-width: 0;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  flex: 1 1 10rem;
+  max-width: 100%;
+}
+
+// My bookings: tighter pill in list rows
+.trippy-cta-frost--compact,
+.trippy-user-dash-flow .trippy-dash-btn.trippy-cta-frost--compact {
+  min-width: 0;
+  padding: 0.55rem 1.15rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+
+.trippy-cta-frost:disabled,
+button.trippy-cta-frost:disabled,
+.trippy-user-dash-flow .trippy-dash-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: grayscale(0.1);
+  transform: none;
+}
+
+// --- SweetAlert2: only when Trippy custom classes are used (avoids default auth/admin dialogs) ---
+
+.swal2-confirm.swal2-styled.trippy-swal2-confirm,
+button.swal2-confirm.swal2-styled.trippy-swal2-confirm,
+button.swal2-confirm.trippy-swal2-confirm--gold,
+.swal2-confirm.swal2-styled.trippy-swal2-confirm--gold {
+  border-radius: 999px !important;
+  font-weight: 600 !important;
+  font-family: "DM Sans", system-ui, sans-serif !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  min-width: min(10.5rem, 100%) !important;
+  padding: 0.6rem 1.35rem !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  background: rgba(8, 6, 5, 0.42) !important;
+  background-color: rgba(8, 6, 5, 0.42) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(14px) saturate(1.12) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(1.12) !important;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease !important;
+}
+
+.swal2-confirm.swal2-styled.trippy-swal2-confirm:hover,
+button.swal2-confirm.swal2-styled.trippy-swal2-confirm:hover,
+button.swal2-confirm.trippy-swal2-confirm--gold:hover,
+.swal2-confirm.swal2-styled.trippy-swal2-confirm--gold:hover {
+  color: #ffffff !important;
+  background: rgba(12, 10, 8, 0.55) !important;
+  background-color: rgba(12, 10, 8, 0.55) !important;
+  border-color: rgba(240, 215, 150, 0.55) !important;
+  box-shadow: 0 0 0 1px rgba(240, 220, 160, 0.35), 0 0 24px rgba(212, 175, 55, 0.38),
+    0 0 44px rgba(255, 224, 160, 0.14), 0 6px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
+  transform: translateY(-1px) !important;
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .swal2-confirm.swal2-styled.trippy-swal2-confirm,
+  button.swal2-confirm.swal2-styled.trippy-swal2-confirm,
+  button.swal2-confirm.trippy-swal2-confirm--gold {
+    background: rgba(12, 10, 8, 0.75) !important;
+    background-color: rgba(12, 10, 8, 0.75) !important;
+  }
+}
+
+.swal2-cancel.swal2-styled.trippy-swal2-cancel,
+button.swal2-cancel.swal2-styled.trippy-swal2-cancel {
+  border-radius: 999px !important;
+  font-weight: 600 !important;
+  font-family: "DM Sans", system-ui, sans-serif !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 0.55rem 1.2rem !important;
+  min-width: min(9.5rem, 100%) !important;
+  color: rgba(255, 252, 245, 0.95) !important;
+  background: rgba(4, 3, 2, 0.55) !important;
+  background-color: rgba(4, 3, 2, 0.55) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(12px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(1.08) !important;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s !important;
+}
+
+.swal2-cancel.swal2-styled.trippy-swal2-cancel:hover,
+button.swal2-cancel.swal2-styled.trippy-swal2-cancel:hover {
+  background: rgba(212, 175, 55, 0.1) !important;
+  background-color: rgba(212, 175, 55, 0.1) !important;
+  border-color: rgba(212, 175, 55, 0.5) !important;
+  color: #fff !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.swal2-actions.trippy-swal2-actions {
+  gap: 0.75rem !important;
+  padding-top: 0.5rem !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trippy-cta-frost:hover,
+  .trippy-cta-frost:focus-visible,
+  a.trippy-cta-frost:hover,
+  a.trippy-cta-frost:focus-visible,
+  button.trippy-cta-frost:hover,
+  button.trippy-cta-frost:focus-visible,
+  .trippy-user-dash-flow .trippy-dash-btn:hover,
+  .swal2-confirm.swal2-styled.trippy-swal2-confirm:hover,
+  .swal2-cancel.swal2-styled.trippy-swal2-cancel:hover {
+    transform: none !important;
+  }
+}

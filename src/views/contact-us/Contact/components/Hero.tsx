@@ -8,12 +8,11 @@ const CONTACT_HERO_IMG = TRIPPY_MARKETING_POSTER_URL
 
 const ContactHero = () => {
   return (
-    <section className="trippy-contact-hero position-relative overflow-hidden">
-      <div className="trippy-contact-hero__aurora" aria-hidden />
+    <section className="trippy-contact-hero position-relative overflow-hidden w-100 h-100">
       <div className="trippy-contact-hero__grid" aria-hidden />
       <div className="trippy-contact-hero__scanlines" aria-hidden />
 
-      <Container className="position-relative z-1 py-4 py-md-5 pb-lg-4">
+      <Container className="position-relative z-1 trippy-contact-hero__inner">
         <Row className="align-items-center gy-4 gy-lg-5">
           <Col lg={6} className="order-2 order-lg-1">
             <motion.div
@@ -42,7 +41,7 @@ const ContactHero = () => {
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="text-center text-lg-start"
             >
-              <div className="trippy-contact-hero__eyebrow d-inline-flex align-items-center gap-2 mb-3">
+              <div className="trippy-contact-hero__eyebrow d-inline-flex align-items-center justify-content-center justify-content-lg-start gap-2 mb-3 w-100">
                 <span className="trippy-contact-hero__pulse" aria-hidden />
                 <span>Open channel</span>
               </div>
@@ -77,7 +76,7 @@ const ContactHero = () => {
                 <span className="trippy-contact-channel__arrow" aria-hidden />
               </a>
 
-              <a href="mailto:zeko.mru@gmail.com" className="trippy-contact-channel trippy-contact-channel--mail">
+              <a href="mailto:ticket.trippyentry@gmail.com" className="trippy-contact-channel trippy-contact-channel--mail">
                 <span className="trippy-contact-channel__glyph" aria-hidden>
                   <BsInboxesFill />
                 </span>
@@ -85,7 +84,7 @@ const ContactHero = () => {
                   <span className="trippy-contact-channel__kicker">Email</span>
                   <span className="trippy-contact-channel__value">
                     <BsEnvelope className="trippy-contact-channel__value-icon" aria-hidden />
-                    zeko.mru@gmail.com
+                    ticket.trippyentry@gmail.com
                   </span>
                 </span>
                 <span className="trippy-contact-channel__arrow" aria-hidden />
@@ -100,24 +99,18 @@ const ContactHero = () => {
           --tc-cyan: #d4af37;
           --tc-magenta: #e8d5a3;
           --tc-bronze: #6b5418;
+          --tc-lime: #c9a227;
           color: #c9b896;
           background: transparent;
         }
-        .trippy-contact-hero__aurora {
-          position: absolute;
-          inset: -45% -20%;
-          background: conic-gradient(from 200deg at 50% 45%,
-            rgba(212, 175, 55, 0.12),
-            rgba(232, 213, 163, 0.1),
-            rgba(212, 175, 55, 0.14),
-            rgba(212, 175, 55, 0.1));
-          opacity: 0.48;
-          filter: blur(52px);
-          pointer-events: none;
-          animation: trippy-contact-aurora 26s linear infinite;
-        }
-        @keyframes trippy-contact-aurora {
-          to { transform: rotate(360deg); }
+        .trippy-contact-hero__inner {
+          padding-top: max(5.5rem, calc(env(safe-area-inset-top, 0px) + 4.5rem));
+          padding-bottom: 2.5rem;
+          flex: 1 0 auto;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          min-height: 0;
         }
         .trippy-contact-hero__grid {
           position: absolute;
@@ -125,10 +118,10 @@ const ContactHero = () => {
           background-image:
             linear-gradient(rgba(212, 175, 55, 0.04) 1px, transparent 1px),
             linear-gradient(90deg, rgba(232, 213, 163, 0.035) 1px, transparent 1px);
-          background-size: 42px 42px;
-          mask-image: linear-gradient(180deg, black 0%, transparent 90%);
+          background-size: 48px 48px;
+          mask-image: linear-gradient(180deg, black 0%, transparent 92%);
           pointer-events: none;
-          opacity: 0.55;
+          opacity: 0.5;
         }
         .trippy-contact-hero__scanlines {
           position: absolute;
@@ -140,55 +133,50 @@ const ContactHero = () => {
             rgba(0, 0, 0, 0.1) 2px,
             rgba(0, 0, 0, 0.1) 4px
           );
-          opacity: 0.12;
+          opacity: 0.1;
           pointer-events: none;
         }
         .trippy-contact-hero__eyebrow {
           font-size: 0.7rem;
-          font-weight: 700;
+          font-weight: 600;
           letter-spacing: 0.22em;
           text-transform: uppercase;
-          color: rgba(212, 175, 55, 0.88);
+          color: rgba(212, 175, 55, 0.9);
         }
         .trippy-contact-hero__pulse {
           width: 8px;
           height: 8px;
           border-radius: 50%;
           background: var(--tc-magenta);
-          box-shadow: 0 0 12px var(--tc-magenta), 0 0 22px var(--tc-cyan);
-          animation: trippy-contact-pulse 2s ease-in-out infinite;
-        }
-        @keyframes trippy-contact-pulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.65; transform: scale(0.88); }
+          box-shadow: 0 0 10px var(--tc-magenta);
         }
         .trippy-contact-hero__title {
-          font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+          font-family: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
           font-weight: 800;
           letter-spacing: -0.03em;
-          line-height: 1.05;
+          line-height: 1.08;
         }
         .trippy-contact-hero__title-line { display: block; }
         .trippy-contact-hero__title-line--main {
-          font-size: clamp(2.1rem, 5.5vw, 3.25rem);
-          background: linear-gradient(135deg, #fff 0%, var(--tc-cyan) 48%, var(--tc-bronze) 100%);
+          font-size: clamp(1.85rem, 4.5vw, 2.55rem);
+          background: linear-gradient(135deg, #fff8ec 0%, var(--tc-cyan) 50%, var(--tc-bronze) 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
         }
         .trippy-contact-hero__title-line--accent {
-          font-size: clamp(2.35rem, 6vw, 3.6rem);
-          background: linear-gradient(90deg, var(--tc-magenta), var(--tc-bronze), var(--tc-cyan));
+          font-size: clamp(2rem, 5vw, 2.85rem);
+          background: linear-gradient(90deg, var(--tc-magenta) 0%, var(--tc-lime) 55%, var(--tc-cyan) 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
         }
         .trippy-contact-hero__lead {
           max-width: 38rem;
-          font-size: clamp(0.95rem, 1.9vw, 1.12rem);
+          font-size: clamp(0.95rem, 1.9vw, 1.1rem);
           line-height: 1.65;
           font-weight: 500;
-          color: rgba(255, 255, 255, 0.9);
+          color: rgba(230, 215, 175, 0.92);
         }
 
         /* Hug poster art: full-width box + object-fit:contain caused empty side gutters inside the frame */
@@ -254,7 +242,8 @@ const ContactHero = () => {
           display: flex;
           align-items: center;
           gap: 1rem;
-          padding: 1.15rem 0;
+          padding: 1.5rem 0;
+          min-height: 6rem;
           text-decoration: none !important;
           color: inherit;
           border-bottom: 1px solid rgba(212, 175, 55, 0.14);
@@ -292,7 +281,7 @@ const ContactHero = () => {
           flex-direction: column;
           align-items: flex-start;
           text-align: left;
-          gap: 0.2rem;
+          gap: 0.35rem;
         }
         .trippy-contact-channel__kicker {
           font-size: 0.68rem;
@@ -308,10 +297,17 @@ const ContactHero = () => {
           display: inline-flex;
           align-items: center;
           gap: 0.5rem;
-          font-weight: 700;
-          font-size: clamp(1rem, 2.4vw, 1.2rem);
-          letter-spacing: -0.02em;
-          color: #fff;
+          font-weight: 600;
+          font-size: clamp(0.95rem, 2.1vw, 1.1rem);
+          letter-spacing: 0.01em;
+          color: rgba(230, 215, 175, 0.92) !important;
+          -webkit-text-fill-color: rgba(230, 215, 175, 0.92);
+          transition: color 0.2s ease, -webkit-text-fill-color 0.2s ease;
+        }
+        .trippy-contact-channel:hover .trippy-contact-channel__value,
+        .trippy-contact-channel:focus-visible .trippy-contact-channel__value {
+          color: rgba(244, 235, 210, 0.98) !important;
+          -webkit-text-fill-color: rgba(244, 235, 210, 0.98);
         }
         .trippy-contact-channel__value-icon {
           opacity: 0.85;
@@ -343,7 +339,9 @@ const ContactHero = () => {
             flex: 1;
             flex-direction: column;
             align-items: flex-start;
-            padding: 1.5rem 1.25rem;
+            justify-content: center;
+            min-height: 7.5rem;
+            padding: 1.85rem 1.5rem;
             border-bottom: none;
             border-top: none;
             border-right: 1px solid rgba(212, 175, 55, 0.12);
@@ -361,11 +359,6 @@ const ContactHero = () => {
           .trippy-contact-channel__arrow {
             display: none;
           }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .trippy-contact-hero__aurora { animation: none !important; }
-          .trippy-contact-hero__pulse { animation: none !important; }
         }
       `}</style>
     </section>

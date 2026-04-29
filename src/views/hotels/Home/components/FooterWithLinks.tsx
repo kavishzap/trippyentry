@@ -1,7 +1,7 @@
 import { BsEnvelope, BsTelephone } from 'react-icons/bs'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { currentYear } from '@/states'
+import { currentYear, supportEmail, supportLink } from '@/states'
 
 const FooterWithLinks = () => {
   return (
@@ -9,26 +9,32 @@ const FooterWithLinks = () => {
       <div className="trippy-footer__glow" aria-hidden />
       <div className="trippy-footer__grid" aria-hidden />
       <Container className="trippy-footer__inner position-relative">
-        <Row className="g-5 text-center justify-content-center">
-          <Col xs={12} md={6} lg={4}>
+        <Row className="g-4 g-lg-5 align-items-lg-center trippy-footer__main pt-4 pt-md-5 pb-2">
+          <Col xs={12} lg={6} className="text-center text-lg-start">
             <Link to="/" className="trippy-footer__logo-link d-inline-block">
-              <img className="mb-3 mt-5" src="/new_logo.png" alt="logo" />
+              <img className="mb-3 trippy-footer__logo-img" src="/new_logo.png" alt="Trippy Entry" />
             </Link>
             <p className="trippy-footer__tagline small fw-semibold mb-2">Never Miss the Drop</p>
-            <p className="trippy-footer__muted small mb-3">
+            <p className="trippy-footer__muted small mb-0 trippy-footer__desc mx-auto mx-lg-0">
               Be first to hear about new raves, secret events, and exclusive offers. Stay plugged into the night.
             </p>
-            <p className="mb-2 d-flex justify-content-center align-items-center small trippy-footer__muted">
-              <BsTelephone className="me-2 trippy-footer__icon" />
-              <Link to="tel:+23055063356" className="trippy-footer__link text-decoration-none">
+          </Col>
+          <Col xs={12} lg={6} className="text-center text-lg-end mt-4 mt-lg-0">
+            <h3 className="trippy-footer__contact-title h6 text-uppercase mb-3">Contact us</h3>
+            <p className="mb-2 d-flex justify-content-center align-items-center justify-content-lg-end small trippy-footer__muted">
+              <BsTelephone className="me-2 trippy-footer__icon flex-shrink-0" />
+              <Link to="tel:+23055063356" className="trippy-footer__link text-decoration-none trippy-footer__link--break">
                 +230 5506 3356
               </Link>
             </p>
-            <p className="mb-0 d-flex justify-content-center align-items-center small trippy-footer__muted">
-              <BsEnvelope className="me-2 trippy-footer__icon" />
-              <Link to="mailto:zeko.mru@gmail.com" className="trippy-footer__link text-decoration-none">
-                zeko.mru@gmail.com
-              </Link>
+            <p className="mb-0 d-flex justify-content-center align-items-center justify-content-lg-end small trippy-footer__muted">
+              <BsEnvelope className="me-2 trippy-footer__icon flex-shrink-0" />
+              <a
+                href={supportLink}
+                className="trippy-footer__link text-decoration-none trippy-footer__link--break"
+              >
+                {supportEmail}
+              </a>
             </p>
           </Col>
         </Row>
@@ -38,6 +44,11 @@ const FooterWithLinks = () => {
           <Col>
             <div className="d-flex flex-column align-items-center text-center small trippy-footer__muted py-3">
               <div>© {currentYear} trippyentry.com. All rights reserved.</div>
+              <div className="mt-2">
+                <a href={supportLink} className="trippy-footer__link text-decoration-none small">
+                  {supportEmail}
+                </a>
+              </div>
             </div>
           </Col>
         </Row>
@@ -71,6 +82,31 @@ const FooterWithLinks = () => {
         }
         .trippy-footer__inner {
           z-index: 1;
+        }
+        .trippy-footer__logo-img {
+          max-width: 180px;
+          height: auto;
+        }
+        @media (min-width: 992px) {
+          .trippy-footer__logo-img {
+            max-width: 200px;
+          }
+        }
+        .trippy-footer__desc {
+          max-width: 26rem;
+        }
+        @media (min-width: 992px) {
+          .trippy-footer__desc {
+            max-width: 32rem;
+          }
+        }
+        .trippy-footer__contact-title {
+          color: #f0e6b8 !important;
+          letter-spacing: 0.2em;
+          font-weight: 600;
+        }
+        .trippy-footer__link--break {
+          word-break: break-word;
         }
         .trippy-footer__tagline {
           color: #f0e6b8 !important;

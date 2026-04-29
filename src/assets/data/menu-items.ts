@@ -22,7 +22,7 @@ export const bookingHomeMenuItems: MenuItemType[] = [
   {
     key: 'about-us',
     label: 'About Us',
-    url: '/pages/about',
+    url: '/dashboard#about',
     icon: FaInfo,
   },
   {
@@ -518,7 +518,7 @@ export const APP_MENU_ITEMS: MenuItemType[] = [
       {
         key: 'pages-about',
         label: 'About',
-        url: '/pages/about',
+        url: '/dashboard#about',
         parentKey: 'pages',
       },
       {
